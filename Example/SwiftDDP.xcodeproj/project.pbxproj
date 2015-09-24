@@ -7,17 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		A82D476C2F6A64834269F67C /* Pods_SwiftDDP_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECDA9F05F6A80A2C3F194BE1 /* Pods_SwiftDDP_Tests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		D0CEC3341BB44CC10089AADC /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CEC3311BB44CC10089AADC /* TestData.swift */; settings = {ASSET_TAGS = (); }; };
+		D0CEC3351BB44CC10089AADC /* DDPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CEC3321BB44CC10089AADC /* DDPClientTests.swift */; settings = {ASSET_TAGS = (); }; };
+		D0CEC3361BB44CC10089AADC /* DDPConnectionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CEC3331BB44CC10089AADC /* DDPConnectionTest.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		607FACE51AFB9204008FA782 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = Tests.xctest; path = SwiftDDP_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		607FACE51AFB9204008FA782 /* SwiftDDP_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftDDP_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		98F8AD52B341E576266529B7 /* Pods-SwiftDDP_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftDDP_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftDDP_Tests/Pods-SwiftDDP_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		AB9B4FC4B59F3E993243C7EA /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		C771F910288720B0C376A485 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		D0CEC3311BB44CC10089AADC /* TestData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
+		D0CEC3321BB44CC10089AADC /* DDPClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPClientTests.swift; sourceTree = "<group>"; };
+		D0CEC3331BB44CC10089AADC /* DDPConnectionTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPConnectionTest.swift; sourceTree = "<group>"; };
 		E6748BB93ADBF7E27E09F5B0 /* Pods-SwiftDDP_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftDDP_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftDDP_Tests/Pods-SwiftDDP_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		ECDA9F05F6A80A2C3F194BE1 /* Pods_SwiftDDP_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftDDP_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F34008188CF8461FE9B3CA32 /* SwiftDDP.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SwiftDDP.podspec; path = ../SwiftDDP.podspec; sourceTree = "<group>"; };
@@ -58,7 +62,7 @@
 		607FACD11AFB9204008FA782 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				607FACE51AFB9204008FA782 /* Tests.xctest */,
+				607FACE51AFB9204008FA782 /* SwiftDDP_Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -66,7 +70,9 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				607FACEB1AFB9204008FA782 /* Tests.swift */,
+				D0CEC3311BB44CC10089AADC /* TestData.swift */,
+				D0CEC3321BB44CC10089AADC /* DDPClientTests.swift */,
+				D0CEC3331BB44CC10089AADC /* DDPConnectionTest.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
 			path = Tests;
@@ -118,7 +124,7 @@
 			);
 			name = SwiftDDP_Tests;
 			productName = Tests;
-			productReference = 607FACE51AFB9204008FA782 /* Tests.xctest */;
+			productReference = 607FACE51AFB9204008FA782 /* SwiftDDP_Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -127,6 +133,7 @@
 		607FACC81AFB9204008FA782 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
@@ -217,7 +224,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
+				D0CEC3351BB44CC10089AADC /* DDPClientTests.swift in Sources */,
+				D0CEC3361BB44CC10089AADC /* DDPConnectionTest.swift in Sources */,
+				D0CEC3341BB44CC10089AADC /* TestData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
