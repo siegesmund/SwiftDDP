@@ -1,0 +1,29 @@
+PODS:
+  - CryptoSwift (0.0.14)
+  - Nimble (2.0.0-rc.3)
+  - Quick (0.6.0)
+  - SwiftDDP (0.1.0):
+    - CryptoSwift
+    - SwiftWebSocket
+    - XCGLogger
+  - SwiftWebSocket (2.1.1)
+  - XCGLogger (3.0)
+
+DEPENDENCIES:
+  - Nimble (= 2.0.0-rc.3)
+  - Quick (~> 0.6.0)
+  - SwiftDDP (from `../`)
+
+EXTERNAL SOURCES:
+  SwiftDDP:
+    :path: ../
+
+SPEC CHECKSUMS:
+  CryptoSwift: 5a6b725e2ad65a789f5f435dd434d38eb2c40b46
+  Nimble: 9dff98ee195ffe7351d3b2fb01d3a1420fd97948
+  Quick: 563686dbcf0ae0f9f7401ac9cd2d786ee1b7f3d7
+  SwiftDDP: 6a752d6396ac3a72c509a0d05eca5ab161ac0a2d
+  SwiftWebSocket: 3038d0ec579ba506fd7c9a6dcf1aa7b09ce3ed3b
+  XCGLogger: 5802533aff8bafc8b3b9776ab8972576f31d0a4e
+
+COCOAPODS: 0.38.2

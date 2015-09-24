@@ -1,0 +1,36 @@
+{
+  "name": "SwiftDDP",
+  "version": "0.1.0",
+  "summary": "A short description of SwiftDDP.",
+  "description": "",
+  "homepage": "https://github.com/siegesmund/SwiftDDP",
+  "license": "MIT",
+  "authors": {
+    "Peter": "peter.siegesmund@icloud.com"
+  },
+  "source": {
+    "git": "https://github.com/siegesmund/SwiftDDP.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "requires_arc": true,
+  "source_files": "Pod/Classes/**/*",
+  "resource_bundles": {
+    "SwiftDDP": [
+      "Pod/Assets/*.png"
+    ]
+  },
+  "dependencies": {
+    "CryptoSwift": [
+
+    ],
+    "SwiftWebSocket": [
+
+    ],
+    "XCGLogger": [
+
+    ]
+  }
+}

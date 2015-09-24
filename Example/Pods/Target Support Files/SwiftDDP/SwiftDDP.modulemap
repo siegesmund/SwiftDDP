@@ -1,0 +1,6 @@
+framework module SwiftDDP {
+  umbrella header "SwiftDDP-umbrella.h"
+
+  export *
+  module * { export * }
+}
