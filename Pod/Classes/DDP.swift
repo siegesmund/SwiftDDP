@@ -87,12 +87,12 @@ public class DDP {
         }
         
         
-        func connect(onConnected:OnResult!) {
+        public func connect(onConnected:OnResult!) {
             if (onConnected != nil) { events.onConnected = onConnected }
             sendMessage(["msg":"connect", "version":"1", "support":["1", "pre2"]])
         }
     
-        func method(methodName: String, params: AnyObject?, callback: OnResult?) -> String {
+        public func method(methodName: String, params: AnyObject?, callback: OnResult?) -> String {
             let id = getId()
             let message = ["msg":"method", "method":methodName, "id":id] as NSMutableDictionary
             if let p = params { message["params"] = p }
@@ -101,7 +101,7 @@ public class DDP {
             return id
         }
         
-        func sub(name: String, params: NSDictionary?) -> String {
+        public func sub(name: String, params: NSDictionary?) -> String {
             let id = getId()
             subscriptions[name] = id
             let message = ["msg":"sub", "name":name, "id":id] as NSMutableDictionary
@@ -110,7 +110,7 @@ public class DDP {
             return id
         }
         
-        func unsub(name: String) -> String? {
+        public func unsub(name: String) -> String? {
             if let id = subscriptions[name] {
                 sendMessage(["msg":"unsub", "id":id])
                 return name
