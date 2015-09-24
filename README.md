@@ -22,7 +22,7 @@ pod "SwiftDDP"
 
 ## Author
 
-Peter, peter.siegesmund@gmail.com
+Peter, psiege@icloud.com
 
 ## License
 
