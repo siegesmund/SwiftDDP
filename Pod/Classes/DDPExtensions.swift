@@ -8,13 +8,13 @@ extension DDP.Client {
     
     // callback is optional. If present, called with an error object as the first argument and,
     // if no error, the _id as the second.
-    public func insert(collection:String, doc:NSArray?, callback: OnComplete?) {
+    public func insert(collection:String, doc:NSArray, callback: OnComplete?) {
         let arg = "/\(collection)/insert"
         self.method(arg, params: doc, callback: callback)
     }
     
     // Insert without specifying a callback
-    public func insert(collection:String, doc:NSArray?) {
+    public func insert(collection:String, doc:NSArray) {
         insert(collection, doc:doc) {result, error in if let e = error { print("[DDP] \(e)") }}
     }
     
@@ -24,21 +24,21 @@ extension DDP.Client {
     }
     
     // Update without specifying a callback
-    public func update(collection:String, doc:NSArray?) {
+    public func update(collection:String, doc:NSArray) {
         update(collection, doc:doc) {result, error in if let e = error { print("[DDP] \(e)") }}
     }
     
-    public func remove(collection:String, doc:NSArray?, callback: OnComplete?) {
+    public func remove(collection:String, doc:NSArray, callback: OnComplete?) {
         let arg = "/\(collection)/remove"
         method(arg, params: doc, callback: callback)
     }
     
     // Remove without specifying a callback
-    public func remove(collection:String, doc:NSArray?) {
+    public func remove(collection:String, doc:NSArray) {
         remove(collection, doc:doc) {result, error in if let e = error { print("[DDP] \(e)") }}
     }
     
-    public func login(params: NSDictionary, callback: OnComplete?) {
+    private func login(params: NSDictionary, callback: OnComplete?) {
         method("login", params: NSArray(arrayLiteral: params)) { result, error in
             guard let e = error else {
                 if let r = result {
