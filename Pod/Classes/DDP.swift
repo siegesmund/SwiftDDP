@@ -30,7 +30,7 @@ import Foundation
 import SwiftWebSocket
 import XCGLogger
 
-let log = XCGLogger.defaultInstance()
+let log = XCGLogger(identifier: "DDPLog")
 
 public typealias OnComplete = (result:NSDictionary?, error:NSDictionary?) -> ()
 
@@ -47,11 +47,13 @@ public class DDP {
         var subscriptions = [String:String]()
         var callbacks:[String:OnComplete!] = [:]
         
+        public var logLevel = XCGLogger.LogLevel.None
         public var events:Events!
         public var connected = false
         
         public init(url:String) {
             super.init()
+            log.setup(logLevel, showLogIdentifier: true, showFunctionName: true, showThreadName: true, showLogLevel: false, showFileNames: false, showLineNumbers: true, showDate: false, writeToFile: nil, fileLogLevel: .None)
             self.url = url
             events = DDP.Events()
             events.onPing = pong

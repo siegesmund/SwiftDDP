@@ -141,7 +141,6 @@ class DDPMethodTest:QuickSpec {
                 var added = [NSMutableDictionary]()
                 var removed = [String]()
                 var ready = false
-                
                 client.events.onReady = {subs in
                     let sub = subs[0] as! String
                     if (sub == client.subscriptions["test-collection2"]!) {
