@@ -128,9 +128,12 @@ extension DDP {
             get { return json["cleared"] as! NSArray? }
         }
         
+        /*
+        // Property is used by the ordered methods, which are not currently implemented by Meteor
         public var before:String? {
             get { return json["before"] as! String? }
         }
+        */
         
         public var method:String? {
             get { return json["method"] as! String? }
@@ -148,8 +151,8 @@ extension DDP {
             get { return json["methods"] as! NSArray? }
         }
         
-        public var subs:NSDictionary? {
-            get { return json["subs"] as! NSDictionary? }
+        public var subs:NSArray? {
+            get { return json["subs"] as! NSArray? }
         }
         
     }

@@ -8,9 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		A82D476C2F6A64834269F67C /* Pods_SwiftDDP_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECDA9F05F6A80A2C3F194BE1 /* Pods_SwiftDDP_Tests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		D0CEC3341BB44CC10089AADC /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CEC3311BB44CC10089AADC /* TestData.swift */; settings = {ASSET_TAGS = (); }; };
-		D0CEC3351BB44CC10089AADC /* DDPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CEC3321BB44CC10089AADC /* DDPClientTests.swift */; settings = {ASSET_TAGS = (); }; };
-		D0CEC3361BB44CC10089AADC /* DDPConnectionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CEC3331BB44CC10089AADC /* DDPConnectionTest.swift */; settings = {ASSET_TAGS = (); }; };
+		D0CEC3341BB44CC10089AADC /* DDPTestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CEC3311BB44CC10089AADC /* DDPTestData.swift */; settings = {ASSET_TAGS = (); }; };
+		D0CEC3351BB44CC10089AADC /* DDPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CEC3321BB44CC10089AADC /* DDPTests.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,9 +18,8 @@
 		98F8AD52B341E576266529B7 /* Pods-SwiftDDP_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftDDP_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftDDP_Tests/Pods-SwiftDDP_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		AB9B4FC4B59F3E993243C7EA /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		C771F910288720B0C376A485 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		D0CEC3311BB44CC10089AADC /* TestData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
-		D0CEC3321BB44CC10089AADC /* DDPClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPClientTests.swift; sourceTree = "<group>"; };
-		D0CEC3331BB44CC10089AADC /* DDPConnectionTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPConnectionTest.swift; sourceTree = "<group>"; };
+		D0CEC3311BB44CC10089AADC /* DDPTestData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPTestData.swift; sourceTree = "<group>"; };
+		D0CEC3321BB44CC10089AADC /* DDPTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPTests.swift; sourceTree = "<group>"; };
 		E6748BB93ADBF7E27E09F5B0 /* Pods-SwiftDDP_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftDDP_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftDDP_Tests/Pods-SwiftDDP_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		ECDA9F05F6A80A2C3F194BE1 /* Pods_SwiftDDP_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftDDP_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F34008188CF8461FE9B3CA32 /* SwiftDDP.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SwiftDDP.podspec; path = ../SwiftDDP.podspec; sourceTree = "<group>"; };
@@ -70,9 +68,8 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				D0CEC3311BB44CC10089AADC /* TestData.swift */,
-				D0CEC3321BB44CC10089AADC /* DDPClientTests.swift */,
-				D0CEC3331BB44CC10089AADC /* DDPConnectionTest.swift */,
+				D0CEC3311BB44CC10089AADC /* DDPTestData.swift */,
+				D0CEC3321BB44CC10089AADC /* DDPTests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
 			path = Tests;
@@ -134,7 +131,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
 					607FACE41AFB9204008FA782 = {
@@ -224,9 +221,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0CEC3351BB44CC10089AADC /* DDPClientTests.swift in Sources */,
-				D0CEC3361BB44CC10089AADC /* DDPConnectionTest.swift in Sources */,
-				D0CEC3341BB44CC10089AADC /* TestData.swift in Sources */,
+				D0CEC3351BB44CC10089AADC /* DDPTests.swift in Sources */,
+				D0CEC3341BB44CC10089AADC /* DDPTestData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,6 +250,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -299,6 +296,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -328,6 +326,7 @@
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftDDP_Example.app/SwiftDDP_Example";
 			};
@@ -343,6 +342,7 @@
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftDDP_Example.app/SwiftDDP_Example";
 			};
