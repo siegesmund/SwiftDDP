@@ -45,7 +45,7 @@ public class DDP {
         var session:String!
         var test = false
         var subscriptions = [String:String]()
-        var callbacks:[String:OnComplete!] = [:]
+        var callbacks:[String:OnComplete?] = [:]
         
         public var logLevel = XCGLogger.LogLevel.None
         public var events:Events!
@@ -94,7 +94,13 @@ public class DDP {
                 connected = true
                 events.onConnected(result: nil,error: nil)
                 
-            case .Result: events.onResult(json: message.json, callback: callbacks[message.id!]) // Message should have id if it's a result message
+            case .Result:
+                if let id = message.id {
+                    if let callback = callbacks[id] {
+                        events.onResult(json: message.json, callback: callback) // Message should have id if it's a result message
+                    } else { log.debug("no callback availble for the id \(id). callbacks are: \(callbacks)") }
+                } else { log.debug("malformed result message: \(message)") }
+                
             case .Updated: events.onUpdated(methods: message.methods!)                         // Updated message should have methods array
             case .Nosub: events.onNosub(id: message.id!, error: message.error)
             case .Added: events.onAdded(collection: message.collection!, id: message.id!, fields: message.fields)
