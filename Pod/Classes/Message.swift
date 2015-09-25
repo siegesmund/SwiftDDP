@@ -49,10 +49,8 @@ extension DDP {
         
         // Converts an NSDictionary to a JSON String
         public static func toString(json:AnyObject) -> String? {
-            print("DICTIONARY JSON \(json)")
             if let data = try? NSJSONSerialization.dataWithJSONObject(json, options: NSJSONWritingOptions(rawValue: 0)) {
                 let message = NSString(data: data, encoding: NSASCIIStringEncoding) as String?
-                print("STRING JSON = \(message!)")
                 return message
             }
             return nil
@@ -154,6 +152,5 @@ extension DDP {
         public var subs:NSArray? {
             get { return json["subs"] as! NSArray? }
         }
-        
     }
 }

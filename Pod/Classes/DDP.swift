@@ -63,7 +63,7 @@ public class DDP {
         
         // Parse DDP messages and dispatch to the appropriate function
         internal func ddpMessageHandler(message: DDP.Message) {
-            print("Received message: \(message.json)")
+            log.debug("Received message: \(message.json)")
             switch message.type {
             case .Connected:
                 session = message.session!

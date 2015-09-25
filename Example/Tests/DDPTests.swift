@@ -140,6 +140,20 @@ class DDPMethodTest:QuickSpec {
             it ("can add and remove a document on the server"){
                 var added = [NSMutableDictionary]()
                 var removed = [String]()
+                var ready = false
+                
+                client.events.onReady = {subs in
+                    let sub = subs[0] as! String
+                    if (sub == client.subscriptions["test-collection2"]!) {
+                        ready = true
+                    }
+                }
+                
+                
+                client.events.onNosub = {id, error in
+                    let subname = client.subscriptions[id]!
+                    print("NOSUB \(subname) \(error)")
+                }
                 
                 client.events.onAdded = {collection, id, fields in
                     if let doc = fields {
@@ -156,17 +170,13 @@ class DDPMethodTest:QuickSpec {
                 client.sub("test-collection2", params:nil)
                 client.insert("test-collection2", doc: NSArray(arrayLiteral:["_id":"100", "foo":"bar"]))
                 
+                expect(ready).toEventually(beTrue())
                 expect(added.count).toEventually(equal(1))
                 expect(added[0]["_id"] as? String).to(equal("100"))
                 
                 client.remove("test-collection2", doc:NSArray(arrayLiteral:["_id":"100"]))
                 expect(removed.count).toEventually(equal(1))
                 expect(removed[0]).to(equal("100"))
-            }
-
-            
-            it ("can remove a document from a collection") {
-                
             }
             
             it ("can update a document in a collection") {

@@ -60,14 +60,12 @@ extension DDP.Client {
             
             log.debug("[DDP] login error: \(e)")
             if let c = callback { c(result:result, error:error) }
-            
-            
         }
     }
     
     // Login with email and password
     // Does the date comparison account for TimeZone?
-    func loginWithPassword(email: String, password: String, callback: OnComplete!) {
+    public func loginWithPassword(email: String, password: String, callback: OnComplete?) {
                 
         // [["user":["email":email], "password":["digest":password.sha256()!, "algorithm":"sha-256"]]]
         var params = ["user":["email":email], "password":["digest":password.sha256()!, "algorithm":"sha-256"]] as NSDictionary
@@ -78,7 +76,7 @@ extension DDP.Client {
                 params = ["resume":token] as NSDictionary
             }
         }
-
+        
         login(params, callback:callback)
     }
 }
