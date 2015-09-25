@@ -11,9 +11,9 @@ Pod::Spec.new do |s|
 
   s.homepage         = "https://github.com/siegesmund/SwiftDDP"
   s.license          = 'MIT'
-  s.author           = { "Peter" => "peter.siegesmund@icloud.com" }
+  s.author           = { "Peter Siegesmund" => "peter.siegesmund@gmail.com" }
   s.source           = { :git => "https://github.com/siegesmund/SwiftDDP.git", :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/psiegesmund'
+  s.social_media_url = 'https://twitter.com/psiegesmund'
 
   s.platform     = :ios, '8.0'
   s.requires_arc = true
