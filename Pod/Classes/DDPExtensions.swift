@@ -2,6 +2,8 @@
 import Foundation
 import CryptoSwift
 
+
+// These are implemented as an extension because they're not a part of the DDP spec
 extension DDP.Client {
     
     // callback is optional. If present, called with an error object as the first argument and,

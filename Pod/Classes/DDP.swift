@@ -3,6 +3,8 @@
 //  A DDP Client written in Swift
 //
 //
+// This software uses CryptoSwift: https://github.com/krzyzanowskim/CryptoSwift/
+//
 
 import Foundation
 import SwiftWebSocket
