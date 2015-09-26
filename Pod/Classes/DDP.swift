@@ -100,7 +100,7 @@ public class DDP {
                         events.onResult(json: message.json, callback: callback) // Message should have id if it's a result message
                     } else { log.debug("no callback availble for the id \(id). callbacks are: \(callbacks)") }
                 } else { log.debug("malformed result message: \(message)") }
-                
+            
             case .Updated: events.onUpdated(methods: message.methods!)                         // Updated message should have methods array
             case .Nosub: events.onNosub(id: message.id!, error: message.error)
             case .Added: events.onAdded(collection: message.collection!, id: message.id!, fields: message.fields)
