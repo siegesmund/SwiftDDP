@@ -30,7 +30,7 @@ import Foundation
 import SwiftWebSocket
 import XCGLogger
 
-let log = XCGLogger(identifier: "DDPLog")
+let log = XCGLogger(identifier: "DDP")
 
 public typealias OnComplete = (result:NSDictionary?, error:NSDictionary?) -> ()
 
