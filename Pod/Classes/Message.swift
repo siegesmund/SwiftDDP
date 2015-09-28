@@ -110,8 +110,8 @@ extension DDP {
             get { return json["params"] as! String? }
         }
         
-        public var error:String? {
-            get { return json["error"] as! String? }
+        public var error:NSDictionary? {
+            get { return json["error"] as! NSDictionary? }
         }
         
         public var collection:String? {
@@ -122,8 +122,8 @@ extension DDP {
             get { return json["fields"] as! NSDictionary? }
         }
         
-        public var cleared:NSArray? {
-            get { return json["cleared"] as! NSArray? }
+        public var cleared:[String]? {
+            get { return json["cleared"] as! [String]? }
         }
         
         /*

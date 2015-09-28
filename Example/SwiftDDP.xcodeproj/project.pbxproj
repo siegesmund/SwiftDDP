@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		A82D476C2F6A64834269F67C /* Pods_SwiftDDP_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECDA9F05F6A80A2C3F194BE1 /* Pods_SwiftDDP_Tests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		D0CEC3341BB44CC10089AADC /* DDPTestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CEC3311BB44CC10089AADC /* DDPTestData.swift */; settings = {ASSET_TAGS = (); }; };
 		D0CEC3351BB44CC10089AADC /* DDPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CEC3321BB44CC10089AADC /* DDPTests.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
@@ -18,7 +17,6 @@
 		98F8AD52B341E576266529B7 /* Pods-SwiftDDP_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftDDP_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftDDP_Tests/Pods-SwiftDDP_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		AB9B4FC4B59F3E993243C7EA /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		C771F910288720B0C376A485 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		D0CEC3311BB44CC10089AADC /* DDPTestData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPTestData.swift; sourceTree = "<group>"; };
 		D0CEC3321BB44CC10089AADC /* DDPTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPTests.swift; sourceTree = "<group>"; };
 		E6748BB93ADBF7E27E09F5B0 /* Pods-SwiftDDP_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftDDP_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftDDP_Tests/Pods-SwiftDDP_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		ECDA9F05F6A80A2C3F194BE1 /* Pods_SwiftDDP_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftDDP_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,7 +66,6 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				D0CEC3311BB44CC10089AADC /* DDPTestData.swift */,
 				D0CEC3321BB44CC10089AADC /* DDPTests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
@@ -222,7 +219,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0CEC3351BB44CC10089AADC /* DDPTests.swift in Sources */,
-				D0CEC3341BB44CC10089AADC /* DDPTestData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
