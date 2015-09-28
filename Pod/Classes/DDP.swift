@@ -39,16 +39,16 @@ public class DDP {
     
     public class Client: NSObject {
         
+        // included for storing login id and token
         let userData = NSUserDefaults.standardUserDefaults()
 
-        var url:String!
-        var socket:WebSocket!
-        
-        var subscriptions = [String:(id:String, name:String, ready:Bool)]()
-        
+        private var socket:WebSocket!
         private var callbacks:[String:OnComplete?] = [:]
         private var server:(ping:NSDate?, pong:NSDate?) = (nil, nil)
         
+        var url:String!
+        var subscriptions = [String:(id:String, name:String, ready:Bool)]()
+
         public var logLevel = XCGLogger.LogLevel.Debug
         public var events:Events!
         public var connection:(ddp:Bool, session:String?) = (false, nil)
@@ -70,9 +70,9 @@ public class DDP {
         }
         
         // Create the DDP Object and make a basic connection
-        public convenience init(url:String, onConnected:Events.Callbacks.Connected) {
+        public convenience init(url:String, callback:Connected) {
             self.init(url:url)
-            events.onConnected = onConnected
+            events.onConnected = callback
             socket.event.open = {
                 self.connect(nil)
             }
@@ -81,8 +81,8 @@ public class DDP {
         private func getId() -> String { return NSUUID().UUIDString }
         
         // Make a websocket connection to a Meteor server
-        public func connect(onConnected:Events.Callbacks.Connected?) {
-            if let callback = onConnected { events.onConnected = callback }
+        public func connect(callback:Connected?) {
+            if let c = callback { events.onConnected = c }
             sendMessage(["msg":"connect", "version":"1", "support":["1", "pre2"]])
         }
         
@@ -103,9 +103,7 @@ public class DDP {
         internal func ddpMessageHandler(message: DDP.Message) {
             log.debug("Received message: \(message.json)")
             switch message.type {
-            case .Connected:
-                connection = (true, message.session!)
-                events.onConnected(session:message.session!)
+            case .Connected: connection = (true, message.session!); events.onConnected(session:message.session!)
                 
             case .Result:
                 if let id = message.id {
@@ -117,12 +115,12 @@ public class DDP {
             
             // Principal callbacks for managing data
                 
-            case .Added: events.onAdded(collection: message.collection!, id: message.id!, fields: message.fields)
-            case .Changed: events.onChanged(collection: message.collection!, id: message.id!, fields: message.fields, cleared: message.cleared)
-            case .Removed: events.onRemoved(collection: message.collection!, id: message.id!)
+            case .Added: documentWasAdded(message.collection!, id: message.id!, fields: message.fields)
+            case .Changed: documentWasChanged(message.collection!, id: message.id!, fields: message.fields, cleared: message.cleared)
+            case .Removed: documentWasRemoved(message.collection!, id: message.id!)
             
             // Notifies you when the result of a method changes
-            case .Updated: events.onUpdated(methods: message.methods!)                         // Updated message should have methods array
+            case .Updated: methodWasUpdated(message.methods!)                         // Updated message should have methods array
 
             // Callbacks for managing subscriptions
             case .Ready: ready(message.subs!)
@@ -204,7 +202,24 @@ public class DDP {
         //
         
         public func subscriptionIsReady(subscriptionId:String, subscriptionName:String) {}
+        
         public func subscriptionWasRemoved(subscriptionId:String, subscriptionName:String) {}
+        
+        public func documentWasAdded(collection:String, id:String, fields:NSDictionary?) {
+            events.onAdded(collection: collection, id: id, fields: fields)
+        }
+        
+        public func documentWasRemoved(collection:String, id:String) {
+            events.onRemoved(collection: collection, id: id)
+        }
+        
+        public func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?) {
+            events.onChanged(collection:collection, id:id, fields:fields, cleared:cleared)
+        }
+        
+        public func methodWasUpdated(methods:[String]) {
+            events.onUpdated(methods: methods)
+        }
     }
 }
 

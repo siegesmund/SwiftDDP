@@ -10,13 +10,13 @@ extension DDP {
     // Handled Message Types
     public enum MessageType:String {
         
-        // case Connect    = "connect"     // (client -> server)
+        // case Connect = "connect"     // (client -> server)
         case Connected  = "connected"
         case Failed     = "failed"
         case Ping       = "ping"
         case Pong       = "pong"
-        // case Sub        = "sub"         // (client -> server)
-        // case Unsub      = "unsub"       // (client -> server)
+        // case Sub     = "sub"         // (client -> server)
+        // case Unsub   = "unsub"       // (client -> server)
         case Nosub      = "nosub"
         case Added      = "added"
         case Changed    = "changed"
@@ -24,14 +24,14 @@ extension DDP {
         case Ready      = "ready"
         case AddedBefore = "addedBefore"
         case MovedBefore = "movedBefore"
-        // case Method     = "method"       // (client -> server)
+        // case Method  = "method"       // (client -> server)
         case Result     = "result"
         case Updated    = "updated"
         case Error      = "error"
         case Unhandled  = "unhandled"
         
     }
-
+    
     public struct Message {
         
         // SwiftyJSON JSON Object
@@ -39,7 +39,14 @@ extension DDP {
         
         public init(message:String) {
             if let data = message.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) {
-                json = try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0)) as! NSDictionary
+                do {
+                    json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0)) as! NSDictionary
+                } catch {
+                    let errorMessage = "SwiftDDP JSON serialization error. JSON string was: \(message). Message will handled as a DDP error."
+                    let msg = ["msg":"error"] as NSMutableDictionary
+                    msg["error"] = ["error": "SwiftDDP JSON serialization error.", "reason": "SwiftDDP JSON serialization error", "details": errorMessage]
+                    json = msg
+                }
             }
         }
         
