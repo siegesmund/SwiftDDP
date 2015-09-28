@@ -128,6 +128,7 @@ public class DDP {
 
             case .Ping: pong(message)
             case .Pong: server.pong = NSDate()
+            case .Error: error(message.error!)
                 
             default: log.debug("Unhandled message: \(message.json)")
             }
@@ -219,6 +220,10 @@ public class DDP {
         
         public func methodWasUpdated(methods:[String]) {
             events.onUpdated(methods: methods)
+        }
+        
+        public func error(message:NSDictionary) {
+            
         }
     }
 }
