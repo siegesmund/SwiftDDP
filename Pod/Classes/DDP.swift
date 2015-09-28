@@ -64,7 +64,8 @@ public class DDP {
             socket.event.error = events.onWebsocketError
             socket.event.message = { message in
                 if let text = message as? String {
-                    self.ddpMessageHandler(DDP.Message(message: text))
+                    do { try self.ddpMessageHandler(DDP.Message(message: text)) }
+                    catch { log.debug("Message handling error. Raw message: \(text)")}
                 }
             }
         }
@@ -100,7 +101,7 @@ public class DDP {
         }
         
         // Parse DDP messages and dispatch to the appropriate function
-        internal func ddpMessageHandler(message: DDP.Message) {
+        internal func ddpMessageHandler(message: DDP.Message) throws {
             log.debug("Received message: \(message.json)")
             switch message.type {
             case .Connected: connection = (true, message.session!); events.onConnected(session:message.session!)

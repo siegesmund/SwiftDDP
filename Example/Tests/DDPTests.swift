@@ -96,7 +96,7 @@ class DDPMessageHandlerTest:QuickSpec {
                     let city = fields!["city"]! as! String
                     expect(city).to(equal("Boston"))
                 }
-                client.ddpMessageHandler(added[0])
+                try! client.ddpMessageHandler(added[0])
             }
             
             it ("can handle a 'removed' message") {
@@ -105,7 +105,7 @@ class DDPMessageHandlerTest:QuickSpec {
                     expect(collection).to(equal("test-collection"))
                     expect(id).to(equal("2gAMzqvE8K8kBWK8F"))
                 }
-                client.ddpMessageHandler(removed[0])
+                try! client.ddpMessageHandler(removed[0])
             }
         }
     }
