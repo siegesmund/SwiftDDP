@@ -66,7 +66,6 @@ extension DDP.Client {
     }
     
     // Login with email and password
-    // Does the date comparison account for TimeZone?
     public func loginWithPassword(email: String, password: String, callback: OnComplete?) {
         if !(loginWithToken(callback)) {
             let params = ["user":["email":email], "password":["digest":password.sha256()!, "algorithm":"sha-256"]] as NSDictionary
@@ -74,6 +73,7 @@ extension DDP.Client {
         }
     }
     
+    // Does the date comparison account for TimeZone?
     public func loginWithToken(callback:OnComplete?) -> Bool {
         if let token = userData.stringForKey("token"),
            let tokenDate = userData.objectForKey("tokenExpires") {

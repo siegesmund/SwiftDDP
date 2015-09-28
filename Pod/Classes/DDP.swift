@@ -83,6 +83,10 @@ public class DDP {
         
         private func getId() -> String { return NSUUID().UUIDString }
         
+        func ping() {
+            sendMessage(["msg":"ping", "id":getId()])
+        }
+        
         // Respond to a server ping
         private func pong(ping: DDP.Message) {
             var response = ["msg":"pong"]
@@ -112,7 +116,7 @@ public class DDP {
             case .Changed: events.onChanged(collection: message.collection!, id: message.id!, fields: message.fields, cleared: message.cleared)
             case .Removed: events.onRemoved(collection: message.collection!, id: message.id!)
             case .Ready: events.onReady(subs: message.subs!)
-            case .Ping: events.onPong(message: message)
+            case .Ping: pong(message)
             case .Pong: log.debug("[DDP] Pong received")
             
             // The ordered messages are not currently used by Meteor
