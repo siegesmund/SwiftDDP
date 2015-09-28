@@ -18,12 +18,8 @@ class DDPConnectionTest:QuickSpec {
             
             it ("can connect to a DDP server"){
                 var connected = false
-                client.connect() {result, error in
-                    guard let e = error else {
-                        connected = true
-                        return
-                    }
-                    print(e)
+                client.connect() { session in
+                    connected = true
                 }
                 expect(client.connected).toEventually(beTrue())
                 expect(connected).toEventually(beTrue())
@@ -103,7 +99,7 @@ class DDPPubSubTest:QuickSpec {
                 var added = [String]()
                 var removed = [String]()
                 
-                client.connect() {result, error in
+                client.connect() {session in
                 client.loginWithPassword(user, password: pass) {result, error in
                     client.events.onAdded = {collection, id, fields in added.append(id) }
                     client.events.onRemoved = {collection, id in removed.append(id) }
@@ -129,7 +125,7 @@ class DDPMethodTest:QuickSpec {
             let client = DDP.Client(url: url)
             
             it ("can login to a Meteor server") {
-                client.connect() {result, error in
+                client.connect() {session in
                     client.loginWithPassword(user, password: pass) {result, error in
                         expect(result).to(beTruthy())
                     }

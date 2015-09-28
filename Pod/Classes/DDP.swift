@@ -73,7 +73,7 @@ public class DDP {
         }
         
         // Create the DDP Object and make a basic connection
-        public convenience init(url:String, onConnected:OnComplete) {
+        public convenience init(url:String, onConnected:Events.Callbacks.Connected) {
             self.init(url:url)
             events.onConnected = onConnected
             socket.event.open = {
@@ -101,7 +101,7 @@ public class DDP {
             case .Connected:
                 session = message.session!
                 connected = true
-                events.onConnected(result: nil,error: nil)
+                events.onConnected(session:message.session!)
                 
             case .Result:
                 if let id = message.id {
@@ -132,7 +132,7 @@ public class DDP {
         }
         
         // Make a websocket connection to a Meteor server
-        public func connect(onConnected:OnComplete?) {
+        public func connect(onConnected:Events.Callbacks.Connected?) {
             if let callback = onConnected { events.onConnected = callback }
             sendMessage(["msg":"connect", "version":"1", "support":["1", "pre2"]])
         }

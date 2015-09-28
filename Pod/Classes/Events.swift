@@ -8,7 +8,7 @@ extension DDP {
         public struct Callbacks {
             public typealias WebsocketClose =   (code:Int, reason:String, clean:Bool) -> ()
             public typealias WebsocketError =   (error:ErrorType) -> ()
-            public typealias Connected      =   (result:NSDictionary?, error:NSDictionary?) -> ()
+            public typealias Connected      =   (session:String) -> ()
             
             public typealias Added          =   (collection:String, id:String, fields:NSDictionary?) -> ()
             public typealias Changed        =   (collection:String, id:String, fields:NSDictionary?, cleared:NSArray?) -> ()
@@ -20,7 +20,7 @@ extension DDP {
         
         public var onWebsocketClose: Events.Callbacks.WebsocketClose    =   {code, reason, clean in log.debug("[DDP] websocket closed with reason: \(reason)")}
         public var onWebsocketError: Events.Callbacks.WebsocketError    =   {error in log.debug("[DDP] websocket error \(error)")}
-        public var onConnected:  Events.Callbacks.Connected             =   {result, error in log.debug("[DDP] connected")}
+        public var onConnected:  Events.Callbacks.Connected             =   {session in log.debug("[DDP] connected with session: \(session)")}
         public var onDisconnected: () -> ()                             =   {log.debug("[DDP] disconnected")}
         public var onFailed: () -> ()                                   =   {log.debug("[DDP] failed")}
         public var onPing: (message:DDP.Message) -> ()                  =   {message in}
