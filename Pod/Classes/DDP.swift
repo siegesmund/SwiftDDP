@@ -26,6 +26,11 @@
 // This software uses CryptoSwift: https://github.com/krzyzanowskim/CryptoSwift/
 //
 
+
+//TODO -> Add manual ping
+//        Fix connect so that it correctly deals with the session
+//      
+
 import Foundation
 import SwiftWebSocket
 import XCGLogger
