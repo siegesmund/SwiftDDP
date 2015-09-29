@@ -35,6 +35,17 @@ let log = XCGLogger(identifier: "DDP")
 
 public typealias OnComplete = (result:NSDictionary?, error:NSDictionary?) -> ()
 
+protocol DDPClient {
+    
+    func subscriptionIsReady(subscriptionId:String, subscriptionName:String)
+    func subscriptionWasRemoved(subscriptionId:String, subscriptionName:String)
+    func documentWasAdded(collection:String, id:String, fields:NSDictionary?)
+    func documentWasRemoved(collection:String, id:String)
+    func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?)
+    func methodWasUpdated(methods:[String])
+
+}
+
 public class DDP {
     
     public class Client: NSObject {
