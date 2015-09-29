@@ -89,4 +89,11 @@ extension DDP.Client {
     public func logout() {
         method("logout", params:nil) {result, error in }
     }
+    
+    public convenience init(url: String, email:String, password:String) {
+        self.init(url:url)
+        connect() { session in
+            self.loginWithPassword(email, password: password) { result, error in if (error != nil) { print(error) } }
+        }
+    }
 }

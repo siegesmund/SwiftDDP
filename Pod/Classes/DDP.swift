@@ -78,7 +78,7 @@ public class DDP {
                 self.connect(nil)
             }
         }
-        
+                
         private func getId() -> String { return NSUUID().UUIDString }
         
         // Make a websocket connection to a Meteor server
