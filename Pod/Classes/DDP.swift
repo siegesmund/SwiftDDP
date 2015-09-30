@@ -60,14 +60,14 @@ public class DDP {
         var url:String!
         var subscriptions = [String:(id:String, name:String, ready:Bool)]()
 
-        public var logLevel = XCGLogger.LogLevel.Debug
+        public var logLevel = XCGLogger.LogLevel.None
         public var events:Events!
         public var connection:(ddp:Bool, session:String?) = (false, nil)
     
         
         public init(url:String) {
             super.init()
-            log.setup(logLevel, showLogIdentifier: true, showFunctionName: true, showThreadName: true, showLogLevel: false, showFileNames: false, showLineNumbers: true, showDate: false, writeToFile: nil, fileLogLevel: .None)
+            setLogLevel(logLevel)
             self.url = url
             events = DDP.Events()
             socket = WebSocket(url)
@@ -89,7 +89,11 @@ public class DDP {
                 self.connect(nil)
             }
         }
-                
+        
+        func setLogLevel(logLevel:XCGLogger.LogLevel) {
+            log.setup(logLevel, showLogIdentifier: true, showFunctionName: true, showThreadName: true, showLogLevel: false, showFileNames: false, showLineNumbers: true, showDate: false, writeToFile: nil, fileLogLevel: .None)
+        }
+        
         private func getId() -> String { return NSUUID().UUIDString }
         
         // Make a websocket connection to a Meteor server

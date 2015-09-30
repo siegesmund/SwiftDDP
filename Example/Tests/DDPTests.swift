@@ -47,7 +47,6 @@ class DDPConnectionTest:QuickSpec {
             it ("can connect to a DDP server"){
                 var testSession:String?
                 let client = DDP.Client(url:url) { session in testSession = session }
-                
                 expect(client.connection.ddp).toEventually(beTrue())
                 expect(client.connection.session).toEventually(equal(testSession))
             }
@@ -80,6 +79,7 @@ class DDPMessageTest:QuickSpec {
                 let error = message.error!["error"] as! String
                 expect(error).to(equal("SwiftDDP JSON serialization error."))
             }
+            
         }
     }
 }
