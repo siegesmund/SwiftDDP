@@ -5,6 +5,9 @@
 [![License](https://img.shields.io/cocoapods/l/SwiftDDP.svg?style=flat)](http://cocoapods.org/pods/SwiftDDP)
 [![Platform](https://img.shields.io/cocoapods/p/SwiftDDP.svg?style=flat)](http://cocoapods.org/pods/SwiftDDP)
 
+## Status
+SwiftDDP isn't ready for prime time yet. The basic functions work, but it's missing features and the api isn't final.
+
 ## Usage
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
