@@ -2,7 +2,7 @@
 //
 //  A DDP Client written in Swift
 //
-// Copyright (c) 2015 Peter Siegesmund <peter.siegesmund@gmail.com>
+// Copyright (c) 2015 Peter Siegesmund <peter.siegesmund@icloud.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -219,15 +219,15 @@ public class DDP {
         public func subscriptionWasRemoved(subscriptionId:String, subscriptionName:String) {}
         
         public func documentWasAdded(collection:String, id:String, fields:NSDictionary?) {
-            events.onAdded(collection: collection, id: id, fields: fields)
+            if let added = events.onAdded { added(collection: collection, id: id, fields: fields) }
         }
         
         public func documentWasRemoved(collection:String, id:String) {
-            events.onRemoved(collection: collection, id: id)
+            if let removed = events.onRemoved { removed(collection: collection, id: id) }
         }
         
         public func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?) {
-            events.onChanged(collection:collection, id:id, fields:fields, cleared:cleared)
+            if let changed = events.onChanged { changed(collection:collection, id:id, fields:fields, cleared:cleared) }
         }
         
         public func methodWasUpdated(methods:[String]) {
