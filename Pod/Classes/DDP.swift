@@ -82,7 +82,7 @@ public class DDP {
         }
         
         // Create the DDP Object and make a basic connection
-        public convenience init(url:String, callback:Connected) {
+        public convenience init(url:String, callback:(session:String) -> ()) {
             self.init(url:url)
             events.onConnected = callback
             socket.event.open = {
@@ -97,7 +97,7 @@ public class DDP {
         private func getId() -> String { return NSUUID().UUIDString }
         
         // Make a websocket connection to a Meteor server
-        public func connect(callback:Connected?) {
+        public func connect(callback:((session:String) -> ())?) {
             if let c = callback { events.onConnected = c }
             sendMessage(["msg":"connect", "version":"1", "support":["1", "pre2"]])
         }
@@ -235,7 +235,9 @@ public class DDP {
         }
         
         public func methodWasUpdated(methods:[String]) {
-            events.onUpdated(methods: methods)
+            if let updated = events.onUpdated {
+                updated(methods: methods)
+            }
         }
         
         public func error(message:NSDictionary) {

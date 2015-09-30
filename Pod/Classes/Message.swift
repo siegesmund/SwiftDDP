@@ -152,13 +152,6 @@ extension DDP {
             get { return json["cleared"] as! [String]? }
         }
         
-        /*
-        // Property is used by the ordered methods, which are not currently implemented by Meteor
-        public var before:String? {
-            get { return json["before"] as! String? }
-        }
-        */
-        
         public var method:String? {
             get { return json["method"] as! String? }
         }

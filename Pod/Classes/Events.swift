@@ -20,16 +20,6 @@
 
 import Foundation
 
-public typealias Connected      =   (session:String) -> ()
-
-public typealias Added          =   (collection:String, id:String, fields:NSDictionary?) -> ()
-public typealias Changed        =   (collection:String, id:String, fields:NSDictionary?, cleared:NSArray?) -> ()
-public typealias Removed        =   (collection:String, id:String) -> ()
-
-public typealias Result         =   (json: NSDictionary?, callback:OnComplete!) -> ()
-public typealias Error          =   (error:NSDictionary) -> ()
-
-
 extension DDP {
     
     public struct Events {
@@ -37,20 +27,20 @@ extension DDP {
         public var onWebsocketClose: (code:Int, reason:String, clean:Bool) -> () =   {code, reason, clean in log.debug("websocket closed with reason: \(reason)")}
         public var onWebsocketError: (error:ErrorType) -> () = {error in log.debug("websocket error \(error)")}
         
-        public var onConnected: Connected = {session in log.debug("connected with session: \(session)")}
+        public var onConnected: (session:String) -> () = {session in log.debug("connected with session: \(session)")}
         public var onDisconnected: () -> () = {log.debug("disconnected")}
         public var onFailed: () -> () = {log.debug("failed")}
         
         // Data messages
-        public var onAdded: Added?
-        public var onChanged: Changed?
-        public var onRemoved: Removed?
+        public var onAdded: ((collection:String, id:String, fields:NSDictionary?) -> ())?
+        public var onChanged: ((collection:String, id:String, fields:NSDictionary?, cleared:NSArray?) -> ())?
+        public var onRemoved: ((collection:String, id:String) -> ())?
         
         // RPC Messages
-        public var onResult: Result = {json, callback in callback(result: json, error:nil) }
-        public var onUpdated: (methods: [String]) -> () = {methods in }
+        public var onResult: (json: NSDictionary?, callback:OnComplete!) -> () = {json, callback in callback(result: json, error:nil) }
+        public var onUpdated: ((methods: [String]) -> ())?
         
-        public var onError: Error = {error in }
+        public var onError: (error:NSDictionary) -> () = {error in }
         
     }
     
