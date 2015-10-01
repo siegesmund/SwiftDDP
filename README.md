@@ -6,9 +6,6 @@ In a nutshell, Swift. Swift's syntax promotes simplicity and is stylistically cl
 
 SwiftDDP aims for simplicity and is datastore agnostic. 
 
-#### Status 
-In active development.
-
 #### License
 MIT  
 
@@ -54,9 +51,9 @@ client.loginWithPassword(email: "test@user.com", password: "swiftddp") { result,
 
 ### Subscribe
 ``` swift 
+// You can pass an array of parameters to the server, just as you would in Javascript
 client.sub("AllCities", params: nil) { 
 // Put some code here that will execute asynchronously when the subscription is ready
-// You can also pass an array of parameters to the server
 }
 ```
 
@@ -70,6 +67,7 @@ client.unsub(withName: "AllCities) {
 ```
 
 ### Document addition, update and removal
+When documents change on the server, or when the set of documents that you're subscribed to changes, the server sends messages instructing the client on which documents to add, which to remove and which to update. You use the following methods to specify how documents should be added, removed and updated.
 There are two ways to control what happens when a document is added, updated or removed:  
 #####1) You can subclass DDP.Client and override the following methods
 ``` swift  
