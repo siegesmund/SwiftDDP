@@ -62,6 +62,7 @@ extension DDP {
                     json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0)) as! NSDictionary
                 } catch {
                     let errorMessage = "SwiftDDP JSON serialization error. JSON string was: \(message). Message will handled as a DDP error."
+                    log.error(errorMessage)
                     let msg = ["msg":"error"] as NSMutableDictionary
                     msg["error"] = ["error": "SwiftDDP JSON serialization error.", "reason": "SwiftDDP JSON serialization error", "details": errorMessage]
                     json = msg

@@ -286,9 +286,7 @@ public class DDP {
         }
         
         public func methodWasUpdated(methods:[String]) {
-            if let updated = events.onUpdated {
-                updated(methods: methods)
-            }
+            if let updated = events.onUpdated { updated(methods: methods) }
         }
         
         public func error(message:NSDictionary) {

@@ -164,7 +164,7 @@ class DDPMethodTest:QuickSpec {
         describe ("DDP Methods") {
             
             // DDP Methods
-            // tests :login, :logout, :insert, :remove, :update
+            // tests login:, logout:, insert:, remove:, update:
             
             it ("can login to a Meteor server") {
                 
