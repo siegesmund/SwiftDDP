@@ -35,17 +35,6 @@ let log = XCGLogger(identifier: "DDP")
 
 public typealias OnComplete = (result:NSDictionary?, error:NSDictionary?) -> ()
 
-protocol DDPClient {
-    
-    func subscriptionIsReady(subscriptionId:String, subscriptionName:String)
-    func subscriptionWasRemoved(subscriptionId:String, subscriptionName:String)
-    func documentWasAdded(collection:String, id:String, fields:NSDictionary?)
-    func documentWasRemoved(collection:String, id:String)
-    func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?)
-    func methodWasUpdated(methods:[String])
-
-}
-
 public class DDP {
     
     public class Client: NSObject {
@@ -54,7 +43,10 @@ public class DDP {
         let userData = NSUserDefaults.standardUserDefaults()
 
         private var socket:WebSocket!
-        private var callbacks:[String:OnComplete?] = [:]
+        private var resultCallbacks:[String:OnComplete] = [:]
+        private var subCallbacks:[String:() -> ()] = [:]
+        private var unsubCallbacks:[String:() -> ()] = [:]
+
         private var server:(ping:NSDate?, pong:NSDate?) = (nil, nil)
         
         var url:String!
@@ -123,10 +115,10 @@ public class DDP {
                 
             case .Result:
                 if let id = message.id {
-                    if let callback = callbacks[id] {
+                    if let callback = resultCallbacks[id] {
                         events.onResult(json: message.json, callback: callback) // Message should have id if it's a result message
-                        callbacks[id] = nil             // Remove the callback from the dictionary
-                    } else { log.debug("no callback availble for the id \(id). callbacks are: \(callbacks)") }
+                        resultCallbacks[id] = nil             // Remove the callback from the dictionary
+                    } else { log.debug("no callback availble for the id \(id). resultCallbacks are: \(resultCallbacks)") }
                 } else { log.debug("malformed result message: \(message)") }
             
             // Principal callbacks for managing data
@@ -159,12 +151,17 @@ public class DDP {
             let id = getId()
             let message = ["msg":"method", "method":name, "id":id] as NSMutableDictionary
             if let p = params { message["params"] = p }
-            callbacks[id] = callback
+            resultCallbacks[id] = callback
             sendMessage(message)
             return id
         }
         
-        public func sub(id:String, name:String, params:[AnyObject]?) -> String {
+        //
+        // Subscribe
+        //
+        
+        public func sub(id: String, name: String, params: [AnyObject]?, callback: (() -> ())?) -> String {
+            if let c = callback { subCallbacks[id] = c }
             subscriptions[id] = (id, name, false)
             let message = ["msg":"sub", "name":name, "id":id] as NSMutableDictionary
             if let p = params { message["params"] = p }
@@ -172,11 +169,15 @@ public class DDP {
             return id
         }
         
-        
         // Subscribe to a Meteor collection
         public func sub(name: String, params: [AnyObject]?) -> String {
             let id = getId()
-            return sub(id, name: name, params: params)
+            return sub(id, name: name, params: params, callback:nil)
+        }
+        
+        public func sub(name:String, params: [AnyObject]?, callback: (() -> ())?) -> String {
+            let id = getId()
+            return  sub(id, name: name, params: params, callback: callback)
         }
         
         // Iterates over the Dictionary of subscriptions to find a subscription by name
@@ -189,32 +190,63 @@ public class DDP {
             return nil
         }
         
-        // Unsubscribe to a Meteor collection
-        public func unsub(name: String) -> String? {
-            if let subscription = findSubscription(name) {
-                sendMessage(["msg":"unsub", "id":subscription.id])
-                return subscription.id
+        //
+        // Unsubscribe
+        //
+        
+        public func unsub(withName name: String) -> String? {
+            return unsub(withName: name, callback: nil)
+        }
+        
+        public func unsub(withName name: String, callback:(()->())?) -> String? {
+            if let sub = findSubscription(name) {
+                unsub(withId: sub.id, callback: callback)
+                sendMessage(["msg":"unsub", "id":sub.id])
+                return sub.id
             }
             return nil
         }
         
-        private func ready(subs:[String]) {
+        public func unsub(withId id: String, callback: (() -> ())?) {
+            if let c = callback { unsubCallbacks[id] = c }
+            sendMessage(["msg":"unsub", "id":id])
+        }
+        
+        //
+        // Responding to server subscription messages
+        //
+        
+        
+        // If
+        private func ready(subs: [String]) {
             for id in subs {
-                if var sub = subscriptions[id] {
-                    sub.ready = true
-                    subscriptions[id] = sub
-                    subscriptionIsReady(sub.id, subscriptionName: sub.name)
+                if let callback = subCallbacks[id] {
+                    callback()                          // Run the callback
+                    subCallbacks[id] = nil           // Delete the callback after running
+                } else {                                // If there is no callback, execute the method
+                    if var sub = subscriptions[id] {
+                        sub.ready = true
+                        subscriptions[id] = sub
+                        subscriptionIsReady(sub.id, subscriptionName: sub.name)
+                    }
                 }
             }
         }
         
-        private func nosub(id:String, error:NSDictionary?) {
+        private func nosub(id: String, error: NSDictionary?) {
             if let e = error {
                 print(e)
             } else {
-                if let subscription = subscriptions[id] {
-                    subscriptions[id] = nil
-                    subscriptionWasRemoved(subscription.id, subscriptionName: subscription.name)
+                if let callback = unsubCallbacks[id],
+                   let _ = subscriptions[id] {
+                        callback()
+                        unsubCallbacks[id] = nil
+                        subscriptions[id] = nil
+                } else {
+                    if let subscription = subscriptions[id] {
+                        subscriptions[id] = nil
+                        subscriptionWasRemoved(subscription.id, subscriptionName: subscription.name)
+                    }
                 }
             }
         }

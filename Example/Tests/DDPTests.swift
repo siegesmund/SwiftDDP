@@ -145,7 +145,7 @@ class DDPPubSubTest:QuickSpec {
                 expect(client.findSubscription("AllStates")?.ready).toEventually(beTrue())
                 expect(added.count).to(equal(3))
 
-                client.unsub("AllStates")
+                client.unsub(withName: "AllStates")
                 
                 // After receiving a nosub message, the subscription entry in collections should have been removed
                 // the removed array should contain a list of all of the items in the subscription

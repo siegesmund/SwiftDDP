@@ -157,11 +157,11 @@ extension DDP {
         }
         
         public var randomSeed:String? {
-            get { return json["randomSeed"]as! String? }
+            get { return json["randomSeed"] as! String? }
         }
         
         public var result:String? {
-            get { return json["result"]as! String? }
+            get { return json["result"] as! String? }
         }
         
         public var methods:[String]? {
