@@ -179,7 +179,7 @@ class DDPMethodTest:QuickSpec {
                 client.connect() { session in
                     testSession = session
                     client.loginWithPassword(user, password: pass) { result, e in
-                    testResult = result!
+                    testResult = result! as! NSDictionary
                     }
                 }
                 

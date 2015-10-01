@@ -33,8 +33,6 @@ import XCGLogger
 
 let log = XCGLogger(identifier: "DDP")
 
-public typealias OnComplete = (result:NSDictionary?, error:NSDictionary?) -> ()
-
 public class DDP {
     
     public class Client: NSObject {
@@ -43,7 +41,7 @@ public class DDP {
         let userData = NSUserDefaults.standardUserDefaults()
 
         private var socket:WebSocket!
-        private var resultCallbacks:[String:OnComplete] = [:]
+        private var resultCallbacks:[String:(result:AnyObject?, error:AnyObject?) -> ()] = [:]
         private var subCallbacks:[String:() -> ()] = [:]
         private var unsubCallbacks:[String:() -> ()] = [:]
 
@@ -52,7 +50,7 @@ public class DDP {
         var url:String!
         var subscriptions = [String:(id:String, name:String, ready:Bool)]()
 
-        public var logLevel = XCGLogger.LogLevel.None
+        public var logLevel = XCGLogger.LogLevel.Error
         public var events:Events!
         public var connection:(ddp:Bool, session:String?) = (false, nil)
     
@@ -82,8 +80,8 @@ public class DDP {
             }
         }
         
-        func setLogLevel(logLevel:XCGLogger.LogLevel) {
-            log.setup(logLevel, showLogIdentifier: true, showFunctionName: true, showThreadName: true, showLogLevel: false, showFileNames: false, showLineNumbers: true, showDate: false, writeToFile: nil, fileLogLevel: .None)
+        public func setLogLevel(logLevel:XCGLogger.LogLevel) {
+            log.setup(logLevel, showLogIdentifier: true, showFunctionName: true, showThreadName: true, showLogLevel: true, showFileNames: false, showLineNumbers: true, showDate: false, writeToFile: nil, fileLogLevel: .None)
         }
         
         private func getId() -> String { return NSUUID().UUIDString }
@@ -111,34 +109,50 @@ public class DDP {
         func ddpMessageHandler(message: DDP.Message) throws {
             log.debug("Received message: \(message.json)")
             switch message.type {
+                
             case .Connected: connection = (true, message.session!); events.onConnected(session:message.session!)
                 
-            case .Result:
-                if let id = message.id {
-                    if let callback = resultCallbacks[id] {
-                        events.onResult(json: message.json, callback: callback) // Message should have id if it's a result message
-                        resultCallbacks[id] = nil             // Remove the callback from the dictionary
-                    } else { log.debug("no callback availble for the id \(id). resultCallbacks are: \(resultCallbacks)") }
-                } else { log.debug("malformed result message: \(message)") }
+            case .Result: if let id = message.id,
+                             let callback = resultCallbacks[id] {
+                                callback(result: message.json, error: message.error)
+                                resultCallbacks[id] = nil             // Remove the callback from the dictionary
+                            }
             
             // Principal callbacks for managing data
+            // Document was added
+            case .Added: if let collection = message.collection,
+                            let id = message.id {
+                                documentWasAdded(collection, id: id, fields: message.fields)
+                            }
+            // Document was changed
+            case .Changed: if let collection = message.collection,
+                              let id = message.id {
+                                documentWasChanged(collection, id: id, fields: message.fields, cleared: message.cleared)
+                            }
+            
+            // Document was removed
+            case .Removed: if let collection = message.collection,
+                              let id = message.id {
+                                documentWasRemoved(collection, id: id)
+                            }
                 
-            case .Added: documentWasAdded(message.collection!, id: message.id!, fields: message.fields)
-            case .Changed: documentWasChanged(message.collection!, id: message.id!, fields: message.fields, cleared: message.cleared)
-            case .Removed: documentWasRemoved(message.collection!, id: message.id!)
             
             // Notifies you when the result of a method changes
-            case .Updated: methodWasUpdated(message.methods!)                         // Updated message should have methods array
-
+            case .Updated: if let methods = message.methods { methodWasUpdated(methods) }
+            
             // Callbacks for managing subscriptions
-            case .Ready: ready(message.subs!)
-            case .Nosub: nosub(message.id!, error: message.error)
+            case .Ready: if let subs = message.subs { ready(subs) }
+            
+            // Callback for
+            case .Nosub: if let id = message.id { nosub(id, error: message.error) }
 
             case .Ping: pong(message)
-            case .Pong: server.pong = NSDate()
-            case .Error: error(message.error!)
                 
-            default: log.debug("Unhandled message: \(message.json)")
+            case .Pong: server.pong = NSDate()
+            
+            case .Error: if let e = message.error { error(e) }
+                
+            default: log.error("Unhandled message: \(message.json)")
             }
         }
         
@@ -147,11 +161,11 @@ public class DDP {
         }
         
         // Execute a method on the Meteor server
-        public func method(name: String, params: AnyObject?, callback: OnComplete?) -> String {
+        public func method(name: String, params: AnyObject?, callback: ((result:AnyObject?, error:AnyObject?) -> ())?) -> String {
             let id = getId()
             let message = ["msg":"method", "method":name, "id":id] as NSMutableDictionary
             if let p = params { message["params"] = p }
-            resultCallbacks[id] = callback
+            if let c = callback { resultCallbacks[id] = c }
             sendMessage(message)
             return id
         }
@@ -233,7 +247,7 @@ public class DDP {
             }
         }
         
-        private func nosub(id: String, error: NSDictionary?) {
+        private func nosub(id: String, error: AnyObject?) {
             if let e = error {
                 print(e)
             } else {

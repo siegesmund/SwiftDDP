@@ -27,7 +27,7 @@ extension DDP.Client {
     
     // callback is optional. If present, called with an error object as the first argument and,
     // if no error, the _id as the second.
-    public func insert(collection:String, doc:NSArray, callback: OnComplete?) {
+    public func insert(collection:String, doc:NSArray, callback: ((result:AnyObject?, error:AnyObject?) -> ())?) {
         let arg = "/\(collection)/insert"
         self.method(arg, params: doc, callback: callback)
     }
@@ -37,7 +37,7 @@ extension DDP.Client {
         insert(collection, doc:doc) {result, error in if let e = error { print("[DDP] \(e)") }}
     }
     
-    public func update(collection:String, doc:NSArray?, callback: OnComplete?) {
+    public func update(collection:String, doc:NSArray?, callback: ((result:AnyObject?, error:AnyObject?) -> ())?) {
         let arg = "/\(collection)/update"
         method(arg, params: doc, callback: callback)
     }
@@ -47,7 +47,7 @@ extension DDP.Client {
         update(collection, doc:doc) {result, error in if let e = error { print("[DDP] \(e)") }}
     }
     
-    public func remove(collection:String, doc:NSArray, callback: OnComplete?) {
+    public func remove(collection:String, doc:NSArray, callback: ((result:AnyObject?, error:AnyObject?) -> ())?) {
         let arg = "/\(collection)/remove"
         method(arg, params: doc, callback: callback)
     }
@@ -57,7 +57,7 @@ extension DDP.Client {
         remove(collection, doc:doc) {result, error in if let e = error { print("[DDP] \(e)") }}
     }
     
-    private func login(params: NSDictionary, callback: OnComplete?) {
+    private func login(params: NSDictionary, callback: ((result:AnyObject?, error:AnyObject?) -> ())?) {
         method("login", params: NSArray(arrayLiteral: params)) { result, error in
             guard let e = error else {
                 if let r = result {
@@ -85,7 +85,7 @@ extension DDP.Client {
     }
     
     // Login with email and password
-    public func loginWithPassword(email: String, password: String, callback: OnComplete?) {
+    public func loginWithPassword(email: String, password: String, callback: ((result:AnyObject?, error:AnyObject?) -> ())?) {
         if !(loginWithToken(callback)) {
             let params = ["user":["email":email], "password":["digest":password.sha256()!, "algorithm":"sha-256"]] as NSDictionary
             login(params, callback:callback)
@@ -93,7 +93,7 @@ extension DDP.Client {
     }
     
     // Does the date comparison account for TimeZone?
-    public func loginWithToken(callback:OnComplete?) -> Bool {
+    public func loginWithToken(callback:((result:AnyObject?, error:AnyObject?) -> ())?) -> Bool {
         if let token = userData.stringForKey("token"),
            let tokenDate = userData.objectForKey("tokenExpires") {
                 if (tokenDate.compare(NSDate()) == NSComparisonResult.OrderedDescending) {
@@ -109,7 +109,7 @@ extension DDP.Client {
         method("logout", params:nil) {result, error in }
     }
     
-    public convenience init(url: String, email:String, password:String, callback:OnComplete) {
+    public convenience init(url: String, email:String, password:String, callback:(result:AnyObject?, error:AnyObject?) -> ()) {
         self.init(url:url)
         connect() { session in
             self.loginWithPassword(email, password: password, callback:callback)
