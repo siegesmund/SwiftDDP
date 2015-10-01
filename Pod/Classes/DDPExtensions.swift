@@ -79,7 +79,7 @@ extension DDP.Client {
                 return
             }
             
-            log.debug("[DDP] login error: \(e)")
+            log.debug("login error: \(e)")
             if let c = callback { c(result:result, error:error) }
         }
     }
@@ -109,10 +109,10 @@ extension DDP.Client {
         method("logout", params:nil) {result, error in }
     }
     
-    public convenience init(url: String, email:String, password:String) {
+    public convenience init(url: String, email:String, password:String, callback:OnComplete) {
         self.init(url:url)
         connect() { session in
-            self.loginWithPassword(email, password: password) { result, error in if (error != nil) { print(error) } }
+            self.loginWithPassword(email, password: password, callback:callback)
         }
     }
 }
