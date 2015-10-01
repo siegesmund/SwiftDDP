@@ -164,14 +164,19 @@ public class DDP {
             return id
         }
         
-        // Subscribe to a Meteor collection
-        public func sub(name: String, params: [AnyObject]?) -> String {
-            let id = getId()
+        public func sub(id:String, name:String, params:[AnyObject]?) -> String {
             subscriptions[id] = (id, name, false)
             let message = ["msg":"sub", "name":name, "id":id] as NSMutableDictionary
             if let p = params { message["params"] = p }
             sendMessage(message)
             return id
+        }
+        
+        
+        // Subscribe to a Meteor collection
+        public func sub(name: String, params: [AnyObject]?) -> String {
+            let id = getId()
+            return sub(id, name: name, params: params)
         }
         
         // Iterates over the Dictionary of subscriptions to find a subscription by name
