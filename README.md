@@ -67,8 +67,8 @@ client.unsub(withName: "AllCities) {
 ```
 
 ### Document addition, update and removal
-When documents change on the server, or when the set of documents that you're subscribed to changes, the server sends messages instructing the client on which documents to add, which to remove and which to update. You use the following methods to specify how documents should be added, removed and updated.
-There are two ways to control what happens when a document is added, updated or removed:  
+When documents change on the server, or when the set of documents that you're subscribed to changes, the server sends messages instructing the client which documents to add, which to remove and which to update in the local collection. You use the following methods to specify how documents should be added, removed and updated.
+There are two ways to control what happens when a message is received to add a document to the local collection, to update it, or to remove it:  
 #####1) You can subclass DDP.Client and override the following methods
 ``` swift  
 documentWasAdded(collection:String, id:String, fields:NSDictionary?)  
