@@ -1,4 +1,4 @@
-# SwiftDDP: A DDP Client for written in Swift
+# SwiftDDP: A DDP Client for Meteor written in Swift
 
 ## Why?
 There are already two great DDP clients for iOS: [ObjectiveDDP](https://github.com/boundsj/ObjectiveDDP), and [Meteor iOS](https://github.com/martijnwalraven/meteor-ios). Why a third?  
