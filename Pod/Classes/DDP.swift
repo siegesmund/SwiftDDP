@@ -165,7 +165,7 @@ public class DDP {
         }
         
         // Subscribe to a Meteor collection
-        public func sub(name: String, params: NSDictionary?) -> String {
+        public func sub(name: String, params: [AnyObject]?) -> String {
             let id = getId()
             subscriptions[id] = (id, name, false)
             let message = ["msg":"sub", "name":name, "id":id] as NSMutableDictionary
