@@ -68,11 +68,6 @@ client.unsub(withName: "AllCities") {
 When documents change on the server, or when the set of documents that you're subscribed to changes, the server sends messages instructing the client which documents to add, which to remove and which to update in the local collection. You use the following methods to specify how documents should be added, removed and updated.
 There are two ways to control what happens when a message is received to add a document to the local collection, to update it, or to remove it:  
 #####1) You can subclass DDP.Client and override the following methods
-- **collection** is a string containing the name of the collection that the document belongs to.  
-- **id** is a string containing the _id field of the document on the server  
-- **fields** is an NSDictionary with the fields of the Json document to be added, or the list of fields to be updated   
-- **cleared** is a list of fields that should be deleted as part of the document update
-
 ``` swift  
 documentWasAdded(collection:String, id:String, fields:NSDictionary?)  
 documentWasRemoved(collection:String, id:String)  
@@ -89,6 +84,10 @@ client.events.onAdded = { collection, id, fields in // handle adding the documen
 client.events.onRemoved = { collection, id in // handle removing the document here }
 client.events.onChanged = { collection, id, fields, cleared in // handle changing the document here }
 ```
+- **collection** is a string containing the name of the collection that the document belongs to.  
+- **id** is a string containing the _id field of the document on the server  
+- **fields** is an NSDictionary with the fields of the Json document to be added, or the list of fields to be updated   
+- **cleared** is a list of fields that should be deleted as part of the document update  
 
 ### Method Calls
 ```swift
