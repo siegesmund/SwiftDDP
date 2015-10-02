@@ -74,12 +74,13 @@ class DDPMessageTest:QuickSpec {
                 expect(message.message!).to(equal("test"))
             }
             
+            
             it ("handles malformed json without crashing") {
                 let message = DDP.Message(message: "{\"msg\":\"test\", \"id\"test100\"}")
-                let error = message.error!["error"] as! String
-                expect(error).to(equal("SwiftDDP JSON serialization error."))
+                expect(message.isError).to(beTrue())
+                expect(message.reason!).to(equal("SwiftDDP JSON serialization error."))
             }
-            
+        
         }
     }
 }

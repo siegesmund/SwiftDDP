@@ -34,14 +34,14 @@ import XCGLogger
 let log = XCGLogger(identifier: "DDP")
 
 public class DDP {
-    
+
     public class Client: NSObject {
         
         // included for storing login id and token
         let userData = NSUserDefaults.standardUserDefaults()
 
         private var socket:WebSocket!
-        private var resultCallbacks:[String:(result:AnyObject?, error:AnyObject?) -> ()] = [:]
+        private var resultCallbacks:[String:(result:AnyObject?, error:DDP.Error?) -> ()] = [:]
         private var subCallbacks:[String:() -> ()] = [:]
         private var unsubCallbacks:[String:() -> ()] = [:]
 
@@ -150,7 +150,7 @@ public class DDP {
                 
             case .Pong: server.pong = NSDate()
             
-            case .Error: if let e = message.error { error(e) }
+            case .Error: error(message.json)
                 
             default: log.error("Unhandled message: \(message.json)")
             }
@@ -161,7 +161,7 @@ public class DDP {
         }
         
         // Execute a method on the Meteor server
-        public func method(name: String, params: AnyObject?, callback: ((result:AnyObject?, error:AnyObject?) -> ())?) -> String {
+        public func method(name: String, params: AnyObject?, callback: ((result:AnyObject?, error: DDP.Error?) -> ())?) -> String {
             let id = getId()
             let message = ["msg":"method", "method":name, "id":id] as NSMutableDictionary
             if let p = params { message["params"] = p }
@@ -247,8 +247,8 @@ public class DDP {
             }
         }
         
-        private func nosub(id: String, error: AnyObject?) {
-            if let e = error {
+        private func nosub(id: String, error: DDP.Error?) {
+            if let e = error where (e.isValid == true) {
                 print(e)
             } else {
                 if let callback = unsubCallbacks[id],

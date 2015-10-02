@@ -51,6 +51,27 @@ extension DDP {
         
     }
     
+    // Used in Methods and Nosub
+    public struct Error {
+        
+        private var json:NSDictionary?
+        
+        var error:String? { return json?["error"] as? String }
+        var reason:String? { return json?["reason"] as? String }
+        var details:String? { return json?["details"] as? String }
+        var offendingMessage:String? { return json?["offendingMessage"] as? String }
+        
+        var isValid:Bool {
+            if let _ = error { return true }
+            if let _ = reason { return true }
+            return false
+        }
+        
+        init(json:AnyObject?) {
+            self.json = json as? NSDictionary
+        }
+    }
+    
     public struct Message {
         
         // SwiftyJSON JSON Object
@@ -63,8 +84,7 @@ extension DDP {
                 } catch {
                     let errorMessage = "SwiftDDP JSON serialization error. JSON string was: \(message). Message will handled as a DDP error."
                     log.error(errorMessage)
-                    let msg = ["msg":"error"] as NSMutableDictionary
-                    msg["error"] = ["error": "SwiftDDP JSON serialization error.", "reason": "SwiftDDP JSON serialization error", "details": errorMessage]
+                    let msg = ["msg":"error", "reason":"SwiftDDP JSON serialization error.", "details": errorMessage]
                     json = msg
                 }
             }
@@ -97,6 +117,12 @@ extension DDP {
             return DDP.MessageType(rawValue: "unhandled")!
         }
         
+        public var isError:Bool {
+            if (self.type == .Error) { return true }
+            if let _ = self.error { return true }
+            return false
+        }
+        
         // Returns the root-level keys of the JSON object
         public var keys:[String] {
             return json.allKeys as! [String]
@@ -110,67 +136,77 @@ extension DDP {
         }
         
         public var message:String? {
-            get { return json["msg"] as! String? }
+            get { return json["msg"] as? String }
         }
         
         public var session:String? {
-            get { return json["session"] as! String? }
+            get { return json["session"] as? String }
         }
         
         public var version:String? {
-            get { return json["version"] as! String? }
+            get { return json["version"] as? String }
         }
         
         public var support:String? {
-            get { return json["support"] as! String? }
+            get { return json["support"] as? String }
         }
         
         public var id:String? {
-            get { return json["id"] as! String? }
+            get { return json["id"] as? String }
         }
         
         public var name:String? {
-            get { return json["name"] as! String? }
+            get { return json["name"] as? String }
         }
         
         public var params:String? {
-            get { return json["params"] as! String? }
+            get { return json["params"] as? String }
         }
         
-        public var error:NSDictionary? {
-            get { return json["error"] as! NSDictionary? }
+        public var error:DDP.Error? {
+            get { if let e = json["error"] as? NSDictionary { return DDP.Error(json:e) } else { return nil }}
         }
         
         public var collection:String? {
-            get { return json["collection"] as! String? }
+            get { return json["collection"] as? String }
         }
         
         public var fields:NSDictionary? {
-            get { return json["fields"] as! NSDictionary? }
+            get { return json["fields"] as? NSDictionary }
         }
         
         public var cleared:[String]? {
-            get { return json["cleared"] as! [String]? }
+            get { return json["cleared"] as? [String] }
         }
         
         public var method:String? {
-            get { return json["method"] as! String? }
+            get { return json["method"] as? String }
         }
         
         public var randomSeed:String? {
-            get { return json["randomSeed"] as! String? }
+            get { return json["randomSeed"] as? String }
         }
         
         public var result:String? {
-            get { return json["result"] as! String? }
+            get { return json["result"] as? String }
         }
         
         public var methods:[String]? {
-            get { return json["methods"] as! [String]? }
+            get { return json["methods"] as? [String] }
         }
         
         public var subs:[String]? {
-            get { return json["subs"] as! [String]? }
+            get { return json["subs"] as? [String] }
+        }
+        
+        
+        // Communication error properties
+        public var reason:String? {
+            get { return json["reason"] as? String }
+        }
+        
+        public var offendingMessage:String? {
+            get { return json["offendingMessage"] as? String }
         }
     }
 }
