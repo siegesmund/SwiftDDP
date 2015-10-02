@@ -15,8 +15,13 @@ MIT
 
 ## Installation
 
-SwiftDDP is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+Install using [Carthage](https://github.com/Carthage/Carthage) by adding the following line to your Cartfile:
+
+```ruby
+github "siegesmund/SwiftDDP"
+```
+
+Or, use [CocoaPods](http://cocoapods.org). Add the following line to your Podfile:
 
 ```ruby
 pod "SwiftDDP"
