@@ -22,6 +22,10 @@
 		D02A725E1BBF07F700940C17 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D02A72351BBF033600940C17 /* Nimble.framework */; };
 		D02A725F1BBF07F700940C17 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D02A72361BBF033600940C17 /* Quick.framework */; };
 		D02A72631BBF0AE300940C17 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = D02A72611BBF0AE300940C17 /* README.md */; settings = {ASSET_TAGS = (); }; };
+		D02A72B21BBF383700940C17 /* SwiftDDP.podspec in Resources */ = {isa = PBXBuildFile; fileRef = D02A72AE1BBF383700940C17 /* SwiftDDP.podspec */; settings = {ASSET_TAGS = (); }; };
+		D02A72B31BBF383700940C17 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D02A72AF1BBF383700940C17 /* LICENSE */; settings = {ASSET_TAGS = (); }; };
+		D02A72B41BBF383700940C17 /* Cartfile.resolved in Resources */ = {isa = PBXBuildFile; fileRef = D02A72B01BBF383700940C17 /* Cartfile.resolved */; settings = {ASSET_TAGS = (); }; };
+		D02A72B51BBF383700940C17 /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = D02A72B11BBF383700940C17 /* Cartfile */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +72,10 @@
 		D02A72551BBF07AF00940C17 /* SwiftDDPTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDDPTests.swift; sourceTree = "<group>"; };
 		D02A72571BBF07AF00940C17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D02A72611BBF0AE300940C17 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D02A72AE1BBF383700940C17 /* SwiftDDP.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SwiftDDP.podspec; sourceTree = "<group>"; };
+		D02A72AF1BBF383700940C17 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		D02A72B01BBF383700940C17 /* Cartfile.resolved */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = "<group>"; };
+		D02A72B11BBF383700940C17 /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,10 +105,14 @@
 		D02A71D21BBEFBCA00940C17 = {
 			isa = PBXGroup;
 			children = (
-				D02A72611BBF0AE300940C17 /* README.md */,
 				D02A71DE1BBEFBCA00940C17 /* SwiftDDP */,
 				D02A72541BBF07AF00940C17 /* SwiftDDPTests */,
 				D02A72341BBF02C200940C17 /* Frameworks */,
+				D02A72AE1BBF383700940C17 /* SwiftDDP.podspec */,
+				D02A72AF1BBF383700940C17 /* LICENSE */,
+				D02A72B01BBF383700940C17 /* Cartfile.resolved */,
+				D02A72B11BBF383700940C17 /* Cartfile */,
+				D02A72611BBF0AE300940C17 /* README.md */,
 				D02A71DD1BBEFBCA00940C17 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -242,6 +254,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D02A72B31BBF383700940C17 /* LICENSE in Resources */,
+				D02A72B41BBF383700940C17 /* Cartfile.resolved in Resources */,
+				D02A72B51BBF383700940C17 /* Cartfile in Resources */,
+				D02A72B21BBF383700940C17 /* SwiftDDP.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
