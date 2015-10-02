@@ -97,8 +97,8 @@
 		D02A71D21BBEFBCA00940C17 = {
 			isa = PBXGroup;
 			children = (
-				D02A71DE1BBEFBCA00940C17 /* SwiftDDP */,
 				D02A72611BBF0AE300940C17 /* README.md */,
+				D02A71DE1BBEFBCA00940C17 /* SwiftDDP */,
 				D02A72541BBF07AF00940C17 /* SwiftDDPTests */,
 				D02A72341BBF02C200940C17 /* Frameworks */,
 				D02A71DD1BBEFBCA00940C17 /* Products */,
@@ -224,6 +224,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				en,
 			);
 			mainGroup = D02A71D21BBEFBCA00940C17;
 			productRefGroup = D02A71DD1BBEFBCA00940C17 /* Products */;
@@ -415,6 +416,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -435,6 +437,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
