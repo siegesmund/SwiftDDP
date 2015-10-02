@@ -21,11 +21,6 @@
 		D02A72581BBF07AF00940C17 /* SwiftDDP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D02A71DC1BBEFBCA00940C17 /* SwiftDDP.framework */; settings = {ASSET_TAGS = (); }; };
 		D02A725E1BBF07F700940C17 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D02A72351BBF033600940C17 /* Nimble.framework */; };
 		D02A725F1BBF07F700940C17 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D02A72361BBF033600940C17 /* Quick.framework */; };
-		D02A72631BBF0AE300940C17 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = D02A72611BBF0AE300940C17 /* README.md */; settings = {ASSET_TAGS = (); }; };
-		D02A72B21BBF383700940C17 /* SwiftDDP.podspec in Resources */ = {isa = PBXBuildFile; fileRef = D02A72AE1BBF383700940C17 /* SwiftDDP.podspec */; settings = {ASSET_TAGS = (); }; };
-		D02A72B31BBF383700940C17 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D02A72AF1BBF383700940C17 /* LICENSE */; settings = {ASSET_TAGS = (); }; };
-		D02A72B41BBF383700940C17 /* Cartfile.resolved in Resources */ = {isa = PBXBuildFile; fileRef = D02A72B01BBF383700940C17 /* Cartfile.resolved */; settings = {ASSET_TAGS = (); }; };
-		D02A72B51BBF383700940C17 /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = D02A72B11BBF383700940C17 /* Cartfile */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -254,10 +249,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D02A72B31BBF383700940C17 /* LICENSE in Resources */,
-				D02A72B41BBF383700940C17 /* Cartfile.resolved in Resources */,
-				D02A72B51BBF383700940C17 /* Cartfile in Resources */,
-				D02A72B21BBF383700940C17 /* SwiftDDP.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,7 +302,6 @@
 			files = (
 				D02A72101BBEFCD300940C17 /* DDPClient.swift in Sources */,
 				D02A72111BBEFCD300940C17 /* DDPMessage.swift in Sources */,
-				D02A72631BBF0AE300940C17 /* README.md in Sources */,
 				D02A72121BBEFCD300940C17 /* Extensions.swift in Sources */,
 				D02A72131BBEFCD300940C17 /* DDPEvents.swift in Sources */,
 			);
