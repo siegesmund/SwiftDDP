@@ -9,8 +9,6 @@ SwiftDDP aims for simplicity and is datastore agnostic.
 #### License
 MIT  
 
-
-[![CI Status](http://img.shields.io/travis/Peter/SwiftDDP.svg?style=flat)](https://travis-ci.org/Peter/SwiftDDP)
 [![Version](https://img.shields.io/cocoapods/v/SwiftDDP.svg?style=flat)](http://cocoapods.org/pods/SwiftDDP)
 [![License](https://img.shields.io/cocoapods/l/SwiftDDP.svg?style=flat)](http://cocoapods.org/pods/SwiftDDP)
 [![Platform](https://img.shields.io/cocoapods/p/SwiftDDP.svg?style=flat)](http://cocoapods.org/pods/SwiftDDP)
