@@ -50,7 +50,7 @@ public class DDP {
         var url:String!
         var subscriptions = [String:(id:String, name:String, ready:Bool)]()
 
-        public var logLevel = XCGLogger.LogLevel.Error
+        public var logLevel = XCGLogger.LogLevel.Debug
         public var events:Events!
         public var connection:(ddp:Bool, session:String?) = (false, nil)
     
@@ -150,7 +150,7 @@ public class DDP {
                 
             case .Pong: server.pong = NSDate()
             
-            case .Error: error(message.json)
+            case .Error: error(message)
                 
             default: log.error("Unhandled message: \(message.json)")
             }
@@ -289,8 +289,8 @@ public class DDP {
             if let updated = events.onUpdated { updated(methods: methods) }
         }
         
-        public func error(message:NSDictionary) {
-            
+        public func error(error: DDP.Message) {
+            print("ERROR MESSAGE \(error)")
         }
     }
 }

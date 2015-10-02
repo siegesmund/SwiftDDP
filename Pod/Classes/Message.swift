@@ -51,7 +51,21 @@ extension DDP {
         
     }
     
-    // Used in Methods and Nosub
+    // Method or Nosub error
+    // Such an Error is used to represent errors raised by the method or subscription, 
+    // as well as an attempt to subscribe to an unknown subscription or call an unknown method.
+    
+    // Other erroneous messages sent from the client to the server can result in receiving a top-level msg: 'error' message in response. These conditions include:
+    
+    // - sending messages which are not valid JSON objects
+    // - unknown msg type
+    // - other malformed client requests (not including required fields)
+    // - sending anything other than connect as the first message, or sending connect as a non-initial message
+    //   The error message contains the following fields:
+    
+    // - reason: string describing the error
+    // - offendingMessage: if the original message parsed properly, it is included here
+    
     public struct Error {
         
         private var json:NSDictionary?
@@ -72,6 +86,19 @@ extension DDP {
         }
     }
     
+    
+    
+   
+    
+    public struct MessageError {
+        
+        private var json:NSDictionary?
+        
+        var reason:String? { return json?["reason"] as? String }
+        var offendingMessage:String? { return json?["offendingMessage"] as? String }
+        
+    }
+    
     public struct Message {
         
         // SwiftyJSON JSON Object
@@ -82,9 +109,9 @@ extension DDP {
                 do {
                     json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0)) as! NSDictionary
                 } catch {
-                    let errorMessage = "SwiftDDP JSON serialization error. JSON string was: \(message). Message will handled as a DDP error."
+                    let errorMessage = "SwiftDDP JSON serialization error. JSON string was: \(message). Message will be handled as a DDP message error."
                     log.error(errorMessage)
-                    let msg = ["msg":"error", "reason":"SwiftDDP JSON serialization error.", "details": errorMessage]
+                    let msg = ["msg":"error", "reason":"SwiftDDP JSON serialization error.", "details": errorMessage] 
                     json = msg
                 }
             }
