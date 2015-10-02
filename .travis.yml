@@ -1,15 +1,13 @@
-# references:
-# * http://www.objc.io/issue-6/travis-ci.html
-# * https://github.com/supermarin/xcpretty#usage
-
 language: objective-c
-# cache: cocoapods
-# podfile: Example/Podfile
-# before_install:
-# - gem install cocoapods # Since Travis is not always on latest version
-# - pod install --project-directory=Example
-install:
-- gem install xcpretty --no-rdoc --no-ri --no-document --quiet
+
+branches:
+ only:
+ - master
+
+xcode_project: SwiftDDP.xcodeproj
+xcode_scheme: SwiftDDP-Example
+osx_image: beta-xcode6.3
+xcode_sdk: iphonesimulator8.3 
+
 script:
-- set -o pipefail && xcodebuild test -workspace Example/SwiftDDP.xcworkspace -scheme SwiftDDP-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty -c
-- pod lib lint --quick
+- xcodebuild clean build test -project SwiftDDP.xcodeproj -scheme SwiftDDP-Example
