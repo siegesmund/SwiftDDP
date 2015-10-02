@@ -1,9 +1,0 @@
-source 'https://github.com/CocoaPods/Specs.git'
-use_frameworks!
-
-
-target 'SwiftDDP_Tests', :exclusive => true do
-  pod "SwiftDDP", :path => "../"
-  pod 'Quick', '~> 0.6.0'
-  pod 'Nimble', '2.0.0-rc.3'
-end
