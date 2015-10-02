@@ -92,8 +92,6 @@ client.events.onRemoved = { collection, id in // handle removing the document he
 client.events.onChanged = { collection, id, fields, cleared in // handle changing the document here }
 ```
 
-
-
 ### Method Calls
 ```swift
 client.method(name:"foo", params:["bar", "baz"]) { result, error in 
