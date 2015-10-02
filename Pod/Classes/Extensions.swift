@@ -21,6 +21,24 @@
 import Foundation
 import CryptoSwift
 
+extension String {
+    func dictionaryValue() -> NSDictionary? {
+        if let data = self.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) {
+            let dictionary = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0)) as! NSDictionary
+            return dictionary
+        }
+        return nil
+    }
+}
+
+extension NSDictionary {
+    func stringValue() -> String? {
+        if let data = try? NSJSONSerialization.dataWithJSONObject(self, options: NSJSONWritingOptions(rawValue: 0)) {
+            return NSString(data: data, encoding: NSASCIIStringEncoding) as? String
+        }
+        return nil
+    }
+}
 
 // These are implemented as an extension because they're not a part of the DDP spec
 extension DDP.Client {
@@ -60,8 +78,7 @@ extension DDP.Client {
     private func login(params: NSDictionary, callback: ((result:AnyObject?, error:DDP.Error?) -> ())?) {
         method("login", params: NSArray(arrayLiteral: params)) { result, error in
             guard let e = error where (e.isValid == true) else {
-                if let r = result,
-                   let data = r["result"] as? NSDictionary,
+                if let data = result as? NSDictionary,
                    let id = data["id"] as? String,
                    let token = data["token"] as? String,
                    let tokenExpires = data["tokenExpires"] as? NSDictionary,

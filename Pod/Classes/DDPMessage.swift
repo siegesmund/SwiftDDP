@@ -20,10 +20,6 @@
 
 import Foundation
 
-//
-// Wrapper around NSDictionary for dealing with DDP Messages
-//
-
 extension DDP {
     
     // Handled Message Types
@@ -86,34 +82,17 @@ extension DDP {
         }
     }
     
-    
-    
-   
-    
-    public struct MessageError {
-        
-        private var json:NSDictionary?
-        
-        var reason:String? { return json?["reason"] as? String }
-        var offendingMessage:String? { return json?["offendingMessage"] as? String }
-        
-    }
-    
     public struct Message {
         
         // SwiftyJSON JSON Object
         public var json:NSDictionary!
         
         public init(message:String) {
-            if let data = message.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) {
-                do {
-                    json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0)) as! NSDictionary
-                } catch {
-                    let errorMessage = "SwiftDDP JSON serialization error. JSON string was: \(message). Message will be handled as a DDP message error."
-                    log.error(errorMessage)
-                    let msg = ["msg":"error", "reason":"SwiftDDP JSON serialization error.", "details": errorMessage] 
-                    json = msg
-                }
+            
+            if let JSON = message.dictionaryValue() { json = JSON }
+            else {
+                json = ["msg":"error", "reason":"SwiftDDP JSON serialization error.",
+                        "details": "SwiftDDP JSON serialization error. JSON string was: \(message). Message will be handled as a DDP message error."]
             }
         }
         
@@ -136,17 +115,16 @@ extension DDP {
         
         // Returns the type of DDP message, or unhandled if it is not a DDP message
         public var type:DDP.MessageType {
-            if let msg = json["msg"] as! String? {
-                if let type = DDP.MessageType(rawValue: msg) {
+            if let msg = message,
+               let type = DDP.MessageType(rawValue: msg) {
                     return type
-                }
             }
             return DDP.MessageType(rawValue: "unhandled")!
         }
         
         public var isError:Bool {
-            if (self.type == .Error) { return true }
-            if let _ = self.error { return true }
+            if (self.type == .Error) { return true }    // if message is a top level error ("msg"="error")
+            if let _ = self.error { return true }       // if message contains an error object, as in method or nosub
             return false
         }
         
@@ -156,7 +134,7 @@ extension DDP {
         }
         
         public func hasProperty(name:String) -> Bool {
-            if let _ = json[name] {
+            if let property = json[name] where ((property as! NSObject) != NSNull()) {
                 return true
             }
             return false
@@ -214,8 +192,8 @@ extension DDP {
             get { return json["randomSeed"] as? String }
         }
         
-        public var result:String? {
-            get { return json["result"] as? String }
+        public var result:AnyObject? {
+            get { return json["result"] }
         }
         
         public var methods:[String]? {
@@ -225,7 +203,6 @@ extension DDP {
         public var subs:[String]? {
             get { return json["subs"] as? [String] }
         }
-        
         
         // Communication error properties
         public var reason:String? {

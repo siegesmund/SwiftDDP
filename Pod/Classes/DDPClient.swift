@@ -41,9 +41,9 @@ public class DDP {
         let userData = NSUserDefaults.standardUserDefaults()
 
         private var socket:WebSocket!
-        private var resultCallbacks:[String:(result:AnyObject?, error:DDP.Error?) -> ()] = [:]
-        private var subCallbacks:[String:() -> ()] = [:]
-        private var unsubCallbacks:[String:() -> ()] = [:]
+        var resultCallbacks:[String:(result:AnyObject?, error:DDP.Error?) -> ()] = [:]
+        var subCallbacks:[String:() -> ()] = [:]
+        var unsubCallbacks:[String:() -> ()] = [:]
 
         private var server:(ping:NSDate?, pong:NSDate?) = (nil, nil)
         
@@ -112,13 +112,20 @@ public class DDP {
                 
             case .Connected: connection = (true, message.session!); events.onConnected(session:message.session!)
                 
-            case .Result: if let id = message.id,
-                             let callback = resultCallbacks[id] {
-                                callback(result: message.json, error: message.error)
-                                resultCallbacks[id] = nil             // Remove the callback from the dictionary
-                            }
+            case .Result: if let id = message.id,                               // Message has id
+                             let callback = resultCallbacks[id],                // There is a callback registered for the message
+                             let result = message.result {              //
+                                callback(result:result, error: message.error)
+                                resultCallbacks[id] = nil
+                             } else
+                                if let id = message.id,
+                                    callback = resultCallbacks[id] {
+                                        callback(result:nil, error:message.error)
+                                        resultCallbacks[id] = nil
+                                }
+                
             
-            // Principal callbacks for managing data
+                                          // Principal callbacks for managing data
             // Document was added
             case .Added: if let collection = message.collection,
                             let id = message.id {
@@ -150,14 +157,14 @@ public class DDP {
                 
             case .Pong: server.pong = NSDate()
             
-            case .Error: error(message)
+            case .Error: didReceiveErrorMessage(DDP.Error(json: message.json))
                 
             default: log.error("Unhandled message: \(message.json)")
             }
         }
         
-        private func sendMessage(message:AnyObject) {
-            if let m = Message.toString(message) { socket.send(m) }
+        private func sendMessage(message:NSDictionary) {
+            if let m = message.stringValue() { socket.send(m) }
         }
         
         // Execute a method on the Meteor server
@@ -289,8 +296,8 @@ public class DDP {
             if let updated = events.onUpdated { updated(methods: methods) }
         }
         
-        public func error(error: DDP.Message) {
-            print("ERROR MESSAGE \(error)")
+        public func didReceiveErrorMessage(message: DDP.Error) {
+            if let error = events.onError { error(message: message) }
         }
     }
 }

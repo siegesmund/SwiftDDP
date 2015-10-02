@@ -24,7 +24,7 @@ extension DDP {
     
     public struct Events {
         
-        public var onWebsocketClose:    (code:Int, reason:String, clean:Bool) -> () =   {code, reason, clean in log.info("websocket closed with reason: \(reason)")}
+        public var onWebsocketClose:    (code:Int, reason:String, clean:Bool) -> () = {code, reason, clean in log.info("websocket closed with reason: \(reason)")}
         public var onWebsocketError:    (error:ErrorType) -> () = {error in log.error("websocket error \(error)")}
         
         public var onConnected:         (session:String) -> () = {session in log.info("connected with session: \(session)")}
@@ -40,9 +40,8 @@ extension DDP {
         // public var onResult:            (json: NSDictionary?, callback:(result:AnyObject?, error:AnyObject?) -> ()) -> () = {json, callback in callback(result: json, error:nil) }
         public var onUpdated:           ((methods: [String]) -> ())?
         
-        public var onError:             (error:NSDictionary) -> () = {error in }
+        public var onError:             ((message:DDP.Error) -> ())?
         
     }
-    
 }
 

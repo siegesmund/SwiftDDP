@@ -61,7 +61,7 @@ client.sub("AllCities", params: nil) {
 SwiftDDP is not a datastore, so unsubscribe only triggers the server to send 'removed' messages for the documents that you are no longer subscribed to.
 
 ``` swift
-client.unsub(withName: "AllCities) {
+client.unsub(withName: "AllCities") {
 // Run code here when unsub is finished
 }
 ```
@@ -100,6 +100,22 @@ client.method(name:"foo", params:["bar", "baz"]) { result, error in
 // Do something with the result of your method (or, if an error is returned, handle it)
 }
 ```
+
+### Other behaviors
+#####Error Messages
+Erroneous messages sent from the client to the server can result in receiving a top-level msg: 'error' message in response. These conditions include sending messages which are not valid JSON objects unknown msg type,
+other malformed client requests (not including required fields) and sending anything other than connect as the first message, or sending connect as a non-initial message
+
+**Handling Errors** 
+```swift
+// override the didReceiveErrorMessage method
+didReceiveErrorMessage(message:DDP.Error)
+
+// assign a closure to events.onError
+events.onError = { error in }
+```
+
+
 
 ###Todo
 Documentation for insert, update, remove methods  
