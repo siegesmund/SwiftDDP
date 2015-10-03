@@ -55,7 +55,7 @@ extension DDP.Client {
         insert(collection, doc:doc, callback:nil)
     }
     
-    public func update(collection:String, doc:NSArray?, callback: ((result:AnyObject?, error:DDP.Error?) -> ())?) {
+    public func update(collection:String, doc:NSArray, callback: ((result:AnyObject?, error:DDP.Error?) -> ())?) {
         let arg = "/\(collection)/update"
         method(arg, params: doc, callback: callback)
     }
