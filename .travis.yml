@@ -5,9 +5,9 @@ branches:
  - master
 
 xcode_project: SwiftDDP.xcodeproj
-xcode_scheme: SwiftDDP-Example
+xcode_scheme: SwiftDDP
 osx_image: xcode7
 xcode_sdk: iphonesimulator8.4
 
 script:
-- xcodebuild clean build test -project Example/SwiftDDP.xcodeproj -scheme SwiftDDP-Example
+- xcodebuild clean build test -project Example/SwiftDDP.xcodeproj -scheme SwiftDDP
