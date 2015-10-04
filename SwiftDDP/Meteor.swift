@@ -114,7 +114,7 @@ public class Meteor {
     }
 }
 
-public class Collection<T> {
+public class Collection<T>: NSObject {
     
     public let client = Meteor.client
     public var name:String!
@@ -126,6 +126,7 @@ public class Collection<T> {
     
     // Must use the constructor function to create the collection
     public init(name:String) {
+        super.init()
         self.name = name
         addObservers()
         Meteor.collections[name] = self
@@ -151,6 +152,7 @@ public class Collection<T> {
         notifications.removeObserver("\(name)_wasRemoved")
     }
     
+    /*
     public func insert(doc:[NSDictionary]) -> String {
         return client.insert(name, doc: doc)
     }
@@ -174,6 +176,7 @@ public class Collection<T> {
     public func remove(doc:[NSDictionary], callback:((result:AnyObject?, error:DDP.Error?) -> ())?) -> String {
         return client.remove(name, doc:doc, callback:callback)
     }
+    */
     
     // These methods translate pull the message out of the NSNotification userInfo for a more intuitive api
     final func addedNotification(notification: NSNotification) {

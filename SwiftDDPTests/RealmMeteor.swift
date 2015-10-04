@@ -53,7 +53,7 @@ class RealmCollectionTests:QuickSpec {
                 let doc = collection.findOne(addedRealm[1].id!)!
                 expect(doc._id).to(equal(addedRealm[1].id!))
                 try! client.ddpMessageHandler(removedRealm[1])
-                
+                print("Property Names --> \(doc.propertyNames())")
                 var found = false
                 if let _ = collection.findOne(addedRealm[1].id!) { found = true }
                 expect(found).to(beFalse())

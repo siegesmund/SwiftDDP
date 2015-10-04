@@ -165,6 +165,10 @@ public class RealmDocument: Object {
         return "_id"
     }
     
+    func propertyNames() -> [String] {
+        return Mirror(reflecting: self).children.filter { $0.label != nil }.map { $0.label! }
+    }
+    
     public func insert() {
         r?.write {
             self.r?.add(self)
