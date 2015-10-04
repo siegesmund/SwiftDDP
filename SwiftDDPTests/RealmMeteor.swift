@@ -33,6 +33,13 @@ class RealmCollectionTests:QuickSpec {
             
             beforeSuite() {
                 collection.flush()
+                client.connect(url) { session in
+                    client.loginWithPassword(user, password: pass) { result, error in
+                        
+                    }
+                    
+                }
+
             }
             
             afterSuite() {
@@ -62,6 +69,15 @@ class RealmCollectionTests:QuickSpec {
                 try! client.ddpMessageHandler(addedRealm[2])
                 try! client.ddpMessageHandler(changedRealm[2])
                 expect(collection.findOne(changedRealm[2].id!)?.city).toEventually(equal("Houston"))
+            }
+            
+            it ("Can insert a document on the server") {
+                let cities = RealmCollection<City>(name: "test-collection2")
+                let doc = NSDictionary(dictionary: ["_id":"999", "name":"San Francisco", "state":"CA"])
+                var done = false
+                try! cities.insert(doc)
+                expect(done).toEventually(beTrue())
+                try! cities.remove(doc)
             }
 
         }

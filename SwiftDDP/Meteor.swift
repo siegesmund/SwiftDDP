@@ -116,7 +116,7 @@ public class Meteor {
 
 public class Collection<T>: NSObject {
     
-    private let client = Meteor.client
+    public let client = Meteor.client
     public var name:String!
     
     // Can also set these closures to modify behavior on added, changed, removed
@@ -156,7 +156,7 @@ public class Collection<T>: NSObject {
         return client.insert(name, doc: doc)
     }
     
-    public func insert(doc:[NSDictionary], callback:((result:AnyObject?, error:DDP.Error?) -> ())?) -> String {
+    public func insert(doc:NSArray, callback:((result:AnyObject?, error:DDP.Error?) -> ())?) -> String {
         return client.insert(name, doc:doc, callback:callback)
     }
     

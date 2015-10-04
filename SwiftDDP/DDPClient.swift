@@ -61,7 +61,7 @@ public class DDP {
             events = DDP.Events()
         }
         
-        private func getId() -> String { return NSUUID().UUIDString }
+        func getId() -> String { return NSUUID().UUIDString }
         
         public func connect(url:String, callback:((session:String)->())?) {
             socket = WebSocket(url)
@@ -155,7 +155,10 @@ public class DDP {
         }
         
         private func sendMessage(message:NSDictionary) {
-            if let m = message.stringValue() { socket.send(m) }
+            if let m = message.stringValue() {
+                print("---> \(m) \((m is String))")
+                socket.send(m)
+            }
         }
         
         // Execute a method on the Meteor server

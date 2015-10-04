@@ -44,32 +44,46 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
         }
     }
 
-    /*
+    // Document must have an id
     public func insert(json:NSDictionary) throws {
         let doc = T()
-        if let id = json["id"] as? String { doc._id = id }
+        if let id = json["id"] as? String { doc._id = id } else { doc._id = self.client.getId() }
         doc.apply(json)
         try doc.insert()
         
         // Try adding the document on the server, but remove it if 
         // the insert is unsuccessful
-        self.insert(NSArray(arrayLiteral: json)) { result, error in
+        self.client.insert(name, doc: NSArray(arrayLiteral: json)) { result, error in
             if (error != nil) {
-                try doc.remove()
+                print("Insert was unsuccessful \(error).")
+                do {
+                    try doc.remove()
+                } catch {
+                    print("Insert was unsuccessful \(error). Unable to remove local document: \(doc)")
+                }
             }
         }
     }
-    */
     
     public func insert(document:T) throws {
         try document.insert()
-        
         // add code to insert on server
     }
     
     public func remove(document:T) throws {
-        try document.remove()
-        // add code to remove on server
+            try document.remove()
+            self.client.remove(name, doc: [document._id]) { result, error in
+                if (error != nil) {
+                    print("Error removing document \(document). Error: \(error)")
+                    do {
+                        try document.insert()
+                    } catch {
+                        print("Error reinserting document \(document)")
+                }
+            }
+            // add code to remove on server
+        }
+        
     }
     
     public func remove(_id:String) throws {
