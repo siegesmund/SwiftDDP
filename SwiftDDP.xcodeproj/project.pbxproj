@@ -84,6 +84,7 @@
 		D02A72AF1BBF383700940C17 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		D02A72B01BBF383700940C17 /* Cartfile.resolved */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = "<group>"; };
 		D02A72B11BBF383700940C17 /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
+		D0C3615D1BC1D81800D1F982 /* Errors */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Errors; sourceTree = "<group>"; };
 		D0C71B551BC172F40089B6CE /* Meteor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meteor.swift; sourceTree = "<group>"; };
 		D0C71B571BC173030089B6CE /* SwiftMeteor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftMeteor.swift; sourceTree = "<group>"; };
 		D0C71B5A1BC174280089B6CE /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
@@ -159,6 +160,7 @@
 				D02A720D1BBEFCD300940C17 /* Extensions.swift */,
 				D02A720E1BBEFCD300940C17 /* DDPEvents.swift */,
 				D02A71E11BBEFBCA00940C17 /* Info.plist */,
+				D0C3615D1BC1D81800D1F982 /* Errors */,
 			);
 			path = SwiftDDP;
 			sourceTree = "<group>";

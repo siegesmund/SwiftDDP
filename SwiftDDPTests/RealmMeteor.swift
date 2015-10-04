@@ -16,11 +16,8 @@ public class City: RealmDocument {
     }
     
     override public func apply(fields:NSDictionary) {
-        if let _city = fields["city"] as? String,
-               _state = fields["state"] as? String {
-                    city = _city
-                    state = _state
-        }
+        city = fields["city"] as! String
+        state = fields["state"] as! String
     }
 }
 
@@ -35,7 +32,8 @@ class RealmCollectionTests:QuickSpec {
                 collection.flush()
                 client.connect(url) { session in
                     client.loginWithPassword(user, password: pass) { result, error in
-                        
+                        client.remove("test-collection2", doc: [["_id":"999"]])
+
                     }
                     
                 }
@@ -71,14 +69,16 @@ class RealmCollectionTests:QuickSpec {
                 expect(collection.findOne(changedRealm[2].id!)?.city).toEventually(equal("Houston"))
             }
             
+            /*
             it ("Can insert a document on the server") {
                 let cities = RealmCollection<City>(name: "test-collection2")
-                let doc = NSDictionary(dictionary: ["_id":"999", "name":"San Francisco", "state":"CA"])
-                var done = false
-                try! cities.insert(doc)
-                expect(done).toEventually(beTrue())
-                try! cities.remove(doc)
+                cities.insert([["_id":"999", "city":"San Francisco", "state":"CA"]])
+                let d = cities.findOne("999")
+                expect(cities.findOne("999")).toEventuallyNot(beNil(), timeout:10)
+                cities.remove([["_id":"999"]])
+                expect(cities.findOne("999")).toEventually(beNil(), timeout:5)
             }
+            */
 
         }
     }

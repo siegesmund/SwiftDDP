@@ -70,26 +70,21 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
         // add code to insert on server
     }
     
-    public func remove(document:T) throws {
+    public func remove(id:String) throws {
+        if let document = self.findOne(id){
+            print("Found document \(document)")
             try document.remove()
-            self.client.remove(name, doc: [document._id]) { result, error in
+            self.client.remove(name, doc: NSArray(arrayLiteral: ["_id":id])) { result, error in
+                print("Trying to remove on the server: \(result), \(error)")
                 if (error != nil) {
                     print("Error removing document \(document). Error: \(error)")
                     do {
                         try document.insert()
                     } catch {
                         print("Error reinserting document \(document)")
+                    }
                 }
             }
-            // add code to remove on server
-        }
-        
-    }
-    
-    public func remove(_id:String) throws {
-        let results = find(_id)
-        if results?.count > 0 {
-            try results?[0].remove()
         }
     }
     
@@ -179,14 +174,14 @@ public class RealmDocument: Object {
     }
     
     public func insert() throws {
-        r?.write {
-            self.r?.add(self)
+        r!.write {
+            self.r!.add(self)
         }
     }
     
     public func remove() throws {
-        r?.write {
-            self.r?.delete(self)
+        r!.write {
+            self.r!.delete(self)
         }
     }
     
