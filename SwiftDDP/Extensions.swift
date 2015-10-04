@@ -45,34 +45,34 @@ extension DDP.Client {
     
     // callback is optional. If present, called with an error object as the first argument and,
     // if no error, the _id as the second.
-    public func insert(collection:String, doc:NSArray, callback: ((result:AnyObject?, error:DDP.Error?) -> ())?) {
+    public func insert(collection:String, doc:NSArray, callback: ((result:AnyObject?, error:DDP.Error?) -> ())?) -> String {
         let arg = "/\(collection)/insert"
-        self.method(arg, params: doc, callback: callback)
+        return self.method(arg, params: doc, callback: callback)
     }
     
     // Insert without specifying a callback
-    public func insert(collection:String, doc:NSArray) {
-        insert(collection, doc:doc, callback:nil)
+    public func insert(collection:String, doc:NSArray) -> String {
+        return insert(collection, doc:doc, callback:nil)
     }
     
-    public func update(collection:String, doc:NSArray, callback: ((result:AnyObject?, error:DDP.Error?) -> ())?) {
+    public func update(collection:String, doc:NSArray, callback: ((result:AnyObject?, error:DDP.Error?) -> ())?) -> String {
         let arg = "/\(collection)/update"
-        method(arg, params: doc, callback: callback)
+        return method(arg, params: doc, callback: callback)
     }
     
     // Update without specifying a callback
-    public func update(collection:String, doc:NSArray) {
-        update(collection, doc:doc, callback:nil)
+    public func update(collection:String, doc:NSArray) -> String {
+        return update(collection, doc:doc, callback:nil)
     }
     
-    public func remove(collection:String, doc:NSArray, callback: ((result:AnyObject?, error:DDP.Error?) -> ())?) {
+    public func remove(collection:String, doc:NSArray, callback: ((result:AnyObject?, error:DDP.Error?) -> ())?) -> String {
         let arg = "/\(collection)/remove"
-        method(arg, params: doc, callback: callback)
+        return method(arg, params: doc, callback: callback)
     }
     
     // Remove without specifying a callback
-    public func remove(collection:String, doc:NSArray) {
-        remove(collection, doc:doc, callback:nil)
+    public func remove(collection:String, doc:NSArray) -> String  {
+        return remove(collection, doc:doc, callback:nil)
     }
     
     private func login(params: NSDictionary, callback: ((result:AnyObject?, error:DDP.Error?) -> ())?) {
