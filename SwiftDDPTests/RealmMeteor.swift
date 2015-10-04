@@ -33,11 +33,8 @@ class RealmCollectionTests:QuickSpec {
                 client.connect(url) { session in
                     client.loginWithPassword(user, password: pass) { result, error in
                         client.remove("test-collection2", doc: [["_id":"999"]])
-
                     }
-                    
                 }
-
             }
             
             afterSuite() {

@@ -45,44 +45,35 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
     }
 
     // Document must have an id
-    public func insert(json:NSDictionary) throws {
+    public func insert(json:NSDictionary) {
         let doc = T()
         if let id = json["id"] as? String { doc._id = id } else { doc._id = self.client.getId() }
         doc.apply(json)
-        try doc.insert()
+        doc.insert()
         
         // Try adding the document on the server, but remove it if 
         // the insert is unsuccessful
         self.client.insert(name, doc: NSArray(arrayLiteral: json)) { result, error in
             if (error != nil) {
                 print("Insert was unsuccessful \(error).")
-                do {
-                    try doc.remove()
-                } catch {
-                    print("Insert was unsuccessful \(error). Unable to remove local document: \(doc)")
-                }
+                doc.remove()
             }
         }
     }
     
     public func insert(document:T) throws {
-        try document.insert()
+        document.insert()
         // add code to insert on server
     }
     
-    public func remove(id:String) throws {
+    public func remove(id:String) {
         if let document = self.findOne(id){
-            print("Found document \(document)")
-            try document.remove()
+            document.remove()
             self.client.remove(name, doc: NSArray(arrayLiteral: ["_id":id])) { result, error in
                 print("Trying to remove on the server: \(result), \(error)")
                 if (error != nil) {
                     print("Error removing document \(document). Error: \(error)")
-                    do {
-                        try document.insert()
-                    } catch {
-                        print("Error reinserting document \(document)")
-                    }
+                    document.insert()
                 }
             }
         }
@@ -122,7 +113,7 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
         doc._id = id
         if let f = fields { print("REALM: Correctly parsed fields \(f)"); doc.apply(f) }
         print("REALM: Inserting doc \(doc)")
-        try! doc.insert()
+        doc.insert()
     }
     
     public override func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?) {
@@ -140,7 +131,7 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
     
     public override func documentWasRemoved(collection:String, id:String) {
         if let doc = findOne(id) {
-            try! doc.remove()
+            doc.remove()
         }
     }
 }
@@ -151,6 +142,7 @@ public class RealmDocument: Object {
     
     public dynamic var _id = ""
     
+    // Has this document been saved
     public var exists:Bool {
         return self.invalidated
     }
@@ -173,15 +165,15 @@ public class RealmDocument: Object {
         return "_id"
     }
     
-    public func insert() throws {
-        r!.write {
-            self.r!.add(self)
+    public func insert() {
+        r?.write {
+            self.r?.add(self)
         }
     }
     
-    public func remove() throws {
-        r!.write {
-            self.r!.delete(self)
+    public func remove() {
+        r?.write {
+            self.r?.delete(self)
         }
     }
     

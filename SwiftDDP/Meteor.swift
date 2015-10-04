@@ -114,7 +114,7 @@ public class Meteor {
     }
 }
 
-public class Collection<T>: NSObject {
+public class Collection<T> {
     
     public let client = Meteor.client
     public var name:String!
@@ -127,7 +127,6 @@ public class Collection<T>: NSObject {
     // Must use the constructor function to create the collection
     public init(name:String) {
         self.name = name
-        super.init()
         addObservers()
         Meteor.collections[name] = self
     }
