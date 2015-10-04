@@ -55,7 +55,6 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
         // the insert is unsuccessful
         self.client.insert(name, doc: NSArray(arrayLiteral: json)) { result, error in
             if (error != nil) {
-                print("Insert was unsuccessful \(error).")
                 doc.remove()
             }
         }
@@ -70,7 +69,6 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
         if let document = self.findOne(id){
             document.remove()
             self.client.remove(name, doc: NSArray(arrayLiteral: ["_id":id])) { result, error in
-                print("Trying to remove on the server: \(result), \(error)")
                 if (error != nil) {
                     print("Error removing document \(document). Error: \(error)")
                     document.insert()
@@ -107,15 +105,15 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
         return nil
     }
     
+    // Document was added from the server
     public override func documentWasAdded(collection:String, id:String, fields:NSDictionary?) {
-        print("REALM: Document was added \(collection), \(id), \(fields)")
         let doc = T()
         doc._id = id
-        if let f = fields { print("REALM: Correctly parsed fields \(f)"); doc.apply(f) }
-        print("REALM: Inserting doc \(doc)")
+        if let f = fields { doc.apply(f) }
         doc.insert()
     }
     
+    // Document was changed on the server
     public override func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?) {
         if let doc = findOne(id) {
             realm?.write {
@@ -129,6 +127,7 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
         }
     }
     
+    // Document was removed from subscription
     public override func documentWasRemoved(collection:String, id:String) {
         if let doc = findOne(id) {
             doc.remove()

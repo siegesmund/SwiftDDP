@@ -152,6 +152,8 @@ public class Collection<T>: NSObject {
         notifications.removeObserver("\(name)_wasRemoved")
     }
     
+    // These conflict with collection subclasses
+    
     /*
     public func insert(doc:[NSDictionary]) -> String {
         return client.insert(name, doc: doc)
