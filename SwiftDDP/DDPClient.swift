@@ -53,16 +53,26 @@ public class DDP {
         public var logLevel = XCGLogger.LogLevel.Debug
         public var events:Events!
         public var connection:(ddp:Bool, session:String?) = (false, nil)
-    
         
-        public init(url:String) {
+        
+        public override init() {
             super.init()
             setLogLevel(logLevel)
-            self.url = url
             events = DDP.Events()
+        }
+        
+        private func getId() -> String { return NSUUID().UUIDString }
+        
+        public func connect(url:String, callback:((session:String)->())?) {
             socket = WebSocket(url)
             socket.event.close = events.onWebsocketClose
             socket.event.error = events.onWebsocketError
+            
+            socket.event.open = {
+                if let c = callback { self.events.onConnected = c }
+                self.sendMessage(["msg":"connect", "version":"1", "support":["1", "pre2"]])
+            }
+            
             socket.event.message = { message in
                 if let text = message as? String {
                     do { try self.ddpMessageHandler(DDP.Message(message: text)) }
@@ -71,25 +81,8 @@ public class DDP {
             }
         }
         
-        // Create the DDP Object and make a basic connection
-        public convenience init(url:String, callback:(session:String) -> ()) {
-            self.init(url:url)
-            events.onConnected = callback
-            socket.event.open = {
-                self.connect(nil)
-            }
-        }
-        
         public func setLogLevel(logLevel:XCGLogger.LogLevel) {
             log.setup(logLevel, showLogIdentifier: true, showFunctionName: true, showThreadName: true, showLogLevel: true, showFileNames: false, showLineNumbers: true, showDate: false, writeToFile: nil, fileLogLevel: .None)
-        }
-        
-        private func getId() -> String { return NSUUID().UUIDString }
-        
-        // Make a websocket connection to a Meteor server
-        public func connect(callback:((session:String) -> ())?) {
-            if let c = callback { events.onConnected = c }
-            sendMessage(["msg":"connect", "version":"1", "support":["1", "pre2"]])
         }
         
         func ping() {
@@ -119,13 +112,11 @@ public class DDP {
                                 resultCallbacks[id] = nil
                              } else
                                 if let id = message.id,
-                                    callback = resultCallbacks[id] {
-                                        callback(result:nil, error:message.error)
-                                        resultCallbacks[id] = nil
+                                       callback = resultCallbacks[id] {
+                                            callback(result:nil, error:message.error)
+                                            resultCallbacks[id] = nil
                                 }
-                
-            
-                                          // Principal callbacks for managing data
+            // Principal callbacks for managing data
             // Document was added
             case .Added: if let collection = message.collection,
                             let id = message.id {

@@ -3,35 +3,6 @@ import Nimble
 @testable import SwiftDDP
 
 
-//
-//
-//  Test Data
-//
-//
-
-//  *** methods that are tested against a server are tested against the url below ***
-
-let url = "ws://swiftddp.meteor.com/websocket"
-// let url = "ws://localhost:3000/websocket"
-let user = "test@user.com"
-let pass = "swiftddp"
-
-let ready = DDP.Message(message: "{\"msg\":\"ready\", \"subs\":[\"AllStates\"]}")
-let nosub = DDP.Message(message: ["msg":"nosub", "id":"AllStates"])
-
-let added = [DDP.Message(message: "{\"collection\" : \"test-collection\", \"id\" : \"2gAMzqvE8K8kBWK8F\", \"fields\" : {\"state\" : \"MA\", \"city\" : \"Boston\"}, \"msg\" : \"added\"}"),
-    DDP.Message(message:"{\"collection\" : \"test-collection\", \"id\" : \"ByuwhKPGuLru8h4TT\", \"fields\" : {\"state\" : \"MA\", \"city\" : \"Truro\"}, \"msg\" : \"added\"}"),
-    DDP.Message(message:"{\"collection\" : \"test-collection\", \"id\" : \"AGX6vyxCJtjqdxbFH\", \"fields\" : {\"state\" : \"TX\", \"city\" : \"Austin\"}, \"msg\" : \"added\"}")]
-
-let removed = [DDP.Message(message: ["msg" : "removed", "id" : "2gAMzqvE8K8kBWK8F","collection" : "test-collection"]),
-    DDP.Message(message: ["msg" : "removed", "id" : "ByuwhKPGuLru8h4TT", "collection" : "test-collection"]),
-    DDP.Message(message:["msg" : "removed", "id" : "AGX6vyxCJtjqdxbFH", "collection" : "test-collection"])]
-
-let changed = [DDP.Message(message: "{\"collection\" : \"test-collection\", \"id\" : \"2gAMzqvE8K8kBWK8F\",\"cleared\" : [\"city\"], \"fields\" : {\"state\" : \"MA\", \"city\" : \"Amherst\"}, \"msg\" : \"changed\"}"),
-    DDP.Message(message:"{\"collection\" : \"test-collection\", \"id\" : \"ByuwhKPGuLru8h4TT\", \"fields\" : {\"state\" : \"MA\", \"city\" : \"Cambridge\"}, \"msg\" : \"changed\"}"),
-    DDP.Message(message:"{\"collection\" : \"test-collection\", \"id\" : \"AGX6vyxCJtjqdxbFH\", \"fields\" : {\"state\" : \"TX\", \"city\" : \"Houston\"}, \"msg\" : \"changed\"}")]
-
-let userAddedWithPassword = DDP.Message(message: "{\"collection\" : \"users\", \"id\" : \"123456abcdefg\", \"fields\" : {\"roles\" : [\"admin\"], \"emails\" : [{\"address\" : \"test@user.com\", \"verified\" : false}], \"username\" : \"test\"}, \"msg\" : \"added\"}")
 
 //
 //
@@ -47,7 +18,8 @@ class DDPServerTests:QuickSpec {
             
             it ("can connect to a DDP server"){
                 var testSession:String?
-                let client = DDP.Client(url:url) { session in testSession = session }
+                let client = DDP.Client()
+                client.connect(url) { session in testSession = session }
                 expect(client.connection.ddp).toEventually(beTrue(), timeout:5)
                 expect(client.connection.session).toEventually(equal(testSession), timeout:5)
             }
@@ -65,8 +37,8 @@ class DDPServerTests:QuickSpec {
                 var testResult:NSDictionary!
                 var testSession:String!
                 
-                let client = DDP.Client(url: url)
-                client.connect() { session in
+                let client = DDP.Client()
+                client.connect(url) { session in
                     testSession = session
                     client.loginWithPassword(user, password: pass) { result, e in
                         testResult = result! as! NSDictionary
@@ -85,35 +57,35 @@ class DDPServerTests:QuickSpec {
             }
             
             it ("can add and remove a document on the server"){
-                
-                let client = DDP.Client(url: url)
-                client.connect() { session in
-                    
-                    client.loginWithPassword(user, password: pass) { result, e in }
-                }
-                
                 var added = [NSDictionary]()
                 var removed = [String]()
                 
-                client.events.onAdded = { collection, id, fields in added.append(fields!) }
+                let client = DDP.Client()
+                client.events.onAdded = { collection, id, fields in if (collection == "test-collection2") { added.append(fields!) } }
                 client.events.onRemoved = { collection, id in removed.append(id) }
                 
+                client.connect(url) { session in
+                    print("Connected to DDP server!!! \(session)")
+                    client.loginWithPassword(user, password: pass) { result, e in
+                        print("Login data: \(result), \(e)")
+                        client.sub("test-collection2", params:nil)
+                        client.insert("test-collection2", doc: NSArray(arrayLiteral:["_id":"100", "foo":"bar"]))
+                    }
+                }
                 
-                client.sub("test-collection2", params:nil)
-                client.insert("test-collection2", doc: NSArray(arrayLiteral:["_id":"100", "foo":"bar"]))
                 
                 // the tuple that holds the subscription data in the client should be updated to reflect that the
                 // subscription is ready
-                expect(client.findSubscription("test-collection2")?.ready).toEventually(beTrue())
+                expect(client.findSubscription("test-collection2")?.ready).toEventually(beTrue(), timeout:5)
                 
                 // test that the data is returned from the server
                 expect(added.count).toEventually(equal(1), timeout:5)
-                expect(added[0]["foo"] as? String).to(equal("bar"))
+                expect(added[0]["foo"] as? String).toEventually(equal("bar"), timeout:5)
                 
                 // test that the data is removed from the server (can also me checked on the server)
                 client.remove("test-collection2", doc:NSArray(arrayLiteral:["_id":"100"]))
                 expect(removed.count).toEventually(equal(1), timeout:5)
-                expect(removed[0]).to(equal("100"))
+                // expect(removed[0]).toEventually(equal("100"), timeout:5)
             }
             
             it ("can update a document in a collection") {
@@ -122,9 +94,9 @@ class DDPServerTests:QuickSpec {
             
             it ("can execute a method on the server that returns a value") {
                 var response:String!
-                let client = DDP.Client(url: url)
+                let client = DDP.Client()
                 
-                client.connect() { session in
+                client.connect(url) { session in
                     client.loginWithPassword(user, password: pass) { result, error in
                         client.method("test", params: nil) { result, error in
                             let r = result as! String
@@ -154,9 +126,8 @@ class DDPServerTests:QuickSpec {
             it ("can subscribe and unsubscribe to a collection") {
                 var added = [String]()
                 var removed = [String]()
-                let client = DDP.Client(url: url)
-                
-                client.connect() {session in
+                let client = DDP.Client()
+                client.connect(url) {session in
                     client.loginWithPassword(user, password: pass) {result, error in
                         client.events.onAdded = {collection, id, fields in added.append(id) }
                         client.events.onRemoved = {collection, id in removed.append(id) }
@@ -213,7 +184,7 @@ class DDPMessageTest:QuickSpec {
                 
                 var error:DDP.Error!
                 
-                let client = DDP.Client(url:url)
+                let client = DDP.Client()
                 client.events.onError = {e in error = e }
                 let message = DDP.Message(message: "{\"msg\":\"test\", \"id\"test100\"}")
                 try! client.ddpMessageHandler(message)
@@ -231,7 +202,7 @@ class DDPMessageTest:QuickSpec {
         describe ("DDPMessageHandler routing") {
             
             it ("can handle an 'added' message"){
-                let client = DDP.Client(url: url)
+                let client = DDP.Client()
                 client.events.onAdded = {collection, id, fields in
                     expect(collection).to(equal("test-collection"))
                     expect(id).to(equal("2gAMzqvE8K8kBWK8F"))
@@ -242,7 +213,7 @@ class DDPMessageTest:QuickSpec {
             }
             
             it ("can handle a 'removed' message") {
-                let client = DDP.Client(url: url)
+                let client = DDP.Client()
                 client.events.onRemoved = {collection, id in
                     expect(collection).to(equal("test-collection"))
                     expect(id).to(equal("2gAMzqvE8K8kBWK8F"))
@@ -255,7 +226,7 @@ class DDPMessageTest:QuickSpec {
                 var r:AnyObject?
                 var e:DDP.Error?
                 
-                let client = DDP.Client(url:url)
+                let client = DDP.Client()
                 client.resultCallbacks["1"] = {(result:AnyObject?, error:DDP.Error?) -> () in
                     value = result as! String
                     r = result
@@ -274,7 +245,7 @@ class DDPMessageTest:QuickSpec {
                 var r:AnyObject?
                 var e:DDP.Error?
                 
-                let client = DDP.Client(url:url)
+                let client = DDP.Client()
                 client.resultCallbacks["1"] = {(result:AnyObject?, error:DDP.Error?) -> ()
                     in if let v = result as? String { value = v }
                     r = result

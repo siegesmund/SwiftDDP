@@ -128,8 +128,8 @@ extension DDP.Client {
     }
     
     public convenience init(url: String, email:String, password:String, callback:(result:AnyObject?, error:DDP.Error?) -> ()) {
-        self.init(url:url)
-        connect() { session in
+        self.init()
+        connect(url) { session in
             self.loginWithPassword(email, password: password, callback:callback)
         }
     }
