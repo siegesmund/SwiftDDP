@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D009DC9F1BC1A3430041378B /* Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D009DC9E1BC1A3430041378B /* Realm.swift */; settings = {ASSET_TAGS = (); }; };
+		D009DCA11BC1A3540041378B /* RealmMeteor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D009DCA01BC1A3540041378B /* RealmMeteor.swift */; settings = {ASSET_TAGS = (); }; };
+		D009DCA41BC1A53B0041378B /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D009DCA31BC1A53B0041378B /* RealmSwift.framework */; };
+		D009DCA61BC1A5440041378B /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D009DCA51BC1A5440041378B /* Realm.framework */; };
+		D009DCA71BC1A59E0041378B /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D009DCA51BC1A5440041378B /* Realm.framework */; };
+		D009DCA81BC1A59E0041378B /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D009DCA31BC1A53B0041378B /* RealmSwift.framework */; };
 		D02A72101BBEFCD300940C17 /* DDPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720B1BBEFCD200940C17 /* DDPClient.swift */; settings = {ASSET_TAGS = (); }; };
 		D02A72111BBEFCD300940C17 /* DDPMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720C1BBEFCD300940C17 /* DDPMessage.swift */; settings = {ASSET_TAGS = (); }; };
 		D02A72121BBEFCD300940C17 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720D1BBEFCD300940C17 /* Extensions.swift */; settings = {ASSET_TAGS = (); }; };
@@ -52,6 +58,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D009DC9E1BC1A3430041378B /* Realm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Realm.swift; sourceTree = "<group>"; };
+		D009DCA01BC1A3540041378B /* RealmMeteor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmMeteor.swift; sourceTree = "<group>"; };
+		D009DCA31BC1A53B0041378B /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
+		D009DCA51BC1A5440041378B /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		D02A71DC1BBEFBCA00940C17 /* SwiftDDP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftDDP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D02A71E11BBEFBCA00940C17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D02A720B1BBEFCD200940C17 /* DDPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPClient.swift; sourceTree = "<group>"; };
@@ -87,6 +97,8 @@
 				D02A72281BBF01E900940C17 /* CryptoSwift.framework in Frameworks */,
 				D02A722A1BBF01ED00940C17 /* SwiftWebSocket.framework in Frameworks */,
 				D02A722C1BBF01EF00940C17 /* XCGLogger.framework in Frameworks */,
+				D009DCA41BC1A53B0041378B /* RealmSwift.framework in Frameworks */,
+				D009DCA61BC1A5440041378B /* Realm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,17 +109,28 @@
 				D02A72581BBF07AF00940C17 /* SwiftDDP.framework in Frameworks */,
 				D02A725E1BBF07F700940C17 /* Nimble.framework in Frameworks */,
 				D02A725F1BBF07F700940C17 /* Quick.framework in Frameworks */,
+				D009DCA71BC1A59E0041378B /* Realm.framework in Frameworks */,
+				D009DCA81BC1A59E0041378B /* RealmSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D009DCA21BC1A35A0041378B /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				D009DC9E1BC1A3430041378B /* Realm.swift */,
+			);
+			name = Realm;
+			sourceTree = "<group>";
+		};
 		D02A71D21BBEFBCA00940C17 = {
 			isa = PBXGroup;
 			children = (
 				D02A71DE1BBEFBCA00940C17 /* SwiftDDP */,
 				D0C71B591BC173100089B6CE /* SwiftMeteor */,
+				D009DCA21BC1A35A0041378B /* Realm */,
 				D02A72541BBF07AF00940C17 /* Tests */,
 				D02A72341BBF02C200940C17 /* Frameworks */,
 				D02A72AE1BBF383700940C17 /* SwiftDDP.podspec */,
@@ -143,6 +166,8 @@
 		D02A72341BBF02C200940C17 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D009DCA51BC1A5440041378B /* Realm.framework */,
+				D009DCA31BC1A53B0041378B /* RealmSwift.framework */,
 				D02A72351BBF033600940C17 /* Nimble.framework */,
 				D02A72361BBF033600940C17 /* Quick.framework */,
 				D02A72321BBF02B900940C17 /* XCGLogger.framework.dSYM */,
@@ -161,6 +186,7 @@
 				D0C71B5A1BC174280089B6CE /* Data.swift */,
 				D02A72551BBF07AF00940C17 /* SwiftDDP.swift */,
 				D0C71B571BC173030089B6CE /* SwiftMeteor.swift */,
+				D009DCA01BC1A3540041378B /* RealmMeteor.swift */,
 				D02A72571BBF07AF00940C17 /* Info.plist */,
 			);
 			name = Tests;
@@ -290,6 +316,8 @@
 				"$(SRCROOT)/Carthage/Build/iOS/CryptoSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftWebSocket.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/XCGLogger.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
 			);
 			outputPaths = (
 			);
@@ -305,6 +333,8 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Quick.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Nimble.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
 			);
 			outputPaths = (
 			);
@@ -324,6 +354,7 @@
 				D02A72121BBEFCD300940C17 /* Extensions.swift in Sources */,
 				D0C71B561BC172F40089B6CE /* Meteor.swift in Sources */,
 				D02A72131BBEFCD300940C17 /* DDPEvents.swift in Sources */,
+				D009DC9F1BC1A3430041378B /* Realm.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,6 +363,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0C71B5B1BC174280089B6CE /* Data.swift in Sources */,
+				D009DCA11BC1A3540041378B /* RealmMeteor.swift in Sources */,
 				D02A72561BBF07AF00940C17 /* SwiftDDP.swift in Sources */,
 				D0C71B581BC173030089B6CE /* SwiftMeteor.swift in Sources */,
 			);

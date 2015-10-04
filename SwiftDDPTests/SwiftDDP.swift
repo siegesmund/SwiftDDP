@@ -2,8 +2,6 @@ import Quick
 import Nimble
 @testable import SwiftDDP
 
-
-
 //
 //
 // Test Classes

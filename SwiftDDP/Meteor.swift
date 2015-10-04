@@ -21,7 +21,7 @@
 import Foundation
 
 public class Meteor {
-    public static var client = Meteor.Client()
+    public static let client = Meteor.Client()          // Client is a singleton object
     private static var collections = [String:Any]()
     
     public static func collection<T>(name: String) -> Collection<T> {
@@ -31,6 +31,25 @@ public class Meteor {
         return Collection<T>(name: name)
     }
     
+    public static func subscribe(name:String) { client.sub(name, params:nil) }
+    
+    public static func subscribe(name:String, params:[AnyObject]) { client.sub(name, params:params) }
+    
+    public static func subscribe(name:String, params:[AnyObject]?, callback: (()->())?) { client.sub(name, params:params, callback:callback) }
+    
+    public static func connect(url:String, email:String, password:String) {
+        client.connect(url) { session in
+            client.loginWithPassword(email, password: password) { result, error in
+                guard let _ = error else {
+                    if let credentials = result as? NSDictionary {
+                        client.userDidLogin(credentials)
+                    }
+                    return
+                }
+            }
+        }
+    }
+    
     public class Client: DDP.Client {
         
         typealias SubscriptionCallback = () -> ()
@@ -38,25 +57,10 @@ public class Meteor {
         
         public convenience init(url:String, email:String, password:String) {
             self.init()
-            Meteor.client = self
             
-            self.connect(url) { session in
-                self.loginWithPassword(email, password: password) { result, error in
-                    guard let _ = error else {
-                        if let credentials = result as? NSDictionary {
-                            self.userDidLogin(credentials)
-                        }
-                        return
-                    }
-                }
-            }
         }
         
-        public func subscribe(name:String) { self.sub(name, params:nil) }
-        
-        public func subscribe(name:String, params:[AnyObject]) { self.sub(name, params:params) }
-        
-        public func subscribe(name:String, params:[AnyObject]?, callback: (()->())?) { self.sub(name, params:params, callback:callback) }
+       
         
         public func userDidLogin(result:NSDictionary) {
             notifications.postNotificationName("userWasLoggedIn", object: self, userInfo: ["message":result])
