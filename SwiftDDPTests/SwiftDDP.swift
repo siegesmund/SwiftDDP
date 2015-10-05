@@ -178,7 +178,7 @@ class DDPServerTests:QuickSpec {
                     client.loginWithPassword(user, password: pass) { result, e in
                         print("Login data: \(result), \(e)")
                         client.sub("test-collection2", params:nil)
-                        client.insert("test-collection2", doc: NSArray(arrayLiteral:["_id":_id, "foo":"bar"]))
+                        client.insert("test-collection2", document: NSArray(arrayLiteral:["_id":_id, "foo":"bar"]))
                     }
                 }
                 
@@ -192,7 +192,7 @@ class DDPServerTests:QuickSpec {
                 expect(added[0]["foo"] as? String).toEventually(equal("bar"), timeout:5)
                 
                 // test that the data is removed from the server (can also me checked on the server)
-                client.remove("test-collection2", doc:NSArray(arrayLiteral:["_id":_id]))
+                client.remove("test-collection2", document:NSArray(arrayLiteral:["_id":_id]))
                 expect(removed.count).toEventually(equal(1), timeout:5)
                 // expect(removed[0]).toEventually(equal("100"), timeout:5)
             }
@@ -222,16 +222,16 @@ class DDPServerTests:QuickSpec {
                     client.loginWithPassword(user, password: pass) { result, e in
                         print("Login data: \(result), \(e)")
                         client.sub("test-collection2", params:nil)
-                        client.insert("test-collection2", doc: NSArray(arrayLiteral:["_id":_id, "foo":"bar"]))
+                        client.insert("test-collection2", document: NSArray(arrayLiteral:["_id":_id, "foo":"bar"]))
                     }
                 }
                 
                 expect(added.count).toEventually(equal(1), timeout:10)
                 var params = NSMutableDictionary()
                 params = ["$set":["foo":"baz"]]
-                client.update("test-collection2", doc: [["_id":_id], params]) { result, error in }
+                client.update("test-collection2", document: [["_id":_id], params]) { result, error in }
                 expect(updated.count).toEventually(equal(1))
-                client.remove("test-collection2", doc: [["_id":_id]])
+                client.remove("test-collection2", document: [["_id":_id]])
             }
             
             it ("can execute a method on the server that returns a value") {

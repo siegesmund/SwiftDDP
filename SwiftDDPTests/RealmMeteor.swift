@@ -33,7 +33,7 @@ class RealmCollectionTests:QuickSpec {
                 collection.flush()
                 client.connect(url) { session in
                     client.loginWithPassword(user, password: pass) { result, error in
-                        client.remove("test-collection2", doc: [["_id":"999"]])
+                        client.remove("test-collection2", document: [["_id":"999"]])
                     }
                 }
             }
@@ -89,6 +89,7 @@ class RealmCollectionTests:QuickSpec {
                 expect(cities.findOne(_id)).toEventuallyNot(beNil(), timeout:10)
                 cities.update(_id, fields:["city":"Cambridge", "state":"MA"])
                 expect(cities.findOne(_id)?.city).toEventually(equal("Cambridge"), timeout:10)
+                cities.remove(_id)
             }
         }
     }

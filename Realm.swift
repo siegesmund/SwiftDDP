@@ -53,7 +53,7 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
         
         // Try adding the document on the server, but remove it if 
         // the insert is unsuccessful
-        self.client.insert(name, doc: NSArray(arrayLiteral: json)) { result, error in
+        self.client.insert(name, document: NSArray(arrayLiteral: json)) { result, error in
             if (error != nil) {
                 doc.remove()
             }
@@ -69,7 +69,7 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
     public func remove(id:String) {
         if let document = self.findOne(id){
             document.remove()
-            self.client.remove(name, doc: NSArray(arrayLiteral: ["_id":id])) { result, error in
+            self.client.remove(name, document: NSArray(arrayLiteral: ["_id":id])) { result, error in
                 if (error != nil) {
                     print("Error removing document \(document). Error: \(error)")
                     document.insert()
@@ -78,20 +78,8 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
         }
     }
     
-    public func remove(doc:T) {
-        remove(doc._id)
-    }
-    
-    public func update(doc:T) {
-        let docCopy = doc.copy()
-        doc.update()
-        let dictionary = doc.jsonValue()
-        self.client.update(name, doc: NSArray(arrayLiteral: dictionary)) { result, error in
-            if (error != nil) {
-                print("Error updating document \(doc). Error: \(error)")
-                docCopy.update()
-            }
-        }
+    public func remove(document:T) {
+        remove(document._id)
     }
     
     // Untrusted code can only be updated via id
@@ -100,7 +88,7 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
         self.realm?.write {
             self.realm?.create(T, value: fields, update: true)
         }
-        self.client.update(self.name, doc: [["_id":id], ["$set":fields]]) { result, error in
+        self.client.update(self.name, document: [["_id":id], ["$set":fields]]) { result, error in
             if (error != nil) {
                 print("Error updating document. Error: \(error)")
             } else {
@@ -174,8 +162,8 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
     
     // Document was removed from subscription
     public override func documentWasRemoved(collection:String, id:String) {
-        if let doc = findOne(id) {
-            doc.remove()
+        if let document = findOne(id) {
+            document.remove()
         }
     }
 }
