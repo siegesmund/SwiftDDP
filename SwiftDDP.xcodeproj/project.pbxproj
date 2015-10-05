@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D009DC9F1BC1A3430041378B /* Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D009DC9E1BC1A3430041378B /* Realm.swift */; settings = {ASSET_TAGS = (); }; };
 		D009DCA11BC1A3540041378B /* RealmMeteor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D009DCA01BC1A3540041378B /* RealmMeteor.swift */; settings = {ASSET_TAGS = (); }; };
 		D009DCA41BC1A53B0041378B /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D009DCA31BC1A53B0041378B /* RealmSwift.framework */; };
 		D009DCA61BC1A5440041378B /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D009DCA51BC1A5440041378B /* Realm.framework */; };
@@ -28,6 +27,7 @@
 		D02A725E1BBF07F700940C17 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D02A72351BBF033600940C17 /* Nimble.framework */; };
 		D02A725F1BBF07F700940C17 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D02A72361BBF033600940C17 /* Quick.framework */; };
 		D09118291BC2E55B00B2C3B1 /* Documentation in Resources */ = {isa = PBXBuildFile; fileRef = D09118281BC2E55B00B2C3B1 /* Documentation */; settings = {ASSET_TAGS = (); }; };
+		D09118351BC30B2A00B2C3B1 /* Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09118341BC30B2A00B2C3B1 /* Realm.swift */; settings = {ASSET_TAGS = (); }; };
 		D0C71B561BC172F40089B6CE /* Meteor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C71B551BC172F40089B6CE /* Meteor.swift */; settings = {ASSET_TAGS = (); }; };
 		D0C71B581BC173030089B6CE /* SwiftMeteor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C71B571BC173030089B6CE /* SwiftMeteor.swift */; settings = {ASSET_TAGS = (); }; };
 		D0C71B5B1BC174280089B6CE /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C71B5A1BC174280089B6CE /* Data.swift */; settings = {ASSET_TAGS = (); }; };
@@ -59,7 +59,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		D009DC9E1BC1A3430041378B /* Realm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Realm.swift; sourceTree = "<group>"; };
 		D009DCA01BC1A3540041378B /* RealmMeteor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmMeteor.swift; sourceTree = "<group>"; };
 		D009DCA31BC1A53B0041378B /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		D009DCA51BC1A5440041378B /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
@@ -86,6 +85,7 @@
 		D02A72B01BBF383700940C17 /* Cartfile.resolved */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = "<group>"; };
 		D02A72B11BBF383700940C17 /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		D09118281BC2E55B00B2C3B1 /* Documentation */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Documentation; sourceTree = "<group>"; };
+		D09118341BC30B2A00B2C3B1 /* Realm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Realm.swift; path = SwiftDDP/Realm.swift; sourceTree = "<group>"; };
 		D0C3615D1BC1D81800D1F982 /* Errors */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Errors; sourceTree = "<group>"; };
 		D0C71B551BC172F40089B6CE /* Meteor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meteor.swift; sourceTree = "<group>"; };
 		D0C71B571BC173030089B6CE /* SwiftMeteor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftMeteor.swift; sourceTree = "<group>"; };
@@ -124,7 +124,7 @@
 		D009DCA21BC1A35A0041378B /* Realm */ = {
 			isa = PBXGroup;
 			children = (
-				D009DC9E1BC1A3430041378B /* Realm.swift */,
+				D09118341BC30B2A00B2C3B1 /* Realm.swift */,
 			);
 			name = Realm;
 			sourceTree = "<group>";
@@ -362,7 +362,7 @@
 				D02A72121BBEFCD300940C17 /* DDPExtensions.swift in Sources */,
 				D0C71B561BC172F40089B6CE /* Meteor.swift in Sources */,
 				D02A72131BBEFCD300940C17 /* DDPEvents.swift in Sources */,
-				D009DC9F1BC1A3430041378B /* Realm.swift in Sources */,
+				D09118351BC30B2A00B2C3B1 /* Realm.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

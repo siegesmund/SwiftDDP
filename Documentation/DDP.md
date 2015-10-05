@@ -5,24 +5,16 @@
 SwiftDDP includes basic authentication.
 Create a single client object in, for example, your app delegate.
 
-###### Example 1
 ``` swift
-client = DDP.Client(url: "ws://swiftddp.meteor.com/websocket", email: "test@user.com", password: "swiftddp") { result, error in 
-// Do something post login in this closure
-// The error variable will contain an error message if the login was unsuccessful
-
-}
-```
-
-###### Example 2
-``` swift 
-client = DDP.Client(url: "ws://swiftddp.meteor.com/websocket") 
-client.connect() { session in // This will create a ddp connection, returning the session id as a String
-client.loginWithPassword(email: "test@user.com", password: "swiftddp") { result, error in 
-// Do something post-login here
+let client = DDP.Client()
+client.connect(url) { session in
+client.loginWithPassword(user, password: pass) { result, error in
+// Do something post login here
 }
 }
 ```
+
+
 
 ### Subscribe
 ``` swift 
