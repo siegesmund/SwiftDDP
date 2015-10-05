@@ -60,8 +60,6 @@ public class Meteor {
             
         }
         
-       
-        
         public func userDidLogin(result:NSDictionary) {
             notifications.postNotificationName("userWasLoggedIn", object: self, userInfo: ["message":result])
         }

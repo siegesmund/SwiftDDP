@@ -21,6 +21,7 @@ public class City: RealmDocument {
     }
 }
 
+
 class RealmCollectionTests:QuickSpec {
     override func spec() {
         describe ("RealmCollection") {
@@ -39,6 +40,8 @@ class RealmCollectionTests:QuickSpec {
             
             afterSuite() {
                 collection.flush()
+                // client.remove("test-collection3", doc: [["_id":"1000"]])
+
             }
             
             it ("It responds to DDP added messages") {
@@ -66,17 +69,27 @@ class RealmCollectionTests:QuickSpec {
                 expect(collection.findOne(changedRealm[2].id!)?.city).toEventually(equal("Houston"))
             }
             
-            /*
+            
             it ("Can insert a document on the server") {
                 let cities = RealmCollection<City>(name: "test-collection2")
-                cities.insert([["_id":"999", "city":"San Francisco", "state":"CA"]])
-                let d = cities.findOne("999")
-                expect(cities.findOne("999")).toEventuallyNot(beNil(), timeout:10)
-                cities.remove([["_id":"999"]])
-                expect(cities.findOne("999")).toEventually(beNil(), timeout:5)
+                let _id = client.getId()
+                cities.insert(["_id":_id, "city":"San Francisco", "state":"CA"])
+                expect(cities.findOne(_id)?.city).toEventually(equal("San Francisco"), timeout:10)
+                cities.remove(_id)
+                expect(cities.findOne(_id)).toEventually(beNil(), timeout:5)
             }
-            */
-
+            
+            it ("Can update a document on the server") {
+                let cities = RealmCollection<City>(name: "test-collection2")
+                let _id = client.getId()
+                Meteor.subscribe("test-collection2")
+                
+                let doc = cities.insert(["_id":_id, "city":"Marfa", "state":"TX"])
+                expect(doc).toNot(beNil())
+                expect(cities.findOne(_id)).toEventuallyNot(beNil(), timeout:10)
+                cities.update(_id, fields:["city":"Cambridge", "state":"MA"])
+                expect(cities.findOne(_id)?.city).toEventually(equal("Cambridge"), timeout:10)
+            }
         }
     }
 }

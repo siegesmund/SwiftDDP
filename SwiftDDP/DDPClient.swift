@@ -230,8 +230,6 @@ public class DDP {
         // Responding to server subscription messages
         //
         
-        
-        // If
         private func ready(subs: [String]) {
             for id in subs {
                 if let callback = subCallbacks[id] {

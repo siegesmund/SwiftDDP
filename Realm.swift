@@ -43,11 +43,11 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
             realm?.deleteAll()
         }
     }
-
+    
     // Document must have an id
-    public func insert(json:NSDictionary) {
+    public func insert(json:NSDictionary) -> T {
         let doc = T()
-        if let id = json["id"] as? String { doc._id = id } else { doc._id = self.client.getId() }
+        if let id = json["_id"] as? String { doc._id = id } else { doc._id = self.client.getId() }
         doc.apply(json)
         doc.insert()
         
@@ -58,15 +58,12 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
                 doc.remove()
             }
         }
+        return doc
     }
     
-    public func insert(document:T) throws {
-        document.insert()
-        // add code to insert on server
-    }
-    
-    public func remove(doc:T) {
-        remove(doc._id)
+    public func insert(document:T) -> T {
+        let json = document.jsonValue()
+        return insert(json)
     }
     
     public func remove(id:String) {
@@ -81,6 +78,10 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
         }
     }
     
+    public func remove(doc:T) {
+        remove(doc._id)
+    }
+    
     public func update(doc:T) {
         let docCopy = doc.copy()
         doc.update()
@@ -89,6 +90,21 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
             if (error != nil) {
                 print("Error updating document \(doc). Error: \(error)")
                 docCopy.update()
+            }
+        }
+    }
+    
+    // Untrusted code can only be updated via id
+    // format is {"_id":id},{"$set":{fields...}}
+    public func update(id:String, fields:NSDictionary) {
+        self.realm?.write {
+            self.realm?.create(T, value: fields, update: true)
+        }
+        self.client.update(self.name, doc: [["_id":id], ["$set":fields]]) { result, error in
+            if (error != nil) {
+                print("Error updating document. Error: \(error)")
+            } else {
+                print("Result: \(result)")
             }
         }
     }
@@ -123,25 +139,38 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
     
     // Document was added from the server
     public override func documentWasAdded(collection:String, id:String, fields:NSDictionary?) {
-        let doc = T()
-        doc._id = id
-        if let f = fields { doc.apply(f) }
-        doc.insert()
+        
+        // Check that the document isn't already in the local collection
+        guard let document = findOne(id) else {
+            let document = T()
+            document._id = id
+            if let properties = fields { document.apply(properties) }
+            document.insert()
+            return
+        }
+        
+        // Overwrite the local fields. This behavior should be revisited!
+        if let properties = fields {
+            realm?.write {
+                document.apply(properties)
+            }
+        }
     }
     
     // Document was changed on the server
     public override func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?) {
-        if let doc = findOne(id) {
-            realm?.write {
-                if let f = fields { doc.apply(f) }
-                if let c = cleared {
-                    for field in c {
-                        doc[field] = ""
+        if let document = findOne(id),
+           let properties = fields {
+                realm?.write {
+                    document.apply(properties)
+                    if let deletedProperties = cleared {
+                        for deletedProperty in deletedProperties {
+                            document[deletedProperty] = ""
+                        }
                     }
                 }
             }
         }
-    }
     
     // Document was removed from subscription
     public override func documentWasRemoved(collection:String, id:String) {

@@ -15,7 +15,7 @@
 		D009DCA81BC1A59E0041378B /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D009DCA31BC1A53B0041378B /* RealmSwift.framework */; };
 		D02A72101BBEFCD300940C17 /* DDPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720B1BBEFCD200940C17 /* DDPClient.swift */; settings = {ASSET_TAGS = (); }; };
 		D02A72111BBEFCD300940C17 /* DDPMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720C1BBEFCD300940C17 /* DDPMessage.swift */; settings = {ASSET_TAGS = (); }; };
-		D02A72121BBEFCD300940C17 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720D1BBEFCD300940C17 /* Extensions.swift */; settings = {ASSET_TAGS = (); }; };
+		D02A72121BBEFCD300940C17 /* DDPExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720D1BBEFCD300940C17 /* DDPExtensions.swift */; settings = {ASSET_TAGS = (); }; };
 		D02A72131BBEFCD300940C17 /* DDPEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720E1BBEFCD300940C17 /* DDPEvents.swift */; settings = {ASSET_TAGS = (); }; };
 		D02A72281BBF01E900940C17 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D02A72271BBF01E900940C17 /* CryptoSwift.framework */; };
 		D02A722A1BBF01ED00940C17 /* SwiftWebSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D02A72291BBF01ED00940C17 /* SwiftWebSocket.framework */; };
@@ -66,7 +66,7 @@
 		D02A71E11BBEFBCA00940C17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D02A720B1BBEFCD200940C17 /* DDPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPClient.swift; sourceTree = "<group>"; };
 		D02A720C1BBEFCD300940C17 /* DDPMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPMessage.swift; sourceTree = "<group>"; };
-		D02A720D1BBEFCD300940C17 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		D02A720D1BBEFCD300940C17 /* DDPExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPExtensions.swift; sourceTree = "<group>"; };
 		D02A720E1BBEFCD300940C17 /* DDPEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPEvents.swift; sourceTree = "<group>"; };
 		D02A72271BBF01E900940C17 /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = Carthage/Build/iOS/CryptoSwift.framework; sourceTree = "<group>"; };
 		D02A72291BBF01ED00940C17 /* SwiftWebSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftWebSocket.framework; path = Carthage/Build/iOS/SwiftWebSocket.framework; sourceTree = "<group>"; };
@@ -159,7 +159,7 @@
 			children = (
 				D02A720B1BBEFCD200940C17 /* DDPClient.swift */,
 				D02A720C1BBEFCD300940C17 /* DDPMessage.swift */,
-				D02A720D1BBEFCD300940C17 /* Extensions.swift */,
+				D02A720D1BBEFCD300940C17 /* DDPExtensions.swift */,
 				D02A720E1BBEFCD300940C17 /* DDPEvents.swift */,
 				D02A71E11BBEFBCA00940C17 /* Info.plist */,
 				D0C3615D1BC1D81800D1F982 /* Errors */,
@@ -355,7 +355,7 @@
 			files = (
 				D02A72101BBEFCD300940C17 /* DDPClient.swift in Sources */,
 				D02A72111BBEFCD300940C17 /* DDPMessage.swift in Sources */,
-				D02A72121BBEFCD300940C17 /* Extensions.swift in Sources */,
+				D02A72121BBEFCD300940C17 /* DDPExtensions.swift in Sources */,
 				D0C71B561BC172F40089B6CE /* Meteor.swift in Sources */,
 				D02A72131BBEFCD300940C17 /* DDPEvents.swift in Sources */,
 				D009DC9F1BC1A3430041378B /* Realm.swift in Sources */,

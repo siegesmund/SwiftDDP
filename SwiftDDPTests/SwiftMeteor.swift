@@ -25,7 +25,7 @@ class MeteorTest: QuickSpec {
                 var _id:String!
                 
                 collection.onAdded = {collection, id, fields in
-                    _id = id
+                    if (id == "2gAMzqvE8K8kBWK8F") { _id = id }
                 }
                 
                 try! client.ddpMessageHandler(added[0])
@@ -37,7 +37,7 @@ class MeteorTest: QuickSpec {
                 var _id:String!
                 
                 collection.onRemoved = {collection, id in
-                    _id = id
+                    if (id == "2gAMzqvE8K8kBWK8F") { _id = id }
                 }
                 
                 try! client.ddpMessageHandler(removed[0])
@@ -49,7 +49,7 @@ class MeteorTest: QuickSpec {
                 var _id:String!
                 
                 collection.onChanged = {collection, id, fields, cleared in
-                    _id = id
+                     if (id == "2gAMzqvE8K8kBWK8F") { _id = id }
                 }
                 
                 try! client.ddpMessageHandler(changed[0])
