@@ -1,7 +1,4 @@
-# OS X
-.DS_Store
-
-# Xcode
+### Xcode ###
 build/
 *.pbxuser
 !default.pbxuser
@@ -13,13 +10,9 @@ build/
 !default.perspectivev3
 xcuserdata
 *.xccheckout
-profile
 *.moved-aside
 DerivedData
-*.hmap
-*.ipa
+*.xcuserstate
+timeline.xctimeline
 
-# Bundler
-.bundle
-
-Carthage/Build
+/Framework
