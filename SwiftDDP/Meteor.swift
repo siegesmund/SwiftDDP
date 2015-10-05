@@ -37,6 +37,8 @@ public class Meteor {
     
     public static func subscribe(name:String, params:[AnyObject]?, callback: (()->())?) -> String { return client.sub(name, params:params, callback:callback) }
     
+    public static func subscribe(name:String, callback: (()->())?) -> String { return client.sub(name, params:nil, callback:callback) }
+    
     public static func connect(url:String, email:String, password:String) {
         client.connect(url) { session in
             client.loginWithPassword(email, password: password) { result, error in
