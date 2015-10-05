@@ -156,7 +156,6 @@ public class DDP {
         
         private func sendMessage(message:NSDictionary) {
             if let m = message.stringValue() {
-                print("---> \(m) \((m is String))")
                 socket.send(m)
             }
         }

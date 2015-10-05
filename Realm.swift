@@ -65,6 +65,10 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
         // add code to insert on server
     }
     
+    public func remove(doc:T) {
+        remove(doc._id)
+    }
+    
     public func remove(id:String) {
         if let document = self.findOne(id){
             document.remove()
@@ -73,6 +77,18 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
                     print("Error removing document \(document). Error: \(error)")
                     document.insert()
                 }
+            }
+        }
+    }
+    
+    public func update(doc:T) {
+        let docCopy = doc.copy()
+        doc.update()
+        let dictionary = doc.jsonValue()
+        self.client.update(name, doc: NSArray(arrayLiteral: dictionary)) { result, error in
+            if (error != nil) {
+                print("Error updating document \(doc). Error: \(error)")
+                docCopy.update()
             }
         }
     }
@@ -174,10 +190,29 @@ public class RealmDocument: Object {
         }
     }
     
+    public func update() {
+        r?.write {
+            self.r?.add(self, update:true)
+        }
+    }
+    
     public func remove() {
         r?.write {
             self.r?.delete(self)
         }
+    }
+    
+    // Simple one-level object to json translation; override for more
+    // complex scenarios
+    public func jsonValue() -> NSDictionary {
+        
+        let dictionary = NSMutableDictionary()
+        
+        for key in propertyNames() {
+            let value = self.valueForKey(key)
+            dictionary[key] = value
+        }
+        return dictionary as NSDictionary
     }
     
     public func apply(json:NSDictionary) {}

@@ -31,11 +31,11 @@ public class Meteor {
         return Collection<T>(name: name)
     }
     
-    public static func subscribe(name:String) { client.sub(name, params:nil) }
+    public static func subscribe(name:String) -> String { return client.sub(name, params:nil) }
     
-    public static func subscribe(name:String, params:[AnyObject]) { client.sub(name, params:params) }
+    public static func subscribe(name:String, params:[AnyObject]) -> String { return client.sub(name, params:params) }
     
-    public static func subscribe(name:String, params:[AnyObject]?, callback: (()->())?) { client.sub(name, params:params, callback:callback) }
+    public static func subscribe(name:String, params:[AnyObject]?, callback: (()->())?) -> String { return client.sub(name, params:params, callback:callback) }
     
     public static func connect(url:String, email:String, password:String) {
         client.connect(url) { session in
@@ -152,7 +152,8 @@ public class Collection<T>: NSObject {
         notifications.removeObserver("\(name)_wasRemoved")
     }
     
-    // These conflict with collection subclasses
+    // Because this class must inherit from NSObject (an Objective-C class) to use NSNotificationCenter, and Objective-C does not
+    // support method overloading, these conflict with collection subclasses and have been commented out.
     
     /*
     public func insert(doc:[NSDictionary]) -> String {
@@ -180,7 +181,7 @@ public class Collection<T>: NSObject {
     }
     */
     
-    // These methods translate pull the message out of the NSNotification userInfo for a more intuitive api
+    // These methods pull the message out of the NSNotification userInfo for a more intuitive api
     final func addedNotification(notification: NSNotification) {
         let message = (notification.userInfo as! [String:NSDictionary])["message"]!,
         collection = message["collection"] as! String,

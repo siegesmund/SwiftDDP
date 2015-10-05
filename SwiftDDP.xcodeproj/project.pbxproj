@@ -88,6 +88,7 @@
 		D0C71B551BC172F40089B6CE /* Meteor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meteor.swift; sourceTree = "<group>"; };
 		D0C71B571BC173030089B6CE /* SwiftMeteor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftMeteor.swift; sourceTree = "<group>"; };
 		D0C71B5A1BC174280089B6CE /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		D0E18A171BC2B12C0014649A /* SwiftDDP.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = SwiftDDP.playground; path = SwiftDDP/SwiftDDP.playground; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +130,7 @@
 		D02A71D21BBEFBCA00940C17 = {
 			isa = PBXGroup;
 			children = (
+				D0E18A171BC2B12C0014649A /* SwiftDDP.playground */,
 				D02A71DE1BBEFBCA00940C17 /* SwiftDDP */,
 				D0C71B591BC173100089B6CE /* SwiftMeteor */,
 				D009DCA21BC1A35A0041378B /* Realm */,
