@@ -4,6 +4,6 @@ github "tidwall/SwiftWebSocket"
 github "DaveWoodCom/XCGLogger"
 github "realm/realm-cocoa" "v0.95.2"
 
-github "Quick/Quick"
+github "Quick/Quick" "v0.6.0"
 github "Quick/Nimble" "v2.0.0-rc.3"
 
