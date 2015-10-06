@@ -21,7 +21,7 @@
 import Foundation
 import RealmSwift
 
-public class Datastore {
+public class Datastore {    
     public static let realm = try? Realm()
 }
 
@@ -33,14 +33,14 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
         super.init(name: name)
     }
     
-    public func count() -> Int {
-        return self.find().count
+    public func count() -> Int? {
+        return self.find()?.count
     }
     
     public func flush() {
         // let realm = Datastore.realm
-         realm!.write {
-            self.realm!.deleteAll()
+         realm?.write {
+            self.realm?.deleteAll()
         }
     }
     
@@ -85,8 +85,8 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
     // Untrusted code can only be updated via id
     // format is {"_id":id},{"$set":{fields...}}
     public func update(id:String, fields:NSDictionary) {
-        realm!.write {
-            self.realm!.create(T, value: fields, update: true)
+        realm?.write {
+            self.realm?.create(T, value: fields, update: true)
         }
         self.client.update(self.name, document: [["_id":id], ["$set":fields]]) { result, error in
             if (error != nil) {
@@ -97,30 +97,30 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
         }
     }
     
-    public func find() -> Results<T> {
-        return realm!.objects(T.self)
+    public func find() -> Results<T>? {
+        return realm?.objects(T.self)
     }
     
-    public func find(_id:String) -> Results<T> {
-        return realm!.objects(T.self).filter(NSPredicate(format:"_id = '\(_id)'"))
+    public func find(_id:String) -> Results<T>? {
+        return realm?.objects(T.self).filter(NSPredicate(format:"_id = '\(_id)'"))
     }
     
-    public func find(query:NSPredicate) -> Results<T> {
-        return realm!.objects(T.self).filter(query)
+    public func find(query:NSPredicate) -> Results<T>? {
+        return realm?.objects(T.self).filter(query)
     }
     
     public func findOne(_id:String) -> T? {
         let result = find(_id)
-        if (result.count > 0) {
-            return result[0]
+        if (result?.count > 0) {
+            return result?[0]
         }
         return nil
     }
     
     public func findOne(query:NSPredicate) -> T? {
         let result = find(query)
-        if (result.count > 0) {
-            return result[0]
+        if (result?.count > 0) {
+            return result?[0]
         }
         return nil
     }
@@ -139,7 +139,7 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
         
         // Overwrite the local fields. This behavior should be revisited!
         if let properties = fields {
-            realm!.write {
+            realm?.write {
                 document.apply(properties)
             }
         }
@@ -149,7 +149,7 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
     public override func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?) {
         if let document = findOne(id),
            let properties = fields {
-                realm!.write {
+                realm?.write {
                     document.apply(properties)
                     if let deletedProperties = cleared {
                         for deletedProperty in deletedProperties {
@@ -179,7 +179,7 @@ public class RealmDocument: Object {
         return self.invalidated
     }
     
-    lazy public var r = Datastore.realm!
+    lazy public var r = Datastore.realm
     
     public var persisted:Bool {
         if (self.realm != nil) {
@@ -197,20 +197,20 @@ public class RealmDocument: Object {
     }
     
     public func insert() {
-        r.write {
-            self.r.add(self)
+        r?.write {
+            self.r?.add(self)
         }
     }
     
     public func update() {
-        r.write {
-            self.r.add(self, update:true)
+        r?.write {
+            self.r?.add(self, update:true)
         }
     }
     
     public func remove() {
-        r.write {
-            self.r.delete(self)
+        r?.write {
+            self.r?.delete(self)
         }
     }
     

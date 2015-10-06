@@ -63,9 +63,18 @@ public class DDP {
         
         func getId() -> String { return NSUUID().UUIDString }
         
+        
+        
         public func connect(url:String, callback:((session:String)->())?) {
             socket = WebSocket(url)
-            socket.event.close = events.onWebsocketClose
+            
+            socket.event.close = {code, reason, clean in
+                switch (code, clean) {
+                case (100, true): self.connect(url, callback:nil)
+                default: log.info("Web socket connection closed. Clean:\(clean). \(reason)")
+                }
+            }
+
             socket.event.error = events.onWebsocketError
             
             socket.event.open = {

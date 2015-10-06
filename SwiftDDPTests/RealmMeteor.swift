@@ -16,8 +16,8 @@ public class City: RealmDocument {
     }
     
     override public func apply(fields:NSDictionary) {
-        city = fields["city"] as! String
-        state = fields["state"] as! String
+        if let cityProperty = fields["city"] as? String { city = cityProperty }
+        if let stateProperty = fields["state"] as? String { state = stateProperty }
     }
 }
 

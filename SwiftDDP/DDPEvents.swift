@@ -24,7 +24,8 @@ extension DDP {
     
     public struct Events {
         
-        public var onWebsocketClose:    (code:Int, reason:String, clean:Bool) -> () = {code, reason, clean in log.info("[\(code): clean: \(clean): Websocket closed with reason: \(reason)")
+        public var onWebsocketClose:    (code:Int, reason:String, clean:Bool) -> () = {code, reason, clean in
+            log.info("[\(code): clean: \(clean): Websocket closed with reason: \(reason)")
         
             }
         public var onWebsocketError:    (error:ErrorType) -> () = {error in log.error("websocket error \(error)")}
