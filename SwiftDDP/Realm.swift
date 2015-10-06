@@ -22,7 +22,7 @@ import Foundation
 import RealmSwift
 
 public class Datastore {    
-    public static let realm = try? Realm(configuration: Realm.Configuration(inMemoryIdentifier: "SateInMemoryRealm"))
+    public static let realm = try? Realm()
 }
 
 public class RealmCollection<T:RealmDocument>: Collection<T> {

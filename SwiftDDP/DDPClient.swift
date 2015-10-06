@@ -35,11 +35,12 @@ let log = XCGLogger(identifier: "DDP")
 
 public class DDP {
 
+    public let version = "0.0.28"
+    
     public class Client: NSObject {
         
         // included for storing login id and token
         let userData = NSUserDefaults.standardUserDefaults()
-
         private var socket:WebSocket!
         var resultCallbacks:[String:(result:AnyObject?, error:DDP.Error?) -> ()] = [:]
         var subCallbacks:[String:() -> ()] = [:]
