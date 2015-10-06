@@ -82,7 +82,7 @@ public class DDP {
             
             socket.event.open = {
                 if let c = callback { self.events.onConnected = c }
-                self.sendMessage(["msg":"connect", "version":"1", "support":["1", "pre2"]])
+                self.sendMessage(["msg":"connect", "version":"1", "support":["1"]])
             }
             
             socket.event.message = { message in
