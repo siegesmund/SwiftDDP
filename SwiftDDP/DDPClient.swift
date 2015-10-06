@@ -33,8 +33,12 @@ import XCGLogger
 
 let log = XCGLogger(identifier: "DDP")
 
-public class DDP {
+// Meteor appears to close the websocket connection when huge subscriptions
+// take longer than 30 seconds to become ready. Keeping the logging to a minimum
+// has some beneficial effect, and using an in-memory Realm (when using Realm) makes
+// a very significant difference.
 
+public class DDP {
     
     public class Client: NSObject {
         
