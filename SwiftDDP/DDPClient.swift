@@ -70,7 +70,7 @@ public class DDP {
             
             socket.event.close = {code, reason, clean in
                 switch (code, clean) {
-                case (100, true): self.connect(url, callback:nil)
+                case (1000, true): self.connect(url, callback:nil)
                 default: log.info("Web socket connection closed with code \(code). Clean: \(clean). \(reason)")
                 }
             }
