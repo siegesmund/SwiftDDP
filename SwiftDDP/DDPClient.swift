@@ -123,17 +123,19 @@ public class DDP {
                 
             case .Connected: connection = (true, message.session!); events.onConnected(session:message.session!)
                 
-            case .Result: if let id = message.id,                               // Message has id
-                             let callback = resultCallbacks[id],                // There is a callback registered for the message
+            case .Result: dispatch_async(dispatch_get_main_queue(), {
+                          if let id = message.id,                               // Message has id
+                             let callback = self.resultCallbacks[id],                // There is a callback registered for the message
                              let result = message.result {              //
                                 callback(result:result, error: message.error)
-                                resultCallbacks[id] = nil
+                                self.resultCallbacks[id] = nil
                              } else
                                 if let id = message.id,
-                                       callback = resultCallbacks[id] {
+                                       callback = self.resultCallbacks[id] {
                                             callback(result:nil, error:message.error)
-                                            resultCallbacks[id] = nil
+                                            self.resultCallbacks[id] = nil
                                 }
+                            })
             // Principal callbacks for managing data
             // Document was added
             case .Added: if let collection = message.collection,

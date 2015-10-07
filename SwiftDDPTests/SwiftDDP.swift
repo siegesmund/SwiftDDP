@@ -90,9 +90,9 @@ class DDPMessageTest:QuickSpec {
                 }
                 
                 try! client.ddpMessageHandler(DDP.Message(message: ["id":"1", "msg":"result", "result":"test123"]))
-                expect(r).toNot(beNil())
+                expect(r).toEventuallyNot(beNil())
                 expect(e).to(beNil())
-                expect(value).to(equal("test123"))
+                expect(value).toEventually(equal("test123"))
                 
             }
             
