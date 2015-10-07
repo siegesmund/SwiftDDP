@@ -48,8 +48,8 @@ class DDPMessageTest:QuickSpec {
                 expect(message.isError).to(beTrue())
                 expect(message.reason!).to(equal("SwiftDDP JSON serialization error."))
                 
-                expect(error).toNot(beNil())
-                expect(error.isValid).to(beTrue())
+                expect(error).toEventuallyNot(beNil())
+                expect(error.isValid).toEventually(beTrue())
                 expect(error.reason!).to(equal("SwiftDDP JSON serialization error."))
             }
             

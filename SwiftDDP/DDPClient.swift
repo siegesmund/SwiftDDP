@@ -121,7 +121,7 @@ public class DDP {
             log.debug("Received message: \(message.json)")
             switch message.type {
                 
-            case .Connected: connection = (true, message.session!); events.onConnected(session:message.session!)
+            case .Connected: dispatch_async(dispatch_get_main_queue(), {self.connection = (true, message.session!); self.events.onConnected(session:message.session!)})
                 
             case .Result: dispatch_async(dispatch_get_main_queue(), {
                           if let id = message.id,                               // Message has id
@@ -154,12 +154,9 @@ public class DDP {
                               let id = message.id {
                                 documentWasRemoved(collection, id: id)
                             }
-                
-                
-                
             
             // Notifies you when the result of a method changes
-            case .Updated: if let methods = message.methods { methodWasUpdated(methods) }
+            case .Updated: dispatch_async(dispatch_get_main_queue(), { if let methods = message.methods { self.methodWasUpdated(methods) }})
             
             // Callbacks for managing subscriptions
             case .Ready: dispatch_async(dispatch_get_main_queue(), { if let subs = message.subs { self.ready(subs) }})
@@ -171,7 +168,7 @@ public class DDP {
                 
             case .Pong: server.pong = NSDate()
             
-            case .Error: didReceiveErrorMessage(DDP.Error(json: message.json))
+            case .Error: dispatch_async(dispatch_get_main_queue(), { self.didReceiveErrorMessage(DDP.Error(json: message.json))})
                 
             default: log.error("Unhandled message: \(message.json)")
             }
