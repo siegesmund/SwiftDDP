@@ -21,13 +21,9 @@
 import Foundation
 import RealmSwift
 
-public class Datastore {    
-    public static let realm = try? Realm()
-}
-
 public class RealmCollection<T:RealmDocument>: Collection<T> {
     
-    let realm = Datastore.realm
+    let realm = try? Realm()
     
     public override init(name:String) {
         super.init(name: name)
@@ -179,7 +175,7 @@ public class RealmDocument: Object {
         return self.invalidated
     }
     
-    lazy public var r = Datastore.realm
+    lazy public var r = try? Realm()
     
     public var persisted:Bool {
         if (self.realm != nil) {
