@@ -45,17 +45,17 @@ public class DDP {
         // included for storing login id and token
         let userData = NSUserDefaults.standardUserDefaults()
         let messageQueue = dispatch_queue_create("com.meteor.swiftddp.message", nil)
+        
         private var socket:WebSocket!
+        private var server:(ping:NSDate?, pong:NSDate?) = (nil, nil)
 
         var resultCallbacks:[String:(result:AnyObject?, error:DDP.Error?) -> ()] = [:]
         var subCallbacks:[String:() -> ()] = [:]
         var unsubCallbacks:[String:() -> ()] = [:]
-
-        private var server:(ping:NSDate?, pong:NSDate?) = (nil, nil)
         
         var url:String!
         var subscriptions = [String:(id:String, name:String, ready:Bool)]()
-
+        
         public var logLevel = XCGLogger.LogLevel.Debug
         public var events:Events!
         public var connection:(ddp:Bool, session:String?) = (false, nil)
@@ -81,7 +81,7 @@ public class DDP {
                 }
                 */
             }
-
+            
             socket.event.error = events.onWebsocketError
             
             socket.event.open = {
@@ -121,21 +121,24 @@ public class DDP {
             log.debug("Received message: \(message.json)")
             switch message.type {
                 
-            case .Connected: dispatch_async(dispatch_get_main_queue(), {self.connection = (true, message.session!); self.events.onConnected(session:message.session!)})
+            case .Connected: dispatch_async(dispatch_get_main_queue(), {
+                self.connection = (true, message.session!)
+                self.events.onConnected(session:message.session!)
+            })
                 
             case .Result: dispatch_async(dispatch_get_main_queue(), {
-                          if let id = message.id,                               // Message has id
-                             let callback = self.resultCallbacks[id],                // There is a callback registered for the message
-                             let result = message.result {              //
-                                callback(result:result, error: message.error)
-                                self.resultCallbacks[id] = nil
-                             } else
-                                if let id = message.id,
-                                       callback = self.resultCallbacks[id] {
-                                            callback(result:nil, error:message.error)
-                                            self.resultCallbacks[id] = nil
-                                }
-                            })
+                if let id = message.id,                              // Message has id
+                   let callback = self.resultCallbacks[id],          // There is a callback registered for the message
+                   let result = message.result {
+                        callback(result:result, error: message.error)
+                        self.resultCallbacks[id] = nil
+                } else if let id = message.id,
+                          let callback = self.resultCallbacks[id] {
+                            callback(result:nil, error:message.error)
+                            self.resultCallbacks[id] = nil
+                }
+            })
+            
             // Principal callbacks for managing data
             // Document was added
             case .Added: if let collection = message.collection,
@@ -156,21 +159,37 @@ public class DDP {
                             }
             
             // Notifies you when the result of a method changes
-            case .Updated: dispatch_async(dispatch_get_main_queue(), { if let methods = message.methods { self.methodWasUpdated(methods) }})
+            case .Updated: dispatch_async(dispatch_get_main_queue(), {
+                    if let methods = message.methods {
+                        self.methodWasUpdated(methods)
+                }
+            })
             
             // Callbacks for managing subscriptions
-            case .Ready: dispatch_async(dispatch_get_main_queue(), { if let subs = message.subs { self.ready(subs) }})
+            case .Ready: dispatch_async(dispatch_get_main_queue(), {
+                if let subs = message.subs {
+                    self.ready(subs)
+                }
+            })
             
-            // Callback for
-            case .Nosub: dispatch_async(dispatch_get_main_queue(), { if let id = message.id { self.nosub(id, error: message.error) } })
+            // Callback that fires when subscription has been completely removed
+            //
+            case .Nosub: dispatch_async(dispatch_get_main_queue(), {
+                if let id = message.id {
+                    self.nosub(id, error: message.error)
+                }
+            })
 
             case .Ping: pong(message)
                 
             case .Pong: server.pong = NSDate()
             
-            case .Error: dispatch_async(dispatch_get_main_queue(), { self.didReceiveErrorMessage(DDP.Error(json: message.json))})
+            case .Error: dispatch_async(dispatch_get_main_queue(), {
+                self.didReceiveErrorMessage(DDP.Error(json: message.json))
+            })
                 
             default: log.error("Unhandled message: \(message.json)")
+                
             }
         }
         

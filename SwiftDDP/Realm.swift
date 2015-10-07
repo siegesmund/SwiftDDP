@@ -23,12 +23,24 @@ import RealmSwift
 
 public class RealmCollection<T:RealmDocument>: Collection<T> {
     
+    var inMemory:Bool?
+    
     var realm:Realm? {
-        return try? Realm()
+        if let memoryOnly = inMemory {
+            if (memoryOnly) {
+                return try? Realm()
+            }
+        }
+        return try? Realm(configuration: Realm.Configuration(inMemoryIdentifier: "InMemoryRealm"))
     }
     
     public override init(name:String) {
         super.init(name: name)
+    }
+    
+    public convenience init(name:String, inMemory:Bool) {
+        self.init(name: name)
+        self.inMemory = inMemory
     }
     
     public func count() -> Int? {
@@ -36,7 +48,6 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
     }
     
     public func flush() {
-        // let realm = Datastore.realm
          realm?.write {
             self.realm?.deleteAll()
         }
@@ -55,6 +66,7 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
         // the insert is unsuccessful
         self.client.insert(name, document: NSArray(arrayLiteral: json)) { result, error in
             if (error != nil) {
+                log.error("Remote insert failed. Attempting to remove local document \(error)")
                 self.realm?.write {
                     self.realm?.delete(document)
                 }
@@ -77,7 +89,7 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
             
             self.client.remove(name, document: NSArray(arrayLiteral: ["_id":id])) { result, error in
                 if (error != nil) {
-                    print("Error removing document \(document). Error: \(error)")
+                    log.error("Remote remove failed. Attempting to restore local document \(error)")
                     self.realm?.write {
                         self.realm?.add(document)
                     }
@@ -91,16 +103,14 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
     }
     
     // Untrusted code can only be updated via id
-    // format is {"_id":id},{"$set":{fields...}}
+    // format is {"_id":id}, {"$set":{fields...}}
     public func update(id:String, fields:NSDictionary) {
         realm?.write {
             self.realm?.create(T, value: fields, update: true)
         }
         self.client.update(self.name, document: [["_id":id], ["$set":fields]]) { result, error in
             if (error != nil) {
-                print("Error updating document. Error: \(error)")
-            } else {
-                print("Result: \(result)")
+                log.error("Remote update failed \(error). Local document may be out of sync with server.")
             }
         }
     }
@@ -230,8 +240,8 @@ public class RealmDocument: Object {
         }
     }
     
-    // Simple one-level object to json translation; override for more
-    // complex scenarios
+    // Simple one-level object to json translation
+    // Override for more complex scenarios
     public func jsonValue() -> NSDictionary {
         
         let dictionary = NSMutableDictionary()
@@ -243,6 +253,7 @@ public class RealmDocument: Object {
         return dictionary as NSDictionary
     }
     
+    // Placeholder function
     public func apply(json:NSDictionary) {}
 }
 
