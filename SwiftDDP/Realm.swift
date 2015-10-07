@@ -23,7 +23,9 @@ import RealmSwift
 
 public class RealmCollection<T:RealmDocument>: Collection<T> {
     
-    let realm = try? Realm()
+    var realm:Realm? {
+        return try? Realm()
+    }
     
     public override init(name:String) {
         super.init(name: name)
@@ -42,19 +44,23 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
     
     // Document must have an id
     public func insert(json:NSDictionary) -> T {
-        let doc = T()
-        if let id = json["_id"] as? String { doc._id = id } else { doc._id = self.client.getId() }
-        doc.apply(json)
-        doc.insert()
+        let document = T()
+        if let id = json["_id"] as? String { document._id = id } else { document._id = self.client.getId() }
+        document.apply(json)
+        realm?.write {
+            self.realm?.add(document)
+        }
         
         // Try adding the document on the server, but remove it if 
         // the insert is unsuccessful
         self.client.insert(name, document: NSArray(arrayLiteral: json)) { result, error in
             if (error != nil) {
-                doc.remove()
+                self.realm?.write {
+                    self.realm?.delete(document)
+                }
             }
         }
-        return doc
+        return document
     }
     
     public func insert(document:T) -> T {
@@ -63,12 +69,18 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
     }
     
     public func remove(id:String) {
-        if let document = self.findOne(id){
-            document.remove()
+        if let document = self.findOne(id) {
+            
+            realm?.write {
+                self.realm?.delete(document)
+            }
+            
             self.client.remove(name, document: NSArray(arrayLiteral: ["_id":id])) { result, error in
                 if (error != nil) {
                     print("Error removing document \(document). Error: \(error)")
-                    document.insert()
+                    self.realm?.write {
+                        self.realm?.add(document)
+                    }
                 }
             }
         }
@@ -129,7 +141,11 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
             let document = T()
             document._id = id
             if let properties = fields { document.apply(properties) }
-            document.insert()
+            
+            realm?.write {
+                self.realm?.add(document)
+            }
+            
             return
         }
         
@@ -159,7 +175,9 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
     // Document was removed from subscription
     public override func documentWasRemoved(collection:String, id:String) {
         if let document = findOne(id) {
-            document.remove()
+            realm?.write {
+                self.realm?.delete(document)
+            }
         }
     }
 }
@@ -175,7 +193,9 @@ public class RealmDocument: Object {
         return self.invalidated
     }
     
-    lazy public var r = try? Realm()
+    public var r:Realm? {
+        return try? Realm()
+    }
     
     public var persisted:Bool {
         if (self.realm != nil) {

@@ -11,6 +11,7 @@ class MeteorTest: QuickSpec {
         let collection = Collection<NSDictionary>(name: "test-collection")
         
         describe("Collections") {
+            
             it ("returns a singleton") {
                 let collection2 = Meteor.collection("test-collection") as Collection<NSDictionary>
                 let collection3 = Meteor.collection("test-collection2") as Collection<NSDictionary>

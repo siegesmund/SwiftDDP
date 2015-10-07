@@ -44,7 +44,9 @@ public class DDP {
         
         // included for storing login id and token
         let userData = NSUserDefaults.standardUserDefaults()
+        let messageQueue = dispatch_queue_create("com.meteor.swiftddp.message", nil)
         private var socket:WebSocket!
+
         var resultCallbacks:[String:(result:AnyObject?, error:DDP.Error?) -> ()] = [:]
         var subCallbacks:[String:() -> ()] = [:]
         var unsubCallbacks:[String:() -> ()] = [:]
@@ -88,7 +90,7 @@ public class DDP {
             }
             
             socket.event.message = { message in
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), {
+                dispatch_async(self.messageQueue, {
                     if let text = message as? String {
                         do { try self.ddpMessageHandler(DDP.Message(message: text)) }
                         catch { log.debug("Message handling error. Raw message: \(text)")}
@@ -134,27 +136,22 @@ public class DDP {
                                 }
             // Principal callbacks for managing data
             // Document was added
-            case .Added: dispatch_async(dispatch_get_main_queue(), {
-                        if let collection = message.collection,
+            case .Added: if let collection = message.collection,
                             let id = message.id {
-                                self.documentWasAdded(collection, id: id, fields: message.fields)
+                                documentWasAdded(collection, id: id, fields: message.fields)
                             }
-                        })
+                
             // Document was changed
-            case .Changed: dispatch_async(dispatch_get_main_queue(), {
-                    if let collection = message.collection,
-                        let id = message.id {
-                            self.documentWasChanged(collection, id: id, fields: message.fields, cleared: message.cleared)
-                    }
-                })
+            case .Changed: if let collection = message.collection,
+                              let id = message.id {
+                                documentWasChanged(collection, id: id, fields: message.fields, cleared: message.cleared)
+                            }
             
             // Document was removed
-            case .Removed: dispatch_async(dispatch_get_main_queue(), {
-                    if let collection = message.collection,
-                        let id = message.id {
-                            self.documentWasRemoved(collection, id: id)
-                    }
-                })
+            case .Removed: if let collection = message.collection,
+                              let id = message.id {
+                                documentWasRemoved(collection, id: id)
+                            }
                 
                 
                 
