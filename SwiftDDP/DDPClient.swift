@@ -67,8 +67,6 @@ public class DDP {
         
         func getId() -> String { return NSUUID().UUIDString }
         
-        
-        
         public func connect(url:String, callback:((session:String)->())?) {
             socket = WebSocket(url)
             
@@ -90,10 +88,12 @@ public class DDP {
             }
             
             socket.event.message = { message in
-                if let text = message as? String {
-                    do { try self.ddpMessageHandler(DDP.Message(message: text)) }
-                    catch { log.debug("Message handling error. Raw message: \(text)")}
-                }
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), {
+                    if let text = message as? String {
+                        do { try self.ddpMessageHandler(DDP.Message(message: text)) }
+                        catch { log.debug("Message handling error. Raw message: \(text)")}
+                    }
+                })
             }
         }
         
@@ -134,21 +134,29 @@ public class DDP {
                                 }
             // Principal callbacks for managing data
             // Document was added
-            case .Added: if let collection = message.collection,
+            case .Added: dispatch_async(dispatch_get_main_queue(), {
+                        if let collection = message.collection,
                             let id = message.id {
-                                documentWasAdded(collection, id: id, fields: message.fields)
+                                self.documentWasAdded(collection, id: id, fields: message.fields)
                             }
+                        })
             // Document was changed
-            case .Changed: if let collection = message.collection,
-                              let id = message.id {
-                                documentWasChanged(collection, id: id, fields: message.fields, cleared: message.cleared)
-                            }
+            case .Changed: dispatch_async(dispatch_get_main_queue(), {
+                    if let collection = message.collection,
+                        let id = message.id {
+                            self.documentWasChanged(collection, id: id, fields: message.fields, cleared: message.cleared)
+                    }
+                })
             
             // Document was removed
-            case .Removed: if let collection = message.collection,
-                              let id = message.id {
-                                documentWasRemoved(collection, id: id)
-                            }
+            case .Removed: dispatch_async(dispatch_get_main_queue(), {
+                    if let collection = message.collection,
+                        let id = message.id {
+                            self.documentWasRemoved(collection, id: id)
+                    }
+                })
+                
+                
                 
             
             // Notifies you when the result of a method changes

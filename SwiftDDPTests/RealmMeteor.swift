@@ -47,19 +47,14 @@ class RealmCollectionTests:QuickSpec {
             it ("It responds to DDP added messages") {
                 // Adds a message then tests that it was added to the realm
                 try! client.ddpMessageHandler(addedRealm[0])
-                let doc = collection.findOne(addedRealm[0].id!)!
-                expect(doc._id).to(equal(addedRealm[0].id!))
+                expect(collection.findOne(addedRealm[0].id!)?._id).toEventually(equal(addedRealm[0].id!))
             }
             
             it ("It responds to DDP removed messages") {
                 try! client.ddpMessageHandler(addedRealm[1])
-                let doc = collection.findOne(addedRealm[1].id!)!
-                expect(doc._id).to(equal(addedRealm[1].id!))
+                expect(collection.findOne(addedRealm[1].id!)?._id).toEventually(equal(addedRealm[1].id!))
                 try! client.ddpMessageHandler(removedRealm[1])
-                print("Property Names --> \(doc.propertyNames())")
-                var found = false
-                if let _ = collection.findOne(addedRealm[1].id!) { found = true }
-                expect(found).to(beFalse())
+                expect(collection.findOne(addedRealm[1].id!)?._id).toEventually(beFalsy())
 
             }
             
