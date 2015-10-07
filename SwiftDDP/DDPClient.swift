@@ -42,8 +42,6 @@ public class DDP {
     
     public class Client: NSObject {
         
-        public let version = "0.0.29"
-
         // included for storing login id and token
         let userData = NSUserDefaults.standardUserDefaults()
         private var socket:WebSocket!
