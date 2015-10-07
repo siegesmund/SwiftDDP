@@ -28,10 +28,11 @@ public class RealmCollection<T:RealmDocument>: Collection<T> {
     var realm:Realm? {
         if let memoryOnly = inMemory {
             if (memoryOnly) {
-                return try? Realm()
+                log.info("Collection \(name) is in memory only.")
+                return try? Realm(configuration: Realm.Configuration(inMemoryIdentifier: "InMemoryRealm"))
             }
         }
-        return try? Realm(configuration: Realm.Configuration(inMemoryIdentifier: "InMemoryRealm"))
+        return try? Realm()
     }
     
     public override init(name:String) {
