@@ -162,10 +162,10 @@ public class DDP {
             case .Updated: if let methods = message.methods { methodWasUpdated(methods) }
             
             // Callbacks for managing subscriptions
-            case .Ready: if let subs = message.subs { ready(subs) }
+            case .Ready: dispatch_async(dispatch_get_main_queue(), { if let subs = message.subs { self.ready(subs) }})
             
             // Callback for
-            case .Nosub: if let id = message.id { nosub(id, error: message.error) }
+            case .Nosub: dispatch_async(dispatch_get_main_queue(), { if let id = message.id { self.nosub(id, error: message.error) } })
 
             case .Ping: pong(message)
                 
