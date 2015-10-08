@@ -55,7 +55,6 @@ public class DDP {
         public var events:Events!
         public var connection:(ddp:Bool, session:String?) = (false, nil)
         
-        
         public override init() {
             super.init()
             setLogLevel(logLevel)
