@@ -62,7 +62,7 @@ public class DDP {
             events = DDP.Events()
         }
         
-        func getId() -> String { return NSUUID().UUIDString }
+        public func getId() -> String { return NSUUID().UUIDString }
         
         public func connect(url:String, callback:((session:String)->())?) {
             socket = WebSocket(url)
