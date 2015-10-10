@@ -1,6 +1,3 @@
-# Be sure to run `pod lib lint SwiftDDP.podspec' to ensure this is a
-
-
 Pod::Spec.new do |s|
   s.name             = "SwiftDDP"
   s.version          = "0.1.0"
