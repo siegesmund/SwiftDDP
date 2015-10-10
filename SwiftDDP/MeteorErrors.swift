@@ -10,9 +10,9 @@ import Foundation
 
 extension Meteor {
     enum Error: Int {
+        case MethodNotFound = 404 // "Method not found"
         case AccessDenied = 403 // "Access denied. No allow validators set on restricted collection for method."
         case DuplicateKey = 409 // "MongoError: E11000 duplicate key error"
     }
  
 }
-

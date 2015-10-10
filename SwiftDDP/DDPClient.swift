@@ -26,7 +26,6 @@
 // This software uses CryptoSwift: https://github.com/krzyzanowskim/CryptoSwift/
 //
 
-
 import Foundation
 import SwiftWebSocket
 import XCGLogger
@@ -61,7 +60,19 @@ public class DDP {
             events = DDP.Events()
         }
         
-        public func getId() -> String { return NSUUID().UUIDString }
+        public func getId() -> String {
+            let numbers = Set<Character>(["0","1","2","3","4","5","6","7","8","9"])
+            let uuid = NSUUID().UUIDString.stringByReplacingOccurrencesOfString("-", withString: "")
+            var id = ""
+            for character in uuid.characters {
+                if (!numbers.contains(character) && (round(Float(arc4random()) / Float(UINT32_MAX)) == 1)) {
+                    id += String(character).lowercaseString
+                } else {
+                    id += String(character)
+                }
+            }
+            return id
+        }
         
         public func connect(url:String, callback:((session:String)->())?) {
             socket = WebSocket(url)
