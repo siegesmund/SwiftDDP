@@ -1,6 +1,0 @@
-
-// Unsuccessful insert
-error = 409;
-errorType = "Meteor.Error";
-message = "MongoError: E11000 duplicate key error index: swiftddp_meteor_com.test-collection2.$_id_  dup key: { : \"999\" } [409]";
-reason = "MongoError: E11000 duplicate key error index: swiftddp_meteor_com.test-collection2.$_id_  dup key: { : \"999\" }";

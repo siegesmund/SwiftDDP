@@ -66,7 +66,7 @@ extension DDP {
         
         private var json:NSDictionary?
         
-        var error:String? { return json?["error"] as? String }
+        var error:String? { return json?["error"] as? String }                      // Error code
         var reason:String? { return json?["reason"] as? String }
         var details:String? { return json?["details"] as? String }
         var offendingMessage:String? { return json?["offendingMessage"] as? String }
