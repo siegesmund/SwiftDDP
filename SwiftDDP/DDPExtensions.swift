@@ -43,6 +43,14 @@ extension NSDictionary {
 // These are implemented as an extension because they're not a part of the DDP spec
 extension DDP.Client {
     
+    public func subscribe(name:String) -> String { return sub(name, params:nil) }
+    
+    public func subscribe(name:String, params:[AnyObject]) -> String { return sub(name, params:params) }
+    
+    public func subscribe(name:String, params:[AnyObject]?, callback: (()->())?) -> String { return sub(name, params:params, callback:callback) }
+    
+    public func subscribe(name:String, callback: (()->())?) -> String { return sub(name, params:nil, callback:callback) }
+    
     // callback is optional. If present, called with an error object as the first argument and,
     // if no error, the _id as the second.
     public func insert(collection: String, document: NSArray, callback: ((result:AnyObject?, error:DDP.Error?) -> ())?) -> String {

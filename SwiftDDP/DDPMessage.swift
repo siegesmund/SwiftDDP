@@ -66,10 +66,10 @@ extension DDP {
         
         private var json:NSDictionary?
         
-        var error:String? { return json?["error"] as? String }                      // Error code
-        var reason:String? { return json?["reason"] as? String }
-        var details:String? { return json?["details"] as? String }
-        var offendingMessage:String? { return json?["offendingMessage"] as? String }
+        public var error:String? { return json?["error"] as? String }                      // Error code
+        public var reason:String? { return json?["reason"] as? String }
+        public var details:String? { return json?["details"] as? String }
+        public var offendingMessage:String? { return json?["offendingMessage"] as? String }
         
         var isValid:Bool {
             if let _ = error { return true }
