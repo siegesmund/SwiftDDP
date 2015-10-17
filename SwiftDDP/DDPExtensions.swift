@@ -127,6 +127,36 @@ extension DDP.Client {
         return false
     }
     
+    public func signup(params:NSDictionary, callback:((result: AnyObject?, error: DDP.Error?) -> ())?) {
+        method("createUser", params: NSArray(arrayLiteral: params)) { result, error in
+            guard let e = error where (e.isValid == true) else {
+                if let data = result as? NSDictionary,
+                    let id = data["id"] as? String,
+                    let token = data["token"] as? String,
+                    let tokenExpires = data["tokenExpires"] as? NSDictionary,
+                    let date = tokenExpires["$date"] as? Int {
+                        let timestamp = NSTimeInterval(Double(date)) / 1000.0
+                        let expiration = NSDate(timeIntervalSince1970: timestamp)
+                        self.userData.setObject(id, forKey: "id")
+                        self.userData.setObject(token, forKey: "token")
+                        self.userData.setObject(expiration, forKey: "tokenExpires")
+                }
+                if let c = callback { c(result:result, error:error) }
+                return
+            }
+            
+            log.debug("login error: \(e)")
+            if let c = callback { c(result: result, error: error) }
+        }
+        
+    }
+    
+    public func signupWithEmail(email: String, password: String, callback: ((result:AnyObject?, error:DDP.Error?) -> ())?) {
+        let params = ["email":email, "password":["digest":password.sha256()!, "algorithm":"sha-256"]]
+        signup(params, callback: callback)
+    }
+    
+    
     public func logout() {
         method("logout", params: nil, callback: nil)
     }
