@@ -156,6 +156,10 @@ extension DDP.Client {
         signup(params, callback: callback)
     }
     
+    public func signupWithEmail(email: String, password: String, profile: NSDictionary, callback: ((result:AnyObject?, error:DDP.Error?) -> ())?) {
+        let params = ["email":email, "password":["digest":password.sha256()!, "algorithm":"sha-256"], "profile":profile]
+        signup(params, callback: callback)
+    }
     
     public func logout() {
         method("logout", params: nil, callback: nil)
