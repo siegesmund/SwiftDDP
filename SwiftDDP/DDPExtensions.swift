@@ -192,7 +192,6 @@ extension DDP.Client {
                 self.userData.removeObjectForKey(DDP_TOKEN_EXPIRES)
             }
         }
-        
     }
     
     public func logout(callback: ((result: AnyObject?, error: DDP.Error?) -> ())?) {
