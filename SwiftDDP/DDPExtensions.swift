@@ -163,7 +163,12 @@ extension DDP.Client {
     }
     
     public func logout() {
-        method("logout", params: nil, callback: nil)
+        method("logout", params: nil) { result, error in
+            if (error == nil) {
+                self.loggedIn = false
+            }
+        }
+        
     }
     
     public func logout(callback: ((result: AnyObject?, error: DDP.Error?) -> ())?) {
