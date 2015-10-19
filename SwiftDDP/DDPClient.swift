@@ -53,7 +53,6 @@ public class DDP {
         public var logLevel = XCGLogger.LogLevel.Debug
         public var events:Events!
         public var connection:(ddp:Bool, session:String?) = (false, nil)
-        public var loggedIn = false
         
         public override init() {
             super.init()
