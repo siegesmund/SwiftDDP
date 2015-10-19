@@ -80,12 +80,9 @@ public class DDP {
             
             socket.event.close = {code, reason, clean in
                 log.info("Web socket connection closed with code \(code). Clean: \(clean). \(reason)")
-                /*
-                switch (code, clean) {
-                case (1000, true): self.connect(url, callback:nil)
-                default: log.info("Web socket connection closed with code \(code). Clean: \(clean). \(reason)")
+                if clean == false {
+                    self.socket = WebSocket(url)
                 }
-                */
             }
             
             socket.event.error = events.onWebsocketError
