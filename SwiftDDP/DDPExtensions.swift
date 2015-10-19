@@ -94,8 +94,9 @@ extension DDP.Client {
         method("login", params: NSArray(arrayLiteral: params)) { result, error in
             guard let e = error where (e.isValid == true) else {
                 
-                if let email = params["email"] {
-                    self.userData.setObject(email, forKey: DDP_EMAIL)
+                if let user = params["user"],
+                    let email = user["email"] {
+                        self.userData.setObject(email, forKey: DDP_EMAIL)
                 }
                 
                 if let data = result as? NSDictionary,
