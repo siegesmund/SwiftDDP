@@ -206,7 +206,7 @@ extension DDP.Client {
     }
     
     public func loggedIn() -> Bool {
-        if let _ = self.userData.objectForKey(DDP_LOGGED_IN) {
+        if let userLoggedIn = self.userData.objectForKey(DDP_LOGGED_IN) as? Bool where (userLoggedIn == true) {
             return true
         }
         return false
