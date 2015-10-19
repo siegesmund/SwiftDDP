@@ -99,7 +99,6 @@ extension DDP.Client {
                         self.userData.setObject(email, forKey: DDP_EMAIL)
                 }
                 
-                
                 if let data = result as? NSDictionary,
                     let id = data["id"] as? String,
                     let token = data["token"] as? String,
@@ -206,4 +205,12 @@ extension DDP.Client {
             self.loginWithPassword(email, password: password, callback:callback)
         }
     }
+    
+    public func loggedIn() -> Bool {
+        if let _ = self.userData.objectForKey(DDP_LOGGED_IN) {
+            return true
+        }
+        return false
+    }
+    
 }
