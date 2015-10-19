@@ -98,10 +98,11 @@ extension DDP.Client {
                         self.userData.setObject(expiration, forKey: "tokenExpires")
                 }
                 if let c = callback { c(result:result, error:error) }
+                self.loggedIn = true
                 return
             }
             
-            log.debug("login error: \(e)")
+            log.debug("Login error: \(e)")
             if let c = callback { c(result: result, error: error) }
         }
     }

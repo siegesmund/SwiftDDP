@@ -59,7 +59,6 @@ public class Meteor {
         
         public convenience init(url:String, email:String, password:String) {
             self.init()
-            
         }
         
         public func userDidLogin(result:NSDictionary) {
