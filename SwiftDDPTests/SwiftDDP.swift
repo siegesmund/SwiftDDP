@@ -157,7 +157,7 @@ class DDPServerTests:QuickSpec {
                 expect(testResult).toEventuallyNot(beNil(), timeout:5)
                 expect(testSession).toEventuallyNot(beNil(), timeout:5)
                 
-                let userDefaultsToken = client.userData.objectForKey("token") as! String
+                let userDefaultsToken = client.userData.objectForKey("DDP_TOKEN") as! String
                 let resultToken = testResult["token"] as! String
                 
                 expect(userDefaultsToken).toEventually(equal(resultToken), timeout:5)

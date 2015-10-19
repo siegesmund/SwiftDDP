@@ -21,6 +21,53 @@
 import Foundation
 import CryptoSwift
 
+var ddpEmail = "DDP_EMAIL"
+var ddpToken = "DDP_TOKEN"
+var ddpId = "DDP_ID"
+var ddpExpires = "DDP_TOKEN_EXPIRES"
+
+
+class User: NSObject {
+    
+    var _id:String?
+    var username:String?
+    var email:String?
+    var token:String?
+    var tokenExpires:NSDate?
+    
+    var loggedIn:Bool = false
+    
+    init(params:NSDictionary, result: NSDictionary) {
+        
+        if let user = params["user"],
+            let email = user["email"] as? String {
+                self.email = email
+        }
+        
+        
+        if let id = result["id"] as? String,
+            let token = result["token"] as? String,
+            let tokenExpires = result["tokenExpires"] as? NSDictionary,
+            let date = tokenExpires["$date"] as? Int {
+                self._id = id
+                self.token = token
+                self.tokenExpires = NSDate(timeIntervalSince1970: (NSTimeInterval(Double(date)) / 1000.0))
+                self.loggedIn = true
+        }
+    }
+    
+    func logout() {
+        Meteor.client.logout() { result, error in
+            if (error == nil) {
+                self.loggedIn = false
+            }
+        }
+    }
+    
+    
+}
+
+
 extension String {
     func dictionaryValue() -> NSDictionary? {
         if let data = self.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) {
@@ -86,16 +133,23 @@ extension DDP.Client {
     private func login(params: NSDictionary, callback: ((result: AnyObject?, error: DDP.Error?) -> ())?) {
         method("login", params: NSArray(arrayLiteral: params)) { result, error in
             guard let e = error where (e.isValid == true) else {
+                
+                if let user = params["user"],
+                    let email = user["email"] {
+                        self.userData.setObject(email, forKey: ddpEmail)
+                }
+                
+                
                 if let data = result as? NSDictionary,
-                   let id = data["id"] as? String,
-                   let token = data["token"] as? String,
-                   let tokenExpires = data["tokenExpires"] as? NSDictionary,
-                   let date = tokenExpires["$date"] as? Int {
+                    let id = data["id"] as? String,
+                    let token = data["token"] as? String,
+                    let tokenExpires = data["tokenExpires"] as? NSDictionary,
+                    let date = tokenExpires["$date"] as? Int {
                         let timestamp = NSTimeInterval(Double(date)) / 1000.0
                         let expiration = NSDate(timeIntervalSince1970: timestamp)
-                        self.userData.setObject(id, forKey: "id")
-                        self.userData.setObject(token, forKey: "token")
-                        self.userData.setObject(expiration, forKey: "tokenExpires")
+                        self.userData.setObject(id, forKey: ddpId)
+                        self.userData.setObject(token, forKey: ddpToken)
+                        self.userData.setObject(expiration, forKey: ddpExpires)
                 }
                 if let c = callback { c(result:result, error:error) }
                 self.loggedIn = true
@@ -117,8 +171,8 @@ extension DDP.Client {
     
     // Does the date comparison account for TimeZone?
     public func loginWithToken(callback:((result: AnyObject?, error: DDP.Error?) -> ())?) -> Bool {
-        if let token = userData.stringForKey("token"),
-           let tokenDate = userData.objectForKey("tokenExpires") {
+        if let token = userData.stringForKey(ddpToken),
+            let tokenDate = userData.objectForKey(ddpExpires) {
                 if (tokenDate.compare(NSDate()) == NSComparisonResult.OrderedDescending) {
                     let params = ["resume":token] as NSDictionary
                     login(params, callback:callback)
@@ -131,6 +185,12 @@ extension DDP.Client {
     public func signup(params:NSDictionary, callback:((result: AnyObject?, error: DDP.Error?) -> ())?) {
         method("createUser", params: NSArray(arrayLiteral: params)) { result, error in
             guard let e = error where (e.isValid == true) else {
+                
+                if let user = params["user"],
+                    let email = user["email"] {
+                        self.userData.setObject(email, forKey: ddpEmail)
+                }
+                
                 if let data = result as? NSDictionary,
                     let id = data["id"] as? String,
                     let token = data["token"] as? String,
@@ -138,9 +198,9 @@ extension DDP.Client {
                     let date = tokenExpires["$date"] as? Int {
                         let timestamp = NSTimeInterval(Double(date)) / 1000.0
                         let expiration = NSDate(timeIntervalSince1970: timestamp)
-                        self.userData.setObject(id, forKey: "id")
-                        self.userData.setObject(token, forKey: "token")
-                        self.userData.setObject(expiration, forKey: "tokenExpires")
+                        self.userData.setObject(id, forKey: ddpId)
+                        self.userData.setObject(token, forKey: ddpToken)
+                        self.userData.setObject(expiration, forKey: ddpExpires)
                 }
                 if let c = callback { c(result:result, error:error) }
                 return
@@ -149,7 +209,6 @@ extension DDP.Client {
             log.debug("login error: \(e)")
             if let c = callback { c(result: result, error: error) }
         }
-        
     }
     
     public func signupWithEmail(email: String, password: String, callback: ((result:AnyObject?, error:DDP.Error?) -> ())?) {
@@ -181,4 +240,36 @@ extension DDP.Client {
             self.loginWithPassword(email, password: password, callback:callback)
         }
     }
+    
+    // User class (not implemented yet)
+    class User: NSObject {
+        
+        var _id:String?
+        var username:String?
+        var email:String?
+        var token:String?
+        var tokenExpires:NSDate?
+        
+        var loggedIn:Bool = false
+        
+        init(params:NSDictionary, result: NSDictionary) {
+            
+            if let user = params["user"],
+                let email = user["email"] as? String {
+                    self.email = email
+            }
+            
+            
+            if let id = result["id"] as? String,
+                let token = result["token"] as? String,
+                let tokenExpires = result["tokenExpires"] as? NSDictionary,
+                let date = tokenExpires["$date"] as? Int {
+                    self._id = id
+                    self.token = token
+                    self.tokenExpires = NSDate(timeIntervalSince1970: (NSTimeInterval(Double(date)) / 1000.0))
+                    self.loggedIn = true
+            }
+        }
+    }
+    
 }
