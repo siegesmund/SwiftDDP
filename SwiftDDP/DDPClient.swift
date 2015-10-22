@@ -38,7 +38,13 @@ public class DDP {
         
         // included for storing login id and token
         let userData = NSUserDefaults.standardUserDefaults()
-        let messageQueue = dispatch_queue_create("com.meteor.swiftddp.message", nil)
+        
+        public let ddpMessageOperationsQueue:NSOperationQueue = {
+            let queue = NSOperationQueue()
+            queue.name = "DDP Message Operation Queue"
+            queue.maxConcurrentOperationCount = 1
+            return queue
+        }()
         
         private var socket:WebSocket!
         private var server:(ping:NSDate?, pong:NSDate?) = (nil, nil)
@@ -92,12 +98,12 @@ public class DDP {
             }
             
             socket.event.message = { message in
-                dispatch_async(self.messageQueue, {
+                self.ddpMessageOperationsQueue.addOperationWithBlock() {
                     if let text = message as? String {
                         do { try self.ddpMessageHandler(DDP.Message(message: text)) }
                         catch { log.debug("Message handling error. Raw message: \(text)")}
                     }
-                })
+                }
             }
         }
         
