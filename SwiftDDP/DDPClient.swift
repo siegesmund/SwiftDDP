@@ -38,7 +38,7 @@ public class DDP {
         
         // included for storing login id and token
         let userData = NSUserDefaults.standardUserDefaults()
-        let messageQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)//dispatch_queue_create("com.meteor.swiftddp.message", nil)
+        let messageQueue = dispatch_queue_create("com.meteor.swiftddp.message", nil)
         
         private var socket:WebSocket!
         private var server:(ping:NSDate?, pong:NSDate?) = (nil, nil)
