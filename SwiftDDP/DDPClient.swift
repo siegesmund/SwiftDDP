@@ -38,7 +38,7 @@ public class DDP {
         
         // included for storing login id and token
         let userData = NSUserDefaults.standardUserDefaults()
-        let messageQueue = dispatch_queue_create("com.meteor.swiftddp.message", nil)
+        let messageQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)//dispatch_queue_create("com.meteor.swiftddp.message", nil)
         
         private var socket:WebSocket!
         private var server:(ping:NSDate?, pong:NSDate?) = (nil, nil)
@@ -123,12 +123,11 @@ public class DDP {
             log.debug("Received message: \(message.json)")
             switch message.type {
                 
-            case .Connected: dispatch_async(dispatch_get_main_queue(), {
+            case .Connected:
                 self.connection = (true, message.session!)
                 self.events.onConnected(session:message.session!)
-            })
                 
-            case .Result: dispatch_async(dispatch_get_main_queue(), {
+            case .Result:
                 if let id = message.id,                              // Message has id
                    let callback = self.resultCallbacks[id],          // There is a callback registered for the message
                    let result = message.result {
@@ -139,7 +138,6 @@ public class DDP {
                             callback(result:nil, error:message.error)
                             self.resultCallbacks[id] = nil
                 }
-            })
             
             // Principal callbacks for managing data
             // Document was added
