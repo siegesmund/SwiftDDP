@@ -57,13 +57,12 @@ public class DDP {
         var subscriptions = [String:(id:String, name:String, ready:Bool)]()
         
         public var logLevel = XCGLogger.LogLevel.Debug
-        public var events:Events!
+        public var events = DDP.Events()
         public var connection:(ddp:Bool, session:String?) = (false, nil)
         
         public override init() {
             super.init()
             setLogLevel(logLevel)
-            events = DDP.Events()
         }
         
         public func getId() -> String {
@@ -81,6 +80,7 @@ public class DDP {
         }
         
         public func connect(url:String, callback:((session:String)->())?) {
+            
             socket = WebSocket(url)
             
             socket.event.close = {code, reason, clean in
@@ -93,8 +93,10 @@ public class DDP {
             socket.event.error = events.onWebsocketError
             
             socket.event.open = {
-                if let c = callback { self.events.onConnected = c }
-                self.sendMessage(["msg":"connect", "version":"1", "support":["1"]])
+                self.ddpMessageOperationsQueue.addOperationWithBlock() {
+                    if let c = callback { self.events.onConnected = c }
+                    self.sendMessage(["msg":"connect", "version":"1", "support":["1"]])
+                }
             }
             
             socket.event.message = { message in
@@ -105,6 +107,7 @@ public class DDP {
                     }
                 }
             }
+            
         }
         
         public func setLogLevel(logLevel:XCGLogger.LogLevel) {
