@@ -39,7 +39,7 @@ public class DDP {
         // included for storing login id and token
         let userData = NSUserDefaults.standardUserDefaults()
         
-        public let ddpOperationsQueue:NSOperationQueue = {
+        public let ddpOperationQueue:NSOperationQueue = {
             let queue = NSOperationQueue()
             queue.name = "DDP Operation Queue"
             queue.maxConcurrentOperationCount = 1
