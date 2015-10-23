@@ -30,6 +30,14 @@ let DDP_LOGGED_IN = "DDP_LOGGED_IN"
 
 let SWIFT_DDP_CALLBACK_DISPATCH_TIME = DISPATCH_TIME_FOREVER
 
+let syncWarning = {(name:String) -> Void in
+    if NSThread.isMainThread() {
+        print("\(name) is running synchronously on the main thread. This will block the main thread and should be run on a background thread")
+    }
+}
+
+
+
 extension String {
     func dictionaryValue() -> NSDictionary? {
         if let data = self.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) {
@@ -72,24 +80,22 @@ extension DDP.Client {
         return insert(collection, document: document, callback:nil)
     }
     
-    
-    public func insert(sync collection: String, document: NSArray) -> (result:AnyObject?, error:DDP.Error?) {
-        if NSThread.isMainThread() {
-            print("Insert is running synchronously on the main thread. This will block the main thread and should be run on a background thread")
-        }
+    public func insert(sync collection: String, document: NSArray) -> Result {
+        
+        syncWarning("Insert")
+        
         let semaphore = dispatch_semaphore_create(0)
-        var callbackResult:AnyObject?
-        var callbackError:DDP.Error?
+        var serverResponse = Result()
         
         insert(collection, document:document) { result, error in
-            callbackResult = result
-            callbackError = error
+            serverResponse.result = result
+            serverResponse.error = error
             dispatch_semaphore_signal(semaphore)
         }
         
         dispatch_semaphore_wait(semaphore, SWIFT_DDP_CALLBACK_DISPATCH_TIME)
         
-        return (callbackResult, callbackError)
+        return serverResponse
     }
     
     public func update(collection: String, document: NSArray, callback: ((result:AnyObject?, error:DDP.Error?) -> ())?) -> String {
@@ -102,6 +108,23 @@ extension DDP.Client {
         return update(collection, document: document, callback:nil)
     }
     
+    public func update(sync collection: String, document: NSArray) -> Result {
+        syncWarning("Update")
+        
+        let semaphore = dispatch_semaphore_create(0)
+        var serverResponse = Result()
+        
+        update(collection, document:document) { result, error in
+            serverResponse.result = result
+            serverResponse.error = error
+            dispatch_semaphore_signal(semaphore)
+        }
+        
+        dispatch_semaphore_wait(semaphore, SWIFT_DDP_CALLBACK_DISPATCH_TIME)
+        
+        return serverResponse
+    }
+    
     public func remove(collection: String, document: NSArray, callback: ((result:AnyObject?, error:DDP.Error?) -> ())?) -> String {
         let arg = "/\(collection)/remove"
         return method(arg, params: document, callback: callback)
@@ -110,6 +133,23 @@ extension DDP.Client {
     // Remove without specifying a callback
     public func remove(collection: String, document: NSArray) -> String  {
         return remove(collection, document: document, callback:nil)
+    }
+    
+    public func remove(sync collection: String, document: NSArray) -> Result {
+        syncWarning("Remove")
+        
+        let semaphore = dispatch_semaphore_create(0)
+        var serverResponse = Result()
+        
+        remove(collection, document:document) { result, error in
+            serverResponse.result = result
+            serverResponse.error = error
+            dispatch_semaphore_signal(semaphore)
+        }
+        
+        dispatch_semaphore_wait(semaphore, SWIFT_DDP_CALLBACK_DISPATCH_TIME)
+        
+        return serverResponse
     }
     
     private func login(params: NSDictionary, callback: ((result: AnyObject?, error: DDP.Error?) -> ())?) {
