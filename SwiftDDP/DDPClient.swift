@@ -95,14 +95,14 @@ public class DDP {
             socket.event.error = events.onWebsocketError
             
             socket.event.open = {
-                self.ddpOperationsQueue.addOperationWithBlock() {
+                self.ddpOperationQueue.addOperationWithBlock() {
                     if let c = callback { self.events.onConnected = c }
                     self.sendMessage(["msg":"connect", "version":"1", "support":["1"]])
                 }
             }
             
             socket.event.message = { message in
-                self.ddpOperationsQueue.addOperationWithBlock() {
+                self.ddpOperationQueue.addOperationWithBlock() {
                     if let text = message as? String {
                         do { try self.ddpMessageHandler(DDP.Message(message: text)) }
                         catch { log.debug("Message handling error. Raw message: \(text)")}
