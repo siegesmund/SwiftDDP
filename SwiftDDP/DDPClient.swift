@@ -39,9 +39,9 @@ public class DDP {
         // included for storing login id and token
         let userData = NSUserDefaults.standardUserDefaults()
         
-        public let ddpMessageOperationsQueue:NSOperationQueue = {
+        public let ddpOperationsQueue:NSOperationQueue = {
             let queue = NSOperationQueue()
-            queue.name = "DDP Message Operation Queue"
+            queue.name = "DDP Operation Queue"
             queue.maxConcurrentOperationCount = 1
             return queue
         }()
@@ -95,14 +95,14 @@ public class DDP {
             socket.event.error = events.onWebsocketError
             
             socket.event.open = {
-                self.ddpMessageOperationsQueue.addOperationWithBlock() {
+                self.ddpOperationsQueue.addOperationWithBlock() {
                     if let c = callback { self.events.onConnected = c }
                     self.sendMessage(["msg":"connect", "version":"1", "support":["1"]])
                 }
             }
             
             socket.event.message = { message in
-                self.ddpMessageOperationsQueue.addOperationWithBlock() {
+                self.ddpOperationsQueue.addOperationWithBlock() {
                     if let text = message as? String {
                         do { try self.ddpMessageHandler(DDP.Message(message: text)) }
                         catch { log.debug("Message handling error. Raw message: \(text)")}
@@ -142,15 +142,11 @@ public class DDP {
                 if let id = message.id,                              // Message has id
                    let callback = self.resultCallbacks[id],          // There is a callback registered for the message
                    let result = message.result {
-                        self.mainQueue.addOperationWithBlock() {
-                            callback(result:result, error: message.error)
-                        }
+                        callback(result:result, error: message.error)
                         self.resultCallbacks[id] = nil
                 } else if let id = message.id,
                           let callback = self.resultCallbacks[id] {
-                            self.mainQueue.addOperationWithBlock() {
-                                callback(result:nil, error:message.error)
-                            }
+                            callback(result:nil, error:message.error)
                             self.resultCallbacks[id] = nil
                 }
             
