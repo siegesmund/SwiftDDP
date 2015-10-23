@@ -131,7 +131,9 @@ public class DDP {
         
         // Parse DDP messages and dispatch to the appropriate function
         func ddpMessageHandler(message: DDP.Message) throws {
+            
             log.debug("Received message: \(message.json)")
+            
             switch message.type {
                 
             case .Connected:
