@@ -46,6 +46,8 @@ public class DDP {
             return queue
         }()
         
+        public let mainQueue = NSOperationQueue.mainQueue()
+        
         private var socket:WebSocket!
         private var server:(ping:NSDate?, pong:NSDate?) = (nil, nil)
 
@@ -140,11 +142,15 @@ public class DDP {
                 if let id = message.id,                              // Message has id
                    let callback = self.resultCallbacks[id],          // There is a callback registered for the message
                    let result = message.result {
-                        callback(result:result, error: message.error)
+                        self.mainQueue.addOperationWithBlock() {
+                            callback(result:result, error: message.error)
+                        }
                         self.resultCallbacks[id] = nil
                 } else if let id = message.id,
                           let callback = self.resultCallbacks[id] {
-                            callback(result:nil, error:message.error)
+                            self.mainQueue.addOperationWithBlock() {
+                                callback(result:nil, error:message.error)
+                            }
                             self.resultCallbacks[id] = nil
                 }
             
