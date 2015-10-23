@@ -87,9 +87,9 @@ public class DDP {
             
             socket.event.close = {code, reason, clean in
                 log.info("Web socket connection closed with code \(code). Clean: \(clean). \(reason)")
-                if clean == false {
-                    self.socket = WebSocket(url)
-                }
+                let event = self.socket.event
+                self.socket = WebSocket(url)
+                self.socket.event = event
             }
             
             socket.event.error = events.onWebsocketError
