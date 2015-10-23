@@ -21,6 +21,6 @@
 import Foundation
 
 public struct Result {
-    var result:AnyObject?
-    var error:DDP.Error?
+    public var result:AnyObject?
+    public var error:DDP.Error?
 }
