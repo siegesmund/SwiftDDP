@@ -28,6 +28,8 @@ let DDP_TOKEN = "DDP_TOKEN"
 let DDP_TOKEN_EXPIRES = "DDP_TOKEN_EXPIRES"
 let DDP_LOGGED_IN = "DDP_LOGGED_IN"
 
+let SWIFT_DDP_CALLBACK_DISPATCH_TIME = DISPATCH_TIME_FOREVER
+
 extension String {
     func dictionaryValue() -> NSDictionary? {
         if let data = self.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) {
@@ -68,6 +70,26 @@ extension DDP.Client {
     // Insert without specifying a callback
     public func insert(collection: String, document: NSArray) -> String {
         return insert(collection, document: document, callback:nil)
+    }
+    
+    
+    public func insert(sync collection: String, document: NSArray) -> (result:AnyObject?, error:DDP.Error?) {
+        if NSThread.isMainThread() {
+            print("Insert is running synchronously on the main thread. This will block the main thread and should be run on a background thread")
+        }
+        let semaphore = dispatch_semaphore_create(0)
+        var callbackResult:AnyObject?
+        var callbackError:DDP.Error?
+        
+        insert(collection, document:document) { result, error in
+            callbackResult = result
+            callbackError = error
+            dispatch_semaphore_signal(semaphore)
+        }
+        
+        dispatch_semaphore_wait(semaphore, SWIFT_DDP_CALLBACK_DISPATCH_TIME)
+        
+        return (callbackResult, callbackError)
     }
     
     public func update(collection: String, document: NSArray, callback: ((result:AnyObject?, error:DDP.Error?) -> ())?) -> String {
