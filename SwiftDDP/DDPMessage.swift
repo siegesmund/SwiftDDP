@@ -48,7 +48,7 @@ extension DDP {
     }
     
     // Method or Nosub error
-    // Such an Error is used to represent errors raised by the method or subscription, 
+    // Such an Error is used to represent errors raised by the method or subscription,
     // as well as an attempt to subscribe to an unknown subscription or call an unknown method.
     
     // Other erroneous messages sent from the client to the server can result in receiving a top-level msg: 'error' message in response. These conditions include:
@@ -92,7 +92,7 @@ extension DDP {
             if let JSON = message.dictionaryValue() { json = JSON }
             else {
                 json = ["msg":"error", "reason":"SwiftDDP JSON serialization error.",
-                        "details": "SwiftDDP JSON serialization error. JSON string was: \(message). Message will be handled as a DDP message error."]
+                    "details": "SwiftDDP JSON serialization error. JSON string was: \(message). Message will be handled as a DDP message error."]
             }
         }
         
@@ -116,7 +116,7 @@ extension DDP {
         // Returns the type of DDP message, or unhandled if it is not a DDP message
         public var type:DDP.MessageType {
             if let msg = message,
-               let type = DDP.MessageType(rawValue: msg) {
+                let type = DDP.MessageType(rawValue: msg) {
                     return type
             }
             return DDP.MessageType(rawValue: "unhandled")!

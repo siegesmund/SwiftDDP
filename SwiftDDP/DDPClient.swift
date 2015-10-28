@@ -39,18 +39,40 @@ public class DDP {
         // included for storing login id and token
         let userData = NSUserDefaults.standardUserDefaults()
         
-        public let ddpOperationQueue:NSOperationQueue = {
+        public let incomingData:NSOperationQueue = {
+            let queue = NSOperationQueue()
+            queue.name = "DDP Incoming Data Queue"
+            queue.maxConcurrentOperationCount = 1
+            return queue
+            }()
+        
+        // Calling methods on the server + their callbacks
+        public let outgoingData:NSOperationQueue = {
+            let queue = NSOperationQueue()
+            queue.name = "DDP Outgoing Data Queue"
+            // queue.maxConcurrentOperationCount = 1
+            return queue
+            }()
+        
+        public let operation:NSOperationQueue = {
             let queue = NSOperationQueue()
             queue.name = "DDP Operation Queue"
             queue.maxConcurrentOperationCount = 1
             return queue
-        }()
+            }()
+        
+        public let heartbeat:NSOperationQueue = {
+            let queue = NSOperationQueue()
+            queue.name = "DDP Heartbeat Queue"
+            //queue.maxConcurrentOperationCount = 1
+            return queue
+            }()
         
         public let mainQueue = NSOperationQueue.mainQueue()
         
         private var socket:WebSocket!
         private var server:(ping:NSDate?, pong:NSDate?) = (nil, nil)
-
+        
         var resultCallbacks:[String:(result:AnyObject?, error:DDP.Error?) -> ()] = [:]
         var subCallbacks:[String:() -> ()] = [:]
         var unsubCallbacks:[String:() -> ()] = [:]
@@ -90,19 +112,20 @@ public class DDP {
                 let event = self.socket.event
                 self.socket = WebSocket(url)
                 self.socket.event = event
+                self.ping()
             }
             
             socket.event.error = events.onWebsocketError
             
             socket.event.open = {
-                self.ddpOperationQueue.addOperationWithBlock() {
+                self.heartbeat.addOperationWithBlock() {
                     if let c = callback { self.events.onConnected = c }
                     self.sendMessage(["msg":"connect", "version":"1", "support":["1"]])
                 }
             }
             
             socket.event.message = { message in
-                self.ddpOperationQueue.addOperationWithBlock() {
+                self.operation.addOperationWithBlock() {
                     if let text = message as? String {
                         do { try self.ddpMessageHandler(DDP.Message(message: text)) }
                         catch { log.debug("Message handling error. Raw message: \(text)")}
@@ -117,16 +140,20 @@ public class DDP {
         }
         
         func ping() {
-            sendMessage(["msg":"ping", "id":getId()])
+            heartbeat.addOperationWithBlock() {
+                self.sendMessage(["msg":"ping", "id":self.getId()])
+            }
         }
         
         // Respond to a server ping
         private func pong(ping: DDP.Message) {
-            server.ping = NSDate()
-            log.debug("Ping")
-            var response = ["msg":"pong"]
-            if let id = ping.id { response["id"] = id }
-            sendMessage(response)
+            heartbeat.addOperationWithBlock() {
+                self.server.ping = NSDate()
+                log.debug("Ping")
+                var response = ["msg":"pong"]
+                if let id = ping.id { response["id"] = id }
+                self.sendMessage(response)
+            }
         }
         
         // Parse DDP messages and dispatch to the appropriate function
@@ -140,66 +167,74 @@ public class DDP {
                 self.connection = (true, message.session!)
                 self.events.onConnected(session:message.session!)
                 
-            case .Result:
+            case .Result: incomingData.addOperationWithBlock() {
                 if let id = message.id,                              // Message has id
-                   let callback = self.resultCallbacks[id],          // There is a callback registered for the message
-                   let result = message.result {
+                    let callback = self.resultCallbacks[id],          // There is a callback registered for the message
+                    let result = message.result {
                         callback(result:result, error: message.error)
                         self.resultCallbacks[id] = nil
                 } else if let id = message.id,
-                          let callback = self.resultCallbacks[id] {
-                            callback(result:nil, error:message.error)
-                            self.resultCallbacks[id] = nil
+                    let callback = self.resultCallbacks[id] {
+                        callback(result:nil, error:message.error)
+                        self.resultCallbacks[id] = nil
                 }
-            
-            // Principal callbacks for managing data
-            // Document was added
-            case .Added: if let collection = message.collection,
-                            let id = message.id {
-                                documentWasAdded(collection, id: id, fields: message.fields)
-                            }
+                }
                 
-            // Document was changed
-            case .Changed: if let collection = message.collection,
-                              let id = message.id {
-                                documentWasChanged(collection, id: id, fields: message.fields, cleared: message.cleared)
-                            }
-            
-            // Document was removed
-            case .Removed: if let collection = message.collection,
-                              let id = message.id {
-                                documentWasRemoved(collection, id: id)
-                            }
-            
-            // Notifies you when the result of a method changes
-            case .Updated: dispatch_async(dispatch_get_main_queue(), {
-                    if let methods = message.methods {
-                        self.methodWasUpdated(methods)
+                // Principal callbacks for managing data
+                // Document was added
+            case .Added: incomingData.addOperationWithBlock() {
+                if let collection = message.collection,
+                    let id = message.id {
+                        self.documentWasAdded(collection, id: id, fields: message.fields)
                 }
-            })
-            
-            // Callbacks for managing subscriptions
-            case .Ready: dispatch_async(dispatch_get_main_queue(), {
+                }
+                
+                // Document was changed
+            case .Changed: incomingData.addOperationWithBlock() {
+                if let collection = message.collection,
+                    let id = message.id {
+                        self.documentWasChanged(collection, id: id, fields: message.fields, cleared: message.cleared)
+                }
+                }
+                
+                // Document was removed
+            case .Removed: incomingData.addOperationWithBlock() {
+                if let collection = message.collection,
+                    let id = message.id {
+                        self.documentWasRemoved(collection, id: id)
+                }
+                }
+                
+                // Notifies you when the result of a method changes
+            case .Updated: incomingData.addOperationWithBlock() {
+                if let methods = message.methods {
+                    self.methodWasUpdated(methods)
+                }
+                }
+                
+                // Callbacks for managing subscriptions
+            case .Ready: incomingData.addOperationWithBlock() {
                 if let subs = message.subs {
                     self.ready(subs)
                 }
-            })
-            
-            // Callback that fires when subscription has been completely removed
-            //
-            case .Nosub: dispatch_async(dispatch_get_main_queue(), {
+                }
+                
+                // Callback that fires when subscription has been completely removed
+                //
+            case .Nosub: incomingData.addOperationWithBlock() {
                 if let id = message.id {
                     self.nosub(id, error: message.error)
                 }
-            })
-
-            case .Ping: pong(message)
+                }
                 
-            case .Pong: server.pong = NSDate()
-            
-            case .Error: dispatch_async(dispatch_get_main_queue(), {
+                
+            case .Ping: heartbeat.addOperationWithBlock() { self.pong(message) }
+                
+            case .Pong: heartbeat.addOperationWithBlock() { self.server.pong = NSDate() }
+                
+            case .Error: incomingData.addOperationWithBlock() {
                 self.didReceiveErrorMessage(DDP.Error(json: message.json))
-            })
+                }
                 
             default: log.error("Unhandled message: \(message.json)")
                 
@@ -208,7 +243,7 @@ public class DDP {
         
         private func sendMessage(message:NSDictionary) {
             if let m = message.stringValue() {
-                socket.send(m)
+                self.socket.send(m)
             }
         }
         
@@ -218,7 +253,7 @@ public class DDP {
             let message = ["msg":"method", "method":name, "id":id] as NSMutableDictionary
             if let p = params { message["params"] = p }
             if let c = callback { resultCallbacks[id] = c }
-            sendMessage(message)
+            outgoingData.addOperationWithBlock() { self.sendMessage(message) }
             return id
         }
         
@@ -231,7 +266,7 @@ public class DDP {
             subscriptions[id] = (id, name, false)
             let message = ["msg":"sub", "name":name, "id":id] as NSMutableDictionary
             if let p = params { message["params"] = p }
-            sendMessage(message)
+            outgoingData.addOperationWithBlock() { self.sendMessage(message) }
             return id
         }
         
@@ -267,7 +302,7 @@ public class DDP {
         public func unsub(withName name: String, callback:(()->())?) -> String? {
             if let sub = findSubscription(name) {
                 unsub(withId: sub.id, callback: callback)
-                sendMessage(["msg":"unsub", "id":sub.id])
+                outgoingData.addOperationWithBlock() { self.sendMessage(["msg":"unsub", "id":sub.id]) }
                 return sub.id
             }
             return nil
@@ -275,7 +310,7 @@ public class DDP {
         
         public func unsub(withId id: String, callback: (() -> ())?) {
             if let c = callback { unsubCallbacks[id] = c }
-            sendMessage(["msg":"unsub", "id":id])
+            outgoingData.addOperationWithBlock() { self.sendMessage(["msg":"unsub", "id":id]) }
         }
         
         //
@@ -302,7 +337,7 @@ public class DDP {
                 print(e)
             } else {
                 if let callback = unsubCallbacks[id],
-                   let _ = subscriptions[id] {
+                    let _ = subscriptions[id] {
                         callback()
                         unsubCallbacks[id] = nil
                         subscriptions[id] = nil

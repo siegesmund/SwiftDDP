@@ -116,7 +116,6 @@
 			children = (
 				D09118281BC2E55B00B2C3B1 /* Documentation */,
 				D02A71DE1BBEFBCA00940C17 /* SwiftDDP */,
-				D0C71B591BC173100089B6CE /* SwiftMeteor */,
 				D02A72541BBF07AF00940C17 /* Tests */,
 				D02A72341BBF02C200940C17 /* Frameworks */,
 				D02A72AE1BBF383700940C17 /* SwiftDDP.podspec */,
@@ -145,6 +144,8 @@
 				D02A720D1BBEFCD300940C17 /* DDPExtensions.swift */,
 				D02B30821BDA8E2200E1DB72 /* DDPMethodResult.swift */,
 				D02A720E1BBEFCD300940C17 /* DDPEvents.swift */,
+				D0C71B551BC172F40089B6CE /* Meteor.swift */,
+				D016D0061BC6DF2F009652C3 /* MeteorErrors.swift */,
 				D02A71E11BBEFBCA00940C17 /* Info.plist */,
 			);
 			path = SwiftDDP;
@@ -177,16 +178,6 @@
 			);
 			name = Tests;
 			path = SwiftDDPTests;
-			sourceTree = "<group>";
-		};
-		D0C71B591BC173100089B6CE /* SwiftMeteor */ = {
-			isa = PBXGroup;
-			children = (
-				D0C71B551BC172F40089B6CE /* Meteor.swift */,
-				D016D0061BC6DF2F009652C3 /* MeteorErrors.swift */,
-			);
-			name = SwiftMeteor;
-			path = SwiftDDP;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

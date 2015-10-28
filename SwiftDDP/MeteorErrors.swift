@@ -1,13 +1,3 @@
-//
-//  MeteorErrors.swift
-//  SwiftDDP
-//
-//  Created by Peter Siegesmund on 10/8/15.
-//  Copyright © 2015 Peter Siegesmund. All rights reserved.
-//
-
-import Foundation
-
 
 /*
 extension DDP {
