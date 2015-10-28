@@ -65,7 +65,9 @@ public class Meteor {
         // Posts a notification when a document is added
         public override func documentWasAdded(collection:String, id:String, fields:NSDictionary?) {
             if let meteorCollection = Meteor.collections[collection] as? MeteorCollectionType {
-                meteorCollection.documentWasAdded(collection, id: id, fields: fields)
+                NSOperationQueue.mainQueue().addOperationWithBlock() {
+                    meteorCollection.documentWasAdded(collection, id: id, fields: fields)
+                }
             }
         }
         
@@ -74,14 +76,18 @@ public class Meteor {
             // let message = NSDictionary(dictionary:["collection":collection, "id":id])
             // let userInfo = ["message":message]
             if let meteorCollection = Meteor.collections[collection] as? MeteorCollectionType {
-                meteorCollection.documentWasRemoved(collection, id: id)
+                NSOperationQueue.mainQueue().addOperationWithBlock() {
+                    meteorCollection.documentWasRemoved(collection, id: id)
+                }
             }
         }
         
         // Posts a notification when a document is changed
         public override func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?) {
             if let meteorCollection = Meteor.collections[collection] as? MeteorCollectionType {
-                meteorCollection.documentWasChanged(collection, id: id, fields: fields, cleared: cleared)
+                NSOperationQueue.mainQueue().addOperationWithBlock() {
+                    meteorCollection.documentWasChanged(collection, id: id, fields: fields, cleared: cleared)
+                }
             }
         }
     }
