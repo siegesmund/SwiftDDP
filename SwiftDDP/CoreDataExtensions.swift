@@ -9,9 +9,9 @@
 import Foundation
 import CoreData
 
-extension NSManagedObject {
+public extension NSManagedObject {
     
-    var dictionary:NSDictionary {
+    public var dictionary:NSDictionary {
         let keys = Array(self.entity.attributesByName.keys)
         return self.dictionaryWithValuesForKeys(keys)
     }

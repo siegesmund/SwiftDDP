@@ -51,7 +51,8 @@ func ==(lhs:MeteorCollectionChange, rhs:MeteorCollectionChange) -> Bool {
 public class MeteorCoreDataCollection:Collection {
     
     var entityName:String!
-    var delegate:MeteorCoreDataCollectionDelegate?
+    public var delegate:MeteorCoreDataCollectionDelegate?
+    
     private let stack = MeteorCoreData.stack
     
     private let backgroundQueue:NSOperationQueue = {
@@ -65,7 +66,7 @@ public class MeteorCoreDataCollection:Collection {
     
     private var changeLog = [Int:MeteorCollectionChange]()
     
-    init(collectionName:String, entityName:String) {
+    public init(collectionName:String, entityName:String) {
         super.init(name: collectionName)
         self.entityName = entityName
         print("Initializing Meteor Core Data Collection \(self.entityName)")
@@ -74,7 +75,7 @@ public class MeteorCoreDataCollection:Collection {
     deinit {
     }
     
-    var managedObjectContext:NSManagedObjectContext {
+    public var managedObjectContext:NSManagedObjectContext {
         return stack.managedObjectContext
     }
     
@@ -95,7 +96,7 @@ public class MeteorCoreDataCollection:Collection {
     }
     
     // Retrieves all results for a given entity name
-    func find() -> [NSManagedObject] {
+    public func find() -> [NSManagedObject] {
         let fetchRequest = NSFetchRequest(entityName: entityName)
         do {
             let results = try managedObjectContext.executeFetchRequest(fetchRequest) as? [NSManagedObject]
@@ -107,7 +108,7 @@ public class MeteorCoreDataCollection:Collection {
     }
     
     // Retrieves a single result by name
-    func findOne(id:String) -> NSManagedObject? {
+    public func findOne(id:String) -> NSManagedObject? {
         managedObjectContext.refreshAllObjects()
         let fetchRequest = NSFetchRequest(entityName: self.entityName)
         fetchRequest.predicate = NSPredicate(format: "id == '\(id)'")
@@ -118,7 +119,7 @@ public class MeteorCoreDataCollection:Collection {
         return nil
     }
     
-    func exists(id:String) -> Bool {
+    public func exists(id:String) -> Bool {
         let fetchRequest = NSFetchRequest(entityName: self.entityName)
         fetchRequest.predicate = NSPredicate(format: "id == '\(id)'")
         let count = managedObjectContext.countForFetchRequest(fetchRequest, error: nil)
@@ -128,7 +129,7 @@ public class MeteorCoreDataCollection:Collection {
         return false
     }
     
-    func exists(collection:String, id:String) -> Bool {
+    public func exists(collection:String, id:String) -> Bool {
         let fetchRequest = NSFetchRequest(entityName: self.entityName)
         fetchRequest.predicate = NSPredicate(format: "id == '\(id)' AND collection == '\(collection)'")
         let count = managedObjectContext.countForFetchRequest(fetchRequest, error: nil)
@@ -146,7 +147,7 @@ public class MeteorCoreDataCollection:Collection {
     //
     //
     
-    func insert(fields:NSDictionary) {
+    public func insert(fields:NSDictionary) {
         backgroundQueue.addOperationWithBlock() {
             
             let object = self.newObject()
@@ -213,14 +214,14 @@ public class MeteorCoreDataCollection:Collection {
     //
     //
     
-    func remove(withId id:String) {
+    public func remove(withId id:String) {
         remove(withId: id, local:false)
     }
     
     // Local delete signals when the delete originates from the server; 
     // In that case, the delete should only be processed locally, and no 
     // message regarding the delete should be sent to the server
-    func remove(withId id:String, local:Bool) {
+    public func remove(withId id:String, local:Bool) {
         backgroundQueue.addOperationWithBlock() {
             
             if let document = self.findOne(id) {
