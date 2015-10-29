@@ -63,7 +63,7 @@ public class MeteorCoreDataStack:NSObject {
         let coordinator = self.persistentStoreCoordinator
         var context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
         context.persistentStoreCoordinator = coordinator
-        context.undoManager = NSUndoManager()
+        context.stalenessInterval = 0
         return context
         }()
     
@@ -71,7 +71,7 @@ public class MeteorCoreDataStack:NSObject {
         let coordinator = self.persistentStoreCoordinator
         var context = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
         context.persistentStoreCoordinator = coordinator
-        context.undoManager = NSUndoManager()
+        context.stalenessInterval = 0
         return context
         }()
     

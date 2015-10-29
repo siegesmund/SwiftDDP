@@ -50,39 +50,26 @@ func ==(lhs:MeteorCollectionChange, rhs:MeteorCollectionChange) -> Bool {
 
 public class MeteorCoreDataCollection:Collection {
     
-    var entityName:String!
-    public var delegate:MeteorCoreDataCollectionDelegate?
-    
+    private var entityName:String!
     private let stack = MeteorCoreData.stack
-    
-    private let backgroundQueue:NSOperationQueue = {
-        let queue = NSOperationQueue()
-        queue.name = "MeteorCoreData background queue"
-        // queue.maxConcurrentOperationCount = 1
-        return queue
-    }()
-    
     private let mainQueue = NSOperationQueue.mainQueue()
-    
     private var changeLog = [Int:MeteorCollectionChange]()
+    
+    private var mainContext:NSManagedObjectContext {
+        return stack.mainContext
+    }
+    
+    private var backgroundContext:NSManagedObjectContext {
+        return stack.backgroundContext
+    }
+    
+    public var delegate:MeteorCoreDataCollectionDelegate?
+
     
     public init(collectionName:String, entityName:String) {
         super.init(name: collectionName)
         self.entityName = entityName
         print("Initializing Meteor Core Data Collection \(self.entityName)")
-    }
-    
-    deinit {
-    }
-    
-    public var managedObjectContext:NSManagedObjectContext {
-        return stack.managedObjectContext
-    }
-    
-    private func newObject() -> NSManagedObject {
-        let entity = NSEntityDescription.entityForName(entityName, inManagedObjectContext: managedObjectContext)
-        let object = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedObjectContext)
-        return object
     }
     
     private func getObjectOnCurrentQueue(objectId:NSManagedObjectID) -> NSManagedObject? {
@@ -93,6 +80,16 @@ public class MeteorCoreDataCollection:Collection {
             log.error("Error fetching object \(objectId) changes on the current queue: \(error)")
             return nil
         }
+    }
+    
+    public var managedObjectContext:NSManagedObjectContext {
+        return stack.managedObjectContext
+    }
+    
+    public func newObject() -> NSManagedObject {
+        let entity = NSEntityDescription.entityForName(entityName, inManagedObjectContext: managedObjectContext)
+        let object = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedObjectContext)
+        return object
     }
     
     // Retrieves all results for a given entity name
@@ -148,7 +145,7 @@ public class MeteorCoreDataCollection:Collection {
     //
     
     public func insert(fields:NSDictionary) {
-        backgroundQueue.addOperationWithBlock() {
+        backgroundContext.performBlock() {
             
             let object = self.newObject()
             if let id = fields.objectForKey("_id") {
@@ -179,22 +176,24 @@ public class MeteorCoreDataCollection:Collection {
     //
     
     public func update(id:String, fields:NSDictionary, local:Bool) {
-        backgroundQueue.addOperationWithBlock() {
+        backgroundContext.performBlock() {
 
-            if let object = self.findOne(id) {
+            if let document = self.findOne(id) {
                 
-                self.managedObjectContext.undoManager?.beginUndoGrouping()
+                let cache = document.dictionary
+                
                 let change = MeteorCollectionChange(id: id, collection: self.name, fields: fields, cleared: nil)
                 self.changeLog[change.hashValue] = change
-                self.delegate?.document(willBeUpdatedWith: fields, cleared: nil, forObject: object)
+                self.delegate?.document(willBeUpdatedWith: fields, cleared: nil, forObject: document)
                 try! self.managedObjectContext.save()
-                self.managedObjectContext.undoManager?.endUndoGrouping()
                 
                 if local == false {
                     let result = self.client.update(sync: self.name, document: [["_id":id], ["$set":fields]])
                     if result.error != nil {
                         log.debug("Update rejected. Attempting to rollback changes")
-                        self.managedObjectContext.undoManager?.undoNestedGroup()
+                        for (key, _) in fields {
+                            document.setValue(cache.objectForKey(key), forKey: key as! String)
+                        }
                         try! self.managedObjectContext.save()
                     }
                 }
@@ -222,62 +221,74 @@ public class MeteorCoreDataCollection:Collection {
     // In that case, the delete should only be processed locally, and no 
     // message regarding the delete should be sent to the server
     public func remove(withId id:String, local:Bool) {
-        backgroundQueue.addOperationWithBlock() {
+        backgroundContext.performBlock() {
             
             if let document = self.findOne(id) {
-                self.managedObjectContext.undoManager?.beginUndoGrouping()
+                
+                let cache = document.dictionary
+                
                 let id = document.valueForKey("id")
                 self.managedObjectContext.deleteObject(document)
                 try! self.managedObjectContext.save()
-                self.managedObjectContext.undoManager?.endUndoGrouping()
                 
                 if local == false {
                     if let _ = id {
                         let result = self.client.remove(sync: self.name, document: NSArray(arrayLiteral: ["_id":id!]))
                         if result.error != nil {
-                            self.managedObjectContext.undoManager?.undoNestedGroup()
+                            let replacement = self.newObject()
+                            self.delegate?.document(willBeCreatedWith: cache, forObject: replacement)
+                            self.managedObjectContext.insertObject(replacement)
                             try! self.managedObjectContext.save()
                         }
                     }
                 }
             }
         }
-        
     }
     
     override public func documentWasAdded(collection:String, id:String, fields:NSDictionary?) {
-        if !self.exists(collection, id:id) {
-            let object = self.newObject()
-            object.setValue(id, forKey: "id")
-            object.setValue(collection, forKey: "collection")
-            
-            if let _ = self.delegate?.document(willBeCreatedWith: fields, forObject: object) {
-                try! managedObjectContext.save()
+        backgroundContext.performBlock() {
+            if !self.exists(collection, id:id) {
+                let object = self.newObject()
+                object.setValue(id, forKey: "id")
+                object.setValue(collection, forKey: "collection")
+                
+                if let _ = self.delegate?.document(willBeCreatedWith: fields, forObject: object) {
+                    do {
+                        try self.managedObjectContext.save()
+                    } catch let error {
+                        log.error("\(error)")
+                    }
+                }
+            } else {
+                log.info("Object \(collection) \(id) already exists in the database")
             }
-        } else {
-            log.info("Object \(collection) \(id) already exists in the database")
         }
-        
     }
     
     
     
     override public func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?) {
-        let currentChange = MeteorCollectionChange(id: id, collection: collection, fields: fields, cleared: cleared)
-        
-        if let priorChange = self.changeLog[currentChange.hashValue] where (priorChange.hashValue == currentChange.hashValue) {
-            self.changeLog[currentChange.hashValue] = nil
-            return
-        }
-    
-        if let object = self.findOne(id) {
-            if let _ = self.delegate?.document(willBeUpdatedWith: fields, cleared: cleared, forObject: object) {
-                try! self.managedObjectContext.save()
+        backgroundContext.performBlock() {
+            let currentChange = MeteorCollectionChange(id: id, collection: collection, fields: fields, cleared: cleared)
+            
+            if let priorChange = self.changeLog[currentChange.hashValue] where (priorChange.hashValue == currentChange.hashValue) {
+                self.changeLog[currentChange.hashValue] = nil
+                return
             }
+            
+            if let object = self.findOne(id) {
+                if let _ = self.delegate?.document(willBeUpdatedWith: fields, cleared: cleared, forObject: object) {
+                    do {
+                        try self.managedObjectContext.save()
+                    } catch let error  {
+                        log.error("\(error)")
+                    }
+                }
+            }
+            
+            self.changeLog[currentChange.hashValue] = nil // Deregister the change
         }
-        
-        self.changeLog[currentChange.hashValue] = nil // Deregister the change
-        
     }
     
     override public func documentWasRemoved(collection:String, id:String) {
