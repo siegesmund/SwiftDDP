@@ -1,10 +1,7 @@
 
 import UIKit
-import SwiftDDP
 import CoreData
 import XCGLogger
-
-let log = XCGLogger(identifier: "CoreDataCollection")
 
 public protocol MeteorCoreDataCollectionDelegate {
     func document(willBeCreatedWith fields:NSDictionary?, forObject object:NSManagedObject) -> NSManagedObject
