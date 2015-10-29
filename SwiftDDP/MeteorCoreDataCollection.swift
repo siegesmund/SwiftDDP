@@ -50,36 +50,18 @@ func ==(lhs:MeteorCollectionChange, rhs:MeteorCollectionChange) -> Bool {
 
 public class MeteorCoreDataCollection:Collection {
     
-    private var entityName:String!
+    private let entityName:String
     private let stack = MeteorCoreData.stack
-    private let mainQueue = NSOperationQueue.mainQueue()
     private var changeLog = [Int:MeteorCollectionChange]()
     
-    private var mainContext:NSManagedObjectContext {
-        return stack.mainContext
-    }
-    
-    private var backgroundContext:NSManagedObjectContext {
-        return stack.backgroundContext
-    }
+    private lazy var mainContext:NSManagedObjectContext = { return self.stack.mainContext }()
+    private lazy var backgroundContext:NSManagedObjectContext = { return self.stack.backgroundContext }()
     
     public var delegate:MeteorCoreDataCollectionDelegate?
-
     
     public init(collectionName:String, entityName:String) {
-        super.init(name: collectionName)
         self.entityName = entityName
-        print("Initializing Meteor Core Data Collection \(self.entityName)")
-    }
-    
-    private func getObjectOnCurrentQueue(objectId:NSManagedObjectID) -> NSManagedObject? {
-        do {
-            let currentQueueObject = try self.managedObjectContext.existingObjectWithID(objectId)
-            return currentQueueObject
-        } catch let error {
-            log.error("Error fetching object \(objectId) changes on the current queue: \(error)")
-            return nil
-        }
+        super.init(name: collectionName)
     }
     
     public var managedObjectContext:NSManagedObjectContext {
