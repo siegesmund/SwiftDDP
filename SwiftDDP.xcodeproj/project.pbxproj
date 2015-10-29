@@ -32,6 +32,7 @@
 		D0CF8A0F1BE2AC1700EC9F12 /* MeteorCoreDataCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CF8A0B1BE2AC1700EC9F12 /* MeteorCoreDataCollection.swift */; settings = {ASSET_TAGS = (); }; };
 		D0CF8A101BE2AC1700EC9F12 /* CoreDataExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CF8A0C1BE2AC1700EC9F12 /* CoreDataExtensions.swift */; settings = {ASSET_TAGS = (); }; };
 		D0CF8A201BE2CA1800EC9F12 /* MeteorCoreDataTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CF8A1F1BE2CA1800EC9F12 /* MeteorCoreDataTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		D0CF8A221BE2D65300EC9F12 /* MeteorCollectionChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CF8A211BE2D65300EC9F12 /* MeteorCollectionChange.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,7 @@
 		D0CF8A0B1BE2AC1700EC9F12 /* MeteorCoreDataCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeteorCoreDataCollection.swift; sourceTree = "<group>"; };
 		D0CF8A0C1BE2AC1700EC9F12 /* CoreDataExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataExtensions.swift; sourceTree = "<group>"; };
 		D0CF8A1F1BE2CA1800EC9F12 /* MeteorCoreDataTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeteorCoreDataTableViewController.swift; sourceTree = "<group>"; };
+		D0CF8A211BE2D65300EC9F12 /* MeteorCollectionChange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeteorCollectionChange.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +195,7 @@
 				D0CF8A0A1BE2AC1700EC9F12 /* MeteorCoreDataStack.swift */,
 				D0CF8A0B1BE2AC1700EC9F12 /* MeteorCoreDataCollection.swift */,
 				D0CF8A1F1BE2CA1800EC9F12 /* MeteorCoreDataTableViewController.swift */,
+				D0CF8A211BE2D65300EC9F12 /* MeteorCollectionChange.swift */,
 				D0CF8A0C1BE2AC1700EC9F12 /* CoreDataExtensions.swift */,
 			);
 			name = MeteorCoreData;
@@ -364,6 +367,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0CF8A201BE2CA1800EC9F12 /* MeteorCoreDataTableViewController.swift in Sources */,
+				D0CF8A221BE2D65300EC9F12 /* MeteorCollectionChange.swift in Sources */,
 				D0CF8A0F1BE2AC1700EC9F12 /* MeteorCoreDataCollection.swift in Sources */,
 				D0CF8A101BE2AC1700EC9F12 /* CoreDataExtensions.swift in Sources */,
 				D02A72101BBEFCD300940C17 /* DDPClient.swift in Sources */,

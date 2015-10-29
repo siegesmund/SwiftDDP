@@ -2,7 +2,13 @@ import Foundation
 import CoreData
 
 
-public class MeteorCoreDataStack:NSObject {
+public protocol MeteorCoreDataCollectionStack {
+    var mainContext: NSManagedObjectContext { get }
+    var backgroundContext: NSManagedObjectContext { get }
+    var managedObjectContext:NSManagedObjectContext { get }
+}
+
+class MeteorCoreDataStackPersisted:NSObject, MeteorCoreDataCollectionStack {
     
     override init() {
         super.init()

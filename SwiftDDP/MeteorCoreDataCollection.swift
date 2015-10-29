@@ -8,50 +8,10 @@ public protocol MeteorCoreDataCollectionDelegate {
     func document(willBeUpdatedWith fields:NSDictionary?, cleared:[String]?, forObject object:NSManagedObject) -> NSManagedObject
 }
 
-//
-//
-// MeteorCollectionChange
-//
-//
-
-struct MeteorCollectionChange: Hashable {
-    var id:String
-    var collection:String
-    var fields:NSDictionary?
-    var cleared:[String]?
-    var hashValue:Int {
-        var hash = "\(id.hashValue)\(collection.hashValue)"
-        if let _ = fields { hash += "\(fields!.hashValue)" }
-        if let _ = cleared {
-            for value in cleared! {
-                hash += "\(value.hashValue)"
-            }
-        }
-        return hash.hashValue
-    }
-    
-    init(id:String, collection:String, fields:NSDictionary?, cleared:[String]?){
-        self.id = id
-        self.collection = collection
-        self.fields = fields
-        self.cleared = cleared
-    }
-}
-
-func ==(lhs:MeteorCollectionChange, rhs:MeteorCollectionChange) -> Bool {
-    return lhs.hashValue == rhs.hashValue
-}
-
-//
-//
-// End Meteor Collection Change
-//
-//
-
 public class MeteorCoreDataCollection:Collection {
     
     private let entityName:String
-    private let stack = MeteorCoreData.stack
+    private let stack:MeteorCoreDataCollectionStack
     private var changeLog = [Int:MeteorCollectionChange]()
     
     private lazy var mainContext:NSManagedObjectContext = { return self.stack.mainContext }()
@@ -61,6 +21,13 @@ public class MeteorCoreDataCollection:Collection {
     
     public init(collectionName:String, entityName:String) {
         self.entityName = entityName
+        self.stack = MeteorCoreData.stack
+        super.init(name: collectionName)
+    }
+    
+    public init(collectionName:String, entityName:String, inMemory:Bool) {
+        self.entityName = entityName
+        self.stack = MeteorCoreData.stack
         super.init(name: collectionName)
     }
     
@@ -250,7 +217,7 @@ public class MeteorCoreDataCollection:Collection {
     
     
     
-    override public func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?) {
+    override public func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?) {        
         backgroundContext.performBlock() {
             let currentChange = MeteorCollectionChange(id: id, collection: collection, fields: fields, cleared: cleared)
             
