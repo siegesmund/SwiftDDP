@@ -53,7 +53,7 @@ public class Meteor {
         }
     }
     
-    public class Client: DDP.Client {
+    public class Client: DDPClient {
         
         typealias SubscriptionCallback = () -> ()
         let notifications = NSNotificationCenter.defaultCenter()
@@ -93,11 +93,11 @@ public class Meteor {
     }
 }
 
-public class Collection: NSObject, MeteorCollectionType {
+public class MeteorCollection: NSObject, MeteorCollectionType {
     
-    public let client = Meteor.client
-    public var name:String!
-    var token: dispatch_once_t = 0
+    internal var name:String
+    internal let client = Meteor.client
+    
     // Can also set these closures to modify behavior on added, changed, removed
     public var onAdded:((collection:String, id:String, fields:NSDictionary?) -> ())?
     public var onChanged:((collection:String, id:String, fields:NSDictionary?, cleared:[String]?) -> ())?
@@ -105,43 +105,14 @@ public class Collection: NSObject, MeteorCollectionType {
     
     // Must use the constructor function to create the collection
     public init(name:String) {
-        super.init()
         self.name = name
+        super.init()
         Meteor.collections[name] = self
     }
     
     deinit {
         Meteor.collections[name] = nil
     }
-    
-    // Because this class must inherit from NSObject (an Objective-C class) to use NSNotificationCenter, and Objective-C does not
-    // support method overloading, these conflict with collection subclasses and have been commented out.
-    
-    /*
-    public func insert(doc:[NSDictionary]) -> String {
-    return client.insert(name, doc: doc)
-    }
-    
-    public func insert(doc:NSArray, callback:((result:AnyObject?, error:DDP.Error?) -> ())?) -> String {
-    return client.insert(name, doc:doc, callback:callback)
-    }
-    
-    public func update(doc:[NSDictionary]) -> String {
-    return client.update(name, doc: doc)
-    }
-    
-    public func update(doc:[NSDictionary], callback:((result:AnyObject?, error:DDP.Error?) -> ())?) -> String {
-    return client.update(name, doc:doc, callback:callback)
-    }
-    
-    public func remove(doc:[NSDictionary]) -> String {
-    return client.remove(name, doc: doc)
-    }
-    
-    public func remove(doc:[NSDictionary], callback:((result:AnyObject?, error:DDP.Error?) -> ())?) -> String {
-    return client.remove(name, doc:doc, callback:callback)
-    }
-    */
     
     // Override these methods to subclass Collection
     public func documentWasAdded(collection:String, id:String, fields:NSDictionary?) {

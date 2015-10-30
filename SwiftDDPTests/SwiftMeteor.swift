@@ -8,7 +8,7 @@ class MeteorTest: QuickSpec {
     override func spec() {
         
         let client = Meteor.client
-        let collection = Collection(name: "test-collection")
+        let collection = MeteorCollection(name: "test-collection")
         
         describe("Collections") {
             /*
