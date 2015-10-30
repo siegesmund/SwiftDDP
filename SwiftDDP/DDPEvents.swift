@@ -20,27 +20,24 @@
 
 import Foundation
 
-extension DDP {
+public struct DDPEvents {
     
-    public struct Events {
-        
-        public var onWebsocketClose:    ((code:Int, reason:String, clean:Bool) -> ())?
-        public var onWebsocketError:    (error:ErrorType) -> () = {error in log.error("websocket error \(error)")}
-        
-        public var onConnected:         (session:String) -> () = {session in log.info("connected with session: \(session)")}
-        public var onDisconnected:      () -> () = {log.debug("disconnected")}
-        public var onFailed:            () -> () = {log.error("failed")}
-        
-        // Data messages
-        public var onAdded:             ((collection:String, id:String, fields:NSDictionary?) -> ())?
-        public var onChanged:           ((collection:String, id:String, fields:NSDictionary?, cleared:NSArray?) -> ())?
-        public var onRemoved:           ((collection:String, id:String) -> ())?
-        
-        // RPC Messages
-        // public var onResult:            (json: NSDictionary?, callback:(result:AnyObject?, error:AnyObject?) -> ()) -> () = {json, callback in callback(result: json, error:nil) }
-        public var onUpdated:           ((methods: [String]) -> ())?
-        public var onError:             ((message:DDP.Error) -> ())?
-        
-    }
+    public var onWebsocketClose:    ((code:Int, reason:String, clean:Bool) -> ())?
+    public var onWebsocketError:    (error:ErrorType) -> () = {error in log.error("websocket error \(error)")}
+    
+    public var onConnected:         (session:String) -> () = {session in log.info("connected with session: \(session)")}
+    public var onDisconnected:      () -> () = {log.debug("disconnected")}
+    public var onFailed:            () -> () = {log.error("failed")}
+    
+    // Data messages
+    public var onAdded:             ((collection:String, id:String, fields:NSDictionary?) -> ())?
+    public var onChanged:           ((collection:String, id:String, fields:NSDictionary?, cleared:NSArray?) -> ())?
+    public var onRemoved:           ((collection:String, id:String) -> ())?
+    
+    // RPC Messages
+    // public var onResult:            (json: NSDictionary?, callback:(result:AnyObject?, error:AnyObject?) -> ()) -> () = {json, callback in callback(result: json, error:nil) }
+    public var onUpdated:           ((methods: [String]) -> ())?
+    public var onError:             ((message:DDPError) -> ())?
+    
 }
 
