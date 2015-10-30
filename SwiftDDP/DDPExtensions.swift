@@ -152,7 +152,7 @@ extension DDPClient {
         return serverResponse
     }
     
-    private func login(params: NSDictionary, callback: ((result: AnyObject?, error: DDPError?) -> ())?) {
+    internal func login(params: NSDictionary, callback: ((result: AnyObject?, error: DDPError?) -> ())?) {
         method("login", params: NSArray(arrayLiteral: params)) { result, error in
             guard let e = error where (e.isValid == true) else {
                 
@@ -191,7 +191,7 @@ extension DDPClient {
     }
     
     // Does the date comparison account for TimeZone?
-    func loginWithToken(callback:((result: AnyObject?, error: DDPError?) -> ())?) -> Bool {
+    public func loginWithToken(callback:((result: AnyObject?, error: DDPError?) -> ())?) -> Bool {
         if let token = userData.stringForKey(DDP_TOKEN),
             let tokenDate = userData.objectForKey(DDP_TOKEN_EXPIRES) {
                 if (tokenDate.compare(NSDate()) == NSComparisonResult.OrderedDescending) {
