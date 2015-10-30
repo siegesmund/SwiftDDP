@@ -14,7 +14,7 @@ class DDPMessageTest:QuickSpec {
         describe ("DDPMessage") {
             
             it ("can be created from a Dictionary") {
-                let message = DDP.Message(message: ["msg":"test", "id":"test100"])
+                let message = DDPMessage(message: ["msg":"test", "id":"test100"])
                 expect(message.hasProperty("msg")).to(beTrue())
                 expect(message.hasProperty("id")).to(beTruthy())
                 expect(message.id!).to(equal("test100"))
@@ -22,7 +22,7 @@ class DDPMessageTest:QuickSpec {
             }
             
             it ("can be created from a String") {
-                let message = DDP.Message(message: "{\"msg\":\"test\", \"id\":\"test100\"}")
+                let message = DDPMessage(message: "{\"msg\":\"test\", \"id\":\"test100\"}")
                 expect(message.hasProperty("msg")).to(beTruthy())
                 expect(message.hasProperty("id")).to(beTruthy())
                 expect(message.id!).to(equal("test100"))
@@ -31,18 +31,18 @@ class DDPMessageTest:QuickSpec {
             
             
             it ("handles malformed json without crashing") {
-                let message = DDP.Message(message: "{\"msg\":\"test\", \"id\"test100\"}")
+                let message = DDPMessage(message: "{\"msg\":\"test\", \"id\"test100\"}")
                 expect(message.isError).to(beTrue())
                 expect(message.reason!).to(equal("SwiftDDP JSON serialization error."))
             }
             
             it ("Sends malformed json to the error handler callback") {
                 
-                var error:DDP.Error!
+                var error:DDPError!
                 
-                let client = DDP.Client()
+                let client = DDPClient()
                 client.events.onError = {e in error = e }
-                let message = DDP.Message(message: "{\"msg\":\"test\", \"id\"test100\"}")
+                let message = DDPMessage(message: "{\"msg\":\"test\", \"id\"test100\"}")
                 try! client.ddpMessageHandler(message)
                 
                 expect(message.isError).to(beTrue())
@@ -58,7 +58,7 @@ class DDPMessageTest:QuickSpec {
         describe ("DDPMessageHandler routing") {
             
             it ("can handle an 'added' message"){
-                let client = DDP.Client()
+                let client = DDPClient()
                 client.events.onAdded = {collection, id, fields in
                     expect(collection).to(equal("test-collection"))
                     expect(id).to(equal("2gAMzqvE8K8kBWK8F"))
@@ -69,7 +69,7 @@ class DDPMessageTest:QuickSpec {
             }
             
             it ("can handle a 'removed' message") {
-                let client = DDP.Client()
+                let client = DDPClient()
                 client.events.onRemoved = {collection, id in
                     expect(collection).to(equal("test-collection"))
                     expect(id).to(equal("2gAMzqvE8K8kBWK8F"))
@@ -80,16 +80,16 @@ class DDPMessageTest:QuickSpec {
             it ("can handle a result message that returns a value") {
                 var value:String!
                 var r:AnyObject?
-                var e:DDP.Error?
+                var e:DDPError?
                 
-                let client = DDP.Client()
-                client.resultCallbacks["1"] = {(result:AnyObject?, error:DDP.Error?) -> () in
+                let client = DDPClient()
+                client.resultCallbacks["1"] = {(result:AnyObject?, error:DDPError?) -> () in
                     value = result as! String
                     r = result
                     e = error
                 }
                 
-                try! client.ddpMessageHandler(DDP.Message(message: ["id":"1", "msg":"result", "result":"test123"]))
+                try! client.ddpMessageHandler(DDPMessage(message: ["id":"1", "msg":"result", "result":"test123"]))
                 expect(r).toEventuallyNot(beNil())
                 expect(e).to(beNil())
                 expect(value).toEventually(equal("test123"))
@@ -99,16 +99,16 @@ class DDPMessageTest:QuickSpec {
             it ("can handle a result message that does not return a value") {
                 var value:String!
                 var r:AnyObject?
-                var e:DDP.Error?
+                var e:DDPError?
                 
-                let client = DDP.Client()
-                client.resultCallbacks["1"] = {(result:AnyObject?, error:DDP.Error?) -> ()
+                let client = DDPClient()
+                client.resultCallbacks["1"] = {(result:AnyObject?, error:DDPError?) -> ()
                     in if let v = result as? String { value = v }
                     r = result
                     e = error
                 }
                 
-                try! client.ddpMessageHandler(DDP.Message(message: ["id":"1", "msg":"result"]))
+                try! client.ddpMessageHandler(DDPMessage(message: ["id":"1", "msg":"result"]))
                 expect(value).to(beNil())
                 expect(r).to(beNil())
                 expect(e).to(beNil())
@@ -125,7 +125,7 @@ class DDPServerTests:QuickSpec {
             
             it ("can connect to a DDP server"){
                 var testSession:String?
-                let client = DDP.Client()
+                let client = DDPClient()
                 client.connect(url) { session in testSession = session }
                 expect(client.connection.ddp).toEventually(beTrue(), timeout:5)
                 expect(client.connection.session).toEventually(equal(testSession), timeout:5)
@@ -145,7 +145,7 @@ class DDPServerTests:QuickSpec {
                 var testResult:NSDictionary!
                 var testSession:String!
                 
-                let client = DDP.Client()
+                let client = DDPClient()
                 client.connect(url) { session in
                     testSession = session
                     client.loginWithPassword(user, password: pass) { result, e in
@@ -167,7 +167,7 @@ class DDPServerTests:QuickSpec {
             it ("can add and remove a document on the server"){
                 var added = [NSDictionary]()
                 var removed = [String]()
-                let client = DDP.Client()
+                let client = DDPClient()
                 let _id = client.getId()
                 
                 client.events.onAdded = { collection, id, fields in if ((collection == "test-collection2") && (_id == id)) { added.append(fields!) } }
@@ -200,7 +200,7 @@ class DDPServerTests:QuickSpec {
             it ("can update a document in a collection") {
                 var added = [NSDictionary]()
                 var updated = [NSDictionary]()
-                let client = DDP.Client()
+                let client = DDPClient()
                 
                 let _id = client.getId()
                 
@@ -236,7 +236,7 @@ class DDPServerTests:QuickSpec {
             
             it ("can execute a method on the server that returns a value") {
                 var response:String!
-                let client = DDP.Client()
+                let client = DDPClient()
                 
                 client.connect(url) { session in
                     client.loginWithPassword(user, password: pass) { result, error in
@@ -268,7 +268,7 @@ class DDPServerTests:QuickSpec {
             it ("can subscribe and unsubscribe to a collection") {
                 var added = [String]()
                 var removed = [String]()
-                let client = DDP.Client()
+                let client = DDPClient()
                 client.connect(url) {session in
                     client.loginWithPassword(user, password: pass) {result, error in
                         client.events.onAdded = {collection, id, fields in added.append(id) }
