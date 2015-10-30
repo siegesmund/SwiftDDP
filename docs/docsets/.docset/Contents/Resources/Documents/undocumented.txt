@@ -1,0 +1,125 @@
+MeteorCoreDataTableViewController.swift
+	public class MeteorCoreDataTableViewController: UITableViewController, NSFetchedResultsControllerDelegate
+	public func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?)
+	public func controllerWillChangeContent(controller: NSFetchedResultsController)
+	public func controllerDidChangeContent(controller: NSFetchedResultsController)
+MeteorCoreDataCollection.swift
+	public protocol MeteorCoreDataCollectionDelegate
+	func document(willBeCreatedWith fields:NSDictionary?, forObject object:NSManagedObject) -> NSManagedObject
+	func document(willBeUpdatedWith fields:NSDictionary?, cleared:[String]?, forObject object:NSManagedObject) -> NSManagedObject
+	public class MeteorCoreDataCollection:MeteorCollection
+	public var delegate:MeteorCoreDataCollectionDelegate?
+	public init(collectionName:String, entityName:String)
+	public init(collectionName:String, entityName:String, stack:MeteorCoreDataStack)
+	public var managedObjectContext:NSManagedObjectContext
+	public func newObject() -> NSManagedObject
+	public func find() -> [NSManagedObject]
+	public func findOne(id:String) -> NSManagedObject?
+	public func exists(id:String) -> Bool
+	public func exists(collection:String, id:String) -> Bool
+	public func insert(fields:NSDictionary)
+	public func update(id:String, fields:NSDictionary, local:Bool)
+	public func update(id:String, fields:NSDictionary)
+	public func remove(withId id:String)
+	public func remove(withId id:String, local:Bool)
+	override public func documentWasAdded(collection:String, id:String, fields:NSDictionary?)
+	override public func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?)
+	override public func documentWasRemoved(collection:String, id:String)
+CoreDataExtensions.swift
+	public var dictionary:NSDictionary
+DDPClient.swift
+	public class DDPClient: NSObject
+	public var logLevel = XCGLogger.LogLevel.Debug
+	public class DDPClient : NSObject
+MeteorCoreDataStack.swift
+	public protocol MeteorCoreDataStack
+	var mainContext: NSManagedObjectContext { get }
+	var backgroundContext: NSManagedObjectContext { get }
+	var managedObjectContext:NSManagedObjectContext { get }
+DDPMethodResult.swift
+	public struct Result
+	public var result:AnyObject?
+	public var error:DDPError?
+DDPMessage.swift
+	public enum DDPMessageType:String
+	case Connected  = "connected"
+	case Failed     = "failed"
+	case Ping       = "ping"
+	case Pong       = "pong"
+	case Nosub      = "nosub"
+	case Added      = "added"
+	case Changed    = "changed"
+	case Removed    = "removed"
+	case Ready      = "ready"
+	case AddedBefore = "addedBefore"
+	case MovedBefore = "movedBefore"
+	case Result     = "result"
+	case Updated    = "updated"
+	case Error      = "error"
+	case Unhandled  = "unhandled"
+	public init(message:String)
+	public init(message:[String:String])
+	public static func toString(json:AnyObject) -> String?
+	public var type:DDPMessageType
+	public var isError:Bool
+	public var keys:[String]
+	public func hasProperty(name:String) -> Bool
+	public var message:String?
+	public var session:String?
+	public var version:String?
+	public var support:String?
+	public var id:String?
+	public var name:String?
+	public var params:String?
+	public var error:DDPError?
+	public var collection:String?
+	public var fields:NSDictionary?
+	public var cleared:[String]?
+	public var method:String?
+	public var randomSeed:String?
+	public var result:AnyObject?
+	public var methods:[String]?
+	public var subs:[String]?
+	public var reason:String?
+	public var offendingMessage:String?
+	public struct DDPError
+	public var error:String? { return json?["error"] as? String }                      // Error code
+	public var reason:String? { return json?["reason"] as? String }
+	public var details:String? { return json?["details"] as? String }
+	public var offendingMessage:String? { return json?["offendingMessage"] as? String }
+DDPExtensions.swift
+	public func signup(params:NSDictionary, callback:((result: AnyObject?, error: DDPError?) -> ())?)
+	public func signupWithEmail(email: String, password: String, callback: ((result:AnyObject?, error:DDPError?) -> ())?)
+	public func signupWithEmail(email: String, password: String, profile: NSDictionary, callback: ((result:AnyObject?, error:DDPError?) -> ())?)
+	public func logout()
+Meteor.swift
+	public class Meteor
+	public static let client = Meteor.Client()          // Client is a singleton object
+	public static func connect(url:String, email:String, password:String)
+	public class Client: DDPClient
+	public convenience init(url:String, email:String, password:String)
+	public override func documentWasAdded(collection:String, id:String, fields:NSDictionary?)
+	public override func documentWasRemoved(collection:String, id:String)
+	public override func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?)
+	public class MeteorCollection: NSObject, MeteorCollectionType
+	public var onAdded:((collection:String, id:String, fields:NSDictionary?) -> ())?
+	public var onChanged:((collection:String, id:String, fields:NSDictionary?, cleared:[String]?) -> ())?
+	public var onRemoved:((collection:String, id:String) -> ())?
+	public init(name:String)
+	public func documentWasAdded(collection:String, id:String, fields:NSDictionary?)
+	public func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?)
+	public func documentWasRemoved(collection:String, id:String)
+MeteorCoreData.swift
+	public class MeteorCoreData
+DDPEvents.swift
+	public struct DDPEvents
+	public var onWebsocketClose:    ((code:Int, reason:String, clean:Bool) -> ())?
+	public var onWebsocketError:    (error:ErrorType) -> () = {error in log.error("websocket error \(error)")}
+	public var onConnected:         (session:String) -> () = {session in log.info("connected with session: \(session)")}
+	public var onDisconnected:      () -> () = {log.debug("disconnected")}
+	public var onFailed:            () -> () = {log.error("failed")}
+	public var onAdded:             ((collection:String, id:String, fields:NSDictionary?) -> ())?
+	public var onChanged:           ((collection:String, id:String, fields:NSDictionary?, cleared:NSArray?) -> ())?
+	public var onRemoved:           ((collection:String, id:String) -> ())?
+	public var onUpdated:           ((methods: [String]) -> ())?
+	public var onError:             ((message:DDPError) -> ())?
