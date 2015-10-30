@@ -2,7 +2,7 @@
 import Foundation
 
 public class MeteorCoreData {
-    static let stack:MeteorCoreDataStack = {
+    static let stack:MeteorCoreDataCollectionStack = {
         print("Initializing MeteorCoreDataStack")
         return MeteorCoreDataStackPersisted()
         }()

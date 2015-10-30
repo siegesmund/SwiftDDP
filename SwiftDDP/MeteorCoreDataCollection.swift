@@ -11,7 +11,7 @@ public protocol MeteorCoreDataCollectionDelegate {
 public class MeteorCoreDataCollection:Collection {
     
     private let entityName:String
-    private let stack:MeteorCoreDataCollectionStack
+    private let stack:MeteorCoreDataStack
     private var changeLog = [Int:MeteorCollectionChange]()
     
     private lazy var mainContext:NSManagedObjectContext = { return self.stack.mainContext }()
@@ -25,9 +25,9 @@ public class MeteorCoreDataCollection:Collection {
         super.init(name: collectionName)
     }
     
-    public init(collectionName:String, entityName:String, inMemory:Bool) {
+    public init(collectionName:String, entityName:String, stack:MeteorCoreDataStack) {
         self.entityName = entityName
-        self.stack = MeteorCoreData.stack
+        self.stack = stack
         super.init(name: collectionName)
     }
     
