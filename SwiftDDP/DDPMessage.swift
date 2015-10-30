@@ -20,6 +20,9 @@
 
 import Foundation
 
+/**
+Enum value representing the types of DDP messages that the server can send
+*/
 
 // Handled Message Types
 public enum DDPMessageType:String {
@@ -61,10 +64,15 @@ public enum DDPMessageType:String {
     // - reason: string describing the error
     // - offendingMessage: if the original message parsed properly, it is included here
 
+/**
+A struct to parse, encapsulate and facilitate handling of DDP message strings
+*/
 
 public struct DDPMessage {
     
-    // SwiftyJSON JSON Object
+    /**
+    The message properties in an NSDictionary
+    */
     public var json:NSDictionary!
     
     public init(message:String) {

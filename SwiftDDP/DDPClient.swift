@@ -80,14 +80,19 @@ public class DDPClient: NSObject {
     private var url:String!
     private var subscriptions = [String:(id:String, name:String, ready:Bool)]()
     
-    internal var logLevel = XCGLogger.LogLevel.Debug
     internal var events = DDPEvents()
     internal var connection:(ddp:Bool, session:String?) = (false, nil)
     
-    public override init() {
+    public var logLevel = XCGLogger.LogLevel.Debug
+    
+    internal override init() {
         super.init()
         setLogLevel(logLevel)
     }
+    
+    /**
+    Creates a random String id
+    */
     
     public func getId() -> String {
         let numbers = Set<Character>(["0","1","2","3","4","5","6","7","8","9"])
@@ -102,6 +107,13 @@ public class DDPClient: NSObject {
         }
         return id
     }
+    
+    /**
+    Makes a DDP connection to the server
+    
+    - parameter url:        The String url to connect to, ex. "wss://todos.meteor.com/websocket"
+    - parameter callback:   A closure that takes a String argument with the value of the websocket session token
+    */
     
     public func connect(url:String, callback:((session:String)->())?) {
         
@@ -134,6 +146,12 @@ public class DDPClient: NSObject {
         }
         
     }
+    
+    /**
+    Sets the XCGLogger loglevel.
+    
+    - parameter logLevel:   An XCGLogger LogLevel enum value, ex. .Info, .Debug, .Error
+    */
     
     public func setLogLevel(logLevel:XCGLogger.LogLevel) {
         log.setup(logLevel, showLogIdentifier: true, showFunctionName: true, showThreadName: true, showLogLevel: true, showFileNames: false, showLineNumbers: true, showDate: false, writeToFile: nil, fileLogLevel: .None)
@@ -253,9 +271,9 @@ public class DDPClient: NSObject {
     the method call is successful, result contains the return value of the method, if any. If the method fails, 
     error contains information about the error.
     
-    - parameter name:       The name of the method.
-    - parameter params:     An object containing method arguments, if any.
-    - parameter callback:   The closure to be executed when the method has been executed.
+    - parameter name:       The name of the method
+    - parameter params:     An object containing method arguments, if any
+    - parameter callback:   The closure to be executed when the method has been executed
     */
     
     public func method(name: String, params: AnyObject?, callback: DDPMethodCallback?) -> String {
@@ -284,8 +302,8 @@ public class DDPClient: NSObject {
     /**
     Sends a subscription request to the server.
     
-    - parameter name:       The name of the subscription.
-    - parameter params:     An object containing method arguments, if any.
+    - parameter name:       The name of the subscription
+    - parameter params:     An object containing method arguments, if any
     */
     
     public func sub(name: String, params: [AnyObject]?) -> String {
@@ -298,9 +316,9 @@ public class DDPClient: NSObject {
     runs when the client receives a 'ready' message indicating that the initial subset of documents contained
     in the subscription has been sent by the server.
     
-    - parameter name:       The name of the subscription.
-    - parameter params:     An object containing method arguments, if any.
-    - parameter callback:   The closure to be executed when the server sends a 'ready' message.
+    - parameter name:       The name of the subscription
+    - parameter params:     An object containing method arguments, if any
+    - parameter callback:   The closure to be executed when the server sends a 'ready' message
     */
     
     public func sub(name:String, params: [AnyObject]?, callback: DDPCallback?) -> String {
@@ -325,7 +343,7 @@ public class DDPClient: NSObject {
     /**
     Sends an unsubscribe request to the server.
     
-    - parameter name:       The name of the subscription.
+    - parameter name:       The name of the subscription
     */
     
     public func unsub(name: String) -> String? {
@@ -337,8 +355,8 @@ public class DDPClient: NSObject {
     runs when the client receives a 'ready' message indicating that the subset of documents contained
     in the subscription have been removed.
     
-    - parameter name:       The name of the subscription.
-    - parameter callback:   The closure to be executed when the server sends a 'ready' message.
+    - parameter name:       The name of the subscription
+    - parameter callback:   The closure to be executed when the server sends a 'ready' message
     */
     
     public func unsub(name: String, callback: DDPCallback?) -> String? {
@@ -399,8 +417,8 @@ public class DDPClient: NSObject {
     /**
     Executes when a subscription is ready.
     
-    - parameter subscriptionId:             A String representation of the hash of the subscription name.
-    - parameter subscriptionName:           The name of the subscription.
+    - parameter subscriptionId:             A String representation of the hash of the subscription name
+    - parameter subscriptionName:           The name of the subscription
     */
     
     public func subscriptionIsReady(subscriptionId: String, subscriptionName:String) {}
@@ -408,8 +426,8 @@ public class DDPClient: NSObject {
     /**
     Executes when a subscription is removed.
     
-    - parameter subscriptionId:             A String representation of the hash of the subscription name.
-    - parameter subscriptionName:           The name of the subscription.
+    - parameter subscriptionId:             A String representation of the hash of the subscription name
+    - parameter subscriptionName:           The name of the subscription
     */
     
     public func subscriptionWasRemoved(subscriptionId:String, subscriptionName:String) {}
@@ -418,9 +436,9 @@ public class DDPClient: NSObject {
     /**
     Executes when the server has sent a new document.
     
-    - parameter collection:                 The name of the collection that the document belongs to.
-    - parameter id:                         The document's unique id.
-    - parameter fields:                     The documents properties.
+    - parameter collection:                 The name of the collection that the document belongs to
+    - parameter id:                         The document's unique id
+    - parameter fields:                     The documents properties
     */
     
     public func documentWasAdded(collection:String, id:String, fields:NSDictionary?) {
@@ -430,8 +448,8 @@ public class DDPClient: NSObject {
     /**
     Executes when the server sends a message to remove a document.
     
-    - parameter collection:                 The name of the collection that the document belongs to.
-    - parameter id:                         The document's unique id.
+    - parameter collection:                 The name of the collection that the document belongs to
+    - parameter id:                         The document's unique id
     */
     
     public func documentWasRemoved(collection:String, id:String) {
@@ -441,8 +459,8 @@ public class DDPClient: NSObject {
     /**
     Executes when the server sends a message to update a document.
     
-    - parameter collection:                 The name of the collection that the document belongs to.
-    - parameter id:                         The document's unique id.
+    - parameter collection:                 The name of the collection that the document belongs to
+    - parameter id:                         The document's unique id
     - parameter fields:                     Optional object with EJSON values containing the fields to update
     - parameter cleared:                    Optional array of strings (field names to delete)
     */
@@ -464,7 +482,7 @@ public class DDPClient: NSObject {
     /**
     Executes when the client receives an error message from the server. Such a message is used to represent errors raised by the method or subscription, as well as an attempt to subscribe to an unknown subscription or call an unknown method.
     
-    - parameter message:                    A DDPError object with information about the error.
+    - parameter message:                    A DDPError object with information about the error
     */
     
     public func didReceiveErrorMessage(message: DDPError) {
