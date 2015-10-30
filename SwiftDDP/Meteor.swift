@@ -30,13 +30,43 @@ public class Meteor {
     public static let client = Meteor.Client()          // Client is a singleton object
     private static var collections = [String:Any]()
     
+    
+    /**
+    Sends a subscription request to the server.
+    - parameter name:       The name of the subscription.
+    */
+    
     public static func subscribe(name:String) -> String { return client.sub(name, params:nil) }
+    
+    
+    /**
+    Sends a subscription request to the server.
+    - parameter name:       The name of the subscription.
+    - parameter params:     An object containing method arguments, if any.
+    */
     
     public static func subscribe(name:String, params:[AnyObject]) -> String { return client.sub(name, params:params) }
     
-    public static func subscribe(name:String, params:[AnyObject]?, callback: (()->())?) -> String { return client.sub(name, params:params, callback:callback) }
+    /**
+    Sends a subscription request to the server. If a callback is passed, the callback asynchronously
+    runs when the client receives a 'ready' message indicating that the initial subset of documents contained
+    in the subscription has been sent by the server.
+    - parameter name:       The name of the subscription.
+    - parameter params:     An object containing method arguments, if any.
+    - parameter callback:   The closure to be executed when the server sends a 'ready' message.
+    */
     
-    public static func subscribe(name:String, callback: (()->())?) -> String { return client.sub(name, params:nil, callback:callback) }
+    public static func subscribe(name:String, params:[AnyObject]?, callback: DDPCallback?) -> String { return client.sub(name, params:params, callback:callback) }
+    
+    /**
+    Sends a subscription request to the server. If a callback is passed, the callback asynchronously
+    runs when the client receives a 'ready' message indicating that the initial subset of documents contained
+    in the subscription has been sent by the server.
+    - parameter name:       The name of the subscription.
+    - parameter callback:   The closure to be executed when the server sends a 'ready' message.
+    */
+    
+    public static func subscribe(name:String, callback: DDPCallback?) -> String { return client.sub(name, params:nil, callback:callback) }
     
     //public static func unsubscribe(
     
