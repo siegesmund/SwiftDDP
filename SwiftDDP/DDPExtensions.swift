@@ -57,7 +57,9 @@ extension NSDictionary {
     }
 }
 
-// These are implemented as an extension because they're not a part of the DDP spec
+/** 
+Extensions that provide core Meteor functionality and a cleaner API
+*/
 extension DDPClient {
     
     /**
