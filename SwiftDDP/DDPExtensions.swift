@@ -28,7 +28,7 @@ private let DDP_TOKEN = "DDP_TOKEN"
 private let DDP_TOKEN_EXPIRES = "DDP_TOKEN_EXPIRES"
 private let DDP_LOGGED_IN = "DDP_LOGGED_IN"
 
-private let SWIFT_DDP_CALLBACK_DISPATCH_TIME = DISPATCH_TIME_FOREVER
+let SWIFT_DDP_CALLBACK_DISPATCH_TIME = DISPATCH_TIME_FOREVER
 
 private let syncWarning = {(name:String) -> Void in
     if NSThread.isMainThread() {
