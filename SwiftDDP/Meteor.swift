@@ -33,6 +33,7 @@ public class Meteor {
     
     /**
     Sends a subscription request to the server.
+    
     - parameter name:       The name of the subscription.
     */
     
@@ -41,6 +42,7 @@ public class Meteor {
     
     /**
     Sends a subscription request to the server.
+    
     - parameter name:       The name of the subscription.
     - parameter params:     An object containing method arguments, if any.
     */
@@ -51,6 +53,7 @@ public class Meteor {
     Sends a subscription request to the server. If a callback is passed, the callback asynchronously
     runs when the client receives a 'ready' message indicating that the initial subset of documents contained
     in the subscription has been sent by the server.
+    
     - parameter name:       The name of the subscription.
     - parameter params:     An object containing method arguments, if any.
     - parameter callback:   The closure to be executed when the server sends a 'ready' message.
@@ -62,6 +65,7 @@ public class Meteor {
     Sends a subscription request to the server. If a callback is passed, the callback asynchronously
     runs when the client receives a 'ready' message indicating that the initial subset of documents contained
     in the subscription has been sent by the server.
+    
     - parameter name:       The name of the subscription.
     - parameter callback:   The closure to be executed when the server sends a 'ready' message.
     */

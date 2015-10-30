@@ -252,6 +252,7 @@ public class DDPClient: NSObject {
     executed when the method has completed. The callback takes two arguments: result and error. It 
     the method call is successful, result contains the return value of the method, if any. If the method fails, 
     error contains information about the error.
+    
     - parameter name:       The name of the method.
     - parameter params:     An object containing method arguments, if any.
     - parameter callback:   The closure to be executed when the method has been executed.
@@ -282,6 +283,7 @@ public class DDPClient: NSObject {
     
     /**
     Sends a subscription request to the server.
+    
     - parameter name:       The name of the subscription.
     - parameter params:     An object containing method arguments, if any.
     */
@@ -295,6 +297,7 @@ public class DDPClient: NSObject {
     Sends a subscription request to the server. If a callback is passed, the callback asynchronously
     runs when the client receives a 'ready' message indicating that the initial subset of documents contained
     in the subscription has been sent by the server.
+    
     - parameter name:       The name of the subscription.
     - parameter params:     An object containing method arguments, if any.
     - parameter callback:   The closure to be executed when the server sends a 'ready' message.
@@ -321,6 +324,7 @@ public class DDPClient: NSObject {
     
     /**
     Sends an unsubscribe request to the server.
+    
     - parameter name:       The name of the subscription.
     */
     
@@ -332,6 +336,7 @@ public class DDPClient: NSObject {
     Sends an unsubscribe request to the server. If a callback is passed, the callback asynchronously
     runs when the client receives a 'ready' message indicating that the subset of documents contained
     in the subscription have been removed.
+    
     - parameter name:       The name of the subscription.
     - parameter callback:   The closure to be executed when the server sends a 'ready' message.
     */
@@ -393,6 +398,7 @@ public class DDPClient: NSObject {
     
     /**
     Executes when a subscription is ready.
+    
     - parameter subscriptionId:             A String representation of the hash of the subscription name.
     - parameter subscriptionName:           The name of the subscription.
     */
@@ -401,6 +407,7 @@ public class DDPClient: NSObject {
     
     /**
     Executes when a subscription is removed.
+    
     - parameter subscriptionId:             A String representation of the hash of the subscription name.
     - parameter subscriptionName:           The name of the subscription.
     */
@@ -410,6 +417,7 @@ public class DDPClient: NSObject {
     
     /**
     Executes when the server has sent a new document.
+    
     - parameter collection:                 The name of the collection that the document belongs to.
     - parameter id:                         The document's unique id.
     - parameter fields:                     The documents properties.
@@ -421,6 +429,7 @@ public class DDPClient: NSObject {
     
     /**
     Executes when the server sends a message to remove a document.
+    
     - parameter collection:                 The name of the collection that the document belongs to.
     - parameter id:                         The document's unique id.
     */
@@ -431,6 +440,7 @@ public class DDPClient: NSObject {
     
     /**
     Executes when the server sends a message to update a document.
+    
     - parameter collection:                 The name of the collection that the document belongs to.
     - parameter id:                         The document's unique id.
     - parameter fields:                     Optional object with EJSON values containing the fields to update
@@ -443,6 +453,7 @@ public class DDPClient: NSObject {
     
     /**
     Executes when the server sends a message indicating that the result of a method has changed.
+    
     - parameter methods:                    An array of strings (ids passed to 'method', all of whose writes have been reflected in data messages)
     */
     
@@ -452,6 +463,7 @@ public class DDPClient: NSObject {
     
     /**
     Executes when the client receives an error message from the server. Such a message is used to represent errors raised by the method or subscription, as well as an attempt to subscribe to an unknown subscription or call an unknown method.
+    
     - parameter message:                    A DDPError object with information about the error.
     */
     
