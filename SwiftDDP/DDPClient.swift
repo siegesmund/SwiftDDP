@@ -80,9 +80,9 @@ public class DDPClient: NSObject {
     private var url:String!
     private var subscriptions = [String:(id:String, name:String, ready:Bool)]()
     
-    public var logLevel = XCGLogger.LogLevel.Debug
-    public var events = DDPEvents()
-    public var connection:(ddp:Bool, session:String?) = (false, nil)
+    internal var logLevel = XCGLogger.LogLevel.Debug
+    internal var events = DDPEvents()
+    internal var connection:(ddp:Bool, session:String?) = (false, nil)
     
     public override init() {
         super.init()
