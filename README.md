@@ -20,3 +20,6 @@ Or, use [CocoaPods](http://cocoapods.org). Add the following line to your Podfil
 ```ruby
 pod "SwiftDDP"
 ```
+
+## Documentation ##
+[Read the docs](https://siegesmund.github.io/SwiftDDP)  
