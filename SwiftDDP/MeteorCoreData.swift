@@ -20,6 +20,9 @@
 
 import Foundation
 
+/**
+A wrapper class for the singleton stack object containing a reference to the Core Data stack
+*/
 public class MeteorCoreData {
     static let stack:MeteorCoreDataStack = {
         print("Initializing MeteorCoreDataStack")

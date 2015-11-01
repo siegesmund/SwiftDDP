@@ -23,6 +23,10 @@ import CoreData
 
 public extension NSManagedObject {
     
+    /**
+    Returns a dictionary of the properties of an NSManagedObject
+    */
+    
     public var dictionary:NSDictionary {
         let keys = Array(self.entity.attributesByName.keys)
         return self.dictionaryWithValuesForKeys(keys)
