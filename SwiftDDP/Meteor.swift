@@ -26,8 +26,18 @@ protocol MeteorCollectionType {
     func documentWasRemoved(collection:String, id:String)
 }
 
+/**
+Meteor is a class to simplify communicating with and consuming MeteorJS server services
+*/
+
 public class Meteor {
+    
+    /**
+    client is a singleton instance of DDPClient
+    */
+    
     public static let client = Meteor.Client()          // Client is a singleton object
+    
     private static var collections = [String:Any]()
     
     
@@ -74,6 +84,13 @@ public class Meteor {
     
     //public static func unsubscribe(
     
+    /**
+    Call a single function to establish a DDP connection, and login with email and password
+    
+    - parameter url:        The url to connect to
+    - parameter email:      A string email address associated with a Meteor account
+    - parameter password:   A string password 
+    */
     public static func connect(url:String, email:String, password:String) {
         client.connect(url) { session in
             client.loginWithPassword(email, password: password) { result, error in
@@ -87,6 +104,9 @@ public class Meteor {
         }
     }
     
+    /**
+    Meteor.Client is a subclass of DDPClient that facilitates interaction with the MeteorCollection class
+    */
     public class Client: DDPClient {
         
         typealias SubscriptionCallback = () -> ()
@@ -96,7 +116,15 @@ public class Meteor {
             self.init()
         }
         
-        // Posts a notification when a document is added
+        /**
+        Calls the documentWasAdded method in the MeteorCollection subclass instance associated with the document
+        collection
+        
+        - parameter collection:     the string name of the collection to which the document belongs
+        - parameter id:             the string unique id that identifies the document on the server
+        - parameter fields:         an optional NSDictionary with the documents properties
+        */
+        
         public override func documentWasAdded(collection:String, id:String, fields:NSDictionary?) {
             if let meteorCollection = Meteor.collections[collection] as? MeteorCollectionType {
                 NSOperationQueue.mainQueue().addOperationWithBlock() {
@@ -105,18 +133,16 @@ public class Meteor {
             }
         }
         
-        // Posts a notification when a document is removed
-        public override func documentWasRemoved(collection:String, id:String) {
-            // let message = NSDictionary(dictionary:["collection":collection, "id":id])
-            // let userInfo = ["message":message]
-            if let meteorCollection = Meteor.collections[collection] as? MeteorCollectionType {
-                NSOperationQueue.mainQueue().addOperationWithBlock() {
-                    meteorCollection.documentWasRemoved(collection, id: id)
-                }
-            }
-        }
+        /**
+        Calls the documentWasChanged method in the MeteorCollection subclass instance associated with the document
+        collection
         
-        // Posts a notification when a document is changed
+        - parameter collection:     the string name of the collection to which the document belongs
+        - parameter id:             the string unique id that identifies the document on the server
+        - parameter fields:         an optional NSDictionary with the documents properties
+        - parameter cleared:        an optional array of string property names to delete
+        */
+        
         public override func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?) {
             if let meteorCollection = Meteor.collections[collection] as? MeteorCollectionType {
                 NSOperationQueue.mainQueue().addOperationWithBlock() {
@@ -124,20 +150,46 @@ public class Meteor {
                 }
             }
         }
+        
+        /**
+        Calls the documentWasRemoved method in the MeteorCollection subclass instance associated with the document
+        collection
+        
+        - parameter collection:     the string name of the collection to which the document belongs
+        - parameter id:             the string unique id that identifies the document on the server
+        */
+        
+        public override func documentWasRemoved(collection:String, id:String) {
+            if let meteorCollection = Meteor.collections[collection] as? MeteorCollectionType {
+                NSOperationQueue.mainQueue().addOperationWithBlock() {
+                    meteorCollection.documentWasRemoved(collection, id: id)
+                }
+            }
+        }
     }
 }
 
+/**
+MeteorCollection is a class created to provide a base class and api for integrating SwiftDDP with persistence stores. MeteorCollection
+should generally be subclassed, with the methods documentWasAdded, documentWasChanged and documentWasRemoved facilitating communicating 
+with the datastore.
+*/
 public class MeteorCollection: NSObject, MeteorCollectionType {
     
     internal var name:String
     internal let client = Meteor.client
     
+    // Alternative API to subclassing
     // Can also set these closures to modify behavior on added, changed, removed
-    public var onAdded:((collection:String, id:String, fields:NSDictionary?) -> ())?
-    public var onChanged:((collection:String, id:String, fields:NSDictionary?, cleared:[String]?) -> ())?
-    public var onRemoved:((collection:String, id:String) -> ())?
+    // public var onAdded:((collection:String, id:String, fields:NSDictionary?) -> ())?
+    // public var onChanged:((collection:String, id:String, fields:NSDictionary?, cleared:[String]?) -> ())?
+    // public var onRemoved:((collection:String, id:String) -> ())?
     
-    // Must use the constructor function to create the collection
+    /**
+    Initializes a MeteorCollection object
+    
+    - parameter name:   The string name of the collection (must match the name of the collection on the server) 
+    */
     public init(name:String) {
         self.name = name
         super.init()
@@ -148,17 +200,24 @@ public class MeteorCollection: NSObject, MeteorCollectionType {
         Meteor.collections[name] = nil
     }
     
-    // Override these methods to subclass Collection
+    /**
+    Called when a document has been sent from the server. Always executes on the main queue
+    
+    - parameter collection:     the string name of the collection to which the document belongs
+    - parameter id:             the string unique id that identifies the document on the server
+    - parameter fields:         an optional NSDictionary with the documents properties
+    */
+    
     public func documentWasAdded(collection:String, id:String, fields:NSDictionary?) {
-        if let added = onAdded { added(collection: collection, id: id, fields:fields) }
+        // if let added = onAdded { added(collection: collection, id: id, fields:fields) }
     }
     
     public func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?) {
-        if let changed = onChanged { changed(collection:collection, id:id, fields:fields, cleared:cleared) }
+        // if let changed = onChanged { changed(collection:collection, id:id, fields:fields, cleared:cleared) }
     }
     
     public func documentWasRemoved(collection:String, id:String) {
-        if let removed = onRemoved { removed(collection:collection, id:id) }
+        // if let removed = onRemoved { removed(collection:collection, id:id) }
     }
 }
 

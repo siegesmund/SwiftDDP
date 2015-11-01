@@ -35,6 +35,10 @@ let log = XCGLogger(identifier: "DDP")
 public typealias DDPMethodCallback = (result:AnyObject?, error:DDPError?) -> ()
 public typealias DDPCallback = () -> ()
 
+/**
+DDPClient is the base class for communicating with a server using the DDP protocol
+*/
+
 public class DDPClient: NSObject {
     
     // included for storing login id and token
