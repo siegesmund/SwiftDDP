@@ -71,10 +71,13 @@ A struct to parse, encapsulate and facilitate handling of DDP message strings
 public struct DDPMessage {
     
     /**
-    The message properties in an NSDictionary
+    The message's properties, stored as an NSDictionary
     */
     public var json:NSDictionary!
     
+    /**
+    Initialize a message struct, with a Json string
+    */
     public init(message:String) {
         
         if let JSON = message.dictionaryValue() { json = JSON }
@@ -84,6 +87,9 @@ public struct DDPMessage {
         }
     }
     
+    /**
+    Initialize a message struct, with a dictionary of strings
+    */
     public init(message:[String:String]) {
         json = message as NSDictionary
     }
@@ -101,7 +107,9 @@ public struct DDPMessage {
     // Computed variables
     //
     
-    // Returns the type of DDP message, or unhandled if it is not a DDP message
+    /**
+    Returns the DDP message type, of type DDPMessageType enum
+    */
     public var type:DDPMessageType {
         if let msg = message,
             let type = DDPMessageType(rawValue: msg) {
@@ -110,6 +118,9 @@ public struct DDPMessage {
         return DDPMessageType(rawValue: "unhandled")!
     }
     
+    /**
+    Returns a boolean value indicating if the message is an error message or not
+    */
     public var isError:Bool {
         if (self.type == .Error) { return true }    // if message is a top level error ("msg"="error")
         if let _ = self.error { return true }       // if message contains an error object, as in method or nosub
@@ -117,7 +128,7 @@ public struct DDPMessage {
     }
     
     // Returns the root-level keys of the JSON object
-    public var keys:[String] {
+    internal var keys:[String] {
         return json.allKeys as! [String]
     }
     
@@ -128,90 +139,164 @@ public struct DDPMessage {
         return false
     }
     
+    /**
+    The optional DDP message
+    */
     public var message:String? {
         get { return json["msg"] as? String }
     }
     
+    /**
+    The optional DDP session string
+    */
     public var session:String? {
         get { return json["session"] as? String }
     }
     
+    /**
+    The optional DDP version string
+    */
     public var version:String? {
         get { return json["version"] as? String }
     }
     
+    /**
+    The optional DDP support string
+    */
     public var support:String? {
         get { return json["support"] as? String }
     }
     
+    /**
+    The optional DDP message id string
+    */
     public var id:String? {
         get { return json["id"] as? String }
     }
     
+    /**
+    The optional DDP name string
+    */
     public var name:String? {
         get { return json["name"] as? String }
     }
     
+    /**
+    The optional DDP param string
+    */
     public var params:String? {
         get { return json["params"] as? String }
     }
     
+    /**
+    The optional DDP error object
+    */
     public var error:DDPError? {
         get { if let e = json["error"] as? NSDictionary { return DDPError(json:e) } else { return nil }}
     }
     
+    /**
+    The optional DDP collection name string
+    */
     public var collection:String? {
         get { return json["collection"] as? String }
     }
     
+    /**
+    The optional DDP fields dictionary
+    */
     public var fields:NSDictionary? {
         get { return json["fields"] as? NSDictionary }
     }
     
+    /**
+    The optional DDP cleared array. Contains an array of fields that should be removed
+    */
     public var cleared:[String]? {
         get { return json["cleared"] as? [String] }
     }
     
+    /**
+    The optional method name
+    */
     public var method:String? {
         get { return json["method"] as? String }
     }
     
+    /**
+    The optional random seed JSON value (an arbitrary client-determined seed for pseudo-random generators)
+    */
     public var randomSeed:String? {
         get { return json["randomSeed"] as? String }
     }
     
+    /**
+    The optional result object, containing the result of a method call
+    */
     public var result:AnyObject? {
         get { return json["result"] }
     }
     
+    /**
+    The optional array of ids passed to 'method', all of whose writes have been reflected in data messages)
+    */
     public var methods:[String]? {
         get { return json["methods"] as? [String] }
     }
     
+    /**
+    The optional array of id strings passed to 'sub' which have sent their initial batch of data
+    */
     public var subs:[String]? {
         get { return json["subs"] as? [String] }
     }
     
-    // Communication error properties
+    /**
+    The optional reason given for an error returned from the server
+    */
     public var reason:String? {
         get { return json["reason"] as? String }
     }
     
+    /**
+    The optional original error message
+    */
     public var offendingMessage:String? {
         get { return json["offendingMessage"] as? String }
     }
 }
 
 
-
-public struct DDPError {
+/**
+A struct encapsulating a DDP error message
+*/
+public struct DDPError: ErrorType {
     
     private var json:NSDictionary?
     
+    /**
+    The string error code
+    */
     public var error:String? { return json?["error"] as? String }                      // Error code
+    
+    /**
+    The detailed message given for an error returned from the server
+    */
     public var reason:String? { return json?["reason"] as? String }
+    
+    /**
+    The string providing error details
+    */
     public var details:String? { return json?["details"] as? String }
+    
+    /**
+    If the original message parsed properly, it is included here
+    */
     public var offendingMessage:String? { return json?["offendingMessage"] as? String }
+    
+    /**
+    Helper variable that returns true if the struct has both an error code and a reason
+    */
     
     var isValid:Bool {
         if let _ = error { return true }
