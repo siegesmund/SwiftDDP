@@ -58,7 +58,7 @@ extension NSDictionary {
 }
 
 /** 
-Extensions that provide core Meteor functionality and a cleaner API
+Extensions that provide an api for interacting with basic Meteor server-side services
 */
 extension DDPClient {
     
