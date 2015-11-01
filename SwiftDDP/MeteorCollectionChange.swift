@@ -25,7 +25,7 @@ import Foundation
 //
 //
 
-struct MeteorCollectionChange: Hashable {
+internal struct MeteorCollectionChange: Hashable {
     var id:String
     var collection:String
     var fields:NSDictionary?
@@ -41,7 +41,7 @@ struct MeteorCollectionChange: Hashable {
         return hash.hashValue
     }
     
-    init(id:String, collection:String, fields:NSDictionary?, cleared:[String]?){
+    internal init(id:String, collection:String, fields:NSDictionary?, cleared:[String]?){
         self.id = id
         self.collection = collection
         self.fields = fields

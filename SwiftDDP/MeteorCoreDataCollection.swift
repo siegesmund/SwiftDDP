@@ -54,7 +54,7 @@ public class MeteorCoreDataCollection:MeteorCollection {
         return stack.managedObjectContext
     }
     
-    public func newObject() -> NSManagedObject {
+    internal func newObject() -> NSManagedObject {
         let entity = NSEntityDescription.entityForName(entityName, inManagedObjectContext: managedObjectContext)
         let object = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedObjectContext)
         return object
