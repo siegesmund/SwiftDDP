@@ -13,7 +13,7 @@
     <a title="DDPEvents Struct Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html"> Docs</a> (25% documented)</p>
+        <p><a href="../index.html"> Docs</a> (52% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -102,50 +102,20 @@
         <section>
           <section class="section">
             <h1>DDPEvents</h1>
-            <p>Undocumented</p>
+              <div class="declaration">
+                <div class="Swift">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DDPEvents</span></code></pre>
+
+                </div>
+              </div>
+            <p>DDPEvents is a struct holder for callback closures that execute in response to 
+websocket and Meteor lifecyle events. New closures can be assigned to public
+closures to modify the clients behavior in response to the trigger event.</p>
 
           </section>
           <section class="section task-group-section">
             <div class="task-group">
               <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:vV8SwiftDDP9DDPEvents16onWebsocketCloseGSqFT4codeSi6reasonSS5cleanSb_T__"></a>
-                    <a name="//apple_ref/swift/Property/onWebsocketClose" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vV8SwiftDDP9DDPEvents16onWebsocketCloseGSqFT4codeSi6reasonSS5cleanSb_T__">onWebsocketClose</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:vV8SwiftDDP9DDPEvents16onWebsocketErrorFT5errorPSs9ErrorType__T_"></a>
-                    <a name="//apple_ref/swift/Property/onWebsocketError" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vV8SwiftDDP9DDPEvents16onWebsocketErrorFT5errorPSs9ErrorType__T_">onWebsocketError</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                    </section>
-                  </div>
-                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -159,8 +129,36 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>onConnected executes when the client makes a DDP connection</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">onConnected</span><span class="p">:</span>         <span class="p">(</span><span class="nv">session</span><span class="p">:</span><span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">()</span> <span class="o">=</span> <span class="p">{</span><span class="n">session</span> <span class="k">in</span> <span class="n">log</span><span class="o">.</span><span class="nf">info</span><span class="p">(</span><span class="s">"connected with session: </span><span class="se">\(</span><span class="n">session</span><span class="se">)</span><span class="s">"</span><span class="p">)}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>session</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A string session id</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -178,8 +176,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>onDisconnected executes when the client is disconnected</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">onDisconnected</span><span class="p">:</span>      <span class="p">()</span> <span class="o">-&gt;</span> <span class="p">()</span> <span class="o">=</span> <span class="p">{</span><span class="n">log</span><span class="o">.</span><span class="nf">debug</span><span class="p">(</span><span class="s">"disconnected"</span><span class="p">)}</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -197,8 +203,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>onFailed executes when an attempt to make a DDP connection fails</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">onFailed</span><span class="p">:</span>            <span class="p">()</span> <span class="o">-&gt;</span> <span class="p">()</span> <span class="o">=</span> <span class="p">{</span><span class="n">log</span><span class="o">.</span><span class="nf">error</span><span class="p">(</span><span class="s">"failed"</span><span class="p">)}</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -216,8 +230,62 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>onAdded executes when a document has been added to a local collection</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">onAdded</span><span class="p">:</span>             <span class="p">((</span><span class="nv">collection</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">id</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">fields</span><span class="p">:</span><span class="kt">NSDictionary</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">())?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>collection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the string name of the collection to which the document belongs</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the string unique id that identifies the document on the server</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>fields</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>an optional NSDictionary with the documents properties</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -235,8 +303,75 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>onChanged executes when the server sends an instruction to modify a local document</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">onChanged</span><span class="p">:</span>           <span class="p">((</span><span class="nv">collection</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">id</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">fields</span><span class="p">:</span><span class="kt">NSDictionary</span><span class="p">?,</span> <span class="nv">cleared</span><span class="p">:</span><span class="kt">NSArray</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">())?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>collection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the string name of the collection to which the document belongs</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the string unique id that identifies the document on the server</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>fields</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>an optional NSDictionary with the documents properties</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cleared</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>an optional array of string property names to delete</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -254,8 +389,49 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>onRemoved executes when the server sends an instruction to remove a document from the local collection</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">onRemoved</span><span class="p">:</span>           <span class="p">((</span><span class="nv">collection</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">id</span><span class="p">:</span><span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">())?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>collection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the string name of the collection to which the document belongs</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the string unique id that identifies the document on the server</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -273,8 +449,37 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>onUpdated executes when the server sends a notification that all the consequences of a method call have
+been communicated to the client</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">onUpdated</span><span class="p">:</span>           <span class="p">((</span><span class="nv">methods</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="p">())?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>methods</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of method id strings</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -292,8 +497,36 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>onError executes when the client receives a DDP error message</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">onError</span><span class="p">:</span>             <span class="p">((</span><span class="nv">message</span><span class="p">:</span><span class="kt">DDPError</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">())?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>message</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A DDPError message describing the error</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -303,7 +536,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2015 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2015-10-30)</p>
+          <p>&copy; 2015 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2015-11-01)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.3.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
