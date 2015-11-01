@@ -73,7 +73,12 @@ public struct DDPMessage {
     /**
     The message's properties, stored as an NSDictionary
     */
+    public var json:NSDictionary!
     
+    
+    /**
+    The message properties in an NSDictionary
+    */
     public var json:NSDictionary!
     
     /**
@@ -134,6 +139,11 @@ public struct DDPMessage {
     }
     
     internal func hasProperty(name:String) -> Bool {
+    public var keys:[String] {
+        return json.allKeys as! [String]
+    }
+    
+    public func hasProperty(name:String) -> Bool {
         if let property = json[name] where ((property as! NSObject) != NSNull()) {
             return true
         }
@@ -298,6 +308,11 @@ public struct DDPError {
     /**
     Helper variable that returns true if the struct has both an error code and a reason
     */
+    public var error:String? { return json?["error"] as? String }                      // Error code
+    public var reason:String? { return json?["reason"] as? String }
+    public var details:String? { return json?["details"] as? String }
+    public var offendingMessage:String? { return json?["offendingMessage"] as? String }
+    
     var isValid:Bool {
         if let _ = error { return true }
         if let _ = reason { return true }
