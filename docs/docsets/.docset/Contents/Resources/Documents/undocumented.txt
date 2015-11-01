@@ -6,9 +6,7 @@ MeteorCoreDataTableViewController.swift
 MeteorCoreData.swift
 	public class MeteorCoreData
 DDPClient.swift
-	public class DDPClient: NSObject
 	public var logLevel = XCGLogger.LogLevel.Debug
-	public class DDPClient : NSObject
 MeteorCoreDataCollection.swift
 	public protocol MeteorCoreDataCollectionDelegate
 	func document(willBeCreatedWith fields:NSDictionary?, forObject object:NSManagedObject) -> NSManagedObject
@@ -61,20 +59,7 @@ DDPExtensions.swift
 	public func signupWithEmail(email: String, password: String, profile: NSDictionary, callback: ((result:AnyObject?, error:DDPError?) -> ())?)
 	public func logout()
 Meteor.swift
-	public class Meteor
-	public static let client = Meteor.Client()          // Client is a singleton object
-	public static func connect(url:String, email:String, password:String)
-	public class Client: DDPClient
 	public convenience init(url:String, email:String, password:String)
-	public override func documentWasAdded(collection:String, id:String, fields:NSDictionary?)
-	public override func documentWasRemoved(collection:String, id:String)
-	public override func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?)
-	public class MeteorCollection: NSObject, MeteorCollectionType
-	public var onAdded:((collection:String, id:String, fields:NSDictionary?) -> ())?
-	public var onChanged:((collection:String, id:String, fields:NSDictionary?, cleared:[String]?) -> ())?
-	public var onRemoved:((collection:String, id:String) -> ())?
-	public init(name:String)
-	public func documentWasAdded(collection:String, id:String, fields:NSDictionary?)
 	public func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?)
 	public func documentWasRemoved(collection:String, id:String)
 CoreDataExtensions.swift
