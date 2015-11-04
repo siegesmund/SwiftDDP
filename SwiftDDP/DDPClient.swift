@@ -32,351 +32,466 @@ import XCGLogger
 
 let log = XCGLogger(identifier: "DDP")
 
-public class DDP {
+public typealias DDPMethodCallback = (result:AnyObject?, error:DDPError?) -> ()
+public typealias DDPCallback = () -> ()
+
+/**
+DDPClient is the base class for communicating with a server using the DDP protocol
+*/
+
+public class DDPClient: NSObject {
     
-    public class Client: NSObject {
-        
-        // included for storing login id and token
-        let userData = NSUserDefaults.standardUserDefaults()
-        
-        public let incomingData:NSOperationQueue = {
-            let queue = NSOperationQueue()
-            queue.name = "DDP Incoming Data Queue"
-            queue.maxConcurrentOperationCount = 1
-            return queue
-            }()
-        
-        // Calling methods on the server + their callbacks
-        public let outgoingData:NSOperationQueue = {
-            let queue = NSOperationQueue()
-            queue.name = "DDP Outgoing Data Queue"
-            // queue.maxConcurrentOperationCount = 1
-            return queue
-            }()
-        
-        public let operation:NSOperationQueue = {
-            let queue = NSOperationQueue()
-            queue.name = "DDP Operation Queue"
-            queue.maxConcurrentOperationCount = 1
-            return queue
-            }()
-        
-        public let heartbeat:NSOperationQueue = {
-            let queue = NSOperationQueue()
-            queue.name = "DDP Heartbeat Queue"
-            //queue.maxConcurrentOperationCount = 1
-            return queue
-            }()
-        
-        public let mainQueue = NSOperationQueue.mainQueue()
-        
-        private var socket:WebSocket!
-        private var server:(ping:NSDate?, pong:NSDate?) = (nil, nil)
-        
-        var resultCallbacks:[String:(result:AnyObject?, error:DDP.Error?) -> ()] = [:]
-        var subCallbacks:[String:() -> ()] = [:]
-        var unsubCallbacks:[String:() -> ()] = [:]
-        
-        var url:String!
-        var subscriptions = [String:(id:String, name:String, ready:Bool)]()
-        
-        public var logLevel = XCGLogger.LogLevel.Debug
-        public var events = DDP.Events()
-        public var connection:(ddp:Bool, session:String?) = (false, nil)
-        
-        public override init() {
-            super.init()
-            setLogLevel(logLevel)
-        }
-        
-        public func getId() -> String {
-            let numbers = Set<Character>(["0","1","2","3","4","5","6","7","8","9"])
-            let uuid = NSUUID().UUIDString.stringByReplacingOccurrencesOfString("-", withString: "")
-            var id = ""
-            for character in uuid.characters {
-                if (!numbers.contains(character) && (round(Float(arc4random()) / Float(UINT32_MAX)) == 1)) {
-                    id += String(character).lowercaseString
-                } else {
-                    id += String(character)
-                }
-            }
-            return id
-        }
-        
-        public func connect(url:String, callback:((session:String)->())?) {
-            
-            socket = WebSocket(url)
-            
-            socket.event.close = {code, reason, clean in
-                log.info("Web socket connection closed with code \(code). Clean: \(clean). \(reason)")
-                let event = self.socket.event
-                self.socket = WebSocket(url)
-                self.socket.event = event
-                self.ping()
-            }
-            
-            socket.event.error = events.onWebsocketError
-            
-            socket.event.open = {
-                self.heartbeat.addOperationWithBlock() {
-                    if let c = callback { self.events.onConnected = c }
-                    self.sendMessage(["msg":"connect", "version":"1", "support":["1"]])
-                }
-            }
-            
-            socket.event.message = { message in
-                self.operation.addOperationWithBlock() {
-                    if let text = message as? String {
-                        do { try self.ddpMessageHandler(DDP.Message(message: text)) }
-                        catch { log.debug("Message handling error. Raw message: \(text)")}
-                    }
-                }
-            }
-            
-        }
-        
-        public func setLogLevel(logLevel:XCGLogger.LogLevel) {
-            log.setup(logLevel, showLogIdentifier: true, showFunctionName: true, showThreadName: true, showLogLevel: true, showFileNames: false, showLineNumbers: true, showDate: false, writeToFile: nil, fileLogLevel: .None)
-        }
-        
-        func ping() {
-            heartbeat.addOperationWithBlock() {
-                self.sendMessage(["msg":"ping", "id":self.getId()])
-            }
-        }
-        
-        // Respond to a server ping
-        private func pong(ping: DDP.Message) {
-            heartbeat.addOperationWithBlock() {
-                self.server.ping = NSDate()
-                log.debug("Ping")
-                var response = ["msg":"pong"]
-                if let id = ping.id { response["id"] = id }
-                self.sendMessage(response)
-            }
-        }
-        
-        // Parse DDP messages and dispatch to the appropriate function
-        func ddpMessageHandler(message: DDP.Message) throws {
-            
-            log.debug("Received message: \(message.json)")
-            
-            switch message.type {
-                
-            case .Connected:
-                self.connection = (true, message.session!)
-                self.events.onConnected(session:message.session!)
-                
-            case .Result: incomingData.addOperationWithBlock() {
-                if let id = message.id,                              // Message has id
-                    let callback = self.resultCallbacks[id],          // There is a callback registered for the message
-                    let result = message.result {
-                        callback(result:result, error: message.error)
-                        self.resultCallbacks[id] = nil
-                } else if let id = message.id,
-                    let callback = self.resultCallbacks[id] {
-                        callback(result:nil, error:message.error)
-                        self.resultCallbacks[id] = nil
-                }
-                }
-                
-                // Principal callbacks for managing data
-                // Document was added
-            case .Added: incomingData.addOperationWithBlock() {
-                if let collection = message.collection,
-                    let id = message.id {
-                        self.documentWasAdded(collection, id: id, fields: message.fields)
-                }
-                }
-                
-                // Document was changed
-            case .Changed: incomingData.addOperationWithBlock() {
-                if let collection = message.collection,
-                    let id = message.id {
-                        self.documentWasChanged(collection, id: id, fields: message.fields, cleared: message.cleared)
-                }
-                }
-                
-                // Document was removed
-            case .Removed: incomingData.addOperationWithBlock() {
-                if let collection = message.collection,
-                    let id = message.id {
-                        self.documentWasRemoved(collection, id: id)
-                }
-                }
-                
-                // Notifies you when the result of a method changes
-            case .Updated: incomingData.addOperationWithBlock() {
-                if let methods = message.methods {
-                    self.methodWasUpdated(methods)
-                }
-                }
-                
-                // Callbacks for managing subscriptions
-            case .Ready: incomingData.addOperationWithBlock() {
-                if let subs = message.subs {
-                    self.ready(subs)
-                }
-                }
-                
-                // Callback that fires when subscription has been completely removed
-                //
-            case .Nosub: incomingData.addOperationWithBlock() {
-                if let id = message.id {
-                    self.nosub(id, error: message.error)
-                }
-                }
-                
-                
-            case .Ping: heartbeat.addOperationWithBlock() { self.pong(message) }
-                
-            case .Pong: heartbeat.addOperationWithBlock() { self.server.pong = NSDate() }
-                
-            case .Error: incomingData.addOperationWithBlock() {
-                self.didReceiveErrorMessage(DDP.Error(json: message.json))
-                }
-                
-            default: log.error("Unhandled message: \(message.json)")
-                
-            }
-        }
-        
-        private func sendMessage(message:NSDictionary) {
-            if let m = message.stringValue() {
-                self.socket.send(m)
-            }
-        }
-        
-        // Execute a method on the Meteor server
-        public func method(name: String, params: AnyObject?, callback: ((result:AnyObject?, error: DDP.Error?) -> ())?) -> String {
-            let id = getId()
-            let message = ["msg":"method", "method":name, "id":id] as NSMutableDictionary
-            if let p = params { message["params"] = p }
-            if let c = callback { resultCallbacks[id] = c }
-            outgoingData.addOperationWithBlock() { self.sendMessage(message) }
-            return id
-        }
-        
-        //
-        // Subscribe
-        //
-        
-        public func sub(id: String, name: String, params: [AnyObject]?, callback: (() -> ())?) -> String {
-            if let c = callback { subCallbacks[id] = c }
-            subscriptions[id] = (id, name, false)
-            let message = ["msg":"sub", "name":name, "id":id] as NSMutableDictionary
-            if let p = params { message["params"] = p }
-            outgoingData.addOperationWithBlock() { self.sendMessage(message) }
-            return id
-        }
-        
-        // Subscribe to a Meteor collection
-        public func sub(name: String, params: [AnyObject]?) -> String {
-            let id = getId()
-            return sub(id, name: name, params: params, callback:nil)
-        }
-        
-        public func sub(name:String, params: [AnyObject]?, callback: (() -> ())?) -> String {
-            let id = getId()
-            return  sub(id, name: name, params: params, callback: callback)
-        }
-        
-        // Iterates over the Dictionary of subscriptions to find a subscription by name
-        func findSubscription(name:String) -> (id:String, name:String, ready:Bool)? {
-            for subscription in subscriptions.values {
-                if (name == subscription.name) {
-                    return subscription
-                }
-            }
-            return nil
-        }
-        
-        //
-        // Unsubscribe
-        //
-        
-        public func unsub(withName name: String) -> String? {
-            return unsub(withName: name, callback: nil)
-        }
-        
-        public func unsub(withName name: String, callback:(()->())?) -> String? {
-            if let sub = findSubscription(name) {
-                unsub(withId: sub.id, callback: callback)
-                outgoingData.addOperationWithBlock() { self.sendMessage(["msg":"unsub", "id":sub.id]) }
-                return sub.id
-            }
-            return nil
-        }
-        
-        public func unsub(withId id: String, callback: (() -> ())?) {
-            if let c = callback { unsubCallbacks[id] = c }
-            outgoingData.addOperationWithBlock() { self.sendMessage(["msg":"unsub", "id":id]) }
-        }
-        
-        //
-        // Responding to server subscription messages
-        //
-        
-        private func ready(subs: [String]) {
-            for id in subs {
-                if let callback = subCallbacks[id] {
-                    callback()                          // Run the callback
-                    subCallbacks[id] = nil           // Delete the callback after running
-                } else {                                // If there is no callback, execute the method
-                    if var sub = subscriptions[id] {
-                        sub.ready = true
-                        subscriptions[id] = sub
-                        subscriptionIsReady(sub.id, subscriptionName: sub.name)
-                    }
-                }
-            }
-        }
-        
-        private func nosub(id: String, error: DDP.Error?) {
-            if let e = error where (e.isValid == true) {
-                print(e)
+    // included for storing login id and token
+    internal let userData = NSUserDefaults.standardUserDefaults()
+    
+    internal let incomingData:NSOperationQueue = {
+        let queue = NSOperationQueue()
+        queue.name = "DDP Incoming Data Queue"
+        queue.maxConcurrentOperationCount = 1
+        return queue
+        }()
+    
+    // Calling methods on the server + their callbacks
+    internal let outgoingData:NSOperationQueue = {
+        let queue = NSOperationQueue()
+        queue.name = "DDP Outgoing Data Queue"
+        // queue.maxConcurrentOperationCount = 1
+        return queue
+        }()
+    
+    internal let operation:NSOperationQueue = {
+        let queue = NSOperationQueue()
+        queue.name = "DDP Operation Queue"
+        queue.maxConcurrentOperationCount = 1
+        return queue
+        }()
+    
+    internal let heartbeat:NSOperationQueue = {
+        let queue = NSOperationQueue()
+        queue.name = "DDP Heartbeat Queue"
+        return queue
+        }()
+    
+    internal let mainQueue = NSOperationQueue.mainQueue()
+    
+    private var socket:WebSocket!
+    private var server:(ping:NSDate?, pong:NSDate?) = (nil, nil)
+    
+    internal var resultCallbacks:[String:DDPMethodCallback] = [:]
+    internal var subCallbacks:[String:DDPCallback] = [:]
+    internal var unsubCallbacks:[String:DDPCallback] = [:]
+    
+    private var url:String!
+    private var subscriptions = [String:(id:String, name:String, ready:Bool)]()
+    
+    internal var events = DDPEvents()
+    internal var connection:(ddp:Bool, session:String?) = (false, nil)
+    
+    public var logLevel = XCGLogger.LogLevel.Debug
+    
+    internal override init() {
+        super.init()
+        setLogLevel(logLevel)
+    }
+    
+    /**
+    Creates a random String id
+    */
+    
+    public func getId() -> String {
+        let numbers = Set<Character>(["0","1","2","3","4","5","6","7","8","9"])
+        let uuid = NSUUID().UUIDString.stringByReplacingOccurrencesOfString("-", withString: "")
+        var id = ""
+        for character in uuid.characters {
+            if (!numbers.contains(character) && (round(Float(arc4random()) / Float(UINT32_MAX)) == 1)) {
+                id += String(character).lowercaseString
             } else {
-                if let callback = unsubCallbacks[id],
-                    let _ = subscriptions[id] {
-                        callback()
-                        unsubCallbacks[id] = nil
-                        subscriptions[id] = nil
-                } else {
-                    if let subscription = subscriptions[id] {
-                        subscriptions[id] = nil
-                        subscriptionWasRemoved(subscription.id, subscriptionName: subscription.name)
-                    }
+                id += String(character)
+            }
+        }
+        return id
+    }
+    
+    /**
+    Makes a DDP connection to the server
+    
+    - parameter url:        The String url to connect to, ex. "wss://todos.meteor.com/websocket"
+    - parameter callback:   A closure that takes a String argument with the value of the websocket session token
+    */
+    
+    public func connect(url:String, callback:((session:String)->())?) {
+        
+        socket = WebSocket(url)
+        
+        socket.event.close = {code, reason, clean in
+            log.info("Web socket connection closed with code \(code). Clean: \(clean). \(reason)")
+            let event = self.socket.event
+            self.socket = WebSocket(url)
+            self.socket.event = event
+            self.ping()
+        }
+        
+        socket.event.error = events.onWebsocketError
+        
+        socket.event.open = {
+            self.heartbeat.addOperationWithBlock() {
+                if let c = callback { self.events.onConnected = c }
+                self.sendMessage(["msg":"connect", "version":"1", "support":["1"]])
+            }
+        }
+        
+        socket.event.message = { message in
+            self.operation.addOperationWithBlock() {
+                if let text = message as? String {
+                    do { try self.ddpMessageHandler(DDPMessage(message: text)) }
+                    catch { log.debug("Message handling error. Raw message: \(text)")}
                 }
             }
         }
         
-        //
-        // public callbacks: should be overridden
-        //
-        
-        public func subscriptionIsReady(subscriptionId:String, subscriptionName:String) {}
-        
-        public func subscriptionWasRemoved(subscriptionId:String, subscriptionName:String) {}
-        
-        public func documentWasAdded(collection:String, id:String, fields:NSDictionary?) {
-            if let added = events.onAdded { added(collection: collection, id: id, fields: fields) }
-        }
-        
-        public func documentWasRemoved(collection:String, id:String) {
-            if let removed = events.onRemoved { removed(collection: collection, id: id) }
-        }
-        
-        public func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?) {
-            if let changed = events.onChanged { changed(collection:collection, id:id, fields:fields, cleared:cleared) }
-        }
-        
-        public func methodWasUpdated(methods:[String]) {
-            if let updated = events.onUpdated { updated(methods: methods) }
-        }
-        
-        public func didReceiveErrorMessage(message: DDP.Error) {
-            if let error = events.onError { error(message: message) }
+    }
+    
+    /**
+    Sets the XCGLogger loglevel.
+    
+    - parameter logLevel:   An XCGLogger LogLevel enum value, ex. .Info, .Debug, .Error
+    */
+    
+    public func setLogLevel(logLevel:XCGLogger.LogLevel) {
+        log.setup(logLevel, showLogIdentifier: true, showFunctionName: true, showThreadName: true, showLogLevel: true, showFileNames: false, showLineNumbers: true, showDate: false, writeToFile: nil, fileLogLevel: .None)
+    }
+    
+    private func ping() {
+        heartbeat.addOperationWithBlock() {
+            self.sendMessage(["msg":"ping", "id":self.getId()])
         }
     }
+    
+    // Respond to a server ping
+    private func pong(ping: DDPMessage) {
+        heartbeat.addOperationWithBlock() {
+            self.server.ping = NSDate()
+            // log.debug("Ping")
+            var response = ["msg":"pong"]
+            if let id = ping.id { response["id"] = id }
+            self.sendMessage(response)
+        }
+    }
+    
+    // Parse DDP messages and dispatch to the appropriate function
+    internal func ddpMessageHandler(message: DDPMessage) throws {
+        
+        log.debug("Received message: \(message.json)")
+        
+        switch message.type {
+            
+        case .Connected:
+            self.connection = (true, message.session!)
+            self.events.onConnected(session:message.session!)
+            
+        case .Result: incomingData.addOperationWithBlock() {
+            if let id = message.id,                              // Message has id
+                let callback = self.resultCallbacks[id],          // There is a callback registered for the message
+                let result = message.result {
+                    callback(result:result, error: message.error)
+                    self.resultCallbacks[id] = nil
+            } else if let id = message.id,
+                let callback = self.resultCallbacks[id] {
+                    callback(result:nil, error:message.error)
+                    self.resultCallbacks[id] = nil
+            }
+            }
+            
+            // Principal callbacks for managing data
+            // Document was added
+        case .Added: incomingData.addOperationWithBlock() {
+            if let collection = message.collection,
+                let id = message.id {
+                    self.documentWasAdded(collection, id: id, fields: message.fields)
+            }
+            }
+            
+            // Document was changed
+        case .Changed: incomingData.addOperationWithBlock() {
+            if let collection = message.collection,
+                let id = message.id {
+                    self.documentWasChanged(collection, id: id, fields: message.fields, cleared: message.cleared)
+            }
+            }
+            
+            // Document was removed
+        case .Removed: incomingData.addOperationWithBlock() {
+            if let collection = message.collection,
+                let id = message.id {
+                    self.documentWasRemoved(collection, id: id)
+            }
+            }
+            
+            // Notifies you when the result of a method changes
+        case .Updated: incomingData.addOperationWithBlock() {
+            if let methods = message.methods {
+                self.methodWasUpdated(methods)
+            }
+            }
+            
+            // Callbacks for managing subscriptions
+        case .Ready: incomingData.addOperationWithBlock() {
+            if let subs = message.subs {
+                self.ready(subs)
+            }
+            }
+            
+            // Callback that fires when subscription has been completely removed
+            //
+        case .Nosub: incomingData.addOperationWithBlock() {
+            if let id = message.id {
+                self.nosub(id, error: message.error)
+            }
+            }
+            
+            
+        case .Ping: heartbeat.addOperationWithBlock() { self.pong(message) }
+            
+        case .Pong: heartbeat.addOperationWithBlock() { self.server.pong = NSDate() }
+            
+        case .Error: incomingData.addOperationWithBlock() {
+            self.didReceiveErrorMessage(DDPError(json: message.json))
+            }
+            
+        default: log.error("Unhandled message: \(message.json)")
+            
+        }
+    }
+    
+    private func sendMessage(message:NSDictionary) {
+        if let m = message.stringValue() {
+            self.socket.send(m)
+        }
+    }
+    
+    /**
+    Executes a method on the server. If a callback is passed, the callback is asynchronously
+    executed when the method has completed. The callback takes two arguments: result and error. It 
+    the method call is successful, result contains the return value of the method, if any. If the method fails, 
+    error contains information about the error.
+    
+    - parameter name:       The name of the method
+    - parameter params:     An object containing method arguments, if any
+    - parameter callback:   The closure to be executed when the method has been executed
+    */
+    
+    public func method(name: String, params: AnyObject?, callback: DDPMethodCallback?) -> String {
+        let id = getId()
+        let message = ["msg":"method", "method":name, "id":id] as NSMutableDictionary
+        if let p = params { message["params"] = p }
+        if let c = callback { resultCallbacks[id] = c }
+        outgoingData.addOperationWithBlock() { self.sendMessage(message) }
+        return id
+    }
+    
+    //
+    // Subscribe
+    //
+    
+    
+    internal func sub(id: String, name: String, params: [AnyObject]?, callback: DDPCallback?) -> String {
+        if let c = callback { subCallbacks[id] = c }
+        subscriptions[id] = (id, name, false)
+        let message = ["msg":"sub", "name":name, "id":id] as NSMutableDictionary
+        if let p = params { message["params"] = p }
+        outgoingData.addOperationWithBlock() { self.sendMessage(message) }
+        return id
+    }
+    
+    /**
+    Sends a subscription request to the server.
+    
+    - parameter name:       The name of the subscription
+    - parameter params:     An object containing method arguments, if any
+    */
+    
+    public func sub(name: String, params: [AnyObject]?) -> String {
+        let id = String(name.hashValue)
+        return sub(id, name: name, params: params, callback:nil)
+    }
+    
+    /**
+    Sends a subscription request to the server. If a callback is passed, the callback asynchronously
+    runs when the client receives a 'ready' message indicating that the initial subset of documents contained
+    in the subscription has been sent by the server.
+    
+    - parameter name:       The name of the subscription
+    - parameter params:     An object containing method arguments, if any
+    - parameter callback:   The closure to be executed when the server sends a 'ready' message
+    */
+    
+    public func sub(name:String, params: [AnyObject]?, callback: DDPCallback?) -> String {
+        let id = getId()
+        return  sub(id, name: name, params: params, callback: callback)
+    }
+    
+    // Iterates over the Dictionary of subscriptions to find a subscription by name
+    internal func findSubscription(name:String) -> (id:String, name:String, ready:Bool)? {
+        for subscription in subscriptions.values {
+            if (name == subscription.name) {
+                return subscription
+            }
+        }
+        return nil
+    }
+    
+    //
+    // Unsubscribe
+    //
+    
+    /**
+    Sends an unsubscribe request to the server.
+    
+    - parameter name:       The name of the subscription
+    */
+    
+    public func unsub(name: String) -> String? {
+        return unsub(name, callback: nil)
+    }
+    
+    /**
+    Sends an unsubscribe request to the server. If a callback is passed, the callback asynchronously
+    runs when the client receives a 'ready' message indicating that the subset of documents contained
+    in the subscription have been removed.
+    
+    - parameter name:       The name of the subscription
+    - parameter callback:   The closure to be executed when the server sends a 'ready' message
+    */
+    
+    public func unsub(name: String, callback: DDPCallback?) -> String? {
+        if let sub = findSubscription(name) {
+            unsub(withId: sub.id, callback: callback)
+            outgoingData.addOperationWithBlock() { self.sendMessage(["msg":"unsub", "id":sub.id]) }
+            return sub.id
+        }
+        return nil
+    }
+    
+    internal func unsub(withId id: String, callback: DDPCallback?) {
+        if let c = callback { unsubCallbacks[id] = c }
+        outgoingData.addOperationWithBlock() { self.sendMessage(["msg":"unsub", "id":id]) }
+    }
+    
+    //
+    // Responding to server subscription messages
+    //
+    
+    private func ready(subs: [String]) {
+        for id in subs {
+            if let callback = subCallbacks[id] {
+                callback()                          // Run the callback
+                subCallbacks[id] = nil              // Delete the callback after running
+            } else {                                // If there is no callback, execute the method
+                if var sub = subscriptions[id] {
+                    sub.ready = true
+                    subscriptions[id] = sub
+                    subscriptionIsReady(sub.id, subscriptionName: sub.name)
+                }
+            }
+        }
+    }
+    
+    private func nosub(id: String, error: DDPError?) {
+        if let e = error where (e.isValid == true) {
+            print(e)
+        } else {
+            if let callback = unsubCallbacks[id],
+                let _ = subscriptions[id] {
+                    callback()
+                    unsubCallbacks[id] = nil
+                    subscriptions[id] = nil
+            } else {
+                if let subscription = subscriptions[id] {
+                    subscriptions[id] = nil
+                    subscriptionWasRemoved(subscription.id, subscriptionName: subscription.name)
+                }
+            }
+        }
+    }
+    
+    //
+    // public callbacks: should be overridden
+    //
+    
+    /**
+    Executes when a subscription is ready.
+    
+    - parameter subscriptionId:             A String representation of the hash of the subscription name
+    - parameter subscriptionName:           The name of the subscription
+    */
+    
+    public func subscriptionIsReady(subscriptionId: String, subscriptionName:String) {}
+    
+    /**
+    Executes when a subscription is removed.
+    
+    - parameter subscriptionId:             A String representation of the hash of the subscription name
+    - parameter subscriptionName:           The name of the subscription
+    */
+    
+    public func subscriptionWasRemoved(subscriptionId:String, subscriptionName:String) {}
+    
+    
+    /**
+    Executes when the server has sent a new document.
+    
+    - parameter collection:                 The name of the collection that the document belongs to
+    - parameter id:                         The document's unique id
+    - parameter fields:                     The documents properties
+    */
+    
+    public func documentWasAdded(collection:String, id:String, fields:NSDictionary?) {
+        if let added = events.onAdded { added(collection: collection, id: id, fields: fields) }
+    }
+    
+    /**
+    Executes when the server sends a message to remove a document.
+    
+    - parameter collection:                 The name of the collection that the document belongs to
+    - parameter id:                         The document's unique id
+    */
+    
+    public func documentWasRemoved(collection:String, id:String) {
+        if let removed = events.onRemoved { removed(collection: collection, id: id) }
+    }
+    
+    /**
+    Executes when the server sends a message to update a document.
+    
+    - parameter collection:                 The name of the collection that the document belongs to
+    - parameter id:                         The document's unique id
+    - parameter fields:                     Optional object with EJSON values containing the fields to update
+    - parameter cleared:                    Optional array of strings (field names to delete)
+    */
+    
+    public func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?) {
+        if let changed = events.onChanged { changed(collection:collection, id:id, fields:fields, cleared:cleared) }
+    }
+    
+    /**
+    Executes when the server sends a message indicating that the result of a method has changed.
+    
+    - parameter methods:                    An array of strings (ids passed to 'method', all of whose writes have been reflected in data messages)
+    */
+    
+    public func methodWasUpdated(methods:[String]) {
+        if let updated = events.onUpdated { updated(methods: methods) }
+    }
+    
+    /**
+    Executes when the client receives an error message from the server. Such a message is used to represent errors raised by the method or subscription, as well as an attempt to subscribe to an unknown subscription or call an unknown method.
+    
+    - parameter message:                    A DDPError object with information about the error
+    */
+    
+    public func didReceiveErrorMessage(message: DDPError) {
+        if let error = events.onError { error(message: message) }
+    }
 }
+
 
