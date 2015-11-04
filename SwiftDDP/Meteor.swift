@@ -35,11 +35,10 @@ public class Meteor {
     /**
     client is a singleton instance of DDPClient
     */
-    
+        
     public static let client = Meteor.Client()          // Client is a singleton object
     
     private static var collections = [String:Any]()
-    
     
     /**
     Sends a subscription request to the server.

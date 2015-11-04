@@ -338,6 +338,28 @@ extension DDPClient {
         signup(params, callback: callback)
     }
     
+    /**
+    Returns the client userId, if it exists
+    */
+    public func userId() -> String? {
+        return self.userData.objectForKey(DDP_ID) as? String
+    }
+    
+    /**
+    Returns the client's username or email, if it exists
+    */
+    public func user() -> String? {
+        if let username = self.userData.objectForKey(DDP_USERNAME) as? String {
+            return username
+        } else if let email = self.userData.objectForKey(DDP_EMAIL) as? String {
+            return email
+        }
+        return nil
+    }
+    
+    /**
+    Logs a user out and removes their account data from NSUserDefaults
+    */
     public func logout() {
         method("logout", params: nil) { result, error in
             if (error == nil) {
@@ -358,6 +380,28 @@ extension DDPClient {
     */
     public func logout(callback:DDPMethodCallback?) {
         method("logout", params: nil, callback: callback)
+    }
+    
+    /**
+    Automatically attempts to resume a prior session, if one exists
+    
+    - parameter url:        The server url
+    */
+    public func resume(url:String, callback:DDPCallback?) {
+        connect(url) { session in
+            if let _ = self.user() {
+                self.loginWithToken() { result, error in
+                    if error == nil {
+                        log.debug("Resumed previous session at launch")
+                        if let completion = callback { completion() }
+                    } else {
+                        log.error("\(error)")
+                    }
+                }
+            } else {
+                if let completion = callback { completion() }
+            }
+        }
     }
     
     /**
