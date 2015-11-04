@@ -180,9 +180,9 @@ public class MeteorCollection: NSObject, MeteorCollectionType {
     
     // Alternative API to subclassing
     // Can also set these closures to modify behavior on added, changed, removed
-    // public var onAdded:((collection:String, id:String, fields:NSDictionary?) -> ())?
-    // public var onChanged:((collection:String, id:String, fields:NSDictionary?, cleared:[String]?) -> ())?
-    // public var onRemoved:((collection:String, id:String) -> ())?
+    internal var onAdded:((collection:String, id:String, fields:NSDictionary?) -> ())?
+    internal var onChanged:((collection:String, id:String, fields:NSDictionary?, cleared:[String]?) -> ())?
+    internal var onRemoved:((collection:String, id:String) -> ())?
     
     /**
     Initializes a MeteorCollection object
@@ -208,15 +208,15 @@ public class MeteorCollection: NSObject, MeteorCollectionType {
     */
     
     public func documentWasAdded(collection:String, id:String, fields:NSDictionary?) {
-        // if let added = onAdded { added(collection: collection, id: id, fields:fields) }
+        if let added = onAdded { added(collection: collection, id: id, fields:fields) }
     }
     
     public func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?) {
-        // if let changed = onChanged { changed(collection:collection, id:id, fields:fields, cleared:cleared) }
+        if let changed = onChanged { changed(collection:collection, id:id, fields:fields, cleared:cleared) }
     }
     
     public func documentWasRemoved(collection:String, id:String) {
-        // if let removed = onRemoved { removed(collection:collection, id:id) }
+        if let removed = onRemoved { removed(collection:collection, id:id) }
     }
 }
 
