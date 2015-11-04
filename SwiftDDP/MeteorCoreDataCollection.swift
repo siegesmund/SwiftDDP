@@ -74,7 +74,6 @@ public class MeteorCoreDataCollection:MeteorCollection {
     
     // Retrieves a single result by name
     public func findOne(id:String) -> NSManagedObject? {
-        managedObjectContext.refreshAllObjects()
         let fetchRequest = NSFetchRequest(entityName: self.entityName)
         fetchRequest.predicate = NSPredicate(format: "id == '\(id)'")
         let results = try! managedObjectContext.executeFetchRequest(fetchRequest)
@@ -142,21 +141,32 @@ public class MeteorCoreDataCollection:MeteorCollection {
     //
     //
     //
-    
-    public func update(id:String, fields:NSDictionary, local:Bool) {
+    public func update(id:String, fields:NSDictionary, action:String, local:Bool) {
         backgroundContext.performBlock() {
-
+            
             if let document = self.findOne(id) {
                 
                 let cache = document.dictionary
                 
                 let change = MeteorCollectionChange(id: id, collection: self.name, fields: fields, cleared: nil)
                 self.changeLog[change.hashValue] = change
-                self.delegate?.document(willBeUpdatedWith: fields, cleared: nil, forObject: document)
+                
+                var cleared:[String]!
+                
+                if action == "$unset" {
+                    cleared = []
+                    for (key, value) in fields {
+                        if (((value as? String) == "true") || ((value as? Bool) == true)) {
+                            cleared.append(key as! String)
+                        }
+                    }
+                }
+                
+                self.delegate?.document(willBeUpdatedWith: fields, cleared: cleared, forObject: document)
                 try! self.managedObjectContext.save()
                 
                 if local == false {
-                    let result = self.client.update(sync: self.name, document: [["_id":id], ["$set":fields]])
+                    let result = self.client.update(sync: self.name, document: [["_id":id], [action:fields]])
                     if result.error != nil {
                         log.debug("Update rejected. Attempting to rollback changes")
                         for (key, _) in fields {
@@ -168,9 +178,18 @@ public class MeteorCoreDataCollection:MeteorCollection {
             }
         }
     }
+
+    public func update(id:String, fields:NSDictionary, local:Bool) {
+        update(id, fields:fields, action:"$set", local:false)
+    }
+    
+    public func update(id:String, fields:NSDictionary, action:String) {
+        update(id, fields:fields, action:action, local:false)
+    }
+
     
     public func update(id:String, fields:NSDictionary) {
-        update(id, fields:fields, local:false)
+        update(id, fields:fields, action:"$set", local:false)
     }
     
     //

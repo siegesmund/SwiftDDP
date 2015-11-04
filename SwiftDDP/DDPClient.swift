@@ -171,7 +171,7 @@ public class DDPClient: NSObject {
     private func pong(ping: DDPMessage) {
         heartbeat.addOperationWithBlock() {
             self.server.ping = NSDate()
-            log.debug("Ping")
+            // log.debug("Ping")
             var response = ["msg":"pong"]
             if let id = ping.id { response["id"] = id }
             self.sendMessage(response)
