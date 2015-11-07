@@ -189,7 +189,7 @@ public class DDPClient: NSObject {
             self.connection = (true, message.session!)
             self.events.onConnected(session:message.session!)
             
-        case .Result: incomingData.addOperationWithBlock() {
+        case .Result: NSOperationQueue.mainQueue().addOperationWithBlock() {
             if let id = message.id,                              // Message has id
                 let callback = self.resultCallbacks[id],          // There is a callback registered for the message
                 let result = message.result {

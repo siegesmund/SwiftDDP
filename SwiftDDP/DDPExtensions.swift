@@ -257,6 +257,7 @@ extension DDPClient {
                         self.userData.setObject(token, forKey: DDP_TOKEN)
                         self.userData.setObject(expiration, forKey: DDP_TOKEN_EXPIRES)
                 }
+                
                 if let c = callback { c(result:result, error:error) }
                 self.userData.setObject(true, forKey: DDP_LOGGED_IN)
                 return
@@ -289,6 +290,7 @@ extension DDPClient {
     public func loginWithToken(callback: DDPMethodCallback?) -> Bool {
         if let token = userData.stringForKey(DDP_TOKEN),
             let tokenDate = userData.objectForKey(DDP_TOKEN_EXPIRES) {
+                print("Found token & token expires \(token), \(tokenDate)")
                 if (tokenDate.compare(NSDate()) == NSComparisonResult.OrderedDescending) {
                     let params = ["resume":token] as NSDictionary
                     login(params, callback:callback)
@@ -361,16 +363,7 @@ extension DDPClient {
     Logs a user out and removes their account data from NSUserDefaults
     */
     public func logout() {
-        method("logout", params: nil) { result, error in
-            if (error == nil) {
-                self.userData.setObject(false, forKey: DDP_LOGGED_IN)
-                self.userData.removeObjectForKey(DDP_ID)
-                self.userData.removeObjectForKey(DDP_EMAIL)
-                self.userData.removeObjectForKey(DDP_USERNAME)
-                self.userData.removeObjectForKey(DDP_TOKEN)
-                self.userData.removeObjectForKey(DDP_TOKEN_EXPIRES)
-            }
-        }
+        logout(nil)
     }
     
     /**
@@ -379,7 +372,20 @@ extension DDPClient {
     - parameter callback:   A closure with result and error parameters describing the outcome of the operation
     */
     public func logout(callback:DDPMethodCallback?) {
-        method("logout", params: nil, callback: callback)
+        method("logout", params: nil) { result, error in
+            if (error == nil) {
+                self.userData.setObject(false, forKey: DDP_LOGGED_IN)
+                self.userData.removeObjectForKey(DDP_ID)
+                self.userData.removeObjectForKey(DDP_EMAIL)
+                self.userData.removeObjectForKey(DDP_USERNAME)
+                self.userData.removeObjectForKey(DDP_TOKEN)
+                self.userData.removeObjectForKey(DDP_TOKEN_EXPIRES)
+                self.userData.synchronize()
+            } else {
+                log.error("\(error)")
+            }
+            if let c = callback { c(result: result, error: error) }
+        }
     }
     
     /**
