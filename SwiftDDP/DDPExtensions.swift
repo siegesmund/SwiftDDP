@@ -359,6 +359,17 @@ extension DDPClient {
         return nil
     }
     
+    
+    internal func resetUserData() {
+        self.userData.setObject(false, forKey: DDP_LOGGED_IN)
+        self.userData.removeObjectForKey(DDP_ID)
+        self.userData.removeObjectForKey(DDP_EMAIL)
+        self.userData.removeObjectForKey(DDP_USERNAME)
+        self.userData.removeObjectForKey(DDP_TOKEN)
+        self.userData.removeObjectForKey(DDP_TOKEN_EXPIRES)
+        self.userData.synchronize()
+    }
+    
     /**
     Logs a user out and removes their account data from NSUserDefaults
     */
@@ -374,13 +385,7 @@ extension DDPClient {
     public func logout(callback:DDPMethodCallback?) {
         method("logout", params: nil) { result, error in
             if (error == nil) {
-                self.userData.setObject(false, forKey: DDP_LOGGED_IN)
-                self.userData.removeObjectForKey(DDP_ID)
-                self.userData.removeObjectForKey(DDP_EMAIL)
-                self.userData.removeObjectForKey(DDP_USERNAME)
-                self.userData.removeObjectForKey(DDP_TOKEN)
-                self.userData.removeObjectForKey(DDP_TOKEN_EXPIRES)
-                self.userData.synchronize()
+                self.resetUserData()
             } else {
                 log.error("\(error)")
             }
