@@ -28,6 +28,9 @@ private let DDP_TOKEN = "DDP_TOKEN"
 private let DDP_TOKEN_EXPIRES = "DDP_TOKEN_EXPIRES"
 private let DDP_LOGGED_IN = "DDP_LOGGED_IN"
 
+public let DDP_USER_DID_LOGIN = "DDP_USER_DID_LOGIN"
+public let DDP_USER_DID_LOGOUT = "DDP_USER_DID_LOGOUT"
+
 let SWIFT_DDP_CALLBACK_DISPATCH_TIME = DISPATCH_TIME_FOREVER
 
 private let syncWarning = {(name:String) -> Void in
@@ -35,8 +38,6 @@ private let syncWarning = {(name:String) -> Void in
         print("\(name) is running synchronously on the main thread. This will block the main thread and should be run on a background thread")
     }
 }
-
-
 
 extension String {
     func dictionaryValue() -> NSDictionary? {
@@ -260,6 +261,15 @@ extension DDPClient {
                 
                 if let c = callback { c(result:result, error:error) }
                 self.userData.setObject(true, forKey: DDP_LOGGED_IN)
+                
+                NSOperationQueue.mainQueue().addOperationWithBlock() {
+                    
+                    if let _ = self.delegate {
+                        self.delegate!.ddpUserDidLogin(self.user()!)
+                    }
+                    
+                }
+                
                 return
             }
             
@@ -378,17 +388,27 @@ extension DDPClient {
     }
     
     /**
-    Logs a user out and removes their account data from NSUserDefaults
+    Logs a user out and removes their account data from NSUserDefaults. 
+    When it completes, it posts a notification: DDP_USER_DID_LOGOUT
     
     - parameter callback:   A closure with result and error parameters describing the outcome of the operation
     */
     public func logout(callback:DDPMethodCallback?) {
         method("logout", params: nil) { result, error in
             if (error == nil) {
+                    let user = self.user()!
+                    NSOperationQueue.mainQueue().addOperationWithBlock() {
+                    if let _ = self.delegate {
+                        self.delegate!.ddpUserDidLogout(user)
+                    }
+                }
+                
                 self.resetUserData()
+                
             } else {
                 log.error("\(error)")
             }
+            
             if let c = callback { c(result: result, error: error) }
         }
     }

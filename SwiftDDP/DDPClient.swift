@@ -36,9 +36,16 @@ public typealias DDPMethodCallback = (result:AnyObject?, error:DDPError?) -> ()
 public typealias DDPCallback = () -> ()
 
 /**
+DDPDelegate provides an interface to react to user events
+*/
+public protocol DDPDelegate {
+    func ddpUserDidLogin(user:String)
+    func ddpUserDidLogout(user:String)
+}
+
+/**
 DDPClient is the base class for communicating with a server using the DDP protocol
 */
-
 public class DDPClient: NSObject {
     
     // included for storing login id and token
@@ -87,6 +94,7 @@ public class DDPClient: NSObject {
     internal var events = DDPEvents()
     internal var connection:(ddp:Bool, session:String?) = (false, nil)
     
+    public var delegate:DDPDelegate?
     public var logLevel = XCGLogger.LogLevel.Debug
     
     internal override init() {
@@ -493,5 +501,3 @@ public class DDPClient: NSObject {
         if let error = events.onError { error(message: message) }
     }
 }
-
-

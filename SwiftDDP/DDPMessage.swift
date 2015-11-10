@@ -94,7 +94,9 @@ public struct DDPMessage {
         json = message as NSDictionary
     }
     
-    // Converts an NSDictionary to a JSON String
+    /**
+    Converts an NSDictionary to a JSON string
+    */
     public static func toString(json:AnyObject) -> String? {
         if let data = try? NSJSONSerialization.dataWithJSONObject(json, options: NSJSONWritingOptions(rawValue: 0)) {
             let message = NSString(data: data, encoding: NSASCIIStringEncoding) as String?
