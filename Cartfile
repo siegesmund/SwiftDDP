@@ -1,7 +1,6 @@
 
-github "krzyzanowskim/CryptoSwift" "0.0.16"
-github "tidwall/SwiftWebSocket" "v2.1.1"
-
+github "krzyzanowskim/CryptoSwift" 
+github "tidwall/SwiftWebSocket" 
 github "DaveWoodCom/XCGLogger" "Version_3.0"
 
 github "Quick/Quick" "v0.6.0"

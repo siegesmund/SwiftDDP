@@ -288,7 +288,7 @@ extension DDPClient {
     */
     public func loginWithPassword(email: String, password: String, callback: DDPMethodCallback?) {
         if !(loginWithToken(callback)) {
-            let params = ["user": ["email": email], "password":["digest": password.sha256()!, "algorithm":"sha-256"]] as NSDictionary
+            let params = ["user": ["email": email], "password":["digest": password.sha256(), "algorithm":"sha-256"]] as NSDictionary
             login(params, callback: callback)
         }
     }
@@ -342,12 +342,12 @@ extension DDPClient {
     }
     
     public func signupWithEmail(email: String, password: String, callback: ((result:AnyObject?, error:DDPError?) -> ())?) {
-        let params = ["email":email, "password":["digest":password.sha256()!, "algorithm":"sha-256"]]
+        let params = ["email":email, "password":["digest":password.sha256(), "algorithm":"sha-256"]]
         signup(params, callback: callback)
     }
     
     public func signupWithEmail(email: String, password: String, profile: NSDictionary, callback: ((result:AnyObject?, error:DDPError?) -> ())?) {
-        let params = ["email":email, "password":["digest":password.sha256()!, "algorithm":"sha-256"], "profile":profile]
+        let params = ["email":email, "password":["digest":password.sha256(), "algorithm":"sha-256"], "profile":profile]
         signup(params, callback: callback)
     }
     
