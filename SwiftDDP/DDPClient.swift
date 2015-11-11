@@ -38,7 +38,7 @@ public typealias DDPCallback = () -> ()
 /**
 DDPDelegate provides an interface to react to user events
 */
-public protocol DDPDelegate {
+public protocol SwiftDDPDelegate {
     func ddpUserDidLogin(user:String)
     func ddpUserDidLogout(user:String)
 }
@@ -94,7 +94,7 @@ public class DDPClient: NSObject {
     internal var events = DDPEvents()
     internal var connection:(ddp:Bool, session:String?) = (false, nil)
     
-    public var delegate:DDPDelegate?
+    public var delegate:SwiftDDPDelegate?
     public var logLevel = XCGLogger.LogLevel.Debug
     
     internal override init() {

@@ -91,14 +91,25 @@ public class Meteor {
     - parameter callback:   The closure to be executed when the server sends a 'ready' message.
     */
     
-    public static func subscribe(name:String, callback: DDPCallback?) -> String { return client.sub(name, params:nil, callback:callback) }
+    public static func subscribe(name:String, callback: DDPCallback?) -> String { return client.sub(name, params: nil, callback: callback) }
     
-    //public static func unsubscribe(
+    /**
+    Sends an unsubscribe request to the server.
+    
+    */
+    public static func unsubscribe(name:String) -> String? { return client.unsub(name) }
+    
+    /**
+    Sends an unsubscribe request to the server. If a callback is passed, the callback asynchronously
+    runs when the unsubscribe transaction is complete.
+    
+    */
+    public static func unsubscribe(name:String, callback:DDPCallback?) -> String? { return client.unsub(name, callback: callback) }
     
     /**
     Call a single function to establish a DDP connection, and login with email and password
     
-    - parameter url:        The url to connect to
+    - parameter url:        The url of a Meteor server
     - parameter email:      A string email address associated with a Meteor account
     - parameter password:   A string password 
     */
@@ -115,6 +126,26 @@ public class Meteor {
         }
     }
     
+    /**
+    Connect to a Meteor server and resume a prior session, if the user was logged in
+    
+    - parameter url:        The url of a Meteor server
+    */
+    
+    public static func connect(url:String) {
+        client.resume(url, callback: nil)
+    }
+    
+    /**
+    Connect to a Meteor server and resume a prior session, if the user was logged in
+    
+    - parameter url:        The url of a Meteor server
+    - parameter callback:   An optional closure to be executed after the connection is established
+    */
+    public static func connect(url:String, callback:DDPCallback?) {
+        client.resume(url, callback: callback)
+    }
+
     /**
     Meteor.Client is a subclass of DDPClient that facilitates interaction with the MeteorCollection class
     */
