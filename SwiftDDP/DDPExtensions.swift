@@ -265,6 +265,7 @@ extension DDPClient {
                 NSOperationQueue.mainQueue().addOperationWithBlock() {
                     
                     if let _ = self.delegate {
+                        NSNotificationCenter.defaultCenter().postNotificationName(DDP_USER_DID_LOGIN, object: nil)
                         self.delegate!.ddpUserDidLogin(self.user()!)
                     }
                     
@@ -398,6 +399,7 @@ extension DDPClient {
             if (error == nil) {
                     let user = self.user()!
                     NSOperationQueue.mainQueue().addOperationWithBlock() {
+                    NSNotificationCenter.defaultCenter().postNotificationName(DDP_USER_DID_LOGOUT, object: nil)
                     if let _ = self.delegate {
                         self.delegate!.ddpUserDidLogout(user)
                     }
