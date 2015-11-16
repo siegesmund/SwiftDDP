@@ -107,6 +107,20 @@ public class Meteor {
     public static func unsubscribe(name:String, callback:DDPCallback?) -> String? { return client.unsub(name, callback: callback) }
     
     /**
+    Calls a method on the server. If a callback is passed, the callback is asynchronously
+    executed when the method has completed. The callback takes two arguments: result and error. It
+    the method call is successful, result contains the return value of the method, if any. If the method fails,
+    error contains information about the error.
+    
+    - parameter name:       The name of the method
+    - parameter params:     An array containing method arguments, if any
+    - parameter callback:   The closure to be executed when the method has been executed
+    */
+    public static func call(name:String, params:[AnyObject]?, callback:DDPMethodCallback?) -> String? {
+        return client.method(name, params: params, callback: callback)
+    }
+    
+    /**
     Call a single function to establish a DDP connection, and login with email and password
     
     - parameter url:        The url of a Meteor server
@@ -169,9 +183,7 @@ public class Meteor {
         
         public override func documentWasAdded(collection:String, id:String, fields:NSDictionary?) {
             if let meteorCollection = Meteor.collections[collection] as? MeteorCollectionType {
-                NSOperationQueue.mainQueue().addOperationWithBlock() {
-                    meteorCollection.documentWasAdded(collection, id: id, fields: fields)
-                }
+                meteorCollection.documentWasAdded(collection, id: id, fields: fields)
             }
         }
         
@@ -187,9 +199,7 @@ public class Meteor {
         
         public override func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?) {
             if let meteorCollection = Meteor.collections[collection] as? MeteorCollectionType {
-                NSOperationQueue.mainQueue().addOperationWithBlock() {
-                    meteorCollection.documentWasChanged(collection, id: id, fields: fields, cleared: cleared)
-                }
+                meteorCollection.documentWasChanged(collection, id: id, fields: fields, cleared: cleared)
             }
         }
         
@@ -203,9 +213,7 @@ public class Meteor {
         
         public override func documentWasRemoved(collection:String, id:String) {
             if let meteorCollection = Meteor.collections[collection] as? MeteorCollectionType {
-                NSOperationQueue.mainQueue().addOperationWithBlock() {
-                    meteorCollection.documentWasRemoved(collection, id: id)
-                }
+                meteorCollection.documentWasRemoved(collection, id: id)
             }
         }
     }
@@ -243,7 +251,7 @@ public class MeteorCollection: NSObject, MeteorCollectionType {
     }
     
     /**
-    Called when a document has been sent from the server. Always executes on the main queue
+    Called when a document has been sent from the server.
     
     - parameter collection:     the string name of the collection to which the document belongs
     - parameter id:             the string unique id that identifies the document on the server

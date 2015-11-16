@@ -238,7 +238,10 @@ extension DDPClient {
         return serverResponse
     }
     
+    // Callback runs on main thread
     internal func login(params: NSDictionary, callback: ((result: AnyObject?, error: DDPError?) -> ())?) {
+        
+        // method is run on the userBackground queue
         method("login", params: NSArray(arrayLiteral: params)) { result, error in
             guard let e = error where (e.isValid == true) else {
                 
@@ -259,13 +262,14 @@ extension DDPClient {
                         self.userData.setObject(expiration, forKey: DDP_TOKEN_EXPIRES)
                 }
                 
-                if let c = callback { c(result:result, error:error) }
-                self.userData.setObject(true, forKey: DDP_LOGGED_IN)
-                
-                NSOperationQueue.mainQueue().addOperationWithBlock() {
+                self.userMainQueue.addOperationWithBlock() {
                     
+                    if let c = callback { c(result:result, error:error) }
+                    self.userData.setObject(true, forKey: DDP_LOGGED_IN)
+                    
+                    NSNotificationCenter.defaultCenter().postNotificationName(DDP_USER_DID_LOGIN, object: nil)
+
                     if let _ = self.delegate {
-                        NSNotificationCenter.defaultCenter().postNotificationName(DDP_USER_DID_LOGIN, object: nil)
                         self.delegate!.ddpUserDidLogin(self.user()!)
                     }
                     
@@ -390,28 +394,27 @@ extension DDPClient {
     
     /**
     Logs a user out and removes their account data from NSUserDefaults. 
-    When it completes, it posts a notification: DDP_USER_DID_LOGOUT
+    When it completes, it posts a notification: DDP_USER_DID_LOGOUT on the main queue
     
     - parameter callback:   A closure with result and error parameters describing the outcome of the operation
     */
     public func logout(callback:DDPMethodCallback?) {
         method("logout", params: nil) { result, error in
-            if (error == nil) {
+            NSOperationQueue.mainQueue().addOperationWithBlock() {
+                if (error == nil) {
                     let user = self.user()!
-                    NSOperationQueue.mainQueue().addOperationWithBlock() {
                     NSNotificationCenter.defaultCenter().postNotificationName(DDP_USER_DID_LOGOUT, object: nil)
                     if let _ = self.delegate {
                         self.delegate!.ddpUserDidLogout(user)
                     }
+                    self.resetUserData()
+                    
+                } else {
+                    log.error("\(error)")
                 }
                 
-                self.resetUserData()
-                
-            } else {
-                log.error("\(error)")
+                if let c = callback { c(result: result, error: error) }
             }
-            
-            if let c = callback { c(result: result, error: error) }
         }
     }
     

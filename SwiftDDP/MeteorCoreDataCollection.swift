@@ -72,6 +72,7 @@ public class MeteorCoreDataCollection:MeteorCollection {
         return []
     }
     
+       
     // Retrieves a single result by name
     public func findOne(id:String) -> NSManagedObject? {
         let fetchRequest = NSFetchRequest(entityName: self.entityName)
@@ -84,20 +85,26 @@ public class MeteorCoreDataCollection:MeteorCollection {
     }
     
     public func exists(id:String) -> Bool {
+        let error = NSErrorPointer()
+
         let fetchRequest = NSFetchRequest(entityName: self.entityName)
         fetchRequest.predicate = NSPredicate(format: "id == '\(id)'")
-        let count = managedObjectContext.countForFetchRequest(fetchRequest, error: nil)
-        if count > 0 {
+        let count = managedObjectContext.countForFetchRequest(fetchRequest, error: error)
+        if error == nil && count > 0 {
             return true
         }
         return false
     }
     
     public func exists(collection:String, id:String) -> Bool {
+        
+        let error = NSErrorPointer()
+        
         let fetchRequest = NSFetchRequest(entityName: self.entityName)
         fetchRequest.predicate = NSPredicate(format: "id == '\(id)' AND collection == '\(collection)'")
-        let count = managedObjectContext.countForFetchRequest(fetchRequest, error: nil)
-        if count > 0 {
+        print("Managed object context \(managedObjectContext)")
+        let count = managedObjectContext.countForFetchRequest(fetchRequest, error: error)
+        if error == nil && count > 0 {
             return true
         }
         return false
