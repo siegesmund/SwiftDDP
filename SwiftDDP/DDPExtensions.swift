@@ -334,6 +334,7 @@ extension DDPClient {
                         self.userData.setObject(id, forKey: DDP_ID)
                         self.userData.setObject(token, forKey: DDP_TOKEN)
                         self.userData.setObject(expiration, forKey: DDP_TOKEN_EXPIRES)
+                        self.userData.synchronize()
                 }
                 if let c = callback { c(result:result, error:error) }
                 self.userData.setObject(true, forKey: DDP_LOGGED_IN)
@@ -400,14 +401,15 @@ extension DDPClient {
     */
     public func logout(callback:DDPMethodCallback?) {
         method("logout", params: nil) { result, error in
-            NSOperationQueue.mainQueue().addOperationWithBlock() {
                 if (error == nil) {
-                    let user = self.user()!
-                    NSNotificationCenter.defaultCenter().postNotificationName(DDP_USER_DID_LOGOUT, object: nil)
-                    if let _ = self.delegate {
-                        self.delegate!.ddpUserDidLogout(user)
+                    self.userMainQueue.addOperationWithBlock() {
+                        let user = self.user()!
+                        NSNotificationCenter.defaultCenter().postNotificationName(DDP_USER_DID_LOGOUT, object: nil)
+                        if let _ = self.delegate {
+                            self.delegate!.ddpUserDidLogout(user)
+                        }
+                        self.resetUserData()
                     }
-                    self.resetUserData()
                     
                 } else {
                     log.error("\(error)")
@@ -416,7 +418,6 @@ extension DDPClient {
                 if let c = callback { c(result: result, error: error) }
             }
         }
-    }
     
     /**
     Automatically attempts to resume a prior session, if one exists

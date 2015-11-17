@@ -349,8 +349,11 @@ public class DDPClient: NSObject {
     */
     
     public func sub(name:String, params: [AnyObject]?, callback: DDPCallback?) -> String {
-        let id = getId()
-        return  sub(id, name: name, params: params, callback: callback)
+        let id = String(name.hashValue)
+        if let subData = findSubscription(name) {
+            return  subData.id
+        }
+        return sub(id, name: name, params: params, callback: callback)
     }
     
     // Iterates over the Dictionary of subscriptions to find a subscription by name
