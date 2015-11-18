@@ -233,8 +233,8 @@ with the datastore.
 
 public class MeteorCollection: NSObject, MeteorCollectionType {
     
-    internal var name:String
-    internal let client = Meteor.client
+    public var name:String
+    public let client = Meteor.client
     
     // Alternative API to subclassing
     // Can also set these closures to modify behavior on added, changed, removed
