@@ -115,8 +115,65 @@
 <pre class="highlight ruby"><code><span class="n">pod</span> <span class="s2">"SwiftDDP"</span>
 </code></pre>
 <a href='#documentation' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='documentation'>Documentation</h2>
+<a href='#a_href_https_siegesmund_github_io_swiftddp_api_reference_a' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='a_href_https_siegesmund_github_io_swiftddp_api_reference_a'><a href="https://siegesmund.github.io/SwiftDDP">API Reference</a></h3>
+<a href='#quick_start' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='quick_start'>Quick Start</h2>
+<a href='#getting_an_instance_of_the_client' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='getting_an_instance_of_the_client'>Getting an instance of the client</h3>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">SwiftDDP</span>
 
-<p><a href="https://siegesmund.github.io/SwiftDDP">Read the docs</a>  </p>
+<span class="c1">// Returns a singleton instance of the client</span>
+<span class="k">let</span> <span class="nv">meteor</span> <span class="o">=</span> <span class="kt">Meteor</span><span class="o">.</span><span class="n">client</span>
+</code></pre>
+<a href='#connecting_to_a_meteor_server' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='connecting_to_a_meteor_server'>Connecting to a Meteor server</h3>
+<pre class="highlight swift"><code><span class="c1">// Meteor.connect will automatically connect and will sign in using</span>
+<span class="c1">// a stored login token if the client was previously signed in.</span>
+
+<span class="kt">Meteor</span><span class="o">.</span><span class="nf">connect</span><span class="p">(</span><span class="s">"wss://todos.meteor.com/websocket"</span><span class="p">)</span> <span class="p">{</span>
+<span class="c1">// do something after the client connects</span>
+<span class="p">}</span>
+</code></pre>
+<a href='#login_amp_logout' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='login_amp_logout'>Login &amp; Logout</h3>
+<pre class="highlight swift"><code><span class="kt">Meteor</span><span class="o">.</span><span class="nf">loginWithPassword</span><span class="p">(</span><span class="s">"user@swiftddp.com"</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="s">"********"</span><span class="p">)</span> <span class="p">{</span> <span class="n">result</span><span class="p">,</span> <span class="n">error</span> <span class="k">in</span> 
+<span class="c1">// do something after login</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>The client also posts a notification when the user signs in and signs out.
+&ldquo;`swift
+// Notification name (a string global variable)
+DDP_USER_DID_LOGIN
+DDP_USER_DID_LOGOUT</p>
+
+<p>// Example
+NSNotificationCenter.defaultCenter().addObserver(self, selector: <q>userDidLogin</q>, name: DDP_USER_DID_LOGIN, object: nil)
+NSNotificationCenter.defaultCenter().addObserver(self, selector: <q>userDidLogout</q>, name: DDP_USER_DID_LOGOUT, object: nil)</p>
+
+<p>func userDidLogin() {
+print(<q>The user just signed in!</q>)
+}</p>
+
+<p>func userDidLogout() {
+print(<q>The user just signed out!</q>)
+}
+&rdquo;`</p>
+<a href='#subscribe_to_a_subset_of_a_collection_on_the_server' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='subscribe_to_a_subset_of_a_collection_on_the_server'>Subscribe to a subset of a collection on the server</h3>
+<pre class="highlight swift"><code><span class="kt">Meteor</span><span class="o">.</span><span class="nf">subscribe</span><span class="p">(</span><span class="s">"todos"</span><span class="p">)</span> 
+
+<span class="kt">Meteor</span><span class="o">.</span><span class="nf">subscribe</span><span class="p">(</span><span class="s">"todos"</span><span class="p">)</span> <span class="p">{</span>
+<span class="c1">// Do something when the todos subscription is ready</span>
+<span class="p">}</span>
+
+<span class="kt">Meteor</span><span class="o">.</span><span class="nf">subscribe</span><span class="p">(</span><span class="s">"todos"</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span> <span class="p">{</span>
+<span class="c1">// Do something when the todos subscription is ready</span>
+<span class="p">}</span> 
+</code></pre>
+<a href='#call_a_method_on_the_server' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='call_a_method_on_the_server'>Call a method on the server</h3>
+<pre class="highlight swift"><code><span class="kt">Meteor</span><span class="o">.</span><span class="nf">call</span><span class="p">(</span><span class="s">"foo"</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span> <span class="p">{</span>
+<span class="c1">// Do something with the method result</span>
+<span class="p">}</span>
+</code></pre>
+<a href='#todos' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='todos'>Todos</h3>
+
+<p>Complete documentation for Meteor.Collection &amp; MeteorCollectionType protocol</p>
 
           </section>
         </section>
