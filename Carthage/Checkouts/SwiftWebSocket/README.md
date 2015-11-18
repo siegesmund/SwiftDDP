@@ -2,7 +2,7 @@
 
 <a href="https://tidwall.github.io/SwiftWebSocket/results/"><img src="https://tidwall.github.io/SwiftWebSocket/build.png" alt="" width="93" height="20" border="0" /></a>
 <a href="https://developer.apple.com/swift/"><img src="https://tidwall.github.io/SwiftWebSocket/swift2.png" alt="" width="65" height="20" border="0" /></a>
-
+<a href="https://tidwall.github.io/SwiftWebSocket/docs/"><img src="https://tidwall.github.io/SwiftWebSocket/docs.png" alt="" width="65" height="20" border="0" /></a>
 
 Conforming WebSocket ([RFC 6455](https://tools.ietf.org/html/rfc6455)) client library implemented in pure Swift.
 
@@ -10,26 +10,23 @@ Conforming WebSocket ([RFC 6455](https://tools.ietf.org/html/rfc6455)) client li
 
 SwiftWebSocket currently passes all 521 of the Autobahn's fuzzing tests, including strict UTF-8, and message compression.
 
-**Built for Swift 2.0** - For Swift 1.2 support use the 'swift/1.2' branch.
-
 ## Features
 
-- Swift 2.0. No need for Objective-C Bridging.
-- Reads compressed messages (`permessage-deflate`). [IETF Draft](https://tools.ietf.org/html/draft-ietf-hybi-permessage-compression-21)
-- Strict UTF-8 processing. 
+- High performance.
+- TLS / WSS support. Self-signed certificate option.
 - The API is modeled after the [Javascript API](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket).
-- TLS / WSS support.
+- Reads compressed messages (`permessage-deflate`). [IETF Draft](https://tools.ietf.org/html/draft-ietf-hybi-permessage-compression-21)
+- Send pings and receive pong events.
+- Strict UTF-8 processing. 
 - `binaryType` property to choose between `[UInt8]` or `NSData` messages.
 - Zero asserts. All networking, stream, and protocol errors are routed through the `error` event.
-- Send pings and receive pong events.
-- High performance. 
 
-##Example
+## Example
 
 ```swift
 func echoTest(){
     var messageNum = 0
-    let ws = WebSocket("wss://echo.websocket.org")
+    unowned let ws = WebSocket("wss://echo.websocket.org")
     let send : ()->() = {
         let msg = "\(++messageNum): \(NSDate().description)"
         print("send: \(msg)")
@@ -56,6 +53,30 @@ func echoTest(){
         }
     }
 }
+```
+
+## Reuse and Delaying WebSocket Connections
+v2.3.0+ makes available an optional `open` method. This will allow for a `WebSocket` object to be instantiated without an immediate connection to the server. It can also be used to reconnect to a server following the `close` event.
+
+For example,
+
+```swift
+    let ws = WebSocket()
+    ws.event.close = { _ in
+        ws.open()                 // reopen the socket to the previous url
+        ws.open("ws://otherurl")  // or, reopen the socket to a new url
+    }
+    ws.open("ws://url") // call with url
+}
+```
+
+## Compression
+
+The `compression` flag may be used to request compressed messages from the server. If the server does not support or accept the request, then connection will continue as normal, but with uncompressed messages.
+
+```swift
+let ws = WebSocket("ws://url")
+ws.compression.on = true
 ```
 
 ##Installation (iOS and OS X)
