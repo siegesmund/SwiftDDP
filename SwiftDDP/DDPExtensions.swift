@@ -28,6 +28,9 @@ private let DDP_TOKEN = "DDP_TOKEN"
 private let DDP_TOKEN_EXPIRES = "DDP_TOKEN_EXPIRES"
 private let DDP_LOGGED_IN = "DDP_LOGGED_IN"
 
+public let DDP_USER_DID_LOGIN = "DDP_USER_DID_LOGIN"
+public let DDP_USER_DID_LOGOUT = "DDP_USER_DID_LOGOUT"
+
 let SWIFT_DDP_CALLBACK_DISPATCH_TIME = DISPATCH_TIME_FOREVER
 
 private let syncWarning = {(name:String) -> Void in
@@ -35,8 +38,6 @@ private let syncWarning = {(name:String) -> Void in
         print("\(name) is running synchronously on the main thread. This will block the main thread and should be run on a background thread")
     }
 }
-
-
 
 extension String {
     func dictionaryValue() -> NSDictionary? {
@@ -237,7 +238,10 @@ extension DDPClient {
         return serverResponse
     }
     
+    // Callback runs on main thread
     internal func login(params: NSDictionary, callback: ((result: AnyObject?, error: DDPError?) -> ())?) {
+        
+        // method is run on the userBackground queue
         method("login", params: NSArray(arrayLiteral: params)) { result, error in
             guard let e = error where (e.isValid == true) else {
                 
@@ -257,8 +261,20 @@ extension DDPClient {
                         self.userData.setObject(token, forKey: DDP_TOKEN)
                         self.userData.setObject(expiration, forKey: DDP_TOKEN_EXPIRES)
                 }
-                if let c = callback { c(result:result, error:error) }
-                self.userData.setObject(true, forKey: DDP_LOGGED_IN)
+                
+                self.userMainQueue.addOperationWithBlock() {
+                    
+                    if let c = callback { c(result:result, error:error) }
+                    self.userData.setObject(true, forKey: DDP_LOGGED_IN)
+                    
+                    NSNotificationCenter.defaultCenter().postNotificationName(DDP_USER_DID_LOGIN, object: nil)
+
+                    if let _ = self.delegate {
+                        self.delegate!.ddpUserDidLogin(self.user()!)
+                    }
+                    
+                }
+                
                 return
             }
             
@@ -276,7 +292,7 @@ extension DDPClient {
     */
     public func loginWithPassword(email: String, password: String, callback: DDPMethodCallback?) {
         if !(loginWithToken(callback)) {
-            let params = ["user": ["email": email], "password":["digest": password.sha256()!, "algorithm":"sha-256"]] as NSDictionary
+            let params = ["user": ["email": email], "password":["digest": password.sha256(), "algorithm":"sha-256"]] as NSDictionary
             login(params, callback: callback)
         }
     }
@@ -289,6 +305,7 @@ extension DDPClient {
     public func loginWithToken(callback: DDPMethodCallback?) -> Bool {
         if let token = userData.stringForKey(DDP_TOKEN),
             let tokenDate = userData.objectForKey(DDP_TOKEN_EXPIRES) {
+                print("Found token & token expires \(token), \(tokenDate)")
                 if (tokenDate.compare(NSDate()) == NSComparisonResult.OrderedDescending) {
                     let params = ["resume":token] as NSDictionary
                     login(params, callback:callback)
@@ -317,6 +334,7 @@ extension DDPClient {
                         self.userData.setObject(id, forKey: DDP_ID)
                         self.userData.setObject(token, forKey: DDP_TOKEN)
                         self.userData.setObject(expiration, forKey: DDP_TOKEN_EXPIRES)
+                        self.userData.synchronize()
                 }
                 if let c = callback { c(result:result, error:error) }
                 self.userData.setObject(true, forKey: DDP_LOGGED_IN)
@@ -327,14 +345,20 @@ extension DDPClient {
             if let c = callback { c(result: result, error: error) }
         }
     }
+    /**
+    Invokes a Meteor method to create a user account with a given email and password on the server
     
+    */
     public func signupWithEmail(email: String, password: String, callback: ((result:AnyObject?, error:DDPError?) -> ())?) {
-        let params = ["email":email, "password":["digest":password.sha256()!, "algorithm":"sha-256"]]
+        let params = ["email":email, "password":["digest":password.sha256(), "algorithm":"sha-256"]]
         signup(params, callback: callback)
     }
     
+    /**
+    Invokes a Meteor method to create a user account with a given email and password, and a NSDictionary containing a user profile
+    */
     public func signupWithEmail(email: String, password: String, profile: NSDictionary, callback: ((result:AnyObject?, error:DDPError?) -> ())?) {
-        let params = ["email":email, "password":["digest":password.sha256()!, "algorithm":"sha-256"], "profile":profile]
+        let params = ["email":email, "password":["digest":password.sha256(), "algorithm":"sha-256"], "profile":profile]
         signup(params, callback: callback)
     }
     
@@ -357,30 +381,50 @@ extension DDPClient {
         return nil
     }
     
-    /**
-    Logs a user out and removes their account data from NSUserDefaults
-    */
-    public func logout() {
-        method("logout", params: nil) { result, error in
-            if (error == nil) {
-                self.userData.setObject(false, forKey: DDP_LOGGED_IN)
-                self.userData.removeObjectForKey(DDP_ID)
-                self.userData.removeObjectForKey(DDP_EMAIL)
-                self.userData.removeObjectForKey(DDP_USERNAME)
-                self.userData.removeObjectForKey(DDP_TOKEN)
-                self.userData.removeObjectForKey(DDP_TOKEN_EXPIRES)
-            }
-        }
+    
+    internal func resetUserData() {
+        self.userData.setObject(false, forKey: DDP_LOGGED_IN)
+        self.userData.removeObjectForKey(DDP_ID)
+        self.userData.removeObjectForKey(DDP_EMAIL)
+        self.userData.removeObjectForKey(DDP_USERNAME)
+        self.userData.removeObjectForKey(DDP_TOKEN)
+        self.userData.removeObjectForKey(DDP_TOKEN_EXPIRES)
+        self.userData.synchronize()
     }
     
     /**
     Logs a user out and removes their account data from NSUserDefaults
+    */
+
+    public func logout() {
+        logout(nil)
+    }
+    
+    /**
+    Logs a user out and removes their account data from NSUserDefaults. 
+    When it completes, it posts a notification: DDP_USER_DID_LOGOUT on the main queue
     
     - parameter callback:   A closure with result and error parameters describing the outcome of the operation
     */
     public func logout(callback:DDPMethodCallback?) {
-        method("logout", params: nil, callback: callback)
-    }
+        method("logout", params: nil) { result, error in
+                if (error == nil) {
+                    self.userMainQueue.addOperationWithBlock() {
+                        let user = self.user()!
+                        NSNotificationCenter.defaultCenter().postNotificationName(DDP_USER_DID_LOGOUT, object: nil)
+                        if let _ = self.delegate {
+                            self.delegate!.ddpUserDidLogout(user)
+                        }
+                        self.resetUserData()
+                    }
+                    
+                } else {
+                    log.error("\(error)")
+                }
+                
+                if let c = callback { c(result: result, error: error) }
+            }
+        }
     
     /**
     Automatically attempts to resume a prior session, if one exists

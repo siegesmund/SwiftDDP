@@ -20,6 +20,18 @@
 
 import Foundation
 
+/*
+enum Error: String {
+case BadRequest = "400"             // The server cannot or will not process the request due to something that is perceived to be a client error
+case Unauthorized = "401"           // Similar to 403 Forbidden, but specifically for use when authentication is required and has failed or has not yet been provided.
+case NotFound = "404"               // ex. Method not found, Subscription not found
+case Forbidden = "403"              // Not authorized to access resource
+case RequestConflict = "409"        // ex. MongoError: E11000 duplicate key error
+case PayloadTooLarge = "413"        // The request is larger than the server is willing or able to process.
+case InternalServerError = "500"
+}
+*/
+
 protocol MeteorCollectionType {
     func documentWasAdded(collection:String, id:String, fields:NSDictionary?)
     func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?)
@@ -79,17 +91,46 @@ public class Meteor {
     - parameter callback:   The closure to be executed when the server sends a 'ready' message.
     */
     
-    public static func subscribe(name:String, callback: DDPCallback?) -> String { return client.sub(name, params:nil, callback:callback) }
+    public static func subscribe(name:String, callback: DDPCallback?) -> String { return client.sub(name, params: nil, callback: callback) }
     
-    //public static func unsubscribe(
+    /**
+    Sends an unsubscribe request to the server.
+    
+    */
+    
+    public static func unsubscribe(name:String) -> String? { return client.unsub(name) }
+    
+    /**
+    Sends an unsubscribe request to the server. If a callback is passed, the callback asynchronously
+    runs when the unsubscribe transaction is complete.
+    
+    */
+    
+    public static func unsubscribe(name:String, callback:DDPCallback?) -> String? { return client.unsub(name, callback: callback) }
+    
+    /**
+    Calls a method on the server. If a callback is passed, the callback is asynchronously
+    executed when the method has completed. The callback takes two arguments: result and error. It
+    the method call is successful, result contains the return value of the method, if any. If the method fails,
+    error contains information about the error.
+    
+    - parameter name:       The name of the method
+    - parameter params:     An array containing method arguments, if any
+    - parameter callback:   The closure to be executed when the method has been executed
+    */
+    
+    public static func call(name:String, params:[AnyObject]?, callback:DDPMethodCallback?) -> String? {
+        return client.method(name, params: params, callback: callback)
+    }
     
     /**
     Call a single function to establish a DDP connection, and login with email and password
     
-    - parameter url:        The url to connect to
+    - parameter url:        The url of a Meteor server
     - parameter email:      A string email address associated with a Meteor account
     - parameter password:   A string password 
     */
+    
     public static func connect(url:String, email:String, password:String) {
         client.connect(url) { session in
             client.loginWithPassword(email, password: password) { result, error in
@@ -104,8 +145,30 @@ public class Meteor {
     }
     
     /**
+    Connect to a Meteor server and resume a prior session, if the user was logged in
+    
+    - parameter url:        The url of a Meteor server
+    */
+    
+    public static func connect(url:String) {
+        client.resume(url, callback: nil)
+    }
+    
+    /**
+    Connect to a Meteor server and resume a prior session, if the user was logged in
+    
+    - parameter url:        The url of a Meteor server
+    - parameter callback:   An optional closure to be executed after the connection is established
+    */
+    
+    public static func connect(url:String, callback:DDPCallback?) {
+        client.resume(url, callback: callback)
+    }
+
+    /**
     Meteor.Client is a subclass of DDPClient that facilitates interaction with the MeteorCollection class
     */
+    
     public class Client: DDPClient {
         
         typealias SubscriptionCallback = () -> ()
@@ -126,9 +189,7 @@ public class Meteor {
         
         public override func documentWasAdded(collection:String, id:String, fields:NSDictionary?) {
             if let meteorCollection = Meteor.collections[collection] as? MeteorCollectionType {
-                NSOperationQueue.mainQueue().addOperationWithBlock() {
-                    meteorCollection.documentWasAdded(collection, id: id, fields: fields)
-                }
+                meteorCollection.documentWasAdded(collection, id: id, fields: fields)
             }
         }
         
@@ -144,9 +205,7 @@ public class Meteor {
         
         public override func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?) {
             if let meteorCollection = Meteor.collections[collection] as? MeteorCollectionType {
-                NSOperationQueue.mainQueue().addOperationWithBlock() {
-                    meteorCollection.documentWasChanged(collection, id: id, fields: fields, cleared: cleared)
-                }
+                meteorCollection.documentWasChanged(collection, id: id, fields: fields, cleared: cleared)
             }
         }
         
@@ -160,9 +219,7 @@ public class Meteor {
         
         public override func documentWasRemoved(collection:String, id:String) {
             if let meteorCollection = Meteor.collections[collection] as? MeteorCollectionType {
-                NSOperationQueue.mainQueue().addOperationWithBlock() {
-                    meteorCollection.documentWasRemoved(collection, id: id)
-                }
+                meteorCollection.documentWasRemoved(collection, id: id)
             }
         }
     }
@@ -173,6 +230,7 @@ MeteorCollection is a class created to provide a base class and api for integrat
 should generally be subclassed, with the methods documentWasAdded, documentWasChanged and documentWasRemoved facilitating communicating 
 with the datastore.
 */
+
 public class MeteorCollection: NSObject, MeteorCollectionType {
     
     internal var name:String
@@ -189,6 +247,7 @@ public class MeteorCollection: NSObject, MeteorCollectionType {
     
     - parameter name:   The string name of the collection (must match the name of the collection on the server) 
     */
+    
     public init(name:String) {
         self.name = name
         super.init()
@@ -200,7 +259,7 @@ public class MeteorCollection: NSObject, MeteorCollectionType {
     }
     
     /**
-    Called when a document has been sent from the server. Always executes on the main queue
+    Invoked when a document has been sent from the server.
     
     - parameter collection:     the string name of the collection to which the document belongs
     - parameter id:             the string unique id that identifies the document on the server
@@ -211,9 +270,25 @@ public class MeteorCollection: NSObject, MeteorCollectionType {
         if let added = onAdded { added(collection: collection, id: id, fields:fields) }
     }
     
+    /**
+    Invoked when a document has been changed on the server.
+    
+    - parameter collection:     the string name of the collection to which the document belongs
+    - parameter id:             the string unique id that identifies the document on the server
+    - parameter fields:         an optional NSDictionary with the documents properties
+    - parameter cleared:                    Optional array of strings (field names to delete)
+    */
+    
     public func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?) {
         if let changed = onChanged { changed(collection:collection, id:id, fields:fields, cleared:cleared) }
     }
+    
+    /**
+    Invoked when a document has been removed on the server.
+    
+    - parameter collection:     the string name of the collection to which the document belongs
+    - parameter id:             the string unique id that identifies the document on the server
+    */
     
     public func documentWasRemoved(collection:String, id:String) {
         if let removed = onRemoved { removed(collection:collection, id:id) }

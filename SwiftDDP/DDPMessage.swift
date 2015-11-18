@@ -20,6 +20,46 @@
 
 import Foundation
 
+
+class DDPOperation: NSOperation {
+    typealias Action = () -> Void
+    
+    var message: DDPMessage
+    var action: Action
+    
+    init(message: DDPMessage, action: Action) {
+        self.message = message
+        self.action = action
+        super.init()
+    }
+    
+    override func main() {
+        action()
+    }
+}
+
+class DDPPingOperation: DDPOperation {
+    
+    override init(message: DDPMessage, action: Action) {
+        super.init(message: message, action: action)
+        self.queuePriority = .High
+        self.qualityOfService = .Utility
+    }
+    
+}
+
+class DDPMessageOperation: DDPOperation {
+    
+    init(message: DDPMessage, action: Action, completion: Action?) {
+        super.init(message: message, action: action)
+        self.queuePriority = .Low
+        self.qualityOfService = .Background
+        self.completionBlock = completion
+    }
+    
+}
+
+
 /**
 Enum value representing the types of DDP messages that the server can send
 */
@@ -94,7 +134,9 @@ public struct DDPMessage {
         json = message as NSDictionary
     }
     
-    // Converts an NSDictionary to a JSON String
+    /**
+    Converts an NSDictionary to a JSON string
+    */
     public static func toString(json:AnyObject) -> String? {
         if let data = try? NSJSONSerialization.dataWithJSONObject(json, options: NSJSONWritingOptions(rawValue: 0)) {
             let message = NSString(data: data, encoding: NSASCIIStringEncoding) as String?

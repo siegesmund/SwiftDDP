@@ -23,15 +23,18 @@ import Foundation
 /**
 Struct to encapsulate the result of a Meteor method call
 */
+
 public struct Result {
     
     /**
     The result of the method call
     */
+    
     public var result:AnyObject?
     
     /**
     An error object describing the server-side error, or nil if the method completed successfully
     */
+    
     public var error:DDPError?
 }
