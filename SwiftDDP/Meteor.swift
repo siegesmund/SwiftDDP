@@ -135,7 +135,7 @@ public class Meteor {
         client.connect(url) { session in
             client.loginWithPassword(email, password: password) { result, error in
                 guard let _ = error else {
-                    if let credentials = result as? NSDictionary {
+                    if let _ = result as? NSDictionary {
                         // client.userDidLogin(credentials)
                     }
                     return

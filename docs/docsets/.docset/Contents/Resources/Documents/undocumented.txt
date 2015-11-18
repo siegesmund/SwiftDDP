@@ -1,4 +1,7 @@
 DDPClient.swift
+	func ddpUserDidLogin(user:String)
+	func ddpUserDidLogout(user:String)
+	public var delegate:SwiftDDPDelegate?
 	public var logLevel = XCGLogger.LogLevel.Debug
 DDPMessage.swift
 	public enum DDPMessageType:String
@@ -17,13 +20,10 @@ DDPMessage.swift
 	case Updated    = "updated"
 	case Error      = "error"
 	case Unhandled  = "unhandled"
-	public static func toString(json:AnyObject) -> String?
 	public func hasProperty(name:String) -> Bool
 DDPExtensions.swift
+	public let DDP_USER_DID_LOGIN = "DDP_USER_DID_LOGIN"
+	public let DDP_USER_DID_LOGOUT = "DDP_USER_DID_LOGOUT"
 	public func signup(params:NSDictionary, callback:((result: AnyObject?, error: DDPError?) -> ())?)
-	public func signupWithEmail(email: String, password: String, callback: ((result:AnyObject?, error:DDPError?) -> ())?)
-	public func signupWithEmail(email: String, password: String, profile: NSDictionary, callback: ((result:AnyObject?, error:DDPError?) -> ())?)
 Meteor.swift
 	public convenience init(url:String, email:String, password:String)
-	public func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?)
-	public func documentWasRemoved(collection:String, id:String)
