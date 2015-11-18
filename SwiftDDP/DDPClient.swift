@@ -58,6 +58,16 @@ public class DDPClient: NSObject {
         return queue
         }()
     
+    // Not currently used
+    let backgroundSerial: NSOperationQueue = {
+        let queue = NSOperationQueue()
+        queue.name = "DDP Background Serial Data Queue"
+        queue.maxConcurrentOperationCount = 1
+        queue.qualityOfService = .Background
+        return queue
+        }()
+    
+    // Callbacks execute in the order they're received
     internal let callbackQueue: NSOperationQueue = {
         let queue = NSOperationQueue()
         queue.name = "DDP Callback Queue"
@@ -66,6 +76,8 @@ public class DDPClient: NSObject {
         return queue
         }()
     
+    // Document messages are processed in the order that they are received, 
+    // separately from callbacks
     internal let documentQueue: NSOperationQueue = {
         let queue = NSOperationQueue()
         queue.name = "DDP Background Queue"
@@ -74,6 +86,8 @@ public class DDPClient: NSObject {
         return queue
         }()
     
+    // Hearbeats get a special queue so that they're not blocked by
+    // other operations, causing the connection to close
     internal let heartbeat: NSOperationQueue = {
         let queue = NSOperationQueue()
         queue.name = "DDP Heartbeat Queue"
@@ -351,6 +365,7 @@ public class DDPClient: NSObject {
     public func sub(name:String, params: [AnyObject]?, callback: DDPCallback?) -> String {
         let id = String(name.hashValue)
         if let subData = findSubscription(name) {
+            log.info("You are already subscribed to \(name)")
             return  subData.id
         }
         return sub(id, name: name, params: params, callback: callback)

@@ -251,7 +251,7 @@ public class MeteorCollection: NSObject, MeteorCollectionType {
     }
     
     /**
-    Called when a document has been sent from the server.
+    Invoked when a document has been sent from the server.
     
     - parameter collection:     the string name of the collection to which the document belongs
     - parameter id:             the string unique id that identifies the document on the server
@@ -262,9 +262,25 @@ public class MeteorCollection: NSObject, MeteorCollectionType {
         if let added = onAdded { added(collection: collection, id: id, fields:fields) }
     }
     
+    /**
+    Invoked when a document has been changed on the server.
+    
+    - parameter collection:     the string name of the collection to which the document belongs
+    - parameter id:             the string unique id that identifies the document on the server
+    - parameter fields:         an optional NSDictionary with the documents properties
+    - parameter cleared:                    Optional array of strings (field names to delete)
+    */
+    
     public func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?) {
         if let changed = onChanged { changed(collection:collection, id:id, fields:fields, cleared:cleared) }
     }
+    
+    /**
+    Invoked when a document has been removed on the server.
+    
+    - parameter collection:     the string name of the collection to which the document belongs
+    - parameter id:             the string unique id that identifies the document on the server
+    */
     
     public func documentWasRemoved(collection:String, id:String) {
         if let removed = onRemoved { removed(collection:collection, id:id) }

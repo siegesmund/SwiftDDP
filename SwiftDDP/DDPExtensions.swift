@@ -345,12 +345,18 @@ extension DDPClient {
             if let c = callback { c(result: result, error: error) }
         }
     }
+    /**
+    Invokes a Meteor method to create a user account with a given email and password on the server
     
+    */
     public func signupWithEmail(email: String, password: String, callback: ((result:AnyObject?, error:DDPError?) -> ())?) {
         let params = ["email":email, "password":["digest":password.sha256(), "algorithm":"sha-256"]]
         signup(params, callback: callback)
     }
     
+    /**
+    Invokes a Meteor method to create a user account with a given email and password, and a NSDictionary containing a user profile
+    */
     public func signupWithEmail(email: String, password: String, profile: NSDictionary, callback: ((result:AnyObject?, error:DDPError?) -> ())?) {
         let params = ["email":email, "password":["digest":password.sha256(), "algorithm":"sha-256"], "profile":profile]
         signup(params, callback: callback)
