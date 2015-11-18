@@ -36,43 +36,78 @@ public typealias DDPMethodCallback = (result:AnyObject?, error:DDPError?) -> ()
 public typealias DDPCallback = () -> ()
 
 /**
+DDPDelegate provides an interface to react to user events
+*/
+public protocol SwiftDDPDelegate {
+    func ddpUserDidLogin(user:String)
+    func ddpUserDidLogout(user:String)
+}
+
+/**
 DDPClient is the base class for communicating with a server using the DDP protocol
 */
-
 public class DDPClient: NSObject {
     
     // included for storing login id and token
     internal let userData = NSUserDefaults.standardUserDefaults()
     
-    internal let incomingData:NSOperationQueue = {
+    let background: NSOperationQueue = {
         let queue = NSOperationQueue()
-        queue.name = "DDP Incoming Data Queue"
+        queue.name = "DDP Background Data Queue"
+        queue.qualityOfService = .Background
+        return queue
+        }()
+    
+    // Not currently used
+    let backgroundSerial: NSOperationQueue = {
+        let queue = NSOperationQueue()
+        queue.name = "DDP Background Serial Data Queue"
         queue.maxConcurrentOperationCount = 1
+        queue.qualityOfService = .Background
         return queue
         }()
     
-    // Calling methods on the server + their callbacks
-    internal let outgoingData:NSOperationQueue = {
+    // Callbacks execute in the order they're received
+    internal let callbackQueue: NSOperationQueue = {
         let queue = NSOperationQueue()
-        queue.name = "DDP Outgoing Data Queue"
-        // queue.maxConcurrentOperationCount = 1
-        return queue
-        }()
-    
-    internal let operation:NSOperationQueue = {
-        let queue = NSOperationQueue()
-        queue.name = "DDP Operation Queue"
+        queue.name = "DDP Callback Queue"
         queue.maxConcurrentOperationCount = 1
+        queue.qualityOfService = .UserInitiated
         return queue
         }()
     
-    internal let heartbeat:NSOperationQueue = {
+    // Document messages are processed in the order that they are received, 
+    // separately from callbacks
+    internal let documentQueue: NSOperationQueue = {
+        let queue = NSOperationQueue()
+        queue.name = "DDP Background Queue"
+        queue.maxConcurrentOperationCount = 1
+        queue.qualityOfService = .Background
+        return queue
+        }()
+    
+    // Hearbeats get a special queue so that they're not blocked by
+    // other operations, causing the connection to close
+    internal let heartbeat: NSOperationQueue = {
         let queue = NSOperationQueue()
         queue.name = "DDP Heartbeat Queue"
+        queue.qualityOfService = .Utility
         return queue
         }()
     
-    internal let mainQueue = NSOperationQueue.mainQueue()
+    let userBackground: NSOperationQueue = {
+        let queue = NSOperationQueue()
+        queue.name = "DDP High Priority Background Queue"
+        queue.qualityOfService = .UserInitiated
+        return queue
+        }()
+    
+    let userMainQueue: NSOperationQueue = {
+        let queue = NSOperationQueue.mainQueue()
+        queue.name = "DDP High Priorty Main Queue"
+        queue.qualityOfService = .UserInitiated
+        return queue
+        }()
     
     private var socket:WebSocket!
     private var server:(ping:NSDate?, pong:NSDate?) = (nil, nil)
@@ -87,6 +122,7 @@ public class DDPClient: NSObject {
     internal var events = DDPEvents()
     internal var connection:(ddp:Bool, session:String?) = (false, nil)
     
+    public var delegate:SwiftDDPDelegate?
     public var logLevel = XCGLogger.LogLevel.Debug
     
     internal override init() {
@@ -141,14 +177,13 @@ public class DDPClient: NSObject {
         }
         
         socket.event.message = { message in
-            self.operation.addOperationWithBlock() {
+            self.background.addOperationWithBlock() {
                 if let text = message as? String {
                     do { try self.ddpMessageHandler(DDPMessage(message: text)) }
                     catch { log.debug("Message handling error. Raw message: \(text)")}
                 }
             }
         }
-        
     }
     
     /**
@@ -171,7 +206,6 @@ public class DDPClient: NSObject {
     private func pong(ping: DDPMessage) {
         heartbeat.addOperationWithBlock() {
             self.server.ping = NSDate()
-            // log.debug("Ping")
             var response = ["msg":"pong"]
             if let id = ping.id { response["id"] = id }
             self.sendMessage(response)
@@ -189,7 +223,7 @@ public class DDPClient: NSObject {
             self.connection = (true, message.session!)
             self.events.onConnected(session:message.session!)
             
-        case .Result: incomingData.addOperationWithBlock() {
+        case .Result: callbackQueue.addOperationWithBlock() {
             if let id = message.id,                              // Message has id
                 let callback = self.resultCallbacks[id],          // There is a callback registered for the message
                 let result = message.result {
@@ -204,57 +238,56 @@ public class DDPClient: NSObject {
             
             // Principal callbacks for managing data
             // Document was added
-        case .Added: incomingData.addOperationWithBlock() {
-            if let collection = message.collection,
-                let id = message.id {
-                    self.documentWasAdded(collection, id: id, fields: message.fields)
-            }
+        case .Added: documentQueue.addOperationWithBlock() {
+                if let collection = message.collection,
+                    let id = message.id {
+                        self.documentWasAdded(collection, id: id, fields: message.fields)
+                }
             }
             
             // Document was changed
-        case .Changed: incomingData.addOperationWithBlock() {
-            if let collection = message.collection,
-                let id = message.id {
-                    self.documentWasChanged(collection, id: id, fields: message.fields, cleared: message.cleared)
-            }
+        case .Changed: documentQueue.addOperationWithBlock() {
+                if let collection = message.collection,
+                    let id = message.id {
+                        self.documentWasChanged(collection, id: id, fields: message.fields, cleared: message.cleared)
+                }
             }
             
             // Document was removed
-        case .Removed: incomingData.addOperationWithBlock() {
-            if let collection = message.collection,
-                let id = message.id {
-                    self.documentWasRemoved(collection, id: id)
-            }
+        case .Removed: documentQueue.addOperationWithBlock() {
+                if let collection = message.collection,
+                    let id = message.id {
+                        self.documentWasRemoved(collection, id: id)
+                }
             }
             
             // Notifies you when the result of a method changes
-        case .Updated: incomingData.addOperationWithBlock() {
-            if let methods = message.methods {
-                self.methodWasUpdated(methods)
-            }
+        case .Updated: documentQueue.addOperationWithBlock() {
+                if let methods = message.methods {
+                    self.methodWasUpdated(methods)
+                }
             }
             
             // Callbacks for managing subscriptions
-        case .Ready: incomingData.addOperationWithBlock() {
-            if let subs = message.subs {
-                self.ready(subs)
-            }
+        case .Ready: background.addOperationWithBlock() {
+                if let subs = message.subs {
+                    self.ready(subs)
+                }
             }
             
             // Callback that fires when subscription has been completely removed
             //
-        case .Nosub: incomingData.addOperationWithBlock() {
+        case .Nosub: background.addOperationWithBlock() {
             if let id = message.id {
                 self.nosub(id, error: message.error)
             }
-            }
-            
-            
+        }
+        
         case .Ping: heartbeat.addOperationWithBlock() { self.pong(message) }
             
         case .Pong: heartbeat.addOperationWithBlock() { self.server.pong = NSDate() }
             
-        case .Error: incomingData.addOperationWithBlock() {
+        case .Error: background.addOperationWithBlock() {
             self.didReceiveErrorMessage(DDPError(json: message.json))
             }
             
@@ -282,10 +315,12 @@ public class DDPClient: NSObject {
     
     public func method(name: String, params: AnyObject?, callback: DDPMethodCallback?) -> String {
         let id = getId()
-        let message = ["msg":"method", "method":name, "id":id] as NSMutableDictionary
-        if let p = params { message["params"] = p }
-        if let c = callback { resultCallbacks[id] = c }
-        outgoingData.addOperationWithBlock() { self.sendMessage(message) }
+            let message = ["msg":"method", "method":name, "id":id] as NSMutableDictionary
+            if let p = params { message["params"] = p }
+            if let c = callback { self.resultCallbacks[id] = c }
+            userBackground.addOperationWithBlock() {
+                self.sendMessage(message)
+            }
         return id
     }
     
@@ -295,11 +330,13 @@ public class DDPClient: NSObject {
     
     
     internal func sub(id: String, name: String, params: [AnyObject]?, callback: DDPCallback?) -> String {
-        if let c = callback { subCallbacks[id] = c }
-        subscriptions[id] = (id, name, false)
+        if let c = callback { self.subCallbacks[id] = c }
+        self.subscriptions[id] = (id, name, false)
         let message = ["msg":"sub", "name":name, "id":id] as NSMutableDictionary
         if let p = params { message["params"] = p }
-        outgoingData.addOperationWithBlock() { self.sendMessage(message) }
+        userBackground.addOperationWithBlock() {
+             self.sendMessage(message)
+        }
         return id
     }
     
@@ -326,8 +363,12 @@ public class DDPClient: NSObject {
     */
     
     public func sub(name:String, params: [AnyObject]?, callback: DDPCallback?) -> String {
-        let id = getId()
-        return  sub(id, name: name, params: params, callback: callback)
+        let id = String(name.hashValue)
+        if let subData = findSubscription(name) {
+            log.info("You are already subscribed to \(name)")
+            return  subData.id
+        }
+        return sub(id, name: name, params: params, callback: callback)
     }
     
     // Iterates over the Dictionary of subscriptions to find a subscription by name
@@ -366,7 +407,7 @@ public class DDPClient: NSObject {
     public func unsub(name: String, callback: DDPCallback?) -> String? {
         if let sub = findSubscription(name) {
             unsub(withId: sub.id, callback: callback)
-            outgoingData.addOperationWithBlock() { self.sendMessage(["msg":"unsub", "id":sub.id]) }
+            background.addOperationWithBlock() { self.sendMessage(["msg":"unsub", "id":sub.id]) }
             return sub.id
         }
         return nil
@@ -374,7 +415,7 @@ public class DDPClient: NSObject {
     
     internal func unsub(withId id: String, callback: DDPCallback?) {
         if let c = callback { unsubCallbacks[id] = c }
-        outgoingData.addOperationWithBlock() { self.sendMessage(["msg":"unsub", "id":id]) }
+        background.addOperationWithBlock() { self.sendMessage(["msg":"unsub", "id":id]) }
     }
     
     //
@@ -493,5 +534,3 @@ public class DDPClient: NSObject {
         if let error = events.onError { error(message: message) }
     }
 }
-
-

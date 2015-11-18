@@ -8,10 +8,10 @@
 //
 
 import Foundation
-#if os(iOS) || os(watchOS)
-    import UIKit
-#else
+#if os(OSX)
     import AppKit
+#else
+    import UIKit
 #endif
 
 // MARK: - XCGLogDetails
@@ -62,7 +62,7 @@ public class XCGBaseLogDestination: XCGLogDestinationProtocol, CustomDebugString
     public var showLogLevel: Bool = true
     public var showDate: Bool = true
 
-    // MARK: - DebugPrintable
+    // MARK: - CustomDebugStringConvertible
     public var debugDescription: String {
         get {
             return "\(extractClassName(self)): \(identifier) - LogLevel: \(outputLogLevel) showLogIdentifier: \(showLogIdentifier) showFunctionName: \(showFunctionName) showThreadName: \(showThreadName) showLogLevel: \(showLogLevel) showFileName: \(showFileName) showLineNumber: \(showLineNumber) showDate: \(showDate)"
@@ -291,7 +291,7 @@ public class XCGLogger: CustomDebugStringConvertible {
         public static let nslogDestinationIdentifier = "com.cerebralgardens.xcglogger.logdestination.console.nslog"
         public static let baseFileLogDestinationIdentifier = "com.cerebralgardens.xcglogger.logdestination.file"
         public static let nsdataFormatterCacheIdentifier = "com.cerebralgardens.xcglogger.nsdataFormatterCache"
-        public static let versionString = "3.0"
+        public static let versionString = "3.1"
     }
 
     // MARK: - Enums
@@ -363,24 +363,7 @@ public class XCGLogger: CustomDebugStringConvertible {
             self.bg = bg
         }
 
-#if os(iOS) || os(watchOS)
-        public init(fg: UIColor, bg: UIColor? = nil) {
-            var redComponent: CGFloat = 0
-            var greenComponent: CGFloat = 0
-            var blueComponent: CGFloat = 0
-            var alphaComponent: CGFloat = 0
-
-            fg.getRed(&redComponent, green: &greenComponent, blue: &blueComponent, alpha:&alphaComponent)
-            self.fg = (Int(redComponent * 255), Int(greenComponent * 255), Int(blueComponent * 255))
-            if let bg = bg {
-                bg.getRed(&redComponent, green: &greenComponent, blue: &blueComponent, alpha:&alphaComponent)
-                self.bg = (Int(redComponent * 255), Int(greenComponent * 255), Int(blueComponent * 255))
-            }
-            else {
-                self.bg = nil
-            }
-        }
-#else
+#if os(OSX)
         public init(fg: NSColor, bg: NSColor? = nil) {
             if let fgColorSpaceCorrected = fg.colorUsingColorSpaceName(NSCalibratedRGBColorSpace) {
                 self.fg = (Int(fgColorSpaceCorrected.redComponent * 255), Int(fgColorSpaceCorrected.greenComponent * 255), Int(fgColorSpaceCorrected.blueComponent * 255))
@@ -393,6 +376,23 @@ public class XCGLogger: CustomDebugStringConvertible {
                 let bgColorSpaceCorrected = bg.colorUsingColorSpaceName(NSCalibratedRGBColorSpace) {
 
                     self.bg = (Int(bgColorSpaceCorrected.redComponent * 255), Int(bgColorSpaceCorrected.greenComponent * 255), Int(bgColorSpaceCorrected.blueComponent * 255))
+            }
+            else {
+                self.bg = nil
+            }
+        }
+#else
+        public init(fg: UIColor, bg: UIColor? = nil) {
+            var redComponent: CGFloat = 0
+            var greenComponent: CGFloat = 0
+            var blueComponent: CGFloat = 0
+            var alphaComponent: CGFloat = 0
+
+            fg.getRed(&redComponent, green: &greenComponent, blue: &blueComponent, alpha:&alphaComponent)
+            self.fg = (Int(redComponent * 255), Int(greenComponent * 255), Int(blueComponent * 255))
+            if let bg = bg {
+                bg.getRed(&redComponent, green: &greenComponent, blue: &blueComponent, alpha:&alphaComponent)
+                self.bg = (Int(redComponent * 255), Int(greenComponent * 255), Int(blueComponent * 255))
             }
             else {
                 self.bg = nil
@@ -557,14 +557,12 @@ public class XCGLogger: CustomDebugStringConvertible {
     }
 
     public func logln(logLevel: LogLevel = .Debug, functionName: String = __FUNCTION__, fileName: String = __FILE__, lineNumber: Int = __LINE__, @noescape closure: () -> String?) {
-        let date = NSDate()
-
         var logDetails: XCGLogDetails? = nil
         for logDestination in self.logDestinations {
             if (logDestination.isEnabledForLogLevel(logLevel)) {
                 if logDetails == nil {
                     if let logMessage = closure() {
-                        logDetails = XCGLogDetails(logLevel: logLevel, date: date, logMessage: logMessage, functionName: functionName, fileName: fileName, lineNumber: lineNumber)
+                        logDetails = XCGLogDetails(logLevel: logLevel, date: NSDate(), logMessage: logMessage, functionName: functionName, fileName: fileName, lineNumber: lineNumber)
                     }
                     else {
                         break
@@ -811,13 +809,12 @@ public class XCGLogger: CustomDebugStringConvertible {
 
     // MARK: - Private methods
     private func _logln(logMessage: String, logLevel: LogLevel = .Debug) {
-        let date = NSDate()
 
         var logDetails: XCGLogDetails? = nil
         for logDestination in self.logDestinations {
             if (logDestination.isEnabledForLogLevel(logLevel)) {
                 if logDetails == nil {
-                    logDetails = XCGLogDetails(logLevel: logLevel, date: date, logMessage: logMessage, functionName: "", fileName: "", lineNumber: 0)
+                    logDetails = XCGLogDetails(logLevel: logLevel, date: NSDate(), logMessage: logMessage, functionName: "", fileName: "", lineNumber: 0)
                 }
 
                 logDestination.processInternalLogDetails(logDetails!)
