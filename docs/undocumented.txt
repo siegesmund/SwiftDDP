@@ -1,0 +1,29 @@
+DDPClient.swift
+	public var logLevel = XCGLogger.LogLevel.Debug
+DDPMessage.swift
+	public enum DDPMessageType:String
+	case Connected  = "connected"
+	case Failed     = "failed"
+	case Ping       = "ping"
+	case Pong       = "pong"
+	case Nosub      = "nosub"
+	case Added      = "added"
+	case Changed    = "changed"
+	case Removed    = "removed"
+	case Ready      = "ready"
+	case AddedBefore = "addedBefore"
+	case MovedBefore = "movedBefore"
+	case Result     = "result"
+	case Updated    = "updated"
+	case Error      = "error"
+	case Unhandled  = "unhandled"
+	public static func toString(json:AnyObject) -> String?
+	public func hasProperty(name:String) -> Bool
+DDPExtensions.swift
+	public func signup(params:NSDictionary, callback:((result: AnyObject?, error: DDPError?) -> ())?)
+	public func signupWithEmail(email: String, password: String, callback: ((result:AnyObject?, error:DDPError?) -> ())?)
+	public func signupWithEmail(email: String, password: String, profile: NSDictionary, callback: ((result:AnyObject?, error:DDPError?) -> ())?)
+Meteor.swift
+	public convenience init(url:String, email:String, password:String)
+	public func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?)
+	public func documentWasRemoved(collection:String, id:String)
