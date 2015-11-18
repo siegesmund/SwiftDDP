@@ -36,7 +36,6 @@ public class MeteorCoreDataTableViewController: UITableViewController, NSFetched
         }
     }
     
-    
     public func controllerWillChangeContent(controller: NSFetchedResultsController) {
         self.tableView.beginUpdates()
     }
