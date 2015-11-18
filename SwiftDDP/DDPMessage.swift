@@ -20,46 +20,6 @@
 
 import Foundation
 
-
-class DDPOperation: NSOperation {
-    typealias Action = () -> Void
-    
-    var message: DDPMessage
-    var action: Action
-    
-    init(message: DDPMessage, action: Action) {
-        self.message = message
-        self.action = action
-        super.init()
-    }
-    
-    override func main() {
-        action()
-    }
-}
-
-class DDPPingOperation: DDPOperation {
-    
-    override init(message: DDPMessage, action: Action) {
-        super.init(message: message, action: action)
-        self.queuePriority = .High
-        self.qualityOfService = .Utility
-    }
-    
-}
-
-class DDPMessageOperation: DDPOperation {
-    
-    init(message: DDPMessage, action: Action, completion: Action?) {
-        super.init(message: message, action: action)
-        self.queuePriority = .Low
-        self.qualityOfService = .Background
-        self.completionBlock = completion
-    }
-    
-}
-
-
 /**
 Enum value representing the types of DDP messages that the server can send
 */
@@ -113,11 +73,13 @@ public struct DDPMessage {
     /**
     The message's properties, stored as an NSDictionary
     */
+    
     public var json:NSDictionary!
     
     /**
     Initialize a message struct, with a Json string
     */
+    
     public init(message:String) {
         
         if let JSON = message.dictionaryValue() { json = JSON }
@@ -130,6 +92,7 @@ public struct DDPMessage {
     /**
     Initialize a message struct, with a dictionary of strings
     */
+    
     public init(message:[String:String]) {
         json = message as NSDictionary
     }
@@ -137,6 +100,7 @@ public struct DDPMessage {
     /**
     Converts an NSDictionary to a JSON string
     */
+    
     public static func toString(json:AnyObject) -> String? {
         if let data = try? NSJSONSerialization.dataWithJSONObject(json, options: NSJSONWritingOptions(rawValue: 0)) {
             let message = NSString(data: data, encoding: NSASCIIStringEncoding) as String?
@@ -152,6 +116,7 @@ public struct DDPMessage {
     /**
     Returns the DDP message type, of type DDPMessageType enum
     */
+    
     public var type:DDPMessageType {
         if let msg = message,
             let type = DDPMessageType(rawValue: msg) {
@@ -163,6 +128,7 @@ public struct DDPMessage {
     /**
     Returns a boolean value indicating if the message is an error message or not
     */
+    
     public var isError:Bool {
         if (self.type == .Error) { return true }    // if message is a top level error ("msg"="error")
         if let _ = self.error { return true }       // if message contains an error object, as in method or nosub
@@ -184,6 +150,7 @@ public struct DDPMessage {
     /**
     The optional DDP message
     */
+    
     public var message:String? {
         get { return json["msg"] as? String }
     }
@@ -191,6 +158,7 @@ public struct DDPMessage {
     /**
     The optional DDP session string
     */
+    
     public var session:String? {
         get { return json["session"] as? String }
     }
@@ -198,6 +166,7 @@ public struct DDPMessage {
     /**
     The optional DDP version string
     */
+    
     public var version:String? {
         get { return json["version"] as? String }
     }
@@ -205,6 +174,7 @@ public struct DDPMessage {
     /**
     The optional DDP support string
     */
+    
     public var support:String? {
         get { return json["support"] as? String }
     }
@@ -212,6 +182,7 @@ public struct DDPMessage {
     /**
     The optional DDP message id string
     */
+    
     public var id:String? {
         get { return json["id"] as? String }
     }
@@ -219,6 +190,7 @@ public struct DDPMessage {
     /**
     The optional DDP name string
     */
+    
     public var name:String? {
         get { return json["name"] as? String }
     }
@@ -226,6 +198,7 @@ public struct DDPMessage {
     /**
     The optional DDP param string
     */
+    
     public var params:String? {
         get { return json["params"] as? String }
     }
@@ -233,6 +206,7 @@ public struct DDPMessage {
     /**
     The optional DDP error object
     */
+    
     public var error:DDPError? {
         get { if let e = json["error"] as? NSDictionary { return DDPError(json:e) } else { return nil }}
     }
@@ -240,6 +214,7 @@ public struct DDPMessage {
     /**
     The optional DDP collection name string
     */
+    
     public var collection:String? {
         get { return json["collection"] as? String }
     }
@@ -247,6 +222,7 @@ public struct DDPMessage {
     /**
     The optional DDP fields dictionary
     */
+    
     public var fields:NSDictionary? {
         get { return json["fields"] as? NSDictionary }
     }
@@ -254,6 +230,7 @@ public struct DDPMessage {
     /**
     The optional DDP cleared array. Contains an array of fields that should be removed
     */
+    
     public var cleared:[String]? {
         get { return json["cleared"] as? [String] }
     }
@@ -261,6 +238,7 @@ public struct DDPMessage {
     /**
     The optional method name
     */
+    
     public var method:String? {
         get { return json["method"] as? String }
     }
@@ -268,6 +246,7 @@ public struct DDPMessage {
     /**
     The optional random seed JSON value (an arbitrary client-determined seed for pseudo-random generators)
     */
+    
     public var randomSeed:String? {
         get { return json["randomSeed"] as? String }
     }
@@ -275,6 +254,7 @@ public struct DDPMessage {
     /**
     The optional result object, containing the result of a method call
     */
+    
     public var result:AnyObject? {
         get { return json["result"] }
     }
@@ -282,6 +262,7 @@ public struct DDPMessage {
     /**
     The optional array of ids passed to 'method', all of whose writes have been reflected in data messages)
     */
+    
     public var methods:[String]? {
         get { return json["methods"] as? [String] }
     }
@@ -289,6 +270,7 @@ public struct DDPMessage {
     /**
     The optional array of id strings passed to 'sub' which have sent their initial batch of data
     */
+    
     public var subs:[String]? {
         get { return json["subs"] as? [String] }
     }
@@ -296,6 +278,7 @@ public struct DDPMessage {
     /**
     The optional reason given for an error returned from the server
     */
+    
     public var reason:String? {
         get { return json["reason"] as? String }
     }
@@ -303,6 +286,7 @@ public struct DDPMessage {
     /**
     The optional original error message
     */
+    
     public var offendingMessage:String? {
         get { return json["offendingMessage"] as? String }
     }
@@ -312,6 +296,7 @@ public struct DDPMessage {
 /**
 A struct encapsulating a DDP error message
 */
+
 public struct DDPError: ErrorType {
     
     private var json:NSDictionary?
@@ -319,21 +304,25 @@ public struct DDPError: ErrorType {
     /**
     The string error code
     */
+    
     public var error:String? { return json?["error"] as? String }                      // Error code
     
     /**
     The detailed message given for an error returned from the server
     */
+    
     public var reason:String? { return json?["reason"] as? String }
     
     /**
     The string providing error details
     */
+    
     public var details:String? { return json?["details"] as? String }
     
     /**
     If the original message parsed properly, it is included here
     */
+    
     public var offendingMessage:String? { return json?["offendingMessage"] as? String }
     
     /**

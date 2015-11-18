@@ -61,6 +61,7 @@ extension NSDictionary {
 /** 
 Extensions that provide an api for interacting with basic Meteor server-side services
 */
+
 extension DDPClient {
     
     /**
@@ -68,6 +69,7 @@ extension DDPClient {
     
     - parameter name:       The name of the subscription
     */
+    
     public func subscribe(name:String) -> String { return sub(name, params:nil) }
     
     /**
@@ -88,6 +90,7 @@ extension DDPClient {
     - parameter params:     An object containing method arguments, if any
     - parameter callback:   The closure to be executed when the server sends a 'ready' message
     */
+    
     public func subscribe(name:String, params:[AnyObject]?, callback: DDPCallback?) -> String { return sub(name, params:params, callback:callback) }
     
     /**
@@ -98,6 +101,7 @@ extension DDPClient {
     - parameter name:       The name of the subscription
     - parameter callback:   The closure to be executed when the server sends a 'ready' message
     */
+    
     public func subscribe(name:String, callback: DDPCallback?) -> String { return sub(name, params:nil, callback:callback) }
     
     
@@ -108,6 +112,7 @@ extension DDPClient {
     - parameter document:   An NSArray of documents to insert
     - parameter callback:   A closure with result and error arguments describing the result of the operation
     */
+    
     public func insert(collection: String, document: NSArray, callback: DDPMethodCallback?) -> String {
         let arg = "/\(collection)/insert"
         return self.method(arg, params: document, callback: callback)
@@ -130,6 +135,7 @@ extension DDPClient {
     - parameter collection: The name of the collection
     - parameter document:   An NSArray of documents to insert
     */
+    
     public func insert(sync collection: String, document: NSArray) -> Result {
         
         syncWarning("Insert")
@@ -155,6 +161,7 @@ extension DDPClient {
     - parameter document:   An NSArray of documents to update
     - parameter callback:   A closure with result and error arguments describing the result of the operation
     */
+    
     public func update(collection: String, document: NSArray, callback: DDPMethodCallback?) -> String {
         let arg = "/\(collection)/update"
         return method(arg, params: document, callback: callback)
@@ -166,6 +173,7 @@ extension DDPClient {
     - parameter collection: The name of the collection
     - parameter document:   An NSArray of documents to update
     */
+    
     public func update(collection: String, document: NSArray) -> String {
         return update(collection, document: document, callback:nil)
     }
@@ -176,6 +184,7 @@ extension DDPClient {
     - parameter collection: The name of the collection
     - parameter document:   An NSArray of documents to update
     */
+    
     public func update(sync collection: String, document: NSArray) -> Result {
         syncWarning("Update")
         
@@ -200,6 +209,7 @@ extension DDPClient {
     - parameter document:   An NSArray of documents to remove
     - parameter callback:   A closure with result and error arguments describing the result of the operation
     */
+    
     public func remove(collection: String, document: NSArray, callback: DDPMethodCallback?) -> String {
         let arg = "/\(collection)/remove"
         return method(arg, params: document, callback: callback)
@@ -211,6 +221,7 @@ extension DDPClient {
     - parameter collection: The name of the collection
     - parameter document:   An NSArray of documents to remove
     */
+    
     public func remove(collection: String, document: NSArray) -> String  {
         return remove(collection, document: document, callback:nil)
     }
@@ -221,6 +232,7 @@ extension DDPClient {
     - parameter collection: The name of the collection
     - parameter document:   An NSArray of documents to remove
     */
+    
     public func remove(sync collection: String, document: NSArray) -> Result {
         syncWarning("Remove")
         
@@ -290,6 +302,7 @@ extension DDPClient {
     - parameter password:   A password string
     - parameter callback:   A closure with result and error parameters describing the outcome of the operation
     */
+    
     public func loginWithPassword(email: String, password: String, callback: DDPMethodCallback?) {
         if !(loginWithToken(callback)) {
             let params = ["user": ["email": email], "password":["digest": password.sha256(), "algorithm":"sha-256"]] as NSDictionary
@@ -302,6 +315,7 @@ extension DDPClient {
     
     - parameter callback:   A closure with result and error parameters describing the outcome of the operation
     */
+    
     public func loginWithToken(callback: DDPMethodCallback?) -> Bool {
         if let token = userData.stringForKey(DDP_TOKEN),
             let tokenDate = userData.objectForKey(DDP_TOKEN_EXPIRES) {
@@ -349,6 +363,7 @@ extension DDPClient {
     Invokes a Meteor method to create a user account with a given email and password on the server
     
     */
+    
     public func signupWithEmail(email: String, password: String, callback: ((result:AnyObject?, error:DDPError?) -> ())?) {
         let params = ["email":email, "password":["digest":password.sha256(), "algorithm":"sha-256"]]
         signup(params, callback: callback)
@@ -357,6 +372,7 @@ extension DDPClient {
     /**
     Invokes a Meteor method to create a user account with a given email and password, and a NSDictionary containing a user profile
     */
+    
     public func signupWithEmail(email: String, password: String, profile: NSDictionary, callback: ((result:AnyObject?, error:DDPError?) -> ())?) {
         let params = ["email":email, "password":["digest":password.sha256(), "algorithm":"sha-256"], "profile":profile]
         signup(params, callback: callback)
@@ -365,6 +381,7 @@ extension DDPClient {
     /**
     Returns the client userId, if it exists
     */
+    
     public func userId() -> String? {
         return self.userData.objectForKey(DDP_ID) as? String
     }
@@ -372,6 +389,7 @@ extension DDPClient {
     /**
     Returns the client's username or email, if it exists
     */
+    
     public func user() -> String? {
         if let username = self.userData.objectForKey(DDP_USERNAME) as? String {
             return username
@@ -406,6 +424,7 @@ extension DDPClient {
     
     - parameter callback:   A closure with result and error parameters describing the outcome of the operation
     */
+    
     public func logout(callback:DDPMethodCallback?) {
         method("logout", params: nil) { result, error in
                 if (error == nil) {
@@ -431,6 +450,7 @@ extension DDPClient {
     
     - parameter url:        The server url
     */
+    
     public func resume(url:String, callback:DDPCallback?) {
         connect(url) { session in
             if let _ = self.user() {
@@ -456,6 +476,7 @@ extension DDPClient {
     - parameter password:   String password
     - parameter callback:   A closure with result and error parameters describing the outcome of the operation
     */
+    
     public convenience init(url: String, email: String, password: String, callback: DDPMethodCallback?) {
         self.init()
         connect(url) { session in
@@ -466,6 +487,7 @@ extension DDPClient {
     /**
     Returns true if the user is logged in, and false otherwise
     */
+    
     public func loggedIn() -> Bool {
         if let userLoggedIn = self.userData.objectForKey(DDP_LOGGED_IN) as? Bool where (userLoggedIn == true) {
             return true

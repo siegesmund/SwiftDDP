@@ -38,6 +38,7 @@ public typealias DDPCallback = () -> ()
 /**
 DDPDelegate provides an interface to react to user events
 */
+
 public protocol SwiftDDPDelegate {
     func ddpUserDidLogin(user:String)
     func ddpUserDidLogout(user:String)
@@ -46,6 +47,7 @@ public protocol SwiftDDPDelegate {
 /**
 DDPClient is the base class for communicating with a server using the DDP protocol
 */
+
 public class DDPClient: NSObject {
     
     // included for storing login id and token
