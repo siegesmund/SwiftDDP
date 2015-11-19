@@ -38,6 +38,10 @@ protocol MeteorCollectionType {
     func documentWasRemoved(collection:String, id:String)
 }
 
+protocol MeteorDocument {
+    var id:String { get }
+}
+
 /**
 Meteor is a class to simplify communicating with and consuming MeteorJS server services
 */
@@ -276,6 +280,8 @@ public class MeteorCollection: NSObject, MeteorCollectionType {
     
     public var name:String
     public let client = Meteor.client
+    
+    private var documents = [String:MeteorDocument]()
     
     // Alternative API to subclassing
     // Can also set these closures to modify behavior on added, changed, removed
