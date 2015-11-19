@@ -165,6 +165,25 @@ public class Meteor {
         client.resume(url, callback: callback)
     }
 
+    
+    /**
+    Logout from the server and execute a callback when the logout process has completed
+    
+    - parameter callback: An optional closure to be executed after the client has logged out
+    */
+    
+    public static func logout(callback:DDPMethodCallback?) {
+        client.logout(callback)
+    }
+    
+    /**
+    Logout from the server
+    */
+    
+    public static func logout() {
+        client.logout()
+    }
+    
     /**
     Meteor.Client is a subclass of DDPClient that facilitates interaction with the MeteorCollection class
     */
