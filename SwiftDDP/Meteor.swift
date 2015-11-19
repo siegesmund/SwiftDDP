@@ -32,14 +32,10 @@ case InternalServerError = "500"
 }
 */
 
-protocol MeteorCollectionType {
+public protocol MeteorCollectionType {
     func documentWasAdded(collection:String, id:String, fields:NSDictionary?)
     func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?)
     func documentWasRemoved(collection:String, id:String)
-}
-
-protocol MeteorDocument {
-    var id:String { get }
 }
 
 /**
@@ -270,24 +266,58 @@ public class Meteor {
     }
 }
 
+public class MeteorDocument: NSObject {
+    
+    var id:String
+    
+    required public init(id: String, fields: NSDictionary?) {
+        self.id = id
+        super.init()
+        
+        if let properties = fields {
+            for (key,value) in properties  {
+                self.setValue(value, forKey: key as! String)
+            }
+        }
+    }
+    
+    public func update(fields: NSDictionary?, cleared: [String]?) {
+        if let properties = fields {
+            for (key,value) in properties  {
+                self.setValue(value, forKey: key as! String)
+            }
+        }
+        
+        if let deletions = cleared {
+            for property in deletions {
+                self.setNilValueForKey(property)
+            }
+        }
+    }
+    
+}
+
 /**
 MeteorCollection is a class created to provide a base class and api for integrating SwiftDDP with persistence stores. MeteorCollection
 should generally be subclassed, with the methods documentWasAdded, documentWasChanged and documentWasRemoved facilitating communicating 
 with the datastore.
 */
 
-public class MeteorCollection: NSObject, MeteorCollectionType {
+// MeteorCollectionType protocol declaration is necessary
+public class MeteorCollection<T:MeteorDocument>: NSObject, MeteorCollectionType {
     
     public var name:String
     public let client = Meteor.client
     
-    private var documents = [String:MeteorDocument]()
+    var documents = [String:T]()
     
-    // Alternative API to subclassing
-    // Can also set these closures to modify behavior on added, changed, removed
-    internal var onAdded:((collection:String, id:String, fields:NSDictionary?) -> ())?
-    internal var onChanged:((collection:String, id:String, fields:NSDictionary?, cleared:[String]?) -> ())?
-    internal var onRemoved:((collection:String, id:String) -> ())?
+    /**
+    Returns the number of documents in the collection
+    */
+    
+    var count:Int {
+        return documents.count
+    }
     
     /**
     Initializes a MeteorCollection object
@@ -305,6 +335,12 @@ public class MeteorCollection: NSObject, MeteorCollectionType {
         Meteor.collections[name] = nil
     }
     
+    /*
+    func sorted(property:String) -> [String] {
+        return []
+    }
+    */
+    
     /**
     Invoked when a document has been sent from the server.
     
@@ -314,7 +350,11 @@ public class MeteorCollection: NSObject, MeteorCollectionType {
     */
     
     public func documentWasAdded(collection:String, id:String, fields:NSDictionary?) {
-        if let added = onAdded { added(collection: collection, id: id, fields:fields) }
+        print("FOOOOOOO")
+        let document = T(id: id, fields: fields)
+        documents[id] = document
+        print("Document --> \(document)")
+
     }
     
     /**
@@ -327,7 +367,11 @@ public class MeteorCollection: NSObject, MeteorCollectionType {
     */
     
     public func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?) {
-        if let changed = onChanged { changed(collection:collection, id:id, fields:fields, cleared:cleared) }
+        if let document = documents[id] {
+            document.update(fields, cleared: cleared)
+            documents[id] = document
+        }
+        
     }
     
     /**
@@ -338,7 +382,9 @@ public class MeteorCollection: NSObject, MeteorCollectionType {
     */
     
     public func documentWasRemoved(collection:String, id:String) {
-        if let removed = onRemoved { removed(collection:collection, id:id) }
+        if let _ = documents[id] {
+            documents[id] = nil
+        }
     }
 }
 

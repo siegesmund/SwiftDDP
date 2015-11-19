@@ -8,7 +8,7 @@ class MeteorTest: QuickSpec {
     override func spec() {
         
         let client = Meteor.client
-        let collection = MeteorCollection(name: "test-collection")
+        let collection = MeteorCollection<Document>(name: "test-collection")
         
         describe("Collections") {
             /*
@@ -24,40 +24,37 @@ class MeteorTest: QuickSpec {
         describe("Document methods send notifications") {
             
             it("sends a message when a document is added") {
-                var _id:String!
-                
-                collection.onAdded = {collection, id, fields in
-                    if (id == "2gAMzqvE8K8kBWK8F") { _id = id }
-                }
                 
                 try! client.ddpMessageHandler(added[0])
-                expect(_id).toEventuallyNot(beNil())
-                expect(_id).toEventually(equal("2gAMzqvE8K8kBWK8F"))
+                
+                print("Collection -> \(collection.documents)")
+                
+                expect(collection.documents["2gAMzqvE8K8kBWK8F"]).toEventuallyNot(beNil())
+                expect(collection.documents["2gAMzqvE8K8kBWK8F"]?.city).toEventually(equal("Boston"))
             }
             
             it("sends a message when a document is removed") {
-                var _id:String!
                 
-                collection.onRemoved = {collection, id in
-                    if (id == "2gAMzqvE8K8kBWK8F") { _id = id }
-                }
+                try! client.ddpMessageHandler(added[1])
+                expect(collection.documents["ByuwhKPGuLru8h4TT"]).toEventuallyNot(beNil())
+                expect(collection.documents["ByuwhKPGuLru8h4TT"]!.city).toEventually(equal("Truro"))
                 
-                try! client.ddpMessageHandler(removed[0])
-                expect(_id).toEventuallyNot(beNil())
-                expect(_id).toEventually(equal("2gAMzqvE8K8kBWK8F"))
+                try! client.ddpMessageHandler(removed[1])
+                expect(collection.documents["ByuwhKPGuLru8h4TT"]).toEventually(beNil())
             }
             
+        
             it("sends a message when a document is updated") {
-                var _id:String!
                 
-                collection.onChanged = {collection, id, fields, cleared in
-                     if (id == "2gAMzqvE8K8kBWK8F") { _id = id }
-                }
+                try! client.ddpMessageHandler(added[2])
+                expect(collection.documents["AGX6vyxCJtjqdxbFH"]).toEventuallyNot(beNil())
+                expect(collection.documents["AGX6vyxCJtjqdxbFH"]!.city).toEventually(equal("Austin"))
                 
-                try! client.ddpMessageHandler(changed[0])
-                expect(_id).toEventuallyNot(beNil())
-                expect(_id).toEventually(equal("2gAMzqvE8K8kBWK8F"))
+                try! client.ddpMessageHandler(changed[2])
+                expect(collection.documents["AGX6vyxCJtjqdxbFH"]!.city).toEventually(equal("Houston"))
+
             }
+        
         }
     }
 }
