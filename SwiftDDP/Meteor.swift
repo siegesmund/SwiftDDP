@@ -297,19 +297,70 @@ public class MeteorDocument: NSObject {
     
 }
 
+public class AbstractCollection: NSObject, MeteorCollectionType {
+    
+    public var name:String
+    public let client = Meteor.client
+    
+    public init(name:String) {
+        self.name = name
+        super.init()
+        Meteor.collections[name] = self
+    }
+    
+    deinit {
+        Meteor.collections[name] = nil
+    }
+
+    /**
+    Invoked when a document has been sent from the server.
+    
+    - parameter collection:     the string name of the collection to which the document belongs
+    - parameter id:             the string unique id that identifies the document on the server
+    - parameter fields:         an optional NSDictionary with the documents properties
+    */
+    
+    public func documentWasAdded(collection:String, id:String, fields:NSDictionary?) {}
+    
+    /**
+    Invoked when a document has been changed on the server.
+    
+    - parameter collection:     the string name of the collection to which the document belongs
+    - parameter id:             the string unique id that identifies the document on the server
+    - parameter fields:         an optional NSDictionary with the documents properties
+    - parameter cleared:                    Optional array of strings (field names to delete)
+    */
+    
+    public func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?) {}
+    
+    /**
+    Invoked when a document has been removed on the server.
+    
+    - parameter collection:     the string name of the collection to which the document belongs
+    - parameter id:             the string unique id that identifies the document on the server
+    */
+    
+    public func documentWasRemoved(collection:String, id:String) {}
+    
+}
+
+
+
 /**
-MeteorCollection is a class created to provide a base class and api for integrating SwiftDDP with persistence stores. MeteorCollection
+MeteorCollection provides basic persistence as well as an api for integrating SwiftDDP with persistence stores. MeteorCollection
 should generally be subclassed, with the methods documentWasAdded, documentWasChanged and documentWasRemoved facilitating communicating 
 with the datastore.
 */
 
 // MeteorCollectionType protocol declaration is necessary
-public class MeteorCollection<T:MeteorDocument>: NSObject, MeteorCollectionType {
+public class MeteorCollection<T:MeteorDocument>: AbstractCollection {
     
-    public var name:String
-    public let client = Meteor.client
     
     var documents = [String:T]()
+        
+    var sorted:[T] {
+        return Array(documents.values).sort({ $0.id > $1.id })
+    }
     
     /**
     Returns the number of documents in the collection
@@ -325,21 +376,10 @@ public class MeteorCollection<T:MeteorDocument>: NSObject, MeteorCollectionType 
     - parameter name:   The string name of the collection (must match the name of the collection on the server) 
     */
     
-    public init(name:String) {
-        self.name = name
-        super.init()
-        Meteor.collections[name] = self
+    private func sorted(property:String) -> [T] {
+        let values = Array(documents.values)
+        return values.sort({ $0.id > $1.id })
     }
-    
-    deinit {
-        Meteor.collections[name] = nil
-    }
-    
-    /*
-    func sorted(property:String) -> [String] {
-        return []
-    }
-    */
     
     /**
     Invoked when a document has been sent from the server.
@@ -349,11 +389,9 @@ public class MeteorCollection<T:MeteorDocument>: NSObject, MeteorCollectionType 
     - parameter fields:         an optional NSDictionary with the documents properties
     */
     
-    public func documentWasAdded(collection:String, id:String, fields:NSDictionary?) {
-        print("FOOOOOOO")
+    public override func documentWasAdded(collection:String, id:String, fields:NSDictionary?) {
         let document = T(id: id, fields: fields)
         documents[id] = document
-        print("Document --> \(document)")
 
     }
     
@@ -366,7 +404,7 @@ public class MeteorCollection<T:MeteorDocument>: NSObject, MeteorCollectionType 
     - parameter cleared:                    Optional array of strings (field names to delete)
     */
     
-    public func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?) {
+    public override func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?) {
         if let document = documents[id] {
             document.update(fields, cleared: cleared)
             documents[id] = document
@@ -381,7 +419,7 @@ public class MeteorCollection<T:MeteorDocument>: NSObject, MeteorCollectionType 
     - parameter id:             the string unique id that identifies the document on the server
     */
     
-    public func documentWasRemoved(collection:String, id:String) {
+    public override func documentWasRemoved(collection:String, id:String) {
         if let _ = documents[id] {
             documents[id] = nil
         }
