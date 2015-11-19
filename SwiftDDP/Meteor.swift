@@ -165,9 +165,31 @@ public class Meteor {
         client.resume(url, callback: callback)
     }
 
+    /**
+    Logs a user into the server using an email and password
+    
+    - parameter email:      An email string
+    - parameter password:   A password string
+    - parameter callback:   A closure with result and error parameters describing the outcome of the operation
+    */
+    
+    public static func loginWithPassword(email:String, password:String, callback:DDPMethodCallback?) {
+        client.loginWithPassword(email, password: password, callback: callback)
+    }
     
     /**
-    Logout from the server and execute a callback when the logout process has completed
+    Logs a user into the server using an email and password
+    
+    - parameter email:      An email string
+    - parameter password:   A password string
+    */
+    
+    public static func loginWithPassword(email:String, password:String) {
+        client.loginWithPassword(email, password: password, callback: nil)
+    }
+    
+    /**
+    Logs a user out of the server and executes a callback when the logout process has completed
     
     - parameter callback: An optional closure to be executed after the client has logged out
     */
@@ -177,7 +199,7 @@ public class Meteor {
     }
     
     /**
-    Logout from the server
+    Logs a user out of the server
     */
     
     public static func logout() {

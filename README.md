@@ -25,18 +25,12 @@ pod "SwiftDDP"
 ###[API Reference](https://siegesmund.github.io/SwiftDDP)###
 
 ## Quick Start ##
-### Getting an instance of the client ####
-
-```swift
-import SwiftDDP
-
-// Returns a singleton instance of the client
-let meteor = Meteor.client
-```
 
 ### Connecting to a Meteor server
 
 ```swift
+import SwiftDDP 
+
 // Meteor.connect will automatically connect and will sign in using
 // a stored login token if the client was previously signed in.
 
@@ -49,6 +43,10 @@ Meteor.connect("wss://todos.meteor.com/websocket") {
 ```swift
 Meteor.loginWithPassword("user@swiftddp.com", password: "********") { result, error in 
 // do something after login
+}
+
+Meteor.logout() { result, error in 
+// do something after logout
 }
 ``` 
 The client also posts a notification when the user signs in and signs out.
