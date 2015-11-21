@@ -10,24 +10,11 @@ class MeteorTest: QuickSpec {
         let client = Meteor.client
         let collection = MeteorCollection<Document>(name: "test-collection")
         
-        describe("Collections") {
-            /*
-            it ("returns a singleton") {
-                let collection2 = Meteor.collection("test-collection") as Collection
-                let collection3 = Meteor.collection("test-collection2") as Collection
-                expect((collection === collection2)).to(beTrue())
-                expect((collection2 === collection3)).to(beFalse())
-            }
-            */
-        }
-        
         describe("Document methods send notifications") {
             
             it("sends a message when a document is added") {
                 
                 try! client.ddpMessageHandler(added[0])
-                
-                print("Collection -> \(collection.documents)")
                 
                 expect(collection.documents["2gAMzqvE8K8kBWK8F"]).toEventuallyNot(beNil())
                 expect(collection.documents["2gAMzqvE8K8kBWK8F"]?.city).toEventually(equal("Boston"))

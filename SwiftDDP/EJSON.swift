@@ -26,7 +26,7 @@ public class EJSON: NSObject {
     */
     
     public static func convertToNSDate(ejson:NSDictionary) -> NSDate {
-        let timeInterval = NSTimeInterval(ejson.valueForKey("$date") as! Int)
+        let timeInterval = NSTimeInterval(ejson.valueForKey("$date") as! Double) / 1000
         return NSDate(timeIntervalSince1970: timeInterval)
     }
     

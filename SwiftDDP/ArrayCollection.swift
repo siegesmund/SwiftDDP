@@ -94,6 +94,16 @@ public class MeteorCollection<T:MeteorDocument>: AbstractCollection {
     }
     
     /**
+    Find a single document by id
+    
+    - parameter id: the id of the document
+    */
+    
+    public func findOne(id: String) -> T? {
+        return documents[id]
+    }
+    
+    /**
     Invoked when a document has been sent from the server.
     
     - parameter collection:     the string name of the collection to which the document belongs
@@ -103,8 +113,7 @@ public class MeteorCollection<T:MeteorDocument>: AbstractCollection {
     
     public override func documentWasAdded(collection:String, id:String, fields:NSDictionary?) {
         let document = T(id: id, fields: fields)
-        documents[id] = document
-        
+        self.documents[id] = document
     }
     
     /**
@@ -119,9 +128,8 @@ public class MeteorCollection<T:MeteorDocument>: AbstractCollection {
     public override func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?) {
         if let document = documents[id] {
             document.update(fields, cleared: cleared)
-            documents[id] = document
+            self.documents[id] = document
         }
-        
     }
     
     /**
@@ -133,7 +141,7 @@ public class MeteorCollection<T:MeteorDocument>: AbstractCollection {
     
     public override func documentWasRemoved(collection:String, id:String) {
         if let _ = documents[id] {
-            documents[id] = nil
+            self.documents[id] = nil
         }
     }
 }
