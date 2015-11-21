@@ -1,12 +1,19 @@
 
 import Foundation
-import SwiftDDP
+@testable import SwiftDDP
 
 //
 //
 //  Test Data
 //
 //
+
+class Document: MeteorDocument {
+    
+    var state:String?
+    var city:String?
+    
+}
 
 //  *** methods that are tested against a server are tested against the url below ***
 

@@ -19,6 +19,7 @@ Pod::Spec.new do |s|
 
   s.dependency 'CryptoSwift'
   s.dependency 'SwiftWebSocket'
+  s.dependency 'Dollar'
   s.dependency 'XCGLogger'
 
 end
