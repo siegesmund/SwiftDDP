@@ -25,6 +25,7 @@
 		D0C71B561BC172F40089B6CE /* Meteor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C71B551BC172F40089B6CE /* Meteor.swift */; settings = {ASSET_TAGS = (); }; };
 		D0C71B581BC173030089B6CE /* SwiftMeteor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C71B571BC173030089B6CE /* SwiftMeteor.swift */; settings = {ASSET_TAGS = (); }; };
 		D0C71B5B1BC174280089B6CE /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C71B5A1BC174280089B6CE /* Data.swift */; settings = {ASSET_TAGS = (); }; };
+		D0F6C99D1BFFA04600A6CB70 /* EJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F6C99C1BFFA04600A6CB70 /* EJSON.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		D0C71B551BC172F40089B6CE /* Meteor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meteor.swift; sourceTree = "<group>"; };
 		D0C71B571BC173030089B6CE /* SwiftMeteor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftMeteor.swift; sourceTree = "<group>"; };
 		D0C71B5A1BC174280089B6CE /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		D0F6C99C1BFFA04600A6CB70 /* EJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EJSON.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +140,7 @@
 				D02B30821BDA8E2200E1DB72 /* DDPMethodResult.swift */,
 				D02A720E1BBEFCD300940C17 /* DDPEvents.swift */,
 				D0C71B551BC172F40089B6CE /* Meteor.swift */,
+				D0F6C99C1BFFA04600A6CB70 /* EJSON.swift */,
 				D02A71E11BBEFBCA00940C17 /* Info.plist */,
 			);
 			path = SwiftDDP;
@@ -314,6 +317,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D02A72101BBEFCD300940C17 /* DDPClient.swift in Sources */,
+				D0F6C99D1BFFA04600A6CB70 /* EJSON.swift in Sources */,
 				D02B30831BDA8E2200E1DB72 /* DDPMethodResult.swift in Sources */,
 				D02A72111BBEFCD300940C17 /* DDPMessage.swift in Sources */,
 				D02A72121BBEFCD300940C17 /* DDPExtensions.swift in Sources */,

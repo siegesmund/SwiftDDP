@@ -83,7 +83,7 @@ Meteor.subscribe("todos", [1,2,3,4]) {
 
 ### Call a method on the server ###
 ```swift
-Meteor.call("foo", [1, 2, 3, 4]) {
+Meteor.call("foo", [1, 2, 3, 4]) { result, error in
 // Do something with the method result
 }
 ```
