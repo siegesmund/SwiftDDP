@@ -87,6 +87,8 @@ Meteor.call("foo", [1, 2, 3, 4]) { result, error in
 // Do something with the method result
 }
 ```
+When passing parameters to a server method, the parameters object must be serializable with NSJSONSerialization
+
 
 ### Todos ###
 Complete documentation for Meteor.Collection & MeteorCollectionType protocol
