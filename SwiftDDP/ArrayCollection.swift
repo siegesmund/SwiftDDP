@@ -84,6 +84,10 @@ public class MeteorCollection<T:MeteorDocument>: AbstractCollection {
     - parameter name:   The string name of the collection (must match the name of the collection on the server)
     */
     
+    override init(name: String) {
+        super.init(name: name)
+    }
+    
     private func sorted(property:String) -> [T] {
         let values = Array(documents.values)
         return values.sort({ $0.id > $1.id })
