@@ -25,11 +25,7 @@
 		D0C71B561BC172F40089B6CE /* Meteor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C71B551BC172F40089B6CE /* Meteor.swift */; settings = {ASSET_TAGS = (); }; };
 		D0C71B581BC173030089B6CE /* SwiftMeteor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C71B571BC173030089B6CE /* SwiftMeteor.swift */; settings = {ASSET_TAGS = (); }; };
 		D0C71B5B1BC174280089B6CE /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C71B5A1BC174280089B6CE /* Data.swift */; settings = {ASSET_TAGS = (); }; };
-<<<<<<< HEAD
 		D0F6C99D1BFFA04600A6CB70 /* EJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F6C99C1BFFA04600A6CB70 /* EJSON.swift */; settings = {ASSET_TAGS = (); }; };
-=======
-		D0F6C9221BFE97C800A6CB70 /* Dollar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F6C91F1BFE97BC00A6CB70 /* Dollar.framework */; };
->>>>>>> 75ac27cd6b5f36231c0ad7b65baed7b0cf65f997
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,11 +94,8 @@
 		D0C71B551BC172F40089B6CE /* Meteor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meteor.swift; sourceTree = "<group>"; };
 		D0C71B571BC173030089B6CE /* SwiftMeteor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftMeteor.swift; sourceTree = "<group>"; };
 		D0C71B5A1BC174280089B6CE /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
-<<<<<<< HEAD
-		D0F6C99C1BFFA04600A6CB70 /* EJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EJSON.swift; sourceTree = "<group>"; };
-=======
 		D0F6C9191BFE97BC00A6CB70 /* Dollar.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Dollar.xcodeproj; path = Dollar.swift/Dollar/Dollar.xcodeproj; sourceTree = "<group>"; };
->>>>>>> 75ac27cd6b5f36231c0ad7b65baed7b0cf65f997
+		D0F6C99C1BFFA04600A6CB70 /* EJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EJSON.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,7 +103,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0F6C9221BFE97C800A6CB70 /* Dollar.framework in Frameworks */,
 				D02A72281BBF01E900940C17 /* CryptoSwift.framework in Frameworks */,
 				D02A722A1BBF01ED00940C17 /* SwiftWebSocket.framework in Frameworks */,
 				D02A722C1BBF01EF00940C17 /* XCGLogger.framework in Frameworks */,
