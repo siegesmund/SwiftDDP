@@ -50,7 +50,18 @@ public class Meteor {
         
     public static let client = Meteor.Client()          // Client is a singleton object
     
-    internal static var collections = [String:Any]()
+    internal static var collections = [String:MeteorCollectionType]()
+    
+    /**
+    returns a Meteor collection, if it exists
+    */
+    
+    public static func collection(name:String) -> MeteorCollectionType? {
+        if let meteorCollection = collections[name] {
+            return meteorCollection
+        }
+        return nil
+    }
     
     /**
     Sends a subscription request to the server.
@@ -229,7 +240,7 @@ public class Meteor {
         */
         
         public override func documentWasAdded(collection:String, id:String, fields:NSDictionary?) {
-            if let meteorCollection = Meteor.collections[collection] as? MeteorCollectionType {
+            if let meteorCollection = Meteor.collections[collection] {
                 meteorCollection.documentWasAdded(collection, id: id, fields: fields)
             }
         }
@@ -245,7 +256,7 @@ public class Meteor {
         */
         
         public override func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?) {
-            if let meteorCollection = Meteor.collections[collection] as? MeteorCollectionType {
+            if let meteorCollection = Meteor.collections[collection] {
                 meteorCollection.documentWasChanged(collection, id: id, fields: fields, cleared: cleared)
             }
         }
@@ -259,7 +270,7 @@ public class Meteor {
         */
         
         public override func documentWasRemoved(collection:String, id:String) {
-            if let meteorCollection = Meteor.collections[collection] as? MeteorCollectionType {
+            if let meteorCollection = Meteor.collections[collection] {
                 meteorCollection.documentWasRemoved(collection, id: id)
             }
         }
