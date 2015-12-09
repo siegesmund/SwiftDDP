@@ -176,6 +176,21 @@ public class Meteor {
         client.resume(url, callback: callback)
     }
 
+    
+    /**
+    Creates a user account on the server with an email and password
+    
+    - parameter email:      An email string
+    - parameter password:   A password string
+    - parameter callback:   A closure with result and error parameters describing the outcome of the operation
+    
+    */
+    
+    public static func signupWithEmail(email: String, password: String, callback: DDPMethodCallback?) {
+        client.signupWithEmail(email, password: password, callback: callback)
+    }
+    
+    
     /**
     Logs a user into the server using an email and password
     
