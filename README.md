@@ -138,12 +138,12 @@ class UserCollection: AbstractCollection {
     // Include any logic that needs to occur when a document is changed on the server
     override public func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?) {
     
-    if let index = contacts.indexOf({ contact in return contact._id == id }) {
-            contact = contacts[index]
-            contact.update(fields)
-            contacts[index] = contact	
+        if let index = contacts.indexOf({ contact in return contact._id == id }) {
+                contact = contacts[index]
+                contact.update(fields)
+                contacts[index] = contact	
+            }
         }
-    }
     
     // Include any logic that needs to occur when a document is removed on the server
     override public func documentWasRemoved(collection:String, id:String) {
