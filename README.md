@@ -131,17 +131,17 @@ class UserCollection: AbstractCollection {
 
 // Include any logic that needs to occur when a document is added to the collection on the server
 override public func documentWasAdded(collection:String, id:String, fields:NSDictionary?) {
-let user = User(id, fields)
-users.append(user)
+    let user = User(id, fields)
+    users.append(user)
 }
 
 // Include any logic that needs to occur when a document is changed on the server
 override public func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?) {
 
 if let index = contacts.indexOf({ contact in return contact._id == id }) {
-contact = contacts[index]
-contact.update(fields)
-contacts[index] = contact	
+    contact = contacts[index]
+    contact.update(fields)
+    contacts[index] = contact	
 }
 
 }
@@ -150,7 +150,7 @@ contacts[index] = contact
 override public func documentWasRemoved(collection:String, id:String) {
 
 if let index = contacts.indexOf({ contact in return contact._id == id }) {
-contacts[index] = nil
+    contacts[index] = nil
 }
 
 }
