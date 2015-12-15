@@ -21,12 +21,12 @@ Or, use [CocoaPods](http://cocoapods.org). Add the following line to your Podfil
 pod "SwiftDDP"
 ```
 
-## Documentation ##
-###[API Reference](https://siegesmund.github.io/SwiftDDP)###
+## Documentation
+###[API Reference](https://siegesmund.github.io/SwiftDDP)
 
-## Quick Start ##
+### Quick Start
 
-### Connecting to a Meteor server
+#### Connecting to a Meteor server
 
 ```swift
 import SwiftDDP 
@@ -39,7 +39,7 @@ Meteor.connect("wss://todos.meteor.com/websocket") {
 }
 ```
 
-### Login & Logout ###
+#### Login & Logout
 ```swift
 Meteor.loginWithPassword("user@swiftddp.com", password: "********") { result, error in 
 // do something after login
@@ -68,7 +68,7 @@ print("The user just signed out!")
 }
 ```
 
-### Subscribe to a subset of a collection on the server
+#### Subscribe to a subset of a collection on the server
 ```swift
 Meteor.subscribe("todos") 
 
@@ -81,7 +81,7 @@ Meteor.subscribe("todos", [1,2,3,4]) {
 } 
 ```
 
-### Call a method on the server ###
+#### Call a method on the server ###
 ```swift
 Meteor.call("foo", [1, 2, 3, 4]) { result, error in
 // Do something with the method result
@@ -90,5 +90,70 @@ Meteor.call("foo", [1, 2, 3, 4]) { result, error in
 When passing parameters to a server method, the parameters object must be serializable with NSJSONSerialization
 
 
-### Todos ###
-Complete documentation for Meteor.Collection & MeteorCollectionType protocol
+## Example: Storing data locally with a custom collection ##
+In this example, we'll create a simple collection to hold a list of contacts. You'll first want to create an object to represent a contact.  
+```swift
+
+var contacts = [Contact]()
+
+struct Contact {
+
+var _id:String?
+var name:String?
+var phone:String?
+var email:String?
+
+init(id:String, fields:NSDictionary?) {
+self._id = id
+update(fields)
+}
+
+mutating func update(fields:NSDictionary?) {
+
+if let name = fields?.valueForKey("name") as? String {
+self.name = name
+}
+
+if let phone = fields?.valueForKey("phone") as? String {
+self.phone = phone
+}
+
+if let email = fields?.valueForKey("email") as? String {
+self.email = email
+}
+}
+}
+
+```
+SwiftDDP contains an abstract class called AbstractCollection that can be used to build custom collections. Subclassing AbstractCollection allows you to override three methods that are called in response to events on the server: documentWasAdded, documentWasChanged and documentWasRemoved.  
+```swift
+class UserCollection: AbstractCollection {
+
+// Include any logic that needs to occur when a document is added to the collection on the server
+override public func documentWasAdded(collection:String, id:String, fields:NSDictionary?) {
+let user = User(id, fields)
+users.append(user)
+}
+
+// Include any logic that needs to occur when a document is changed on the server
+override public func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?) {
+
+if let index = contacts.indexOf({ contact in return contact._id == id }) {
+contact = contacts[index]
+contact.update(fields)
+contacts[index] = contact	
+}
+
+}
+
+// Include any logic that needs to occur when a document is removed on the server
+override public func documentWasRemoved(collection:String, id:String) {
+
+if let index = contacts.indexOf({ contact in return contact._id == id }) {
+contacts[index] = nil
+}
+
+}
+```
+
+## [Example: SwiftTodos with Core Data integration](https://github.com/siegesmund/SwiftTodos)
