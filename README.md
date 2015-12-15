@@ -89,6 +89,7 @@ Meteor.call("foo", [1, 2, 3, 4]) { result, error in
 ```
 When passing parameters to a server method, the parameters object must be serializable with NSJSONSerialization
 
+## [Example: SwiftTodos with Core Data integration](https://github.com/siegesmund/SwiftTodos)
 
 ## Example: Creating an Array based custom collection
 #### The following pattern can be used to create custom collections backed by any datastore
@@ -155,5 +156,3 @@ class UserCollection: AbstractCollection {
     }
 }
 ```
-
-## [Example: SwiftTodos with Core Data integration](https://github.com/siegesmund/SwiftTodos)
