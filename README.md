@@ -91,7 +91,7 @@ When passing parameters to a server method, the parameters object must be serial
 
 
 ## Example: Creating an Array based custom collection ##
-In this example, we'll create a simple collection to hold a list of contacts. You'll first want to create an object to represent a contact.  
+In this example, we'll create a simple collection to hold a list of contacts. The first thing we'll do is create an object to represent a contact. This object has four properties and a method named *update* that maps the *fields* NSDictionary to the struct's properties. Update is called when an object is created and when an update is performed. Meteor will always transmit an id to identify the object that should be added, updated or removed, so custom document objects must also have an id field.    
 ```swift
 
 var contacts = [Contact]()
@@ -125,7 +125,7 @@ struct Contact {
 }
 
 ```
-SwiftDDP contains an abstract class called AbstractCollection that can be used to build custom collections. Subclassing AbstractCollection allows you to override three methods that are called in response to events on the server: documentWasAdded, documentWasChanged and documentWasRemoved.  
+Next, we'll create the collection class that will hold our contacts and provide the logic to respond to server-side changes to the documents and the subscription set. SwiftDDP contains an abstract class called AbstractCollection that can be used to build custom collections. Subclassing AbstractCollection allows you to override three methods that are called in response to events on the server: documentWasAdded, documentWasChanged and documentWasRemoved.  
 ```swift
 class UserCollection: AbstractCollection {
 
