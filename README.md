@@ -108,18 +108,18 @@ struct Contact {
         update(fields)
     }
 
-mutating func update(fields:NSDictionary?) {
-
-if let name = fields?.valueForKey("name") as? String {
-    self.name = name
-}
-
-if let phone = fields?.valueForKey("phone") as? String {
-    self.phone = phone
-}
-
-if let email = fields?.valueForKey("email") as? String {
-        self.email = email
+    mutating func update(fields:NSDictionary?) {
+    
+    if let name = fields?.valueForKey("name") as? String {
+        self.name = name
+    }
+    
+    if let phone = fields?.valueForKey("phone") as? String {
+        self.phone = phone
+    }
+    
+    if let email = fields?.valueForKey("email") as? String {
+            self.email = email
         }
     }
 }
@@ -151,6 +151,7 @@ class UserCollection: AbstractCollection {
         if let index = contacts.indexOf({ contact in return contact._id == id }) {
             contacts[index] = nil
         }
+    }
 }
 ```
 
