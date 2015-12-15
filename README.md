@@ -35,18 +35,18 @@ import SwiftDDP
 // a stored login token if the client was previously signed in.
 
 Meteor.connect("wss://todos.meteor.com/websocket") {
-// do something after the client connects
+    // do something after the client connects
 }
 ```
 
 #### Login & Logout
 ```swift
 Meteor.loginWithPassword("user@swiftddp.com", password: "********") { result, error in 
-// do something after login
+    // do something after login
 }
 
 Meteor.logout() { result, error in 
-// do something after logout
+    // do something after logout
 }
 ``` 
 The client also posts a notification when the user signs in and signs out.
@@ -60,11 +60,11 @@ NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidLogin",
 NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidLogout", name: DDP_USER_DID_LOGOUT, object: nil)
 
 func userDidLogin() {
-print("The user just signed in!")
+    print("The user just signed in!")
 }
 
 func userDidLogout() {
-print("The user just signed out!")
+    print("The user just signed out!")
 }
 ```
 
@@ -73,18 +73,18 @@ print("The user just signed out!")
 Meteor.subscribe("todos") 
 
 Meteor.subscribe("todos") {
-// Do something when the todos subscription is ready
+    // Do something when the todos subscription is ready
 }
 
 Meteor.subscribe("todos", [1,2,3,4]) {
-// Do something when the todos subscription is ready
+    // Do something when the todos subscription is ready
 } 
 ```
 
 #### Call a method on the server ###
 ```swift
 Meteor.call("foo", [1, 2, 3, 4]) { result, error in
-// Do something with the method result
+    // Do something with the method result
 }
 ```
 When passing parameters to a server method, the parameters object must be serializable with NSJSONSerialization
@@ -98,30 +98,30 @@ var contacts = [Contact]()
 
 struct Contact {
 
-var _id:String?
-var name:String?
-var phone:String?
-var email:String?
+    var _id:String?
+    var name:String?
+    var phone:String?
+    var email:String?
 
-init(id:String, fields:NSDictionary?) {
-self._id = id
-update(fields)
-}
+    init(id:String, fields:NSDictionary?) {
+        self._id = id
+        update(fields)
+    }
 
 mutating func update(fields:NSDictionary?) {
 
 if let name = fields?.valueForKey("name") as? String {
-self.name = name
+    self.name = name
 }
 
 if let phone = fields?.valueForKey("phone") as? String {
-self.phone = phone
+    self.phone = phone
 }
 
 if let email = fields?.valueForKey("email") as? String {
-self.email = email
-}
-}
+        self.email = email
+        }
+    }
 }
 
 ```
@@ -129,30 +129,28 @@ SwiftDDP contains an abstract class called AbstractCollection that can be used t
 ```swift
 class UserCollection: AbstractCollection {
 
-// Include any logic that needs to occur when a document is added to the collection on the server
-override public func documentWasAdded(collection:String, id:String, fields:NSDictionary?) {
-    let user = User(id, fields)
-    users.append(user)
-}
-
-// Include any logic that needs to occur when a document is changed on the server
-override public func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?) {
-
-if let index = contacts.indexOf({ contact in return contact._id == id }) {
-    contact = contacts[index]
-    contact.update(fields)
-    contacts[index] = contact	
-}
-
-}
-
-// Include any logic that needs to occur when a document is removed on the server
-override public func documentWasRemoved(collection:String, id:String) {
-
-if let index = contacts.indexOf({ contact in return contact._id == id }) {
-    contacts[index] = nil
-}
-
+    // Include any logic that needs to occur when a document is added to the collection on the server
+    override public func documentWasAdded(collection:String, id:String, fields:NSDictionary?) {
+        let user = User(id, fields)
+        users.append(user)
+    }
+    
+    // Include any logic that needs to occur when a document is changed on the server
+    override public func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?) {
+    
+    if let index = contacts.indexOf({ contact in return contact._id == id }) {
+            contact = contacts[index]
+            contact.update(fields)
+            contacts[index] = contact	
+        }
+    }
+    
+    // Include any logic that needs to occur when a document is removed on the server
+    override public func documentWasRemoved(collection:String, id:String) {
+    
+        if let index = contacts.indexOf({ contact in return contact._id == id }) {
+            contacts[index] = nil
+        }
 }
 ```
 
