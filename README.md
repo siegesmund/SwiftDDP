@@ -90,7 +90,7 @@ Meteor.call("foo", [1, 2, 3, 4]) { result, error in
 When passing parameters to a server method, the parameters object must be serializable with NSJSONSerialization
 
 
-## Example: Storing data locally with a custom collection ##
+## Example: Creating an Array based custom collection ##
 In this example, we'll create a simple collection to hold a list of contacts. You'll first want to create an object to represent a contact.  
 ```swift
 
