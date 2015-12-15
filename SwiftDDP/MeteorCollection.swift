@@ -49,6 +49,33 @@ public class MeteorDocument: NSObject {
         }
     }
     
+    /*
+    Limitations to propertyNames:
+    - Returns an empty array for Objective-C objects
+    - Will not return computed properties, i.e.:
+    - If self is an instance of a class (vs., say, a struct), this doesn't report its superclass's properties, i.e.:
+    see http://stackoverflow.com/questions/24844681/list-of-classs-properties-in-swift
+    */
+    
+    func propertyNames() -> [String] {
+        return Mirror(reflecting: self).children.filter { $0.label != nil }.map { $0.label! }
+    }
+    
+    func fields() -> NSDictionary {
+        let fields = NSMutableDictionary()
+        let properties = propertyNames()
+        
+        for name in properties {
+            if let value = self.valueForKey(name) {
+                fields.setValue(value, forKey: name)
+            }
+        }
+        
+        fields.setValue(id, forKey: self.id)
+        
+        return fields as NSDictionary
+    }
+    
 }
 
 
@@ -143,6 +170,62 @@ public class MeteorCollection<T:MeteorDocument>: AbstractCollection {
         if let _ = documents[id] {
             self.documents[id] = nil
         }
+    }
+    
+    /**
+    Client-side method to insert a document
+    
+    - parameter document:       a document that inherits from MeteorDocument
+    */
+    public func insert(document: T) {
+        
+        documents[document.id] = document
+        
+        let fields = document.fields()
+        
+        client.insert(self.name, document: [fields]) { result, error in
+            if error != nil {
+                self.documents[document.id] = nil
+            }
+        }
+        
+    }
+    
+    /**
+    Client-side method to update a document
+    
+    - parameter document:       a document that inherits from MeteorDocument
+    */
+    public func update(document: T) {
+        
+        let oldDocument = documents[document.id]
+        
+        documents[document.id] = document
+        
+        let fields = document.fields()
+        
+        client.update(self.name, document: [fields]) { result, error in
+            if error != nil {
+                self.documents[document.id] = oldDocument
+            }
+        }
+        
+    }
+    
+    /**
+    Client-side method to remove a document
+    
+    - parameter document:       a document that inherits from MeteorDocument
+    */
+    public func remove(document: T) {
+        documents[document.id] = nil
+        
+        client.remove(self.name, document: [document.id]) { result, error in
+            if error != nil {
+                self.documents[document.id] = nil
+            }
+        }
+        
     }
 }
 
