@@ -20,76 +20,42 @@
 
 import Foundation
 
-public class MeteorDocument: NSObject {
+public let METEOR_COLLECTION_SET_DID_CHANGE = "METEOR_COLLECTION_SET_DID_CHANGE"
+
+func debounce( delay:NSTimeInterval, queue:dispatch_queue_t, action: (()->()) ) -> ()->() {
     
-    var _id:String
+    var lastFireTime:dispatch_time_t = 0
+    let dispatchDelay = Int64(delay * Double(NSEC_PER_SEC))
     
-    required public init(id: String, fields: NSDictionary?) {
-        self._id = id
-        super.init()
-        print(fields)
-        if let properties = fields {
-            for (key,value) in properties  {
-                self.setValue(value, forKey: key as! String)
-            }
+    return {
+        lastFireTime = dispatch_time(DISPATCH_TIME_NOW,0)
+        dispatch_after(
+            dispatch_time(
+                DISPATCH_TIME_NOW,
+                dispatchDelay
+            ),
+            queue) {
+                let now = dispatch_time(DISPATCH_TIME_NOW,0)
+                let when = dispatch_time(lastFireTime, dispatchDelay)
+                if now >= when {
+                    action()
+                }
         }
     }
-    
-    public func update(fields: NSDictionary?, cleared: [String]?) {
-        if let properties = fields {
-            for (key,value) in properties  {
-                self.setValue(value, forKey: key as! String)
-            }
-        }
-        
-        if let deletions = cleared {
-            for property in deletions {
-                self.setNilValueForKey(property)
-            }
-        }
-    }
-    
-    /*
-    Limitations to propertyNames:
-    - Returns an empty array for Objective-C objects
-    - Will not return computed properties, i.e.:
-    - If self is an instance of a class (vs., say, a struct), this doesn't report its superclass's properties, i.e.:
-    see http://stackoverflow.com/questions/24844681/list-of-classs-properties-in-swift
-    */
-    
-    func propertyNames() -> [String] {
-        return Mirror(reflecting: self).children.filter { $0.label != nil }.map { $0.label! }
-    }
-    
-    func fields() -> NSDictionary {
-        let fieldsDict = NSMutableDictionary()
-        let properties = propertyNames()
-        
-        for name in properties {
-            if let value = self.valueForKey(name) {
-                fieldsDict.setValue(value, forKey: name)
-            }
-        }
-        
-        fieldsDict.setValue(self._id, forKey: "_id")
-        print("fields \(fieldsDict)")
-        return fieldsDict as NSDictionary
-    }
-    
 }
 
-
-
-
 /**
-MeteorCollection provides basic persistence as well as an api for integrating SwiftDDP with persistence stores. MeteorCollection
-should generally be subclassed, with the methods documentWasAdded, documentWasChanged and documentWasRemoved facilitating communicating
-with the datastore.
+MeteorCollection provides basic persistence as well as an api for integrating SwiftDDP with persistence stores.
 */
 
 // MeteorCollectionType protocol declaration is necessary
 public class MeteorCollection<T:MeteorDocument>: AbstractCollection {
     
+    let collectionSetDidChange = debounce(NSTimeInterval(0.33), queue: dispatch_get_main_queue(), action: {
+        NSOperationQueue.mainQueue().addOperationWithBlock() {
+            NSNotificationCenter.defaultCenter().postNotificationName(METEOR_COLLECTION_SET_DID_CHANGE, object: nil)
+        }
+    })
     
     var documents = [String:T]()
     
@@ -115,10 +81,16 @@ public class MeteorCollection<T:MeteorDocument>: AbstractCollection {
         super.init(name: name)
     }
     
+    private func index(id: String) -> Int? {
+        return sorted.indexOf({item in item._id == id})
+    }
+    
     private func sorted(property:String) -> [T] {
         let values = Array(documents.values)
         return values.sort({ $0._id > $1._id })
     }
+    
+    
     
     /**
     Find a single document by id
@@ -141,6 +113,7 @@ public class MeteorCollection<T:MeteorDocument>: AbstractCollection {
     public override func documentWasAdded(collection:String, id:String, fields:NSDictionary?) {
         let document = T(id: id, fields: fields)
         self.documents[id] = document
+        collectionSetDidChange()
     }
     
     /**
@@ -156,6 +129,8 @@ public class MeteorCollection<T:MeteorDocument>: AbstractCollection {
         if let document = documents[id] {
             document.update(fields, cleared: cleared)
             self.documents[id] = document
+            collectionSetDidChange()
+
         }
     }
     
@@ -167,10 +142,10 @@ public class MeteorCollection<T:MeteorDocument>: AbstractCollection {
     */
     
     public override func documentWasRemoved(collection:String, id:String) {
-        print("removed: \(collection) \(id)")
         if let _ = documents[id] {
             self.documents[id] = nil
-            print("document \(id) removed?")
+            collectionSetDidChange()
+
         }
     }
     
@@ -182,14 +157,16 @@ public class MeteorCollection<T:MeteorDocument>: AbstractCollection {
     public func insert(document: T) {
         
         documents[document._id] = document
-        
-        let fields = document.fields()
-        
-        client.insert(self.name, document: [fields]) { result, error in
+        collectionSetDidChange()
+
+        client.insert(self.name, document: [document.fields()]) { result, error in
+            
             if error != nil {
                 self.documents[document._id] = nil
-                log.error("\(error)")
+                self.collectionSetDidChange()
+                log.error("\(error!)")
             }
+            
         }
         
     }
@@ -198,20 +175,49 @@ public class MeteorCollection<T:MeteorDocument>: AbstractCollection {
     Client-side method to update a document
     
     - parameter document:       a document that inherits from MeteorDocument
+    - parameter operation:      a dictionary containing a Mongo selector and a json object
+    */
+    
+    public func update(document: T, withMongoOperation operation: [String:AnyObject]) {
+        let originalDocument = documents[document._id]
+        
+        documents[document._id] = document
+        collectionSetDidChange()
+        
+        client.update(self.name, document: [["_id":document._id], operation]) { result, error in
+            
+            if error != nil {
+                self.documents[document._id] = originalDocument
+                self.collectionSetDidChange()
+                log.error("\(error!)")
+            }
+            
+        }
+    }
+    
+    
+    /**
+    Client-side method to update a document
+    
+    - parameter document:       a document that inherits from MeteorDocument
     */
     public func update(document: T) {
         
-        let oldDocument = documents[document._id]
+        let originalDocument = documents[document._id]
         
         documents[document._id] = document
-        
+        collectionSetDidChange()
+
         let fields = document.fields()
         
-        client.update(self.name, document: [fields]) { result, error in
+        client.update(self.name, document: [["_id":document._id],["$set":fields]]) { result, error in
+            
             if error != nil {
-                self.documents[document._id] = oldDocument
-                log.error("\(error)")
+                self.documents[document._id] = originalDocument
+                self.collectionSetDidChange()
+                log.error("\(error!)")
             }
+            
         }
         
     }
@@ -223,14 +229,17 @@ public class MeteorCollection<T:MeteorDocument>: AbstractCollection {
     */
     public func remove(document: T) {
         documents[document._id] = nil
-        
-        client.remove(self.name, document: [document._id]) { result, error in
+        collectionSetDidChange()
+
+        client.remove(self.name, document: [["_id":document._id]]) { result, error in
+            
             if error != nil {
-                self.documents[document._id] = nil
-                log.error("\(error)")
+                self.documents[document._id] = document
+                self.collectionSetDidChange()
+                log.error("\(error!)")
             }
+            
         }
-        
     }
 }
 

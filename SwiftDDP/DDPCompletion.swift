@@ -26,7 +26,8 @@ import Foundation
 
 /**
 Completion is a wrapper for DDP callbacks that ensures that callbacks are executed
-on the same queue on which the original method was called.
+on the same queue on which the original method was called. If the current queue is
+not available, execution defaults to the main queue.
 */
 
 public struct Completion {
