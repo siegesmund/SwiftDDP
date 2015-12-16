@@ -60,15 +60,6 @@ public class DDPClient: NSObject {
         return queue
         }()
     
-    // Not currently used
-    let backgroundSerial: NSOperationQueue = {
-        let queue = NSOperationQueue()
-        queue.name = "DDP Background Serial Data Queue"
-        queue.maxConcurrentOperationCount = 1
-        queue.qualityOfService = .Background
-        return queue
-        }()
-    
     // Callbacks execute in the order they're received
     internal let callbackQueue: NSOperationQueue = {
         let queue = NSOperationQueue()
