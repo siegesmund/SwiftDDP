@@ -130,6 +130,7 @@ public class DDPClient: NSObject {
     internal override init() {
         super.init()
         setLogLevel(logLevel)
+        print("Mark - SwiftDDP")
     }
     
     /**
@@ -271,7 +272,7 @@ public class DDPClient: NSObject {
             }
             
             // Callbacks for managing subscriptions
-        case .Ready: background.addOperationWithBlock() {
+        case .Ready: documentQueue.addOperationWithBlock() {
                 if let subs = message.subs {
                     self.ready(subs)
                 }
@@ -279,7 +280,7 @@ public class DDPClient: NSObject {
             
             // Callback that fires when subscription has been completely removed
             //
-        case .Nosub: background.addOperationWithBlock() {
+        case .Nosub: documentQueue.addOperationWithBlock() {
             if let id = message.id {
                 self.nosub(id, error: message.error)
             }

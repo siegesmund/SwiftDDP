@@ -22,12 +22,12 @@ import Foundation
 
 public class MeteorDocument: NSObject {
     
-    var id:String
+    var _id:String
     
     required public init(id: String, fields: NSDictionary?) {
-        self.id = id
+        self._id = id
         super.init()
-        
+        print(fields)
         if let properties = fields {
             for (key,value) in properties  {
                 self.setValue(value, forKey: key as! String)
@@ -62,18 +62,18 @@ public class MeteorDocument: NSObject {
     }
     
     func fields() -> NSDictionary {
-        let fields = NSMutableDictionary()
+        let fieldsDict = NSMutableDictionary()
         let properties = propertyNames()
         
         for name in properties {
             if let value = self.valueForKey(name) {
-                fields.setValue(value, forKey: name)
+                fieldsDict.setValue(value, forKey: name)
             }
         }
         
-        fields.setValue(id, forKey: self.id)
-        
-        return fields as NSDictionary
+        fieldsDict.setValue(self._id, forKey: "_id")
+        print("fields \(fieldsDict)")
+        return fieldsDict as NSDictionary
     }
     
 }
@@ -93,15 +93,15 @@ public class MeteorCollection<T:MeteorDocument>: AbstractCollection {
     
     var documents = [String:T]()
     
-    var sorted:[T] {
-        return Array(documents.values).sort({ $0.id > $1.id })
+    public var sorted:[T] {
+        return Array(documents.values).sort({ $0._id > $1._id })
     }
     
     /**
     Returns the number of documents in the collection
     */
     
-    var count:Int {
+    public var count:Int {
         return documents.count
     }
     
@@ -111,13 +111,13 @@ public class MeteorCollection<T:MeteorDocument>: AbstractCollection {
     - parameter name:   The string name of the collection (must match the name of the collection on the server)
     */
     
-    override init(name: String) {
+    public override init(name: String) {
         super.init(name: name)
     }
     
     private func sorted(property:String) -> [T] {
         let values = Array(documents.values)
-        return values.sort({ $0.id > $1.id })
+        return values.sort({ $0._id > $1._id })
     }
     
     /**
@@ -167,8 +167,10 @@ public class MeteorCollection<T:MeteorDocument>: AbstractCollection {
     */
     
     public override func documentWasRemoved(collection:String, id:String) {
+        print("removed: \(collection) \(id)")
         if let _ = documents[id] {
             self.documents[id] = nil
+            print("document \(id) removed?")
         }
     }
     
@@ -179,13 +181,14 @@ public class MeteorCollection<T:MeteorDocument>: AbstractCollection {
     */
     public func insert(document: T) {
         
-        documents[document.id] = document
+        documents[document._id] = document
         
         let fields = document.fields()
         
         client.insert(self.name, document: [fields]) { result, error in
             if error != nil {
-                self.documents[document.id] = nil
+                self.documents[document._id] = nil
+                log.error("\(error)")
             }
         }
         
@@ -198,15 +201,16 @@ public class MeteorCollection<T:MeteorDocument>: AbstractCollection {
     */
     public func update(document: T) {
         
-        let oldDocument = documents[document.id]
+        let oldDocument = documents[document._id]
         
-        documents[document.id] = document
+        documents[document._id] = document
         
         let fields = document.fields()
         
         client.update(self.name, document: [fields]) { result, error in
             if error != nil {
-                self.documents[document.id] = oldDocument
+                self.documents[document._id] = oldDocument
+                log.error("\(error)")
             }
         }
         
@@ -218,11 +222,12 @@ public class MeteorCollection<T:MeteorDocument>: AbstractCollection {
     - parameter document:       a document that inherits from MeteorDocument
     */
     public func remove(document: T) {
-        documents[document.id] = nil
+        documents[document._id] = nil
         
-        client.remove(self.name, document: [document.id]) { result, error in
+        client.remove(self.name, document: [document._id]) { result, error in
             if error != nil {
-                self.documents[document.id] = nil
+                self.documents[document._id] = nil
+                log.error("\(error)")
             }
         }
         
