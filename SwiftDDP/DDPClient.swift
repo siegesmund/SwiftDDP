@@ -33,7 +33,9 @@ import XCGLogger
 let log = XCGLogger(identifier: "DDP")
 
 public typealias DDPMethodCallback = (result:AnyObject?, error:DDPError?) -> ()
+public typealias DDPConnectedCallback = (session:String)->()
 public typealias DDPCallback = () -> ()
+
 
 /**
 DDPDelegate provides an interface to react to user events
@@ -105,9 +107,9 @@ public class DDPClient: NSObject {
     private var socket:WebSocket!
     private var server:(ping:NSDate?, pong:NSDate?) = (nil, nil)
     
-    internal var resultCallbacks:[String:DDPMethodCallback] = [:]
-    internal var subCallbacks:[String:DDPCallback] = [:]
-    internal var unsubCallbacks:[String:DDPCallback] = [:]
+    internal var resultCallbacks:[String:Completion] = [:]
+    internal var subCallbacks:[String:Completion] = [:]
+    internal var unsubCallbacks:[String:Completion] = [:]
     
     private var url:String!
     private var subscriptions = [String:(id:String, name:String, ready:Bool)]()
@@ -149,7 +151,10 @@ public class DDPClient: NSObject {
     - parameter callback:   A closure that takes a String argument with the value of the websocket session token
     */
     
-    public func connect(url:String, callback:((session:String)->())?) {
+    public func connect(url:String, callback:DDPConnectedCallback?) {
+        
+        // capture the thread context in which the function is called
+        let executionQueue = NSOperationQueue.currentQueue()
         
         socket = WebSocket(url)
         
@@ -165,7 +170,11 @@ public class DDPClient: NSObject {
         
         socket.event.open = {
             self.heartbeat.addOperationWithBlock() {
-                if let c = callback { self.events.onConnected = c }
+                if let c = callback {
+                    var completion = Completion(callback: c)
+                    completion.executionQueue = executionQueue
+                    self.events.onConnected = completion
+                }
                 self.sendMessage(["msg":"connect", "version":"1", "support":["1"]])
             }
         }
@@ -215,17 +224,17 @@ public class DDPClient: NSObject {
             
         case .Connected:
             self.connection = (true, message.session!)
-            self.events.onConnected(session:message.session!)
+            self.events.onConnected.execute(message.session!)
             
         case .Result: callbackQueue.addOperationWithBlock() {
             if let id = message.id,                              // Message has id
-                let callback = self.resultCallbacks[id],          // There is a callback registered for the message
+                let completion = self.resultCallbacks[id],          // There is a callback registered for the message
                 let result = message.result {
-                    callback(result:result, error: message.error)
+                    completion.execute(result, error: message.error)
                     self.resultCallbacks[id] = nil
             } else if let id = message.id,
-                let callback = self.resultCallbacks[id] {
-                    callback(result:nil, error:message.error)
+                let completion = self.resultCallbacks[id] {
+                    completion.execute(nil, error:message.error)
                     self.resultCallbacks[id] = nil
             }
             }
@@ -311,7 +320,10 @@ public class DDPClient: NSObject {
         let id = getId()
             let message = ["msg":"method", "method":name, "id":id] as NSMutableDictionary
             if let p = params { message["params"] = p }
-            if let c = callback { self.resultCallbacks[id] = c }
+            if let completionCallback = callback {
+                let completion = Completion(callback: completionCallback)
+                self.resultCallbacks[id] = completion
+            }
             userBackground.addOperationWithBlock() {
                 self.sendMessage(message)
             }
@@ -324,7 +336,10 @@ public class DDPClient: NSObject {
     
     
     internal func sub(id: String, name: String, params: [AnyObject]?, callback: DDPCallback?) -> String {
-        if let c = callback { self.subCallbacks[id] = c }
+        if let completionCallback = callback {
+            let completion = Completion(callback: completionCallback)
+            self.subCallbacks[id] = completion
+        }
         self.subscriptions[id] = (id, name, false)
         let message = ["msg":"sub", "name":name, "id":id] as NSMutableDictionary
         if let p = params { message["params"] = p }
@@ -408,7 +423,10 @@ public class DDPClient: NSObject {
     }
     
     internal func unsub(withId id: String, callback: DDPCallback?) {
-        if let c = callback { unsubCallbacks[id] = c }
+        if let completionCallback = callback {
+            let completion = Completion(callback: completionCallback)
+            unsubCallbacks[id] = completion
+        }
         background.addOperationWithBlock() { self.sendMessage(["msg":"unsub", "id":id]) }
     }
     
@@ -418,8 +436,8 @@ public class DDPClient: NSObject {
     
     private func ready(subs: [String]) {
         for id in subs {
-            if let callback = subCallbacks[id] {
-                callback()                          // Run the callback
+            if let completion = subCallbacks[id] {
+                completion.execute()                // Run the callback
                 subCallbacks[id] = nil              // Delete the callback after running
             } else {                                // If there is no callback, execute the method
                 if var sub = subscriptions[id] {
@@ -435,9 +453,9 @@ public class DDPClient: NSObject {
         if let e = error where (e.isValid == true) {
             print(e)
         } else {
-            if let callback = unsubCallbacks[id],
+            if let completion = unsubCallbacks[id],
                 let _ = subscriptions[id] {
-                    callback()
+                    completion.execute()
                     unsubCallbacks[id] = nil
                     subscriptions[id] = nil
             } else {
