@@ -89,6 +89,21 @@ Meteor.call("foo", [1, 2, 3, 4]) { result, error in
 ```
 When passing parameters to a server method, the parameters object must be serializable with NSJSONSerialization
 
+#### Simple in-memory persistence
+SwiftDDP includes a class called MeteorCollection that provides simple, ephemeral dictionary backed persistence. MeteorCollection stores objects subclassed from MeteorDocument. Creating a collection is as simple as: 
+```swift
+class List: MeteorDocument {
+
+    var collection:String = "lists"
+    var name:String?
+    var userId:String?
+    
+}
+
+let lists = MeteorCollection<List>(name: "lists")   
+Meteor.subscribe("lists") 
+```
+
 ## Example projects:
 #### Todos
 These are iOS implementations of [Meteor's Todos example](https://www.meteor.com/todos). The best way to run the examples is to connect to a local instance of Meteor's Todos app: ``` meteor create --example todos && cd todos && meteor ```. You can specify the server that the Todos app connects to by changing the url variable in AppDelegate.swift. There are currently two flavors: a simple example with Dictionary based persistence and an example showing how to use SwiftDDP with Core Data and NSFetchedResultsController. 
