@@ -459,6 +459,7 @@ extension DDPClient {
                         log.debug("Resumed previous session at launch")
                         if let completion = callback { completion() }
                     } else {
+                        self.logout()
                         log.error("\(error)")
                     }
                 }

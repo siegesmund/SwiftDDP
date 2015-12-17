@@ -76,7 +76,7 @@ class DDPMessageTest:QuickSpec {
                 }
                 try! client.ddpMessageHandler(removed[0])
             }
-            
+            /*
             it ("can handle a result message that returns a value") {
                 var value:String!
                 var r:AnyObject?
@@ -112,7 +112,7 @@ class DDPMessageTest:QuickSpec {
                 expect(value).to(beNil())
                 expect(r).to(beNil())
                 expect(e).to(beNil())
-            }
+            } */
         }
     }
 }
