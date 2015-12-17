@@ -100,9 +100,25 @@ class List: MeteorDocument {
     
 }
 
-let lists = MeteorCollection<List>(name: "lists")   
+let lists = MeteorCollection<List>(name: "lists")   // As with Meteorjs, the name is the name of the server-side collection  
 Meteor.subscribe("lists") 
 ```
+For client side insertions, updates and removals:
+```swift
+    let list = List(id: Meteor.client.getId(), fields: ["name": "foo"])
+    
+    // Insert the object on both the client and server.
+    lists.insert(list)
+    
+    // Update the object on both the client and server
+    list.name = "bar"
+    lists.update(list)
+    
+    // Remove the object on both the client and server
+    lists.remove(list)
+```
+For each operation the action is executed on the client, and rolled back if the server returns an error.
+
 
 ## Example projects:
 #### Todos
