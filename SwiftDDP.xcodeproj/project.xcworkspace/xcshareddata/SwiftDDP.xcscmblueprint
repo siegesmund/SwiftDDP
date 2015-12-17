@@ -5,12 +5,14 @@
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
     "4E2F5E824C021282D3F5789E108FCDC580F66A19" : 0,
-    "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F" : 0
+    "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F" : 0,
+    "A04CE38E120D206E17F2FC722F8875D9EA7A7FBA" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "61406E4F-759F-45A7-95EF-FD1785A38B4D",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "4E2F5E824C021282D3F5789E108FCDC580F66A19" : "SwiftDDP\/Dollar.swift\/",
-    "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F" : "SwiftDDP\/"
+    "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F" : "SwiftDDP\/",
+    "A04CE38E120D206E17F2FC722F8875D9EA7A7FBA" : ""
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "SwiftDDP",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
@@ -25,6 +27,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/siegesmund\/SwiftDDP.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/siegesmund\/SwiftTodos.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A04CE38E120D206E17F2FC722F8875D9EA7A7FBA"
     }
   ]
 }
