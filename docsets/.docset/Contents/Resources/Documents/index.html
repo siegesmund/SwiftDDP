@@ -192,20 +192,20 @@
 <p>When passing parameters to a server method, the parameters object must be serializable with NSJSONSerialization</p>
 <a href='#simple_in_memory_persistence' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='simple_in_memory_persistence'>Simple in-memory persistence</h4>
 
-<p>SwiftDDP includes a class called MeteorCollection that provides simple, ephemeral dictionary backed persistence. MeteorCollection stores objects subclassed from MeteorDocument. Creating a collection is as simple as: 
-&ldquo;`swift
-class List: MeteorDocument {</p>
-<pre class="highlight plaintext"><code>var collection:String = "lists"
-var name:String?
-var userId:String?
+<p>SwiftDDP includes a class called MeteorCollection that provides simple, ephemeral dictionary backed persistence. MeteorCollection stores objects subclassed from MeteorDocument. Creating a collection is as simple as: </p>
+<pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">List</span><span class="p">:</span> <span class="kt">MeteorDocument</span> <span class="p">{</span>
+
+    <span class="k">var</span> <span class="nv">collection</span><span class="p">:</span><span class="kt">String</span> <span class="o">=</span> <span class="s">"lists"</span>
+    <span class="k">var</span> <span class="nv">name</span><span class="p">:</span><span class="kt">String</span><span class="p">?</span>
+    <span class="k">var</span> <span class="nv">userId</span><span class="p">:</span><span class="kt">String</span><span class="p">?</span>
+
+<span class="p">}</span>
+
+<span class="k">let</span> <span class="nv">lists</span> <span class="o">=</span> <span class="kt">MeteorCollection</span><span class="o">&lt;</span><span class="kt">List</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"lists"</span><span class="p">)</span>   <span class="c1">// As with Meteorjs, the name is the name of the server-side collection  </span>
+<span class="kt">Meteor</span><span class="o">.</span><span class="nf">subscribe</span><span class="p">(</span><span class="s">"lists"</span><span class="p">)</span> 
 </code></pre>
 
-<p>}</p>
-
-<p>let lists = MeteorCollection<List>(name: <q>lists</q>)   // As with Meteorjs, the name is the name of the server-side collection<br>
-Meteor.subscribe(<q>lists</q>) 
-&rdquo;`
-For client side insertions, updates and removals:</p>
+<p>For client side insertions, updates and removals:</p>
 <pre class="highlight swift"><code>    <span class="k">let</span> <span class="nv">list</span> <span class="o">=</span> <span class="kt">List</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">Meteor</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="nf">getId</span><span class="p">(),</span> <span class="nv">fields</span><span class="p">:</span> <span class="p">[</span><span class="s">"name"</span><span class="p">:</span> <span class="s">"foo"</span><span class="p">])</span>
 
     <span class="c1">// Insert the object on both the client and server.</span>
