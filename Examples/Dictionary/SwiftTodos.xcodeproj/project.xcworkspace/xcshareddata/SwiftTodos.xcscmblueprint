@@ -1,32 +1,25 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "A04CE38E120D206E17F2FC722F8875D9EA7A7FBA",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "A04CE38E120D206E17F2FC722F8875D9EA7A7FBA" : 0,
     "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F" : 0,
     "CD1557C3AE966BEDF3490D85F9712687801B146C" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "0251522F-A4A6-45EF-B623-B26D93D26E6A",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "A04CE38E120D206E17F2FC722F8875D9EA7A7FBA" : "SwiftTodos\/",
-    "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F" : "SwiftTodos\/SwiftDDP\/",
-    "CD1557C3AE966BEDF3490D85F9712687801B146C" : "SwiftTodos\/XCGLogger\/"
+    "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F" : "SwiftDDP\/",
+    "CD1557C3AE966BEDF3490D85F9712687801B146C" : "SwiftDDP\/Examples\/Dictionary\/XCGLogger\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "SwiftTodos",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
-  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "SwiftTodos.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Examples\/Dictionary\/SwiftTodos.xcodeproj",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/siegesmund\/SwiftDDP",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/siegesmund\/SwiftDDP.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F"
-    },
-    {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/siegesmund\/SwiftTodos.git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A04CE38E120D206E17F2FC722F8875D9EA7A7FBA"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/DaveWoodCom\/XCGLogger",
