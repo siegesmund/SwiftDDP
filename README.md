@@ -95,6 +95,7 @@ When passing parameters to a server method, the parameters object must be serial
 
 #### Simple in-memory persistence
 SwiftDDP includes a class called MeteorCollection that provides simple, ephemeral dictionary backed persistence. MeteorCollection stores objects subclassed from MeteorDocument. Creating a collection is as simple as: 
+
 ```swift
 class List: MeteorDocument {
 
@@ -123,7 +124,6 @@ For client side insertions, updates and removals:
     lists.remove(list)
 ```
 For each operation the action is executed on the client, and rolled back if the server returns an error.
-
 
 ## Example Projects:
 #### Todos
