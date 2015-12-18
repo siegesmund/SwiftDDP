@@ -40,6 +40,7 @@ Meteor.connect("wss://todos.meteor.com/websocket") {
 ```
 
 #### Login & Logout
+
 ```swift
 Meteor.loginWithPassword("user@swiftddp.com", password: "********") { result, error in 
     // do something after login
@@ -50,6 +51,7 @@ Meteor.logout() { result, error in
 }
 ``` 
 The client also posts a notification when the user signs in and signs out.
+
 ```swift
 // Notification name (a string global variable)
 DDP_USER_DID_LOGIN
@@ -69,6 +71,7 @@ func userDidLogout() {
 ```
 
 #### Subscribe to a subset of a collection on the server
+
 ```swift
 Meteor.subscribe("todos") 
 
@@ -82,6 +85,7 @@ Meteor.subscribe("todos", [1,2,3,4]) {
 ```
 
 #### Call a method on the server
+
 ```swift
 Meteor.call("foo", [1, 2, 3, 4]) { result, error in
     // Do something with the method result
@@ -104,6 +108,7 @@ let lists = MeteorCollection<List>(name: "lists")   // As with Meteorjs, the nam
 Meteor.subscribe("lists") 
 ```
 For client side insertions, updates and removals:
+
 ```swift
     let list = List(id: Meteor.client.getId(), fields: ["name": "foo"])
     
@@ -129,6 +134,7 @@ These are iOS implementations of [Meteor's Todos example](https://www.meteor.com
 ## Example: Creating an Array based custom collection
 #### The following pattern can be used to create custom collections backed by any datastore
 In this example, we'll create a simple collection to hold a list of contacts. The first thing we'll do is create an object to represent a contact. This object has four properties and a method named *update* that maps the *fields* NSDictionary to the struct's properties. *Update* is called when an object is created and when an update is performed. Meteor will always transmit an **id** to identify the object that should be added, updated or removed, so objects that represent Meteor documents must **always** have an id field. Here we're sticking to the MongoDB convention of naming our id *_id*.
+
 ```swift
 
 var contacts = [Contact]()
