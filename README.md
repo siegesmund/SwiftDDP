@@ -123,7 +123,7 @@ For each operation the action is executed on the client, and rolled back if the 
 ## Example projects:
 #### Todos
 These are iOS implementations of [Meteor's Todos example](https://www.meteor.com/todos). The best way to run the examples is to connect to a local instance of Meteor's Todos app: ``` meteor create --example todos && cd todos && meteor ```. You can specify the server that the Todos app connects to by changing the url variable in AppDelegate.swift. There are currently two flavors: a simple example with Dictionary based persistence and an example showing how to use SwiftDDP with Core Data and NSFetchedResultsController. 
-- [Meteor Todos with Dictionary based in-memory storage](https://github.com/siegesmund/SwiftDDP/tree/master/Examples/Dictionary)
+- [Meteor Todos with dictionary based in-memory storage](https://github.com/siegesmund/SwiftDDP/tree/master/Examples/Dictionary)
 - [Meteor Todos Core Data integration](https://github.com/siegesmund/SwiftDDP/tree/master/Examples/CoreData)
 
 ## Example: Creating an Array based custom collection
