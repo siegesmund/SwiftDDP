@@ -12,7 +12,7 @@ MIT
 Install using [Carthage](https://github.com/Carthage/Carthage) by adding the following line to your Cartfile:
 
 ```ruby
-github "siegesmund/SwiftDDP"
+github "siegesmund/SwiftDDP" ~> 0.1.9
 ```
 
 Or, use [CocoaPods](http://cocoapods.org). Add the following line to your Podfile:
