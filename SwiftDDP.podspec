@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "SwiftDDP"
-  s.version          = "0.1.8"
+  s.version          = "0.1.9"
   s.summary          = "A DDP Client for communicating with Meteor servers, written in Swift"
 
   s.description      = <<-DESC "A DDP Client for communicating with DDP Servers (Meteor JS), written in Swift"

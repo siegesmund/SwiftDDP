@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>DDPError Struct Reference</title>
+    <title>EJSON Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -9,8 +9,8 @@
     <script src="../js/jazzy.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/swift/Struct/DDPError" class="dashAnchor"></a>
-    <a title="DDPError Struct Reference"></a>
+    <a name="//apple_ref/swift/Class/EJSON" class="dashAnchor"></a>
+    <a title="EJSON Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html"> Docs</a> (74% documented)</p>
@@ -20,7 +20,7 @@
       <p id="breadcrumbs">
         <a href="../index.html"> Reference</a>
         <img id="carat" src="../img/carat.png" />
-        DDPError Struct Reference
+        EJSON Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -115,14 +115,8 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>DDPError</h1>
-              <div class="declaration">
-                <div class="Swift">
-                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DDPError</span><span class="p">:</span> <span class="kt">ErrorType</span></code></pre>
-
-                </div>
-              </div>
-            <p>A struct encapsulating a DDP error message</p>
+            <h1>EJSON</h1>
+            <p>Undocumented</p>
 
           </section>
           <section class="section task-group-section">
@@ -131,9 +125,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vV8SwiftDDP8DDPError5errorGSqSS_"></a>
-                    <a name="//apple_ref/swift/Property/error" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vV8SwiftDDP8DDPError5errorGSqSS_">error</a>
+                    <a name="/s:ZFC8SwiftDDP5EJSON7isEJSONFMS0_FSSSb"></a>
+                    <a name="//apple_ref/swift/Method/isEJSON(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC8SwiftDDP5EJSON7isEJSONFMS0_FSSSb">isEJSON(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -141,14 +135,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The string error code</p>
+                        <p>Determines whether a given key is an eJSON key</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">error</span><span class="p">:</span><span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">return</span> <span class="n">json</span><span class="p">?[</span><span class="s">"error"</span><span class="p">]</span> <span class="k">as?</span> <span class="kt">String</span> <span class="p">}</span>                      <span class="c1">// Error code</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">isEJSON</span><span class="p">(</span><span class="nv">key</span><span class="p">:</span><span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -158,9 +152,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vV8SwiftDDP8DDPError6reasonGSqSS_"></a>
-                    <a name="//apple_ref/swift/Property/reason" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vV8SwiftDDP8DDPError6reasonGSqSS_">reason</a>
+                    <a name="/s:ZFC8SwiftDDP5EJSON15convertToNSDateFMS0_FCSo12NSDictionaryCSo6NSDate"></a>
+                    <a name="//apple_ref/swift/Method/convertToNSDate(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC8SwiftDDP5EJSON15convertToNSDateFMS0_FCSo12NSDictionaryCSo6NSDate">convertToNSDate(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -168,14 +162,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The detailed message given for an error returned from the server</p>
+                        <p>Converts an eJSON date to NSDate</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">reason</span><span class="p">:</span><span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">return</span> <span class="n">json</span><span class="p">?[</span><span class="s">"reason"</span><span class="p">]</span> <span class="k">as?</span> <span class="kt">String</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">convertToNSDate</span><span class="p">(</span><span class="nv">ejson</span><span class="p">:</span><span class="kt">NSDictionary</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NSDate</span></code></pre>
 
                         </div>
                       </div>
@@ -185,9 +179,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vV8SwiftDDP8DDPError7detailsGSqSS_"></a>
-                    <a name="//apple_ref/swift/Property/details" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vV8SwiftDDP8DDPError7detailsGSqSS_">details</a>
+                    <a name="/s:ZFC8SwiftDDP5EJSON18convertToEJSONDateFMS0_FCSo6NSDateGVSs10DictionarySSSd_"></a>
+                    <a name="//apple_ref/swift/Method/convertToEJSONDate(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC8SwiftDDP5EJSON18convertToEJSONDateFMS0_FCSo6NSDateGVSs10DictionarySSSd_">convertToEJSONDate(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -195,43 +189,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The string providing error details</p>
+                        <p>Undocumented</p>
 
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">details</span><span class="p">:</span><span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">return</span> <span class="n">json</span><span class="p">?[</span><span class="s">"details"</span><span class="p">]</span> <span class="k">as?</span> <span class="kt">String</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:vV8SwiftDDP8DDPError16offendingMessageGSqSS_"></a>
-                    <a name="//apple_ref/swift/Property/offendingMessage" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vV8SwiftDDP8DDPError16offendingMessageGSqSS_">offendingMessage</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>If the original message parsed properly, it is included here</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">offendingMessage</span><span class="p">:</span><span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">return</span> <span class="n">json</span><span class="p">?[</span><span class="s">"offendingMessage"</span><span class="p">]</span> <span class="k">as?</span> <span class="kt">String</span> <span class="p">}</span></code></pre>
-
-                        </div>
                       </div>
                     </section>
                   </div>

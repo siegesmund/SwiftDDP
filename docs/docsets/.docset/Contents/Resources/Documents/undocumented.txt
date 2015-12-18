@@ -3,6 +3,18 @@ DDPClient.swift
 	func ddpUserDidLogout(user:String)
 	public var delegate:SwiftDDPDelegate?
 	public var logLevel = XCGLogger.LogLevel.Debug
+EJSON.swift
+	public class EJSON: NSObject
+	public static func convertToEJSONDate(date:NSDate) -> [String:Double]
+MeteorCollection.swift
+	public let METEOR_COLLECTION_SET_DID_CHANGE = "METEOR_COLLECTION_SET_DID_CHANGE"
+	public class MeteorCollection<T:MeteorDocument>: AbstractCollection
+	public var sorted:[T]
+AbstractCollection.swift
+	public class AbstractCollection: NSObject, MeteorCollectionType
+	public var name:String
+	public let client = Meteor.client
+	public init(name:String)
 DDPMessage.swift
 	public enum DDPMessageType:String
 	case Connected  = "connected"
@@ -21,9 +33,19 @@ DDPMessage.swift
 	case Error      = "error"
 	case Unhandled  = "unhandled"
 	public func hasProperty(name:String) -> Bool
+MeteorDocument.swift
+	public class MeteorDocument: NSObject
+	required public init(id: String, fields: NSDictionary?)
+	public func update(fields: NSDictionary?, cleared: [String]?)
 DDPExtensions.swift
 	public let DDP_USER_DID_LOGIN = "DDP_USER_DID_LOGIN"
 	public let DDP_USER_DID_LOGOUT = "DDP_USER_DID_LOGOUT"
 	public func signup(params:NSDictionary, callback:((result: AnyObject?, error: DDPError?) -> ())?)
 Meteor.swift
+	public protocol MeteorCollectionType
+	func documentWasAdded(collection:String, id:String, fields:NSDictionary?)
+	func documentWasChanged(collection:String, id:String, fields:NSDictionary?, cleared:[String]?)
+	func documentWasRemoved(collection:String, id:String)
 	public convenience init(url:String, email:String, password:String)
+DDPEvents.swift
+	public var onConnected: Completion = Completion(callback: {session in log.info("connected with session: \(session)")})
