@@ -18,7 +18,7 @@ github "siegesmund/SwiftDDP"
 Or, use [CocoaPods](http://cocoapods.org). Add the following line to your Podfile:
 
 ```ruby
-pod "SwiftDDP"
+pod "SwiftDDP", "~> 0.1.9"
 ```
 
 ## Documentation
