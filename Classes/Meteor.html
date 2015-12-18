@@ -13,7 +13,7 @@
     <a title="Meteor Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html"> Docs</a> (80% documented)</p>
+        <p><a href="../index.html"> Docs</a> (74% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -30,13 +30,22 @@
           <a href="../Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Classes/AbstractCollection.html">AbstractCollection</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/DDPClient.html">DDPClient</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EJSON.html">EJSON</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/Meteor.html">Meteor</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/MeteorCollection.html">MeteorCollection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MeteorDocument.html">MeteorDocument</a>
               </li>
             </ul>
           </li>
@@ -48,6 +57,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Global Variables.html#/s:v8SwiftDDP19DDP_USER_DID_LOGOUTSS">DDP_USER_DID_LOGOUT</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v8SwiftDDP32METEOR_COLLECTION_SET_DID_CHANGESS">METEOR_COLLECTION_SET_DID_CHANGE</a>
               </li>
             </ul>
           </li>
@@ -71,6 +83,9 @@
           <a href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Protocols/MeteorCollectionType.html">MeteorCollectionType</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/SwiftDDPDelegate.html">SwiftDDPDelegate</a>
               </li>
             </ul>
@@ -78,6 +93,9 @@
           <li class="nav-group-name">
           <a href="../Structs.html">Structs</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:V8SwiftDDP10Completion">Completion</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Structs/DDPError.html">DDPError</a>
               </li>
@@ -131,6 +149,33 @@
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">client</span> <span class="o">=</span> <span class="kt">Meteor</span><span class="o">.</span><span class="kt">Client</span><span class="p">()</span>          <span class="c1">// Client is a singleton object</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZFC8SwiftDDP6Meteor10collectionFMS0_FSSGSqPS_20MeteorCollectionType__"></a>
+                    <a name="//apple_ref/swift/Method/collection(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC8SwiftDDP6Meteor10collectionFMS0_FSSGSqPS_20MeteorCollectionType__">collection(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>returns a Meteor collection, if it exists</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">collection</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span><span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">MeteorCollectionType</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -695,6 +740,286 @@ error contains information about the error.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:ZFC8SwiftDDP6Meteor15signupWithEmailFMS0_FTSS8passwordSS8callbackGSqFT6resultGSqPSs9AnyObject__5errorGSqVS_8DDPError__T___T_"></a>
+                    <a name="//apple_ref/swift/Method/signupWithEmail(_:password:callback:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC8SwiftDDP6Meteor15signupWithEmailFMS0_FTSS8passwordSS8callbackGSqFT6resultGSqPSs9AnyObject__5errorGSqVS_8DDPError__T___T_">signupWithEmail(_:password:callback:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a user account on the server with an email and password</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">signupWithEmail</span><span class="p">(</span><span class="nv">email</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">callback</span><span class="p">:</span> <span class="kt">DDPMethodCallback</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>email</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An email string</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>password</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A password string</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>callback</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A closure with result and error parameters describing the outcome of the operation</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZFC8SwiftDDP6Meteor17loginWithPasswordFMS0_FTSS8passwordSS8callbackGSqFT6resultGSqPSs9AnyObject__5errorGSqVS_8DDPError__T___T_"></a>
+                    <a name="//apple_ref/swift/Method/loginWithPassword(_:password:callback:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC8SwiftDDP6Meteor17loginWithPasswordFMS0_FTSS8passwordSS8callbackGSqFT6resultGSqPSs9AnyObject__5errorGSqVS_8DDPError__T___T_">loginWithPassword(_:password:callback:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Logs a user into the server using an email and password</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">loginWithPassword</span><span class="p">(</span><span class="nv">email</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">callback</span><span class="p">:</span><span class="kt">DDPMethodCallback</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>email</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An email string</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>password</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A password string</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>callback</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A closure with result and error parameters describing the outcome of the operation</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZFC8SwiftDDP6Meteor17loginWithPasswordFMS0_FTSS8passwordSS_T_"></a>
+                    <a name="//apple_ref/swift/Method/loginWithPassword(_:password:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC8SwiftDDP6Meteor17loginWithPasswordFMS0_FTSS8passwordSS_T_">loginWithPassword(_:password:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Logs a user into the server using an email and password</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">loginWithPassword</span><span class="p">(</span><span class="nv">email</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span><span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>email</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An email string</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>password</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A password string</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZFC8SwiftDDP6Meteor6logoutFMS0_FGSqFT6resultGSqPSs9AnyObject__5errorGSqVS_8DDPError__T__T_"></a>
+                    <a name="//apple_ref/swift/Method/logout(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC8SwiftDDP6Meteor6logoutFMS0_FGSqFT6resultGSqPSs9AnyObject__5errorGSqVS_8DDPError__T__T_">logout(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Logs a user out of the server and executes a callback when the logout process has completed</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">logout</span><span class="p">(</span><span class="nv">callback</span><span class="p">:</span><span class="kt">DDPMethodCallback</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>callback</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An optional closure to be executed after the client has logged out</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZFC8SwiftDDP6Meteor6logoutFMS0_FT_T_"></a>
+                    <a name="//apple_ref/swift/Method/logout()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC8SwiftDDP6Meteor6logoutFMS0_FT_T_">logout()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Logs a user out of the server</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">logout</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:CC8SwiftDDP6Meteor6Client"></a>
                     <a name="//apple_ref/swift/Class/Client" class="dashAnchor"></a>
                     <a class="token" href="#/s:CC8SwiftDDP6Meteor6Client">Client</a>
@@ -725,7 +1050,7 @@ error contains information about the error.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2015 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2015-11-18)</p>
+          <p>&copy; 2015 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2015-12-18)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.3.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
