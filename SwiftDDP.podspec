@@ -12,10 +12,9 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/siegesmund/SwiftDDP.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/psiegesmund'
 
-  s.platform     = :ios, '8.0'
   s.requires_arc = true
 
-  s.source_files = 'SwiftDDP/**/*'
+  s.source_files = 'SwiftDDP/**/*.swift'
 
   s.dependency 'CryptoSwift'
   s.dependency 'SwiftWebSocket'
