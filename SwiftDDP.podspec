@@ -14,9 +14,10 @@ Pod::Spec.new do |s|
 
   # Attempt to be compatible on all platforms
   # s.platform     = :ios, '8.0'
+
   s.requires_arc = true
 
-  s.source_files = 'SwiftDDP/**/*'
+  s.source_files = 'SwiftDDP/**/*.swift'
 
   s.dependency 'CryptoSwift'
   s.dependency 'SwiftWebSocket'
