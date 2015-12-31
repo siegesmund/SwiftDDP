@@ -16,9 +16,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D02A71E51BBEFBCA00940C17"
-               BuildableName = "SwiftDDPTests.xctest"
-               BlueprintName = "SwiftDDPTests"
+               BlueprintIdentifier = "D02A72521BBF07AF00940C17"
+               BuildableName = "SwiftDDP Tests.xctest"
+               BlueprintName = "SwiftDDP Tests"
                ReferencedContainer = "container:SwiftDDP.xcodeproj">
             </BuildableReference>
          </TestableReference>

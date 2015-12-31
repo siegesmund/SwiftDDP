@@ -86,7 +86,7 @@
 		D02A72321BBF02B900940C17 /* XCGLogger.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = XCGLogger.framework.dSYM; path = Carthage/Build/iOS/XCGLogger.framework.dSYM; sourceTree = "<group>"; };
 		D02A72351BBF033600940C17 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		D02A72361BBF033600940C17 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
-		D02A72531BBF07AF00940C17 /* SwiftDDPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftDDPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D02A72531BBF07AF00940C17 /* SwiftDDP Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SwiftDDP Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D02A72551BBF07AF00940C17 /* SwiftDDP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDDP.swift; sourceTree = "<group>"; };
 		D02A72571BBF07AF00940C17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D02A72611BBF0AE300940C17 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -97,12 +97,15 @@
 		D02B30821BDA8E2200E1DB72 /* DDPMethodResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPMethodResult.swift; sourceTree = "<group>"; };
 		D0339DD11C00DA6100A17DEB /* AbstractCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractCollection.swift; sourceTree = "<group>"; };
 		D0339DD31C00DAB000A17DEB /* MeteorCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeteorCollection.swift; sourceTree = "<group>"; };
-		D04B062A1C357E1000D87F3D /* OAuth.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = OAuth.playground; path = SwiftDDP/OAuth.playground; sourceTree = "<group>"; };
 		D04D0DAA1C21ADF9000244D6 /* DDPCompletion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPCompletion.swift; sourceTree = "<group>"; };
 		D04D0DB81C21D489000244D6 /* MeteorDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeteorDocument.swift; sourceTree = "<group>"; };
 		D0C71B551BC172F40089B6CE /* Meteor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meteor.swift; sourceTree = "<group>"; };
 		D0C71B571BC173030089B6CE /* SwiftMeteor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftMeteor.swift; sourceTree = "<group>"; };
 		D0C71B5A1BC174280089B6CE /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		D0E9DFDD1C359535005D92FA /* SwiftDDP OSX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftDDP OSX.h"; sourceTree = "<group>"; };
+		D0E9DFDF1C359535005D92FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D0E9DFE91C359535005D92FA /* SwiftDDP_OSXTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDDP_OSXTests.swift; sourceTree = "<group>"; };
+		D0E9DFEB1C359535005D92FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0F6C9191BFE97BC00A6CB70 /* Dollar.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Dollar.xcodeproj; path = Dollar.swift/Dollar/Dollar.xcodeproj; sourceTree = "<group>"; };
 		D0F6C99C1BFFA04600A6CB70 /* EJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EJSON.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -134,9 +137,10 @@
 		D02A71D21BBEFBCA00940C17 = {
 			isa = PBXGroup;
 			children = (
-				D04B062A1C357E1000D87F3D /* OAuth.playground */,
 				D02A71DE1BBEFBCA00940C17 /* SwiftDDP */,
 				D02A72541BBF07AF00940C17 /* Tests */,
+				D0E9DFDC1C359535005D92FA /* SwiftDDP OSX */,
+				D0E9DFE81C359535005D92FA /* SwiftDDP OSXTests */,
 				D02A72341BBF02C200940C17 /* Frameworks */,
 				D02A72AE1BBF383700940C17 /* SwiftDDP.podspec */,
 				D02A72AF1BBF383700940C17 /* LICENSE */,
@@ -151,7 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				D02A71DC1BBEFBCA00940C17 /* SwiftDDP.framework */,
-				D02A72531BBF07AF00940C17 /* SwiftDDPTests.xctest */,
+				D02A72531BBF07AF00940C17 /* SwiftDDP Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -203,6 +207,24 @@
 			path = SwiftDDPTests;
 			sourceTree = "<group>";
 		};
+		D0E9DFDC1C359535005D92FA /* SwiftDDP OSX */ = {
+			isa = PBXGroup;
+			children = (
+				D0E9DFDD1C359535005D92FA /* SwiftDDP OSX.h */,
+				D0E9DFDF1C359535005D92FA /* Info.plist */,
+			);
+			path = "SwiftDDP OSX";
+			sourceTree = "<group>";
+		};
+		D0E9DFE81C359535005D92FA /* SwiftDDP OSXTests */ = {
+			isa = PBXGroup;
+			children = (
+				D0E9DFE91C359535005D92FA /* SwiftDDP_OSXTests.swift */,
+				D0E9DFEB1C359535005D92FA /* Info.plist */,
+			);
+			path = "SwiftDDP OSXTests";
+			sourceTree = "<group>";
+		};
 		D0F6C91A1BFE97BC00A6CB70 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,9 +267,9 @@
 			productReference = D02A71DC1BBEFBCA00940C17 /* SwiftDDP.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		D02A72521BBF07AF00940C17 /* SwiftDDPTests */ = {
+		D02A72521BBF07AF00940C17 /* SwiftDDP Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D02A725B1BBF07AF00940C17 /* Build configuration list for PBXNativeTarget "SwiftDDPTests" */;
+			buildConfigurationList = D02A725B1BBF07AF00940C17 /* Build configuration list for PBXNativeTarget "SwiftDDP Tests" */;
 			buildPhases = (
 				D02A724F1BBF07AF00940C17 /* Sources */,
 				D02A72501BBF07AF00940C17 /* Frameworks */,
@@ -259,9 +281,9 @@
 			dependencies = (
 				D02A725A1BBF07AF00940C17 /* PBXTargetDependency */,
 			);
-			name = SwiftDDPTests;
+			name = "SwiftDDP Tests";
 			productName = SwiftDDPTests;
-			productReference = D02A72531BBF07AF00940C17 /* SwiftDDPTests.xctest */;
+			productReference = D02A72531BBF07AF00940C17 /* SwiftDDP Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -270,6 +292,7 @@
 		D02A71D31BBEFBCA00940C17 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Peter Siegesmund";
 				TargetAttributes = {
@@ -300,7 +323,7 @@
 			projectRoot = "";
 			targets = (
 				D02A71DB1BBEFBCA00940C17 /* SwiftDDP */,
-				D02A72521BBF07AF00940C17 /* SwiftDDPTests */,
+				D02A72521BBF07AF00940C17 /* SwiftDDP Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -454,6 +477,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -496,6 +520,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -596,7 +621,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D02A725B1BBF07AF00940C17 /* Build configuration list for PBXNativeTarget "SwiftDDPTests" */ = {
+		D02A725B1BBF07AF00940C17 /* Build configuration list for PBXNativeTarget "SwiftDDP Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D02A725C1BBF07AF00940C17 /* Debug */,
