@@ -111,7 +111,7 @@ public class DDPClient: NSObject {
     internal var subCallbacks:[String:Completion] = [:]
     internal var unsubCallbacks:[String:Completion] = [:]
     
-    var url:String!
+    public var url:String!
     private var subscriptions = [String:(id:String, name:String, ready:Bool)]()
     
     internal var events = DDPEvents()
