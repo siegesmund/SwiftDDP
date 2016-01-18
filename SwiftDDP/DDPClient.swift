@@ -124,6 +124,8 @@ public class DDPClient: NSObject {
         super.init()
         setLogLevel(logLevel)
         print("Mark - SwiftDDP")
+         // let loginServicesSubscriptionCollection = "meteor_accounts_loginServiceConfiguration"
+        sub("meteor.loginServiceConfiguration", params: nil)           // /tools/meteor-services/auth.js line 922
     }
     
     /**
