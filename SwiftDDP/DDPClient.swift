@@ -246,6 +246,15 @@ public class DDPClient: NSObject {
         case .Added: documentQueue.addOperationWithBlock() {
                 if let collection = message.collection,
                     let id = message.id {
+                        
+                        // Intercept service configuration messages and store in property
+                        if collection == "meteor_accounts_loginServiceConfiguration" {
+                            if let fields = message.fields,
+                                   service = fields["service"] {
+                                self.loginServiceConfiguration[service as! String] = fields as? [String : String]
+                            }
+                        }
+                        
                         self.documentWasAdded(collection, id: id, fields: message.fields)
                 }
             }
