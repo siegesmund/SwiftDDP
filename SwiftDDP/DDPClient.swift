@@ -152,7 +152,7 @@ public class DDPClient: NSObject {
     */
     
     public func connect(url:String, callback:DDPConnectedCallback?) {
-        
+        self.url = url
         // capture the thread context in which the function is called
         let executionQueue = NSOperationQueue.currentQueue()
         
