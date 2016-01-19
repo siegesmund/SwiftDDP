@@ -215,7 +215,6 @@ public class Meteor {
         client.loginWithPassword(email, password: password, callback: nil)
     }
     
-    
     internal static func loginWithService<T: UIViewController>(service: String, viewController: T) {
         
         var url:String?

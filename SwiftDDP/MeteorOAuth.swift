@@ -51,18 +51,9 @@ public class MeteorOAuth {
     
     // Construct the state parameter
     static func stateParam(credentialToken: String, redirectUrl: String) -> String {
-        
-        let isCordova = false
-        
-        print("Original redirect url \(redirectUrl)")
-        
+                
         let objectString = "{\"redirectUrl\":\"\(redirectUrl)\",\"loginStyle\":\"redirect\",\"isCordova\":\"false\",\"credentialToken\":\"\(credentialToken)\"}"
-        let b64string = toBase64(objectString)
-        let check = fromBase64(b64string)
-        print("State is: \(objectString)")
-        print("State check is: \(check)")
-        
-        return b64string
+        return toBase64(objectString)
     }
 
 }

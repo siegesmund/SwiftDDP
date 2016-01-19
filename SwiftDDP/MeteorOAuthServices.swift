@@ -84,9 +84,6 @@ public class MeteorOAuthServices {
     }
     
     public static func google() -> String? {
-        /*
-        https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=125604412262-rkm8vf74o009nmfs6ktdt4cd4a8ahml0.apps.googleusercontent.com&scope=email%20profile&redirect_uri=http%3A%2F%2Fswiftddpoauthserver.meteor.com%2F_oauth%2Fgoogle&state=eyJsb2dpblN0eWxlIjoicmVkaXJlY3QiLCJjcmVkZW50aWFsVG9rZW4iOiI3b2hQSjZPbElsVmVRdjNLa0RobjJFZ25HUV8xZFhuUTdXOEZ2VHFDSlk0IiwiaXNDb3Jkb3ZhIjpmYWxzZSwicmVkaXJlY3RVcmwiOiJodHRwOi8vc3dpZnRkZHBvYXV0aHNlcnZlci5tZXRlb3IuY29tLyJ9
-        */
         
         if let google = Meteor.client.loginServiceConfiguration["google"],
             let clientId = google["clientId"] {

@@ -22,6 +22,12 @@ import Foundation
 import WebKit
 
 // TODO: Handle rotation
+// TODO: Handle login failure > specific actions for cancellation, for example
+// TODO: Gotchas: connecting over wss, but registered domain is http... 
+// TODO: Activity indicator?
+// TODO: Add redirect not popup; register as web app when setting up services to instructions
+// TODO: Login first with stored token
+// TODO: Safeguard against crash if login is clicked before loginServiceConfiguration has been transmitted
 
 public class MeteorOAuthDialogViewController: UIViewController, WKNavigationDelegate {
     
@@ -98,10 +104,6 @@ public class MeteorOAuthDialogViewController: UIViewController, WKNavigationDele
         
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         
-        webView.evaluateJavaScript("document.documentElement.outerHTML", completionHandler: { html, error in
-            print(html)
-        })
-        
         // This works to get the credentialSecret, credentialToken, redirectUrl etc.
         webView.evaluateJavaScript("JSON.parse(document.getElementById('config').innerHTML)",
             completionHandler: { (html: AnyObject?, error: NSError?) in
@@ -115,26 +117,6 @@ public class MeteorOAuthDialogViewController: UIViewController, WKNavigationDele
                 
                 // TODO: What if there's an error?, if the login fails
         })
-    }
-    
-    public func webView(webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
-        print("Redirect: \(webView.URL!)")
-        
-        if webView.URL == "http://swiftddpoauthserver.meteor.com/" {
-            print("Being redirected to home")
-        }
-    }
-    
-    public func webView(webView: WKWebView,
-        decidePolicyForNavigationResponse navigationResponse: WKNavigationResponse,
-        decisionHandler: ((WKNavigationResponsePolicy) -> Void)){
-            print("NavigationResponse")
-            print(navigationResponse.response.MIMEType)
-            decisionHandler(.Allow)
-    }
-    
-    public func webViewWebContentProcessDidTerminate(webView: WKWebView) {
-        print("ProcessDidTerminate")
     }
     
     
