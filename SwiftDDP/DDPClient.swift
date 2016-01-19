@@ -111,7 +111,7 @@ public class DDPClient: NSObject {
     internal var subCallbacks:[String:Completion] = [:]
     internal var unsubCallbacks:[String:Completion] = [:]
     
-    private var url:String!
+    public var url:String!
     private var subscriptions = [String:(id:String, name:String, ready:Bool)]()
     
     internal var events = DDPEvents()
@@ -152,7 +152,7 @@ public class DDPClient: NSObject {
     */
     
     public func connect(url:String, callback:DDPConnectedCallback?) {
-        
+        self.url = url
         // capture the thread context in which the function is called
         let executionQueue = NSOperationQueue.currentQueue()
         
@@ -170,11 +170,16 @@ public class DDPClient: NSObject {
         
         socket.event.open = {
             self.heartbeat.addOperationWithBlock() {
-                if let c = callback {
-                    var completion = Completion(callback: c)
-                    completion.executionQueue = executionQueue
-                    self.events.onConnected = completion
+                // Add a subscription to loginServices to each connection event
+                let callbackWithServiceConfiguration = { (session:String) in
+                    // let loginServicesSubscriptionCollection = "meteor_accounts_loginServiceConfiguration"
+                    self.sub("meteor.loginServiceConfiguration", params: nil)           // /tools/meteor-services/auth.js line 922
+                    callback?(session: session)
                 }
+                
+                var completion = Completion(callback: callbackWithServiceConfiguration)
+                completion.executionQueue = executionQueue
+                self.events.onConnected = completion
                 self.sendMessage(["msg":"connect", "version":"1", "support":["1"]])
             }
         }
@@ -244,6 +249,15 @@ public class DDPClient: NSObject {
         case .Added: documentQueue.addOperationWithBlock() {
                 if let collection = message.collection,
                     let id = message.id {
+                        
+                        // Intercept service configuration messages and store in property
+                        if collection == "meteor_accounts_loginServiceConfiguration" {
+                            if let fields = message.fields,
+                                   service = fields["service"] {
+                                self.loginServiceConfiguration[service as! String] = fields as? [String : String]
+                            }
+                        }
+                        
                         self.documentWasAdded(collection, id: id, fields: message.fields)
                 }
             }

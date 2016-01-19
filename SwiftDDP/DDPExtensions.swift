@@ -251,7 +251,7 @@ extension DDPClient {
     }
     
     // Callback runs on main thread
-    internal func login(params: NSDictionary, callback: ((result: AnyObject?, error: DDPError?) -> ())?) {
+    public func login(params: NSDictionary, callback: ((result: AnyObject?, error: DDPError?) -> ())?) {
         
         // method is run on the userBackground queue
         method("login", params: NSArray(arrayLiteral: params)) { result, error in
