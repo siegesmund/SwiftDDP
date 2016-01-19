@@ -19,6 +19,7 @@
 // THE SOFTWARE.
 
 import Foundation
+import UIKit
 
 /*
 enum Error: String {
@@ -212,6 +213,52 @@ public class Meteor {
     
     public static func loginWithPassword(email:String, password:String) {
         client.loginWithPassword(email, password: password, callback: nil)
+    }
+    
+    
+    internal static func loginWithService<T: UIViewController>(service: String, viewController: T) {
+        
+        var url:String?
+        
+        switch service {
+            case "twitter":
+            url = MeteorOAuthServices.twitter()
+            
+            case "facebook":
+            url =  MeteorOAuthServices.facebook()!
+            
+        default:
+            url = nil
+        }
+        
+        if let loginUrl = url {
+            let oauthDialog: MeteorOAuthDialogViewController = MeteorOAuthDialogViewController()
+            oauthDialog.url = NSURL(string: loginUrl)
+            viewController.presentViewController(oauthDialog, animated: true, completion: nil)
+        } else {
+            log.debug("No login service for \(service) available")
+        }
+        
+    }
+    
+    /**
+     Logs a user into the server using Twitter
+     
+     - parameter viewController:    A view controller from which to launch the OAuth modal dialog
+     */
+    
+    public static func loginWithTwitter<T: UIViewController>(viewController: T) {
+        Meteor.loginWithService("twitter", viewController: viewController)
+    }
+    
+    /**
+     Logs a user into the server using Facebook
+     
+     - parameter viewController:    A view controller from which to launch the OAuth modal dialog
+     */
+    
+    public static func loginWithFacebook<T: UIViewController>(viewController: T) {
+        Meteor.loginWithService("facebook", viewController: viewController)
     }
     
     /**

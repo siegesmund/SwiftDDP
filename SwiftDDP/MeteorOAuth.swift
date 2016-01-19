@@ -20,7 +20,7 @@
 
 import Foundation
 
-class MeteorOAuth {
+public class MeteorOAuth {
     
     static var httpUrl:String = {
         let url = MeteorOAuth.getHTTPUrl(Meteor.client.url)
@@ -49,6 +49,7 @@ class MeteorOAuth {
         return "https://\(domainName)"
     }
     
+    // Construct the state parameter
     static func stateParam(credentialToken: String, redirectUrl: String) -> String {
         
         let isCordova = false

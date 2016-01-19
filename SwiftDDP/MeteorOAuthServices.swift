@@ -20,37 +20,44 @@
 
 import Foundation
 
-class MeteorFacebook {
+
+public class MeteorOAuthServices {
     
-    // findOne {service: "facebook"}
-    
-    static func loginUrl() -> String {
+    public static func twitter() -> String {
         
-        /*
-        var loginUrl =
-        'https://www.facebook.com/v2.2/dialog/oauth?client_id=' + config.appId +
-        '&redirect_uri=' + OAuth._redirectUri('facebook', config) +
-        '&display=' + display + '&scope=' + scope +
-        '&state=' + OAuth._stateParam(loginStyle, credentialToken, options && options.redirectUrl);
-        */
-                
-        let appId = Meteor.client.loginServiceConfiguration["facebook"]!["appId"]!     // "425758847631610"
-        let token = randomBase64String()
         let httpUrl = MeteorOAuth.httpUrl
+        let token = randomBase64String()
         let state = MeteorOAuth.stateParam(token, redirectUrl: httpUrl)
-        let redirect = "http://swiftddpoauthserver.meteor.com/_oauth/facebook&display=redirect&scope=email&state=\(state)"
         
-        let display = "touch"
-        let scope = "email"
-        
-        var url = "https://www.facebook.com/v2.2/dialog/oauth?client_id=\(appId)"
-        url += "&redirect_uri=\(redirect)"
-        url += "&display=\(display)"
-        url += "&scope=\(scope)"
-        url += "&state=\(state)"
-                
-        return url
-        
+        return "\(httpUrl)/_oauth/twitter/?requestTokenAndRedirect=true&state=\(state)"
+    
     }
+    
+    public static func facebook() -> String? {
+        
+        // packages/facebook/facebook_client.js 33
+        if let facebook = Meteor.client.loginServiceConfiguration["facebook"],
+            let appId = facebook["appId"] {
+            
+                let token = randomBase64String()
+                let httpUrl = MeteorOAuth.httpUrl
+                let state = MeteorOAuth.stateParam(token, redirectUrl: httpUrl)
+                let redirect = "http://swiftddpoauthserver.meteor.com/_oauth/facebook&display=redirect&scope=email&state=\(state)"
+                
+                let display = "touch"
+                let scope = "email"
+                
+                var url = "https://www.facebook.com/v2.2/dialog/oauth?client_id=\(appId)"
+                url += "&redirect_uri=\(redirect)"
+                url += "&display=\(display)"
+                url += "&scope=\(scope)"
+                url += "&state=\(state)"
+                
+                return url
+        }
+        
+        return nil
+    }
+
     
 }

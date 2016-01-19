@@ -23,18 +23,18 @@ import WebKit
 
 // TODO: Handle rotation
 
-class MeteorOAuthDialogViewController: UIViewController, WKNavigationDelegate {
+public class MeteorOAuthDialogViewController: UIViewController, WKNavigationDelegate {
     
     // App must be set to redirect, rather than popup
     // https://github.com/meteor/meteor/wiki/OAuth-for-mobile-Meteor-clients#popup-versus-redirect-flow
     
     var meteor = Meteor.client
     
-    var navigationBar:UINavigationBar!
-    var cancelButton:UIBarButtonItem!
-    var url:NSURL!
+    public var navigationBar:UINavigationBar!
+    public var cancelButton:UIBarButtonItem!
+    public var url:NSURL!
     
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         
         navigationBar = UINavigationBar(frame: CGRectMake(0, 0, self.view.frame.size.width, 64)) // Offset by 20 pixels vertically to take the status bar into account
         let navigationItem = UINavigationItem()
@@ -82,12 +82,12 @@ class MeteorOAuthDialogViewController: UIViewController, WKNavigationDelegate {
     //
     
     /* Start the network activity indicator when the web view is loading */
-    func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation) {
+    public func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation) {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
     }
     
     /* Stop the network activity indicator when the loading finishes */
-    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation){
+    public func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation){
         let url = webView.URL?.absoluteString
         print("DidFinishNavigation \(webView.URL!)")
         if let state = getValue(fromUrl: url!, forArgument: "state") {
