@@ -33,6 +33,7 @@ public class MeteorOAuthDialogViewController: UIViewController, WKNavigationDele
     public var navigationBar:UINavigationBar!
     public var cancelButton:UIBarButtonItem!
     public var url:NSURL!
+    public var service: String!
     
     override public func viewDidLoad() {
         
@@ -96,6 +97,10 @@ public class MeteorOAuthDialogViewController: UIViewController, WKNavigationDele
         }
         
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        
+        webView.evaluateJavaScript("document.documentElement.outerHTML", completionHandler: { html, error in
+            print(html)
+        })
         
         // This works to get the credentialSecret, credentialToken, redirectUrl etc.
         webView.evaluateJavaScript("JSON.parse(document.getElementById('config').innerHTML)",

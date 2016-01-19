@@ -7,22 +7,18 @@ MIT
 [![License](https://img.shields.io/cocoapods/l/SwiftDDP.svg?style=flat)](http://cocoapods.org/pods/SwiftDDP)
 [![Platform](https://img.shields.io/cocoapods/p/SwiftDDP.svg?style=flat)](http://cocoapods.org/pods/SwiftDDP)
 
-### New in version 0.2.0:
-#### Integration with Meteor's Facebook, Twitter & other login services.
-
-
 ## Installation
 
 Install using [Carthage](https://github.com/Carthage/Carthage) by adding the following line to your Cartfile:
 
 ```ruby
-github "siegesmund/SwiftDDP" ~> 0.2.0
+github "siegesmund/SwiftDDP" ~> 0.1.9
 ```
 
 Or, use [CocoaPods](http://cocoapods.org). Add the following line to your Podfile:
 
 ```ruby
-pod "SwiftDDP", "~> 0.2.0"
+pod "SwiftDDP", "~> 0.1.9"
 ```
 
 ## Documentation
@@ -43,22 +39,6 @@ Meteor.connect("wss://todos.meteor.com/websocket") {
 }
 ```
 
-#### Login & Logout with Facebook, Twitter, etc.
-Create a UIButton and associate its' action with the appropriate Meteor login method.
-```swift
-class ViewController: UIViewController {
-
-@IBAction func loginWithTwitterWasClicked(sender: UIButton) {
-Meteor.loginWithTwitter(self)
-}
-
-@IBAction func loginWithFacebookWasClicked(sender: UIButton) {
-Meteor.loginWithFacebook(self)
-}
-
-}
-```
-
 
 #### Login & Logout with password
 
@@ -71,7 +51,7 @@ Meteor.logout() { result, error in
 // do something after logout
 }
 ``` 
-The client also posts a notification when the user signs in and signs out.
+The client posts a notification when the user signs in and signs out.
 
 ```swift
 // Notification name (a string global variable)

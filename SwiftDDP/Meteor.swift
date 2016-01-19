@@ -227,6 +227,9 @@ public class Meteor {
             case "facebook":
             url =  MeteorOAuthServices.facebook()!
             
+            case "github":
+            url = MeteorOAuthServices.github()!
+            
         default:
             url = nil
         }
@@ -260,6 +263,17 @@ public class Meteor {
     public static func loginWithFacebook<T: UIViewController>(viewController: T) {
         Meteor.loginWithService("facebook", viewController: viewController)
     }
+    
+    /**
+     Logs a user into the server using Github
+     
+     - parameter viewController:    A view controller from which to launch the OAuth modal dialog
+     */
+    
+    public static func loginWithGithub<T: UIViewController>(viewController: T) {
+        Meteor.loginWithService("github", viewController: viewController)
+    }
+
     
     /**
     Logs a user out of the server and executes a callback when the logout process has completed
