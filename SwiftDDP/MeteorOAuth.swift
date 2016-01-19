@@ -54,14 +54,15 @@ public class MeteorOAuth {
         
         let isCordova = false
         
-        let object = NSDictionary(dictionary: ["credentialToken": credentialToken,
-            "loginStyle": "redirect",
-            "isCordova": isCordova,
-            "redirectUrl":redirectUrl])
+        print("Original redirect url \(redirectUrl)")
         
-        let jsonData = try! NSJSONSerialization.dataWithJSONObject(object, options: NSJSONWritingOptions(rawValue: 0))
-        let base64String = jsonData.base64EncodedStringWithOptions(.EncodingEndLineWithLineFeed)
-        return base64String
+        let objectString = "{\"redirectUrl\":\"\(redirectUrl)\",\"loginStyle\":\"redirect\",\"isCordova\":\"false\",\"credentialToken\":\"\(credentialToken)\"}"
+        let b64string = toBase64(objectString)
+        let check = fromBase64(b64string)
+        print("State is: \(objectString)")
+        print("State check is: \(check)")
+        
+        return b64string
     }
 
 }

@@ -27,7 +27,8 @@ public class MeteorOAuthServices {
         
         let httpUrl = MeteorOAuth.httpUrl
         let token = randomBase64String()
-        let state = MeteorOAuth.stateParam(token, redirectUrl: httpUrl)
+        let redirect = "\(httpUrl)/_oauth/twitter"
+        let state = MeteorOAuth.stateParam(token, redirectUrl: redirect)
         
         return "\(httpUrl)/_oauth/twitter/?requestTokenAndRedirect=true&state=\(state)"
     
@@ -41,15 +42,13 @@ public class MeteorOAuthServices {
             
                 let token = randomBase64String()
                 let httpUrl = MeteorOAuth.httpUrl
-                let state = MeteorOAuth.stateParam(token, redirectUrl: httpUrl)
-                let redirect = "\(httpUrl)/_oauth/facebook&display=redirect&scope=email&state=\(state)"
+                let redirect = "\(httpUrl)/_oauth/facebook"
+                let state = MeteorOAuth.stateParam(token, redirectUrl: redirect)
                 
-                let display = "touch"
                 let scope = "email"
                 
-                var url = "https://www.facebook.com/v2.2/dialog/oauth?client_id=\(appId)"
+                var url = "https://m.facebook.com/v2.2/dialog/oauth?client_id=\(appId)"
                 url += "&redirect_uri=\(redirect)"
-                url += "&display=\(display)"
                 url += "&scope=\(scope)"
                 url += "&state=\(state)"
                 
@@ -60,36 +59,20 @@ public class MeteorOAuthServices {
     }
     
     public static func github() -> String? {
-        /*
-        var loginUrl =
-        'https://github.com/login/oauth/authorize' +
-        '?client_id=' + config.clientId +
-        '&scope=' + flatScope +
-        '&redirect_uri=' + OAuth._redirectUri('github', config) +
-        '&state=' + OAuth._stateParam(loginStyle, credentialToken, options && options.redirectUrl);
-        */
         
-        
-        https://github.com/login/oauth/authorize?client_id=bdf536f4d202ed2e77af&scope=user%3Aemail&redirect_uri=http://swiftddpoauthserver.meteor.com/_oauth/github&state=eyJsb2dpblN0eWxlIjoicmVkaXJlY3QiLCJjcmVkZW50aWFsVG9rZW4iOiJjZlNfZkZFZHhvV1JTUGtEZkc5RHAydnVmR3BBZHhlQlBXemJQWmJXVjNjIiwiaXNDb3Jkb3ZhIjpmYWxzZSwicmVkaXJlY3RVcmwiOiJodHRwOi8vc3dpZnRkZHBvYXV0aHNlcnZlci5tZXRlb3IuY29tLyJ9
-            
         // packages/facebook/facebook_client.js 33
         if let github = Meteor.client.loginServiceConfiguration["github"],
             let clientId = github["clientId"] {
                 
                 let token = randomBase64String()
                 let httpUrl = MeteorOAuth.httpUrl
-                let state = MeteorOAuth.stateParam(token, redirectUrl: httpUrl)
                 let redirect = "\(httpUrl)/_oauth/github"
-
-
-                print("Redirect: \(redirect)")
+                let state = MeteorOAuth.stateParam(token, redirectUrl: redirect)
                 
-                let display = "touch"
                 let scope = "user:email"
                 
                 var url = "https://github.com/login/oauth/authorize?client_id=\(clientId)"
                 url += "&redirect_uri=\(redirect)"
-                // url += "&display=\(display)"
                 url += "&scope=\(scope)"
                 url += "&state=\(state)"
                 
@@ -99,6 +82,31 @@ public class MeteorOAuthServices {
         return nil
 
     }
+    
+    public static func google() -> String? {
+        /*
+        https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=125604412262-rkm8vf74o009nmfs6ktdt4cd4a8ahml0.apps.googleusercontent.com&scope=email%20profile&redirect_uri=http%3A%2F%2Fswiftddpoauthserver.meteor.com%2F_oauth%2Fgoogle&state=eyJsb2dpblN0eWxlIjoicmVkaXJlY3QiLCJjcmVkZW50aWFsVG9rZW4iOiI3b2hQSjZPbElsVmVRdjNLa0RobjJFZ25HUV8xZFhuUTdXOEZ2VHFDSlk0IiwiaXNDb3Jkb3ZhIjpmYWxzZSwicmVkaXJlY3RVcmwiOiJodHRwOi8vc3dpZnRkZHBvYXV0aHNlcnZlci5tZXRlb3IuY29tLyJ9
+        */
+        
+        if let google = Meteor.client.loginServiceConfiguration["google"],
+            let clientId = google["clientId"] {
+                let token = randomBase64String()
+                let httpUrl = MeteorOAuth.httpUrl
+                let redirect = "\(httpUrl)/_oauth/google"
+                let state = MeteorOAuth.stateParam(token, redirectUrl: redirect)
+        
+                let scope = "email"
+                
+                var url = "https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=\(clientId)"
+                url += "&redirect_uri=\(redirect)"
+                url += "&scope=\(scope)"
+                url += "&state=\(state)"
+                
+                return url
+        }
+        return nil
+    }
+
 
     
 }

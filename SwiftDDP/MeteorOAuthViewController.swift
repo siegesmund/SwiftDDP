@@ -116,8 +116,8 @@ public class MeteorOAuthDialogViewController: UIViewController, WKNavigationDele
                 // TODO: What if there's an error?, if the login fails
         })
     }
-    /*
-    func webView(webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
+    
+    public func webView(webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
         print("Redirect: \(webView.URL!)")
         
         if webView.URL == "http://swiftddpoauthserver.meteor.com/" {
@@ -125,7 +125,7 @@ public class MeteorOAuthDialogViewController: UIViewController, WKNavigationDele
         }
     }
     
-    func webView(webView: WKWebView,
+    public func webView(webView: WKWebView,
         decidePolicyForNavigationResponse navigationResponse: WKNavigationResponse,
         decisionHandler: ((WKNavigationResponsePolicy) -> Void)){
             print("NavigationResponse")
@@ -133,9 +133,9 @@ public class MeteorOAuthDialogViewController: UIViewController, WKNavigationDele
             decisionHandler(.Allow)
     }
     
-    func webViewWebContentProcessDidTerminate(webView: WKWebView) {
+    public func webViewWebContentProcessDidTerminate(webView: WKWebView) {
         print("ProcessDidTerminate")
     }
-    */
+    
     
 }

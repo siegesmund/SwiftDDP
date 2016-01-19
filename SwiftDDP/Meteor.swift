@@ -230,6 +230,9 @@ public class Meteor {
             case "github":
             url = MeteorOAuthServices.github()!
             
+            case "google":
+            url = MeteorOAuthServices.google()!
+            
         default:
             url = nil
         }
@@ -274,6 +277,15 @@ public class Meteor {
         Meteor.loginWithService("github", viewController: viewController)
     }
 
+    /**
+     Logs a user into the server using Google
+     
+     - parameter viewController:    A view controller from which to launch the OAuth modal dialog
+     */
+    
+    public static func loginWithGoogle<T: UIViewController>(viewController: T) {
+        Meteor.loginWithService("google", viewController: viewController)
+    }
     
     /**
     Logs a user out of the server and executes a callback when the logout process has completed
