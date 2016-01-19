@@ -20,21 +20,13 @@
 
 import Foundation
 
-/**
-Struct to encapsulate the result of a Meteor method call
-*/
-
-public struct Result {
+class MeteorTwitter {
     
-    /**
-    The result of the method call
-    */
+    static func loginUrl() -> String {
+        let httpUrl = MeteorOAuth.httpUrl
+        let token = randomBase64String()
+        let state = MeteorOAuth.stateParam(token, redirectUrl: httpUrl)
+        return "\(httpUrl)/_oauth/twitter/?requestTokenAndRedirect=true&state=\(state)"
+    }
     
-    public var result:AnyObject?
-    
-    /**
-    An error object describing the server-side error, or nil if the method completed successfully
-    */
-    
-    public var error:DDPError?
 }
