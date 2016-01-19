@@ -124,8 +124,6 @@ public class DDPClient: NSObject {
         super.init()
         setLogLevel(logLevel)
         print("Mark - SwiftDDP")
-         // let loginServicesSubscriptionCollection = "meteor_accounts_loginServiceConfiguration"
-        sub("meteor.loginServiceConfiguration", params: nil)           // /tools/meteor-services/auth.js line 922
     }
     
     /**
@@ -172,11 +170,16 @@ public class DDPClient: NSObject {
         
         socket.event.open = {
             self.heartbeat.addOperationWithBlock() {
-                if let c = callback {
-                    var completion = Completion(callback: c)
-                    completion.executionQueue = executionQueue
-                    self.events.onConnected = completion
+                // Add a subscription to loginServices to each connection event
+                let callbackWithServiceConfiguration = { (session:String) in
+                    // let loginServicesSubscriptionCollection = "meteor_accounts_loginServiceConfiguration"
+                    self.sub("meteor.loginServiceConfiguration", params: nil)           // /tools/meteor-services/auth.js line 922
+                    callback?(session: session)
                 }
+                
+                var completion = Completion(callback: callbackWithServiceConfiguration)
+                completion.executionQueue = executionQueue
+                self.events.onConnected = completion
                 self.sendMessage(["msg":"connect", "version":"1", "support":["1"]])
             }
         }
