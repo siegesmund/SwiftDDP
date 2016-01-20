@@ -60,7 +60,6 @@ public class MeteorOAuthServices {
     
     public static func github() -> String? {
         
-        // packages/facebook/facebook_client.js 33
         if let github = Meteor.client.loginServiceConfiguration["github"],
             let clientId = github["clientId"] {
                 
