@@ -33,7 +33,7 @@ import XCGLogger
 let log = XCGLogger(identifier: "DDP")
 
 public typealias DDPMethodCallback = (result:AnyObject?, error:DDPError?) -> ()
-public typealias DDPConnectedCallback = (session:String)->()
+public typealias DDPConnectedCallback = (session:String) -> ()
 public typealias DDPCallback = () -> ()
 
 
@@ -319,7 +319,6 @@ public class DDPClient: NSObject {
     private func sendMessage(message:NSDictionary) {
         print("sendMessage message: \(message)")
         if let m = message.stringValue() {
-            print("stringvalue of message \(m)")
             self.socket.send(m)
         }
     }

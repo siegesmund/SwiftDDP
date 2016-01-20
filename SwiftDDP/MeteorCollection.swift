@@ -130,7 +130,6 @@ public class MeteorCollection<T:MeteorDocument>: AbstractCollection {
             document.update(fields, cleared: cleared)
             self.documents[id] = document
             collectionSetDidChange()
-
         }
     }
     
@@ -145,7 +144,6 @@ public class MeteorCollection<T:MeteorDocument>: AbstractCollection {
         if let _ = documents[id] {
             self.documents[id] = nil
             collectionSetDidChange()
-
         }
     }
     
