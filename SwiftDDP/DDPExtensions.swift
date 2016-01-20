@@ -276,14 +276,12 @@ extension DDPClient {
                 
                 self.userMainQueue.addOperationWithBlock() {
                     
-                    if let c = callback { c(result:result, error:error) }
+                    callback?(result: result, error: error)
                     self.userData.setObject(true, forKey: DDP_LOGGED_IN)
                     
                     NSNotificationCenter.defaultCenter().postNotificationName(DDP_USER_DID_LOGIN, object: nil)
-
-                    if let _ = self.delegate {
-                        self.delegate!.ddpUserDidLogin(self.user()!)
-                    }
+                    
+                    self.delegate?.ddpUserDidLogin(self.user()!)
                     
                 }
                 
@@ -291,7 +289,7 @@ extension DDPClient {
             }
             
             log.debug("Login error: \(e)")
-            if let c = callback { c(result: result, error: error) }
+            callback?(result: result, error: error)
         }
     }
 
@@ -350,13 +348,14 @@ extension DDPClient {
                         self.userData.setObject(expiration, forKey: DDP_TOKEN_EXPIRES)
                         self.userData.synchronize()
                 }
-                if let c = callback { c(result:result, error:error) }
+                
+                callback?(result: result, error: error)
                 self.userData.setObject(true, forKey: DDP_LOGGED_IN)
                 return
             }
             
             log.debug("login error: \(e)")
-            if let c = callback { c(result: result, error: error) }
+            callback?(result: result, error: error)
         }
     }
     /**
@@ -431,17 +430,15 @@ extension DDPClient {
                     self.userMainQueue.addOperationWithBlock() {
                         let user = self.user()!
                         NSNotificationCenter.defaultCenter().postNotificationName(DDP_USER_DID_LOGOUT, object: nil)
-                        if let _ = self.delegate {
-                            self.delegate!.ddpUserDidLogout(user)
-                        }
+                        
+                        self.delegate?.ddpUserDidLogout(user)
                         self.resetUserData()
                     }
                     
                 } else {
                     log.error("\(error)")
                 }
-                
-                if let c = callback { c(result: result, error: error) }
+                callback?(result: result, error: error)
             }
         }
     
@@ -464,7 +461,7 @@ extension DDPClient {
                     }
                 }
             } else {
-                if let completion = callback { completion() }
+                callback?()
             }
         }
     }

@@ -339,10 +339,12 @@ public class DDPClient: NSObject {
         let id = getId()
         let message = ["msg":"method", "method":name, "id":id] as NSMutableDictionary
         if let p = params { message["params"] = p }
+        
         if let completionCallback = callback {
             let completion = Completion(callback: completionCallback)
             self.resultCallbacks[id] = completion
         }
+        
         userBackground.addOperationWithBlock() {
             self.sendMessage(message)
         }
@@ -353,18 +355,21 @@ public class DDPClient: NSObject {
     // Subscribe
     //
     
-    
     internal func sub(id: String, name: String, params: [AnyObject]?, callback: DDPCallback?) -> String {
+        
         if let completionCallback = callback {
             let completion = Completion(callback: completionCallback)
             self.subCallbacks[id] = completion
         }
+        
         self.subscriptions[id] = (id, name, false)
         let message = ["msg":"sub", "name":name, "id":id] as NSMutableDictionary
         if let p = params { message["params"] = p }
+        
         userBackground.addOperationWithBlock() {
             self.sendMessage(message)
         }
+        
         return id
     }
     

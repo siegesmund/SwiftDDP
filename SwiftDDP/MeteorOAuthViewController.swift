@@ -95,12 +95,6 @@ public class MeteorOAuthDialogViewController: UIViewController, WKNavigationDele
     
     /* Stop the network activity indicator when the loading finishes */
     public func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation){
-        let url = webView.URL?.absoluteString
-        print("DidFinishNavigation \(webView.URL!)")
-        if let state = getValue(fromUrl: url!, forArgument: "state") {
-            let decodedState = fromBase64(state)
-            print("State value is \(decodedState)")
-        }
         
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         
@@ -113,6 +107,8 @@ public class MeteorOAuthDialogViewController: UIViewController, WKNavigationDele
                             webView.stopLoading() // Is there a possible race condition here?
                             self.signIn(token, secret: secret)
                     }
+                } else {
+                    print("There was no json here")
                 }
                 
                 // TODO: What if there's an error?, if the login fails
