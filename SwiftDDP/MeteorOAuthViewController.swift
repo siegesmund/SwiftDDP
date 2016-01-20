@@ -21,13 +21,11 @@
 import Foundation
 import WebKit
 
-// TODO: Handle rotation
 // TODO: Handle login failure > specific actions for cancellation, for example
 // TODO: Gotchas: connecting over wss, but registered domain is http... 
 // TODO: Activity indicator?
 // TODO: Add redirect not popup; register as web app when setting up services to instructions
 // TODO: Login first with stored token
-// TODO: Safeguard against crash if login is clicked before loginServiceConfiguration has been transmitted
 
 public class MeteorOAuthDialogViewController: UIViewController, WKNavigationDelegate {
     
@@ -38,14 +36,21 @@ public class MeteorOAuthDialogViewController: UIViewController, WKNavigationDele
     
     public var navigationBar:UINavigationBar!
     public var cancelButton:UIBarButtonItem!
+    public var webView:WKWebView!
     public var url:NSURL!
-    public var service: String!
+    public var serviceName: String?
     
     override public func viewDidLoad() {
         
-        navigationBar = UINavigationBar(frame: CGRectMake(0, 0, self.view.frame.size.width, 64)) // Offset by 20 pixels vertically to take the status bar into account
+        navigationBar = UINavigationBar() // Offset by 20 pixels vertically to take the status bar into account
         let navigationItem = UINavigationItem()
-        navigationItem.title = "Login with OAuth"
+        
+        navigationItem.title = "Login"
+
+        if let name = serviceName {
+            navigationItem.title = "Login with \(name)"
+        }
+        
         
         cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: "close")
         navigationItem.rightBarButtonItem = cancelButton
@@ -53,20 +58,18 @@ public class MeteorOAuthDialogViewController: UIViewController, WKNavigationDele
                 
         // Configure WebView
         let request = NSURLRequest(URL:url)
-        let preferences = WKPreferences()
-        let webViewController = UIViewController()
-        preferences.javaScriptCanOpenWindowsAutomatically = true
-        let configuration = WKWebViewConfiguration()
-        configuration.preferences = preferences
-        
-        // Invoke WebView
-        let webView = WKWebView(frame: self.view.bounds, configuration: configuration)
+        webView = WKWebView()
         webView.navigationDelegate = self
         webView.loadRequest(request)
-        webViewController.view.addSubview(webView)
         
         self.view.addSubview(webView)
         self.view.addSubview(navigationBar)
+    }
+    
+    public override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        navigationBar.frame = CGRectMake(0, 0, self.view.frame.size.width, 64)
+        webView.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64)
     }
     
     func close() {

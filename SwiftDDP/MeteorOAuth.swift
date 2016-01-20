@@ -22,16 +22,15 @@ import Foundation
 
 public class MeteorOAuth {
     
+    static let meteor = Meteor.client
+    
     static var httpUrl:String = {
         let url = MeteorOAuth.getHTTPUrl(Meteor.client.url)
         return url
     }()
     
-    static let meteor = Meteor.client
-    
     // Forms a HTTP url from a Meteor websocket url
     static func getHTTPUrl(websocketUrl: String) -> String {
-        
         // remove websocket; should rewrite this so that it takes only
         // websocket from the end of the string
         let path = websocketUrl.componentsSeparatedByString("/websocket")[0]
@@ -46,6 +45,7 @@ public class MeteorOAuth {
         if applicationLayerProtocol == "ws" {
             return "http://\(domainName)"
         }
+        
         return "https://\(domainName)"
     }
     

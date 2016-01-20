@@ -119,9 +119,7 @@ public class DDPClient: NSObject {
     
     public var delegate:SwiftDDPDelegate?
     public var logLevel = XCGLogger.LogLevel.Debug
-    
-    public var loginServiceConfiguration:[String:[String:String]] = [:]
-    
+        
     internal override init() {
         super.init()
         setLogLevel(logLevel)
@@ -252,15 +250,6 @@ public class DDPClient: NSObject {
         case .Added: documentQueue.addOperationWithBlock() {
             if let collection = message.collection,
                 let id = message.id {
-                    
-                    // Intercept login service configuration messages and store in property
-                    if collection == "meteor_accounts_loginServiceConfiguration" {
-                        if let fields = message.fields,
-                            service = fields["service"] {
-                                self.loginServiceConfiguration[service as! String] = fields as? [String : String]
-                        }
-                    }
-                    
                     self.documentWasAdded(collection, id: id, fields: message.fields)
             }
             }
