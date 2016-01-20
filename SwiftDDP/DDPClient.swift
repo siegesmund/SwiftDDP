@@ -365,11 +365,9 @@ public class DDPClient: NSObject {
         self.subscriptions[id] = (id, name, false)
         let message = ["msg":"sub", "name":name, "id":id] as NSMutableDictionary
         if let p = params { message["params"] = p }
-        
         userBackground.addOperationWithBlock() {
             self.sendMessage(message)
         }
-        
         return id
     }
     
