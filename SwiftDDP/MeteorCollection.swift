@@ -130,7 +130,6 @@ public class MeteorCollection<T:MeteorDocument>: AbstractCollection {
             document.update(fields, cleared: cleared)
             self.documents[id] = document
             collectionSetDidChange()
-
         }
     }
     

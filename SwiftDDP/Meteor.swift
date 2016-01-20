@@ -58,10 +58,7 @@ public class Meteor {
     */
     
     public static func collection(name:String) -> MeteorCollectionType? {
-        if let meteorCollection = collections[name] {
-            return meteorCollection
-        }
-        return nil
+        return collections[name]
     }
     
     /**
