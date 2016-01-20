@@ -34,73 +34,56 @@ public class MeteorOAuthServices {
     
     }
     
-    public static func facebook() -> String? {
+    public static func facebook(appId: String) -> String {
         
-        // packages/facebook/facebook_client.js 33
-        if let facebook = Meteor.client.loginServiceConfiguration["facebook"],
-            let appId = facebook["appId"] {
-            
-                let token = randomBase64String()
-                let httpUrl = MeteorOAuth.httpUrl
-                let redirect = "\(httpUrl)/_oauth/facebook"
-                let state = MeteorOAuth.stateParam(token, redirectUrl: redirect)
-                
-                let scope = "email"
-                
-                var url = "https://m.facebook.com/v2.2/dialog/oauth?client_id=\(appId)"
-                url += "&redirect_uri=\(redirect)"
-                url += "&scope=\(scope)"
-                url += "&state=\(state)"
-                
-                return url
-        }
+        let token = randomBase64String()
+        let httpUrl = MeteorOAuth.httpUrl
+        let redirect = "\(httpUrl)/_oauth/facebook"
+        let state = MeteorOAuth.stateParam(token, redirectUrl: redirect)
         
-        return nil
+        let scope = "email"
+        
+        var url = "https://m.facebook.com/v2.2/dialog/oauth?client_id=\(appId)"
+        url += "&redirect_uri=\(redirect)"
+        url += "&scope=\(scope)"
+        url += "&state=\(state)"
+        
+        return url
+      
     }
     
-    public static func github() -> String? {
+    public static func github(clientId: String) -> String {
         
-        if let github = Meteor.client.loginServiceConfiguration["github"],
-            let clientId = github["clientId"] {
-                
-                let token = randomBase64String()
-                let httpUrl = MeteorOAuth.httpUrl
-                let redirect = "\(httpUrl)/_oauth/github"
-                let state = MeteorOAuth.stateParam(token, redirectUrl: redirect)
-                
-                let scope = "user:email"
-                
-                var url = "https://github.com/login/oauth/authorize?client_id=\(clientId)"
-                url += "&redirect_uri=\(redirect)"
-                url += "&scope=\(scope)"
-                url += "&state=\(state)"
-                
-                return url
-        }
+        let token = randomBase64String()
+        let httpUrl = MeteorOAuth.httpUrl
+        let redirect = "\(httpUrl)/_oauth/github"
+        let state = MeteorOAuth.stateParam(token, redirectUrl: redirect)
         
-        return nil
+        let scope = "user:email"
+        
+        var url = "https://github.com/login/oauth/authorize?client_id=\(clientId)"
+        url += "&redirect_uri=\(redirect)"
+        url += "&scope=\(scope)"
+        url += "&state=\(state)"
+        
+        return url
+    }
+    
+    public static func google(clientId: String) -> String {
+        
+        let token = randomBase64String()
+        let httpUrl = MeteorOAuth.httpUrl
+        let redirect = "\(httpUrl)/_oauth/google"
+        let state = MeteorOAuth.stateParam(token, redirectUrl: redirect)
 
-    }
-    
-    public static func google() -> String? {
+        let scope = "email"
         
-        if let google = Meteor.client.loginServiceConfiguration["google"],
-            let clientId = google["clientId"] {
-                let token = randomBase64String()
-                let httpUrl = MeteorOAuth.httpUrl
-                let redirect = "\(httpUrl)/_oauth/google"
-                let state = MeteorOAuth.stateParam(token, redirectUrl: redirect)
+        var url = "https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=\(clientId)"
+        url += "&redirect_uri=\(redirect)"
+        url += "&scope=\(scope)"
+        url += "&state=\(state)"
         
-                let scope = "email"
-                
-                var url = "https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=\(clientId)"
-                url += "&redirect_uri=\(redirect)"
-                url += "&scope=\(scope)"
-                url += "&state=\(state)"
-                
-                return url
-        }
-        return nil
+        return url
     }
 
 
