@@ -77,7 +77,7 @@ class ViewController: UIViewController {
 ```
 #### Gotchas and implementation notes for OAuth login flows
 When configuring OAuth services 
-* If you connect over wss (as you should), then you must provide a https:// app url and redirect url to the service provider. If you connect over ws, you must similarly use http:// for your app url and redirect url. In other words, you can't mix the two.  
+* If you connect over wss (as you should), then you must provide a https:// app url and redirect url to the service provider. If you connect over ws, you must use http:// for your app url and redirect url. In other words, you can't mix the two.  
 * You'll need to choose redirect rather than popup in the Meteor OAuth configuration dialog
 * Once configured, Meteor provides the appId/clientId via the "meteor.loginServiceConfiguration" publication, which SwiftDDP automatically subscribes to. However, SwiftDDP currently requires that you explicitly provide the appId as this allows the user to begin logging in immediately, rather than waiting for the initial batch of subscriptions to finish.
 
