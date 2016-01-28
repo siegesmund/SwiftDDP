@@ -17,6 +17,9 @@ class Lists: UITableViewController {
     
     var collection:MeteorCollection = (UIApplication.sharedApplication().delegate as! AppDelegate).lists
     
+    /// initialize with collection name
+    var listAbstractCollection = ListAbstractCollection("lists")
+    
     @IBOutlet weak var loginButton: UIBarButtonItem!
     
     @IBAction func loginButtonWasClicked(sender: UIBarButtonItem) {
