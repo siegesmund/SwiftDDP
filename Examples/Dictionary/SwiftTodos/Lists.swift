@@ -15,7 +15,7 @@ public class ListCell:UITableViewCell {
 
 class Lists: UITableViewController {
     
-    var collection:MeteorCollection = (UIApplication.sharedApplication().delegate as! AppDelegate).lists
+    var collection:MeteorCollection<List> = (UIApplication.sharedApplication().delegate as! AppDelegate).lists
     
     @IBOutlet weak var loginButton: UIBarButtonItem!
     

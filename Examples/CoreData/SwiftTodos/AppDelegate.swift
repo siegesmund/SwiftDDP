@@ -22,8 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         
         
         Meteor.client.logLevel = .Debug
-        // let url = "wss://todos.meteor.com/websocket"
-        let url = "wss://meteor-ios-todos.meteor.com/websocket"
+        let url = "wss://todos.meteor.com/websocket"
+        // let url = "wss://meteor-ios-todos.meteor.com/websocket"
         
         Meteor.connect(url) {
             Meteor.subscribe("publicLists")

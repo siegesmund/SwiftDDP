@@ -9,7 +9,7 @@
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "0251522F-A4A6-45EF-B623-B26D93D26E6A",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F" : "SwiftDDP\/",
+    "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F" : "SwiftDDP\/Examples\/Dictionary\/SwiftDDP\/",
     "CD1557C3AE966BEDF3490D85F9712687801B146C" : "SwiftDDP\/Examples\/Dictionary\/XCGLogger\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "SwiftTodos",
@@ -18,6 +18,11 @@
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/siegesmund\/SwiftDDP.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/siegesmund\/SwiftDDP",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F"
     },

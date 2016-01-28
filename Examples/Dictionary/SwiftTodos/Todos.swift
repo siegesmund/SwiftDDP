@@ -11,7 +11,7 @@ public class TodoCell:UITableViewCell {
 
 class Todos: UITableViewController {
     
-    let collection:MeteorCollection = (UIApplication.sharedApplication().delegate as! AppDelegate).todos
+    let collection:MeteorCollection<Todo> = (UIApplication.sharedApplication().delegate as! AppDelegate).todos
     let listsCollection = (UIApplication.sharedApplication().delegate as! AppDelegate).lists
     
     var listId:String? {
