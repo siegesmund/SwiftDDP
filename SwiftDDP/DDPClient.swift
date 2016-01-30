@@ -118,7 +118,7 @@ public class DDPClient: NSObject {
     internal var connection:(ddp:Bool, session:String?) = (false, nil)
     
     public var delegate:SwiftDDPDelegate?
-    public var logLevel = XCGLogger.LogLevel.Debug
+    public var logLevel = XCGLogger.LogLevel.None
         
     internal override init() {
         super.init()
@@ -202,7 +202,8 @@ public class DDPClient: NSObject {
      */
     
     public func setLogLevel(logLevel:XCGLogger.LogLevel) {
-        log.setup(logLevel, showLogIdentifier: true, showFunctionName: true, showThreadName: true, showLogLevel: true, showFileNames: false, showLineNumbers: true, showDate: false, writeToFile: nil, fileLogLevel: .None)
+        self.logLevel = logLevel
+        log.setup(self.logLevel, showLogIdentifier: true, showFunctionName: true, showThreadName: true, showLogLevel: true, showFileNames: false, showLineNumbers: true, showDate: false, writeToFile: nil, fileLogLevel: .None)
     }
     
     private func ping() {
