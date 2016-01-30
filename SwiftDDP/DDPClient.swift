@@ -123,7 +123,6 @@ public class DDPClient: NSObject {
     internal override init() {
         super.init()
         setLogLevel(logLevel)
-        print("Mark - SwiftDDP")
     }
     
     /**
@@ -307,7 +306,6 @@ public class DDPClient: NSObject {
     }
     
     private func sendMessage(message:NSDictionary) {
-        print("sendMessage message: \(message)")
         if let m = message.stringValue() {
             self.socket.send(m)
         }
@@ -462,7 +460,7 @@ public class DDPClient: NSObject {
     
     private func nosub(id: String, error: DDPError?) {
         if let e = error where (e.isValid == true) {
-            print(e)
+            log.error("\(e)")
         } else {
             if let completion = unsubCallbacks[id],
                 let _ = subscriptions[id] {
