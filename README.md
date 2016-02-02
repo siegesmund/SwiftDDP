@@ -1,4 +1,4 @@
-# SwiftDDP: A DDP Client for Meteor written in Swift
+# SwiftDDP: A client for Meteor servers, written in Swift
 
 #### License
 MIT  
