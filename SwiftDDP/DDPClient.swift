@@ -107,12 +107,7 @@ public class DDPClient: NSObject {
     private var socket:WebSocket!{
         didSet{ socket.allowSelfSignedSSL = self.allowSelfSignedSSL }
     }
-    public var allowSelfSignedSSL:Bool = false {
-        didSet{
-        guard let currentSocket = socket else { return }
-        currentSocket.allowSelfSignedSSL = allowSelfSignedSSL
-        }
-    }
+    
     private var server:(ping:NSDate?, pong:NSDate?) = (nil, nil)
     
     internal var resultCallbacks:[String:Completion] = [:]
@@ -126,16 +121,39 @@ public class DDPClient: NSObject {
     internal var connection:(ddp:Bool, session:String?) = (false, nil)
     
     public var delegate:SwiftDDPDelegate?
-    public var logLevel = XCGLogger.LogLevel.None
-        
-    internal override init() {
-        super.init()
-        setLogLevel(logLevel)
+    
+
+    // MARK: Settings
+    
+    /**
+    Boolean value that determines whether the
+    */
+    
+    public var allowSelfSignedSSL:Bool = false {
+        didSet{
+            guard let currentSocket = socket else { return }
+            currentSocket.allowSelfSignedSSL = allowSelfSignedSSL
+        }
     }
     
     /**
-     Creates a random String id
-     */
+    Sets the log level. The default value is .None.
+    Possible values: .Verbose, .Debug, .Info, .Warning, .Error, .Severe, .None
+    */
+    
+    public var logLevel = XCGLogger.LogLevel.None {
+        didSet {
+            log.setup(logLevel, showLogIdentifier: true, showFunctionName: true, showThreadName: true, showLogLevel: true, showFileNames: false, showLineNumbers: true, showDate: false, writeToFile: nil, fileLogLevel: .None)
+        }
+    }
+    
+    internal override init() {
+        super.init()
+    }
+    
+    /**
+    Creates a random String id
+    */
     
     public func getId() -> String {
         let numbers = Set<Character>(["0","1","2","3","4","5","6","7","8","9"])
@@ -200,17 +218,6 @@ public class DDPClient: NSObject {
                 }
             }
         }
-    }
-    
-    /**
-     Sets the XCGLogger loglevel.
-     
-     - parameter logLevel:   An XCGLogger LogLevel enum value, ex. .Info, .Debug, .Error
-     */
-    
-    public func setLogLevel(logLevel:XCGLogger.LogLevel) {
-        self.logLevel = logLevel
-        log.setup(self.logLevel, showLogIdentifier: true, showFunctionName: true, showThreadName: true, showLogLevel: true, showFileNames: false, showLineNumbers: true, showDate: false, writeToFile: nil, fileLogLevel: .None)
     }
     
     private func ping() {
