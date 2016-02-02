@@ -104,7 +104,15 @@ public class DDPClient: NSObject {
         return queue
     }()
     
-    private var socket:WebSocket!
+    private var socket:WebSocket!{
+        didSet{ socket.allowSelfSignedSSL = self.allowSelfSignedSSL }
+    }
+    public var allowSelfSignedSSL:Bool = false {
+        didSet{
+        guard let currentSocket = socket else { return }
+        currentSocket.allowSelfSignedSSL = allowSelfSignedSSL
+        }
+    }
     private var server:(ping:NSDate?, pong:NSDate?) = (nil, nil)
     
     internal var resultCallbacks:[String:Completion] = [:]
