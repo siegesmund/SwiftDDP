@@ -182,13 +182,18 @@ public class DDPClient: NSObject {
         let executionQueue = NSOperationQueue.currentQueue()
         
         socket = WebSocket(url)
+        //Create backoff
+        let backOff:DDPExponentialBackoff = DDPExponentialBackoff()
         
         socket.event.close = {code, reason, clean in
-            log.info("Web socket connection closed with code \(code). Clean: \(clean). \(reason)")
-            let event = self.socket.event
-            self.socket = WebSocket(url)
-            self.socket.event = event
-            self.ping()
+            //Use backoff to slow reconnection retries
+            backOff.createBackoff({
+                log.info("Web socket connection closed with code \(code). Clean: \(clean). \(reason)")
+                let event = self.socket.event
+                self.socket = WebSocket(url)
+                self.socket.event = event
+                self.ping()
+            })
         }
         
         socket.event.error = events.onWebsocketError
@@ -204,6 +209,8 @@ public class DDPClient: NSObject {
                 }
                 
                 var completion = Completion(callback: callbackWithServiceConfiguration)
+                //Reset the backoff to original values
+                backOff.reset()
                 completion.executionQueue = executionQueue
                 self.events.onConnected = completion
                 self.sendMessage(["msg":"connect", "version":"1", "support":["1"]])
