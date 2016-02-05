@@ -107,7 +107,16 @@ public class DDPClient: NSObject {
     private var socket:WebSocket!{
         didSet{ socket.allowSelfSignedSSL = self.allowSelfSignedSSL }
     }
+<<<<<<< Updated upstream
     
+=======
+    public var allowSelfSignedSSL:Bool = false {
+        didSet{
+        guard let currentSocket = socket else { return }
+        currentSocket.allowSelfSignedSSL = allowSelfSignedSSL
+        }
+    }
+>>>>>>> Stashed changes
     private var server:(ping:NSDate?, pong:NSDate?) = (nil, nil)
     
     internal var resultCallbacks:[String:Completion] = [:]
