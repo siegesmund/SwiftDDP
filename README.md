@@ -8,8 +8,14 @@ MIT
 [![License](https://img.shields.io/cocoapods/l/SwiftDDP.svg?style=flat)](http://cocoapods.org/pods/SwiftDDP)
 [![Platform](https://img.shields.io/cocoapods/p/SwiftDDP.svg?style=flat)](http://cocoapods.org/pods/SwiftDDP)
 
-### New in version 0.2.0
-Integration with Meteor's Facebook, Twitter & other login services.
+## Changelog
+### 0.2.1:
+- Reconnection behavior improvements: reconnect attempts now follow an exponential backoff pattern
+- Client now connects to servers using self signed SSL certificates when allowSelfSignedSSL is set to true
+- The loglevel can now be set directly using the logLevel property on the client
+
+### 0.2.0: 
+- Integration with Meteor's Facebook, Twitter & other login services.
 
 
 ## Installation
