@@ -12,7 +12,7 @@ MIT
 ### 0.2.1:
 - Reconnection behavior improvements: reconnect attempts now follow an exponential backoff pattern
 - Client now connects to servers using self signed SSL certificates when allowSelfSignedSSL is set to true
-- The loglevel can now be set directly using the logLevel property on the client
+- The loglevel can now be set directly using the logLevel property on the client. The default setting is .None
 
 ### 0.2.0: 
 - Integration with Meteor's Facebook, Twitter & other login services.
@@ -37,10 +37,18 @@ pod "SwiftDDP", "~> 0.2.0"
 
 ### Quick Start
 
+#### Setting basic configuration options
+```swift
+import SwiftDDP
+
+Meteor.client.allowSelfSignedSSL = true     // Connect to a server that uses a self signed ssl certificate 
+Meteor.client.logLevel = .Info              // Options are: .Verbose, .Debug, .Info, .Warning, .Error, .Severe, .None
+```
+
+
 #### Connecting to a Meteor server
 
 ```swift
-import SwiftDDP 
 
 // Meteor.connect will automatically connect and will sign in using
 // a stored login token if the client was previously signed in.
