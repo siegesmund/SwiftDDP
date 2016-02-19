@@ -289,7 +289,7 @@ class UserCollection: AbstractCollection {
     } 
 }
 ```
-The key parts of this method are 
+The key parts of this method are: 
 - 1 save the new contact to the array we created in UserCollection 
 - 2 invoke client.insert to initiate an insert on the server, and 
 - 3 remove the contact from the local store if the client rejects the insert
