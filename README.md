@@ -290,9 +290,9 @@ class UserCollection: AbstractCollection {
 }
 ```
 The key parts of this method are: 
-- 1 save the new contact to the array we created in UserCollection 
-- 2 invoke client.insert to initiate an insert on the server 
-- 3 remove the contact from the local store if the server rejects the insert
+- (1) save the new contact to the array we created in UserCollection 
+- (2) invoke client.insert to initiate an insert on the server 
+- (3) remove the contact from the local store if the server rejects the insert
 
 Creating update and remove methods are also easy to create, and follow the same patern as insert. For a more extensive example of the patterns shown here, have a look at [MeteorCollection.swift](https://github.com/siegesmund/SwiftDDP/blob/master/SwiftDDP/MeteorCollection.swift). MeteorCollection is an in-memory collection implementation suitable for simple applications. 
 
