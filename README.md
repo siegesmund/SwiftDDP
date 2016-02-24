@@ -23,13 +23,13 @@ MIT
 Install using [Carthage](https://github.com/Carthage/Carthage) by adding the following line to your Cartfile:
 
 ```ruby
-github "siegesmund/SwiftDDP" ~> 0.2.0
+github "siegesmund/SwiftDDP" ~> 0.2.1
 ```
 
 Or, use [CocoaPods](http://cocoapods.org). Add the following line to your Podfile:
 
 ```ruby
-pod "SwiftDDP", "~> 0.2.0"
+pod "SwiftDDP", "~> 0.2.1"
 ```
 
 ## Documentation
@@ -200,8 +200,6 @@ In this example, we'll create a simple collection to hold a list of contacts. Th
 
 ```swift
 
-var contacts = [Contact]()
-
 struct Contact {
     
     var _id:String?
@@ -236,6 +234,8 @@ Next, we'll create the collection class that will hold our contacts and provide 
 ```swift
 class UserCollection: AbstractCollection {
     
+    var contacts = [Contact]()
+
     // Include any logic that needs to occur when a document is added to the collection on the server
     override public func documentWasAdded(collection:String, id:String, fields:NSDictionary?) {
         let user = User(id, fields)
@@ -259,3 +259,40 @@ class UserCollection: AbstractCollection {
     }
 }
 ```
+So far, we're able to process documents that have been added, changed or removed on the server. But the UserCollection class still lacks the ability to make changes to both the local datastore and on the server. We'll change that. In the UserCollection class, create a method called insert.
+
+```swift
+class UserCollection: AbstractCollection {
+    /*
+    override public func documentWasAdded ...
+    override public func documentWasChanged ...
+    override public func documentWasRemoved ...
+    */
+    
+    public func insert(contact: Contact) {
+
+        // (1) save the document to the contacts array
+        contacts[contacts._id] = contact
+        
+        // (2) now try to insert the document on the server
+        client.insert(self.name, document: [contacts.fields()]) { result, error in
+            
+            // (3) However, if the server returns an error, reverse the action on the client by 
+            //     removing the document from the contacts collection
+            if error != nil {
+                self.contacts[contact._id] = nil
+                log.error("\(error!)")
+            }
+
+        }
+        
+    } 
+}
+```
+The key parts of this method are: 
+- (1) save the new contact to the array we created in UserCollection 
+- (2) invoke client.insert to initiate an insert on the server 
+- (3) remove the contact from the local store if the server rejects the insert
+
+Creating update and remove methods are also easy to create, and follow the same patern as insert. For a more extensive example of the patterns shown here, have a look at [MeteorCollection.swift](https://github.com/siegesmund/SwiftDDP/blob/master/SwiftDDP/MeteorCollection.swift). MeteorCollection is an in-memory collection implementation suitable for simple applications. 
+
