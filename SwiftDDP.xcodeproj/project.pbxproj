@@ -35,7 +35,6 @@
 		D0D724681C4E7FBA00EE91DC /* MeteorOAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D724631C4E7FBA00EE91DC /* MeteorOAuth.swift */; };
 		D0D7247A1C4E8A5800EE91DC /* MeteorOAuthServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D724791C4E8A5800EE91DC /* MeteorOAuthServices.swift */; };
 		D0F6C99D1BFFA04600A6CB70 /* EJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F6C99C1BFFA04600A6CB70 /* EJSON.swift */; };
-		D0FF18111C4FE4070055AD7C /* todo.md in Sources */ = {isa = PBXBuildFile; fileRef = D0FF18101C4FE4070055AD7C /* todo.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,7 +118,6 @@
 		D0E9DFEB1C359535005D92FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0F6C9191BFE97BC00A6CB70 /* Dollar.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Dollar.xcodeproj; path = Dollar.swift/Dollar/Dollar.xcodeproj; sourceTree = "<group>"; };
 		D0F6C99C1BFFA04600A6CB70 /* EJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EJSON.swift; sourceTree = "<group>"; };
-		D0FF18101C4FE4070055AD7C /* todo.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = todo.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,7 +190,6 @@
 				D0D724791C4E8A5800EE91DC /* MeteorOAuthServices.swift */,
 				D0F6C99C1BFFA04600A6CB70 /* EJSON.swift */,
 				D02A71E11BBEFBCA00940C17 /* Info.plist */,
-				D0FF18101C4FE4070055AD7C /* todo.md */,
 			);
 			path = SwiftDDP;
 			sourceTree = "<group>";
@@ -431,7 +428,6 @@
 				D04D0DB91C21D489000244D6 /* MeteorDocument.swift in Sources */,
 				D0D724671C4E7FBA00EE91DC /* MeteorOAuthViewController.swift in Sources */,
 				D02A72121BBEFCD300940C17 /* DDPExtensions.swift in Sources */,
-				D0FF18111C4FE4070055AD7C /* todo.md in Sources */,
 				D0D724681C4E7FBA00EE91DC /* MeteorOAuth.swift in Sources */,
 				6FFFCBC71C64352300C147F2 /* DDPExponentialBackoff.swift in Sources */,
 				D0C71B561BC172F40089B6CE /* Meteor.swift in Sources */,
