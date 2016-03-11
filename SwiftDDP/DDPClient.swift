@@ -204,7 +204,13 @@ public class DDPClient: NSObject {
                 // Add a subscription to loginServices to each connection event
                 let callbackWithServiceConfiguration = { (session:String) in
                     // let loginServicesSubscriptionCollection = "meteor_accounts_loginServiceConfiguration"
-                    self.sub("meteor.loginServiceConfiguration", params: nil)           // /tools/meteor-services/auth.js line 922
+                    let loginServiceConfiguration = "meteor.loginServiceConfiguration"
+                    self.sub(loginServiceConfiguration, params: nil)           // /tools/meteor-services/auth.js line 922
+                    self.subscriptions.forEach({ (subscription: (String, (id: String, name: String, ready: Bool))) -> () in
+                        if subscription.1.name != loginServiceConfiguration {
+                            self.sub(subscription.1.id, name: subscription.1.name, params: nil, callback: nil)
+                        }
+                    })
                     callback?(session: session)
                 }
                 
