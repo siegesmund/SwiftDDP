@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   s.version          = "0.2.2"
   s.summary          = "A DDP Client for communicating with Meteor servers, written in Swift. Supports OAuth login with Facebook, Google, Twitter & Github."
 
-  s.description      = <<-DESC "A DDP Client for communicating with DDP Servers (Meteor JS), written in Swift"
+  s.description      = <<-DESC "A DDP Client for communicating with DDP Servers (Meteor JS), written in Swift. Supports OAuth authentication with Facebook, Google, Twitter & Github."
                        DESC
 
   s.homepage         = "https://github.com/siegesmund/SwiftDDP"
@@ -18,6 +18,6 @@ Pod::Spec.new do |s|
 
   s.dependency 'CryptoSwift', '~> 0.3'
   s.dependency 'SwiftWebSocket', '~> 2.6.0'
-  s.dependency 'XCGLogger', '~> Version_3.2'
+  s.dependency 'XCGLogger'
 
 end
