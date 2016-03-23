@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "SwiftDDP"
-  s.version          = "0.2.1"
+  s.version          = "0.2.2"
   s.summary          = "A DDP Client for communicating with Meteor servers, written in Swift. Supports OAuth login with Facebook, Google, Twitter & Github."
 
   s.description      = <<-DESC "A DDP Client for communicating with DDP Servers (Meteor JS), written in Swift"
@@ -16,8 +16,8 @@ Pod::Spec.new do |s|
   s.platform = :ios, '8.1'
   s.source_files = 'SwiftDDP/**/*.swift'
 
-  s.dependency 'CryptoSwift'
-  s.dependency 'SwiftWebSocket'
-  s.dependency 'XCGLogger'
+  s.dependency 'CryptoSwift', '~> 0.3'
+  s.dependency 'SwiftWebSocket', '~> 2.6.0'
+  s.dependency 'XCGLogger', '~> Version_3.2'
 
 end
