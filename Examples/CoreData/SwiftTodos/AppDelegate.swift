@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         
         
         Meteor.client.logLevel = .Debug
-        let url = "wss://todos.meteor.com/websocket"
+        let url = "ws://localhost:3000/websocket"
         // let url = "wss://meteor-ios-todos.meteor.com/websocket"
         
         Meteor.connect(url) {
