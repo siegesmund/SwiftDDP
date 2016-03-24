@@ -24,10 +24,10 @@ MIT
 
 ## Installation
 
-Install using [Carthage](https://github.com/Carthage/Carthage) by adding the following line to your Cartfile:
+With [CocoaPods](http://cocoapods.org): Add the following line to your Podfile:
 
 ```ruby
-github "siegesmund/SwiftDDP" ~> 0.2.2
+pod "SwiftDDP", "~> 0.2.2"
 ```
 
 ## Documentation
