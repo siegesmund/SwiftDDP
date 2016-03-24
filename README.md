@@ -19,12 +19,12 @@ MIT
 - The loglevel can now be set directly using the logLevel property on the client. The default setting is .None
 
 ### 0.2.0: 
-- Integration with Meteor's Facebook, Twitter & other login services.
+- Integration with Meteor's Facebook, Twitter & other login services
 
 
 ## Installation
 
-With [CocoaPods](http://cocoapods.org): Add the following line to your Podfile:
+With [CocoaPods](http://cocoapods.org). Add the following line to your Podfile:
 
 ```ruby
 pod "SwiftDDP", "~> 0.2.2"
