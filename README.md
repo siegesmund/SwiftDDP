@@ -9,7 +9,7 @@ MIT
 [![Platform](https://img.shields.io/cocoapods/p/SwiftDDP.svg?style=flat)](http://cocoapods.org/pods/SwiftDDP)
 
 ## Changelog
-### 0.2.2: 
+### 0.2.2:
 - Improved subscription handling across app states
 - Dependencies updated for Swift 2.2
 
@@ -18,7 +18,7 @@ MIT
 - Client now connects to servers using self signed SSL certificates when allowSelfSignedSSL is set to true
 - The loglevel can now be set directly using the logLevel property on the client. The default setting is .None
 
-### 0.2.0: 
+### 0.2.0:
 - Integration with Meteor's Facebook, Twitter & other login services
 
 
@@ -39,7 +39,7 @@ pod "SwiftDDP", "~> 0.2.2"
 ```swift
 import SwiftDDP
 
-Meteor.client.allowSelfSignedSSL = true     // Connect to a server that uses a self signed ssl certificate 
+Meteor.client.allowSelfSignedSSL = true     // Connect to a server that uses a self signed ssl certificate
 Meteor.client.logLevel = .Info              // Options are: .Verbose, .Debug, .Info, .Warning, .Error, .Severe, .None
 ```
 
@@ -62,25 +62,25 @@ These services use the standard Meteor accounts packages. Just add the appropria
 In your iOS app, create a UIButton and associate its' action with the appropriate Meteor login method. That's it!
 ```swift
 class ViewController: UIViewController {
-    
-    // client id is the id that Facebook, Google etc. assigns your app. 
+
+    // client id is the id that Facebook, Google etc. assigns your app.
     let GITHUB_CLIENT_ID = "1234567890"
     let FACEBOOK_CLIENT_ID = "qwertyuiop"
     let GOOGLE_CLIENT_ID = "asdfghjkl"
-    
+
     // Note that Twitter does not require a client id
     @IBAction func loginWithTwitterWasClicked(sender: UIButton) {
         Meteor.loginWithTwitter(self)
     }
-    
+
     @IBAction func loginWithFacebookWasClicked(sender: UIButton) {
         Meteor.loginWithFacebook(FACEBOOK_CLIENT_ID, viewController: self)
     }
-    
+
     @IBAction func loginWithGoogleWasClicked(sender: UIButton) {
         Meteor.loginWithGoogle(GOOGLE_CLIENT_ID, viewController: self)
     }
-    
+
     @IBAction func loginWithGithubWasClicked(sender: UIButton) {
         Meteor.loginWithGithub(GITHUB_CLIENT_ID, viewController: self)
     }
@@ -88,22 +88,37 @@ class ViewController: UIViewController {
 
 ```
 #### Gotchas and implementation notes for OAuth login flows
-When configuring OAuth services 
+When configuring OAuth services
 * If you connect over wss (as you should), then you must provide a https:// app url and redirect url to the service provider. If you connect over ws, you must use http:// for your app url and redirect url. In other words, you can't mix the two.  
 * You'll need to choose redirect rather than popup in the Meteor OAuth configuration dialog
 * Once configured, Meteor provides the appId/clientId via the "meteor.loginServiceConfiguration" publication, which SwiftDDP automatically subscribes to. However, SwiftDDP currently requires that you explicitly provide the appId as this allows the user to begin logging in immediately, rather than waiting for the initial batch of subscriptions to finish.
 
 #### Login & Logout with password
 
+Login using email and password.
+
 ```swift
-Meteor.loginWithPassword("user@swiftddp.com", password: "********") { result, error in 
+Meteor.loginWithPassword("user@swiftddp.com", password: "********") { result, error in
     // do something after login
 }
+```
 
-Meteor.logout() { result, error in 
+Login using username and password.
+
+```swift
+Meteor.loginWithUsername("swiftddp", password: "********") { result, error in
+    // do something after login
+}
+```
+
+Log out.
+
+```swift
+Meteor.logout() { result, error in
     // do something after logout
 }
-``` 
+
+```
 The client also posts a notification when the user signs in and signs out.
 
 ```swift
@@ -127,7 +142,7 @@ func userDidLogout() {
 #### Subscribe to a subset of a collection on the server
 
 ```swift
-Meteor.subscribe("todos") 
+Meteor.subscribe("todos")
 
 Meteor.subscribe("todos") {
     // Do something when the todos subscription is ready
@@ -135,7 +150,7 @@ Meteor.subscribe("todos") {
 
 Meteor.subscribe("todos", [1,2,3,4]) {
     // Do something when the todos subscription is ready
-} 
+}
 ```
 
 #### Call a method on the server
@@ -148,11 +163,11 @@ Meteor.call("foo", [1, 2, 3, 4]) { result, error in
 When passing parameters to a server method, the parameters object must be serializable with NSJSONSerialization
 
 #### Simple in-memory persistence
-SwiftDDP includes a class called MeteorCollection that provides simple, ephemeral dictionary backed persistence. MeteorCollection stores objects subclassed from MeteorDocument. Creating a collection is as simple as: 
+SwiftDDP includes a class called MeteorCollection that provides simple, ephemeral dictionary backed persistence. MeteorCollection stores objects subclassed from MeteorDocument. Creating a collection is as simple as:
 
 ```swift
 class List: MeteorDocument {
-    
+
     var collection:String = "lists"
     var name:String?
     var userId:String?
@@ -160,7 +175,7 @@ class List: MeteorDocument {
 }
 
 let lists = MeteorCollection<List>(name: "lists")   // As with Meteorjs, the name is the name of the server-side collection  
-Meteor.subscribe("lists") 
+Meteor.subscribe("lists")
 ```
 For client side insertions, updates and removals:
 
@@ -181,7 +196,7 @@ For each operation the action is executed on the client, and rolled back if the 
 
 ## Example Projects
 #### Todos
-These are iOS implementations of [Meteor's Todos example](https://www.meteor.com/todos). The best way to run the examples is to connect to a local instance of Meteor's Todos app: ``` meteor create --example todos && cd todos && meteor ```. You can specify the server that the Todos app connects to by changing the url variable in AppDelegate.swift. There are currently two flavors: a simple example with dictionary based persistence and an example showing how to use SwiftDDP with Core Data and NSFetchedResultsController. 
+These are iOS implementations of [Meteor's Todos example](https://www.meteor.com/todos). The best way to run the examples is to connect to a local instance of Meteor's Todos app: ``` meteor create --example todos && cd todos && meteor ```. You can specify the server that the Todos app connects to by changing the url variable in AppDelegate.swift. There are currently two flavors: a simple example with dictionary based persistence and an example showing how to use SwiftDDP with Core Data and NSFetchedResultsController.
 - [Meteor Todos with dictionary based in-memory storage](https://github.com/siegesmund/SwiftDDP/tree/master/Examples/Dictionary)
 - [Meteor Todos Core Data integration](https://github.com/siegesmund/SwiftDDP/tree/master/Examples/CoreData)
 
@@ -199,27 +214,27 @@ In this example, we'll create a simple collection to hold a list of contacts. Th
 ```swift
 
 struct Contact {
-    
+
     var _id:String?
     var name:String?
     var phone:String?
     var email:String?
-    
+
     init(id:String, fields:NSDictionary?) {
         self._id = id
         update(fields)
     }
 
     mutating func update(fields:NSDictionary?) {
-    
+
         if let name = fields?.valueForKey("name") as? String {
             self.name = name
         }
-  
+
         if let phone = fields?.valueForKey("phone") as? String {
             self.phone = phone
         }
-  
+
         if let email = fields?.valueForKey("email") as? String {
             self.email = email
         }
@@ -231,7 +246,7 @@ Next, we'll create the collection class that will hold our contacts and provide 
 
 ```swift
 class UserCollection: AbstractCollection {
-    
+
     var contacts = [Contact]()
 
     // Include any logic that needs to occur when a document is added to the collection on the server
@@ -245,7 +260,7 @@ class UserCollection: AbstractCollection {
         if let index = contacts.indexOf({ contact in return contact._id == id }) {
             contact = contacts[index]
             contact.update(fields)
-            contacts[index] = contact	
+            contacts[index] = contact
         }
     }
 
@@ -266,16 +281,16 @@ class UserCollection: AbstractCollection {
     override public func documentWasChanged ...
     override public func documentWasRemoved ...
     */
-    
+
     public func insert(contact: Contact) {
 
         // (1) save the document to the contacts array
         contacts[contacts._id] = contact
-        
+
         // (2) now try to insert the document on the server
         client.insert(self.name, document: [contacts.fields()]) { result, error in
-            
-            // (3) However, if the server returns an error, reverse the action on the client by 
+
+            // (3) However, if the server returns an error, reverse the action on the client by
             //     removing the document from the contacts collection
             if error != nil {
                 self.contacts[contact._id] = nil
@@ -283,14 +298,13 @@ class UserCollection: AbstractCollection {
             }
 
         }
-        
-    } 
+
+    }
 }
 ```
-The key parts of this method are: 
-- (1) save the new contact to the array we created in UserCollection 
-- (2) invoke client.insert to initiate an insert on the server 
+The key parts of this method are:
+- (1) save the new contact to the array we created in UserCollection
+- (2) invoke client.insert to initiate an insert on the server
 - (3) remove the contact from the local store if the server rejects the insert
 
-Creating update and remove methods are also easy to create, and follow the same patern as insert. For a more extensive example of the patterns shown here, have a look at [MeteorCollection.swift](https://github.com/siegesmund/SwiftDDP/blob/master/SwiftDDP/MeteorCollection.swift). MeteorCollection is an in-memory collection implementation suitable for simple applications. 
-
+Creating update and remove methods are also easy to create, and follow the same patern as insert. For a more extensive example of the patterns shown here, have a look at [MeteorCollection.swift](https://github.com/siegesmund/SwiftDDP/blob/master/SwiftDDP/MeteorCollection.swift). MeteorCollection is an in-memory collection implementation suitable for simple applications.
