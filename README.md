@@ -12,6 +12,7 @@ MIT
 ### 0.2.2: 
 - Improved subscription handling across app states
 - Dependencies updated for Swift 2.2
+
 ### 0.2.1:
 - Reconnection behavior improvements: reconnect attempts now follow an exponential backoff pattern
 - Client now connects to servers using self signed SSL certificates when allowSelfSignedSSL is set to true
