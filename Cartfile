@@ -1,5 +1,5 @@
 github "krzyzanowskim/CryptoSwift"
-// github "Quick/Nimble"            //Not building with Swift 2.2 
-// github "Quick/Quick"             //Not building with Swift 2.2
+# github "Quick/Nimble"            # Not building with Swift 2.2 
+# github "Quick/Quick"             # Not building with Swift 2.2
 github "tidwall/SwiftWebSocket"
 github "DaveWoodCom/XCGLogger"
