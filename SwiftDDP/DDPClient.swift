@@ -435,13 +435,17 @@ public class DDPClient: NSObject {
     //
     
     /**
-    Sends an unsubscribe request to the server.
+     Sends an unsubscribe request to the server.
+     - parameter name:       The name of the subscription
+     - parameter callback:   The closure to be executed when the server sends a 'ready' message
+     */
     
-    - parameter name:       The name of the subscription
-    */
-    
-    public func unsub(name: String) -> [String] {
-        return unsub(name, callback: nil)
+    public func unsub(withName name: String) -> [String] {
+        return findSubscription(name).map({id in
+            background.addOperationWithBlock() { self.sendMessage(["msg":"unsub", "id": id]) }
+            unsub(withId: id, callback: nil)
+            return id
+        })
     }
     
     /**
@@ -452,15 +456,6 @@ public class DDPClient: NSObject {
      - parameter name:       The name of the subscription
      - parameter callback:   The closure to be executed when the server sends a 'ready' message
      */
-    
-    public func unsub(name: String, callback: DDPCallback?) -> [String] {
-        return findSubscription(name).map({id in
-            print("UNSUBSCRIBING TO \(id)")
-            background.addOperationWithBlock() { self.sendMessage(["msg":"unsub", "id": id]) }
-            unsub(withId: id, callback: callback)
-            return id
-        })
-    }
     
     public func unsub(withId id: String, callback: DDPCallback?) {
         if let completionCallback = callback {
