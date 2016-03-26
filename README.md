@@ -9,7 +9,7 @@ MIT
 [![Platform](https://img.shields.io/cocoapods/p/SwiftDDP.svg?style=flat)](http://cocoapods.org/pods/SwiftDDP)
 
 ## Changelog
-### 0.2.2: 
+### 0.2.2.1: 
 - Improved subscription handling across app states
 - Dependencies updated for Swift 2.2
 
@@ -27,7 +27,7 @@ MIT
 With [CocoaPods](http://cocoapods.org). Add the following line to your Podfile:
 
 ```ruby
-pod "SwiftDDP", "~> 0.2.2"
+pod "SwiftDDP", "~> 0.2.2.1"
 ```
 
 ## Documentation
