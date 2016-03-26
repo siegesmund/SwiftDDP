@@ -107,7 +107,7 @@ public class Meteor {
     
     */
     
-    public static func unsubscribe(name:String) -> String? { return client.unsub(name) }
+    public static func unsubscribe(name:String) -> [String] { return client.unsub(name) }
     
     /**
     Sends an unsubscribe request to the server. If a callback is passed, the callback asynchronously
@@ -115,7 +115,7 @@ public class Meteor {
     
     */
     
-    public static func unsubscribe(name:String, callback:DDPCallback?) -> String? { return client.unsub(name, callback: callback) }
+    public static func unsubscribe(name:String, callback:DDPCallback?) -> [String] { return client.unsub(name, callback: callback) }
     
     /**
     Calls a method on the server. If a callback is passed, the callback is asynchronously
