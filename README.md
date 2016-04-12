@@ -38,31 +38,6 @@ MIT
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Changelog
-### 0.3.0:
-- Changed default subscription behavior
-- Added a method to sign a user in via username
-
-##### Version 0.3.0 contains breaking changes
-- You can now update a subscription by changing its parameters without first unsubscribing. This will subscribe the client to any documents associated with the new subscription and parameters. When you pass a new set of parameters to a subscription that you have previously subscribed to, you remain subscribed to any documents associated with that prior subscription.  
-- The subscription method returns an id. To unsubscribe to documents associated with a specific set of parameters, you must unsubscribe with this id.
-- Unsubscribing by name now works differently. When unsubscribing by name, you unsubscribe to any and all subscriptions with that name.
-- You can no longer pass a callback to ``unsubscribe(name:String)``. It now returns an array with the ids of the subscriptions you've unsubscribed to.
-
-### 0.2.2.1: 
-
-- Improved subscription handling across app states
-- Dependencies updated for Swift 2.2
-
-### 0.2.1:
-- Reconnection behavior improvements: reconnect attempts now follow an exponential backoff pattern
-- Client now connects to servers using self signed SSL certificates when allowSelfSignedSSL is set to true
-- The loglevel can now be set directly using the logLevel property on the client. The default setting is .None
-
-### 0.2.0:
-- Integration with Meteor's Facebook, Twitter & other login services
-
-
 ## Installation
 
 With [CocoaPods](http://cocoapods.org). Add the following line to your Podfile:
@@ -385,6 +360,31 @@ The key parts of this method are:
 - (3) remove the contact from the local store if the server rejects the insert
 
 Creating update and remove methods are also easy to create, and follow the same patern as insert. For a more extensive example of the patterns shown here, have a look at [MeteorCollection.swift](https://github.com/siegesmund/SwiftDDP/blob/master/SwiftDDP/MeteorCollection.swift). MeteorCollection is an in-memory collection implementation suitable for simple applications.
+
+
+## Changelog
+### 0.3.0:
+- Changed default subscription behavior
+- Added a method to sign a user in via username
+
+##### Version 0.3.0 contains breaking changes
+- You can now update a subscription by changing its parameters without first unsubscribing. This will subscribe the client to any documents associated with the new subscription and parameters. When you pass a new set of parameters to a subscription that you have previously subscribed to, you remain subscribed to any documents associated with that prior subscription.  
+- The subscription method returns an id. To unsubscribe to documents associated with a specific set of parameters, you must unsubscribe with this id.
+- Unsubscribing by name now works differently. When unsubscribing by name, you unsubscribe to any and all subscriptions with that name.
+- You can no longer pass a callback to ``unsubscribe(name:String)``. It now returns an array with the ids of the subscriptions you've unsubscribed to.
+
+### 0.2.2.1: 
+
+- Improved subscription handling across app states
+- Dependencies updated for Swift 2.2
+
+### 0.2.1:
+- Reconnection behavior improvements: reconnect attempts now follow an exponential backoff pattern
+- Client now connects to servers using self signed SSL certificates when allowSelfSignedSSL is set to true
+- The loglevel can now be set directly using the logLevel property on the client. The default setting is .None
+
+### 0.2.0:
+- Integration with Meteor's Facebook, Twitter & other login services
 
 ## Contributing
 Pull requests, feature requests are feedback are welcome. If you're using SwiftDDP in a production app, let us know.
