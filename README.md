@@ -284,7 +284,7 @@ Once you've created and started the Meteor todos server, set the url variable in
 
 
 ## Example: Creating an array based custom collection
-#### The following pattern can be used to create custom collections backed by any datastore
+**The following pattern can be used to create custom collections backed by any datastore**
 In this example, we'll create a simple collection to hold a list of contacts. The first thing we'll do is create an object to represent a contact. This object has four properties and a method named *update* that maps the *fields* NSDictionary to the struct's properties. *Update* is called when an object is created and when an update is performed. Meteor will always transmit an **id** to identify the object that should be added, updated or removed, so objects that represent Meteor documents must **always** have an id field. Here we're sticking to the MongoDB convention of naming our id *_id*.
 
 ```swift
