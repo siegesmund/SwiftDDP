@@ -1,5 +1,6 @@
 # SwiftDDP
 ## A client for Meteor servers, written in Swift
+### v 0.3.0
 
 #### License
 MIT  
