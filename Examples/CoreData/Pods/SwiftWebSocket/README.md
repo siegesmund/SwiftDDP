@@ -1,3 +1,21 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Features](#features)
+- [Example](#example)
+- [Custom Headers](#custom-headers)
+- [Reuse and Delaying WebSocket Connections](#reuse-and-delaying-websocket-connections)
+- [Compression](#compression)
+- [Self-signed SSL Certificate](#self-signed-ssl-certificate)
+- [Network Services (VoIP, Video, Background, Voice)](#network-services-voip-video-background-voice)
+  - [[Carthage]](#carthage)
+  - [[CocoaPods]](#cocoapods)
+- [Contact](#contact)
+- [License](#license)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 #<img src="https://tidwall.github.com/SwiftWebSocket/logo.png" height="45" width="60">&nbsp;SwiftWebSocket
 
 <a href="https://tidwall.github.io/SwiftWebSocket/results/"><img src="https://tidwall.github.io/SwiftWebSocket/build.png" alt="" width="93" height="20" border="0" /></a>

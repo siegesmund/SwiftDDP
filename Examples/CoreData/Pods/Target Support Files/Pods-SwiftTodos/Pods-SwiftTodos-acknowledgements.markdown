@@ -1,3 +1,15 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Acknowledgements](#acknowledgements)
+  - [CryptoSwift](#cryptoswift)
+  - [SwiftDDP](#swiftddp)
+  - [SwiftWebSocket](#swiftwebsocket)
+  - [XCGLogger](#xcglogger)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Acknowledgements
 This application makes use of the following third party libraries:
 

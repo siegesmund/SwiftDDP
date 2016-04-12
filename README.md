@@ -1,3 +1,36 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [SwiftDDP](#swiftddp)
+  - [A client for Meteor servers, written in Swift](#a-client-for-meteor-servers-written-in-swift)
+      - [License](#license)
+  - [Changelog](#changelog)
+    - [0.3.0:](#030)
+        - [Version 0.3.0 contains breaking changes](#version-030-contains-breaking-changes)
+    - [0.2.2.1:](#0221)
+    - [0.2.1:](#021)
+    - [0.2.0:](#020)
+  - [Installation](#installation)
+  - [Documentation](#documentation)
+    - [Quick Start](#quick-start)
+      - [Setting basic configuration options](#setting-basic-configuration-options)
+      - [Connecting to a Meteor server](#connecting-to-a-meteor-server)
+      - [Login & Logout with Facebook, Twitter, etc. (beta)](#login-&-logout-with-facebook-twitter-etc-beta)
+      - [Gotchas and implementation notes for OAuth login flows](#gotchas-and-implementation-notes-for-oauth-login-flows)
+      - [Login & Logout with password](#login-&-logout-with-password)
+      - [Subscribe to a subset of a collection on the server](#subscribe-to-a-subset-of-a-collection-on-the-server)
+      - [Change subscription parameters and unsubscribe from a subscription](#change-subscription-parameters-and-unsubscribe-from-a-subscription)
+      - [Call a method on the server](#call-a-method-on-the-server)
+      - [Simple in-memory persistence](#simple-in-memory-persistence)
+  - [Example Projects](#example-projects)
+      - [Todos](#todos)
+  - [Example: Creating an array based custom collection](#example-creating-an-array-based-custom-collection)
+      - [The following pattern can be used to create custom collections backed by any datastore](#the-following-pattern-can-be-used-to-create-custom-collections-backed-by-any-datastore)
+  - [Contributing](#contributing)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # SwiftDDP
 ## A client for Meteor servers, written in Swift
 

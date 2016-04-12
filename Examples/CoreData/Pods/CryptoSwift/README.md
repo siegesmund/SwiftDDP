@@ -1,3 +1,12 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Hash](#hash)
+- [Cyclic Redundancy Check (CRC)](#cyclic-redundancy-check-crc)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 #CryptoSwift
 
 Crypto related functions and helpers for [Swift](https://developer.apple.com/swift/) implemented in Swift. ([#PureSwift](https://twitter.com/hashtag/pureswift))
