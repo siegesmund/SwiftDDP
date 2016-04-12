@@ -12,6 +12,8 @@ MIT
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 - [Installation](#installation)
+
+- [Installation](#installation)
 - [Documentation](#documentation)
   - [Quick Start](#quick-start)
     - [Setting basic configuration options](#setting-basic-configuration-options)
@@ -28,7 +30,6 @@ MIT
 - [Example: Creating an array based custom collection](#example-creating-an-array-based-custom-collection)
 - [Changelog](#changelog)
   - [0.3.0:](#030)
-      - [Version 0.3.0 contains breaking changes](#version-030-contains-breaking-changes)
   - [0.2.2.1:](#0221)
   - [0.2.1:](#021)
   - [0.2.0:](#020)
