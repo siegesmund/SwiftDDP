@@ -354,3 +354,6 @@ The key parts of this method are:
 - (3) remove the contact from the local store if the server rejects the insert
 
 Creating update and remove methods are also easy to create, and follow the same patern as insert. For a more extensive example of the patterns shown here, have a look at [MeteorCollection.swift](https://github.com/siegesmund/SwiftDDP/blob/master/SwiftDDP/MeteorCollection.swift). MeteorCollection is an in-memory collection implementation suitable for simple applications.
+
+## Contributing
+Pull requests, feature requests are feedback welcome. If you're using SwiftDDP in a production app, let us know.
