@@ -1,0 +1,2564 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>DDPClient Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/DDPClient" class="dashAnchor"></a>
+    <a title="DDPClient Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">SwiftDDP Docs</a> (69% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">SwiftDDP Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        DDPClient Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AbstractCollection.html">AbstractCollection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DDPClient.html">DDPClient</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EJSON.html">EJSON</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Meteor.html">Meteor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MeteorCollection.html">MeteorCollection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MeteorDocument.html">MeteorDocument</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes.html#/s:C8SwiftDDP11MeteorOAuth">MeteorOAuth</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MeteorOAuthDialogViewController.html">MeteorOAuthDialogViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MeteorOAuthServices.html">MeteorOAuthServices</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Global Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v8SwiftDDP18DDP_USER_DID_LOGINSS">DDP_USER_DID_LOGIN</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v8SwiftDDP19DDP_USER_DID_LOGOUTSS">DDP_USER_DID_LOGOUT</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v8SwiftDDP32METEOR_COLLECTION_SET_DID_CHANGESS">METEOR_COLLECTION_SET_DID_CHANGE</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/DDPMessageType.html">DDPMessageType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/MeteorCollectionType.html">MeteorCollectionType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SwiftDDPDelegate.html">SwiftDDPDelegate</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:V8SwiftDDP10Completion">Completion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DDPError.html">DDPError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DDPEvents.html">DDPEvents</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DDPMessage.html">DDPMessage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Result.html">Result</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>DDPClient</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">DDPClient</span><span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+
+                </div>
+              </div>
+            <p>DDPClient is the base class for communicating with a server using the DDP protocol</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC8SwiftDDP9DDPClient3urlGSQSS_"></a>
+                    <a name="//apple_ref/swift/Property/url" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC8SwiftDDP9DDPClient3urlGSQSS_">url</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">DDPClient</span><span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC8SwiftDDP9DDPClient8delegateGSqPS_16SwiftDDPDelegate__"></a>
+                    <a name="//apple_ref/swift/Property/delegate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC8SwiftDDP9DDPClient8delegateGSqPS_16SwiftDDPDelegate__">delegate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">DDPClient</span><span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Settings"></a>
+                <a name="//apple_ref/swift/Section/Settings" class="dashAnchor"></a>
+                <a href="#/Settings">
+                  <h3 class="section-name">Settings</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC8SwiftDDP9DDPClient18allowSelfSignedSSLSb"></a>
+                    <a name="//apple_ref/swift/Property/allowSelfSignedSSL" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC8SwiftDDP9DDPClient18allowSelfSignedSSLSb">allowSelfSignedSSL</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Boolean value that determines whether the</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">allowSelfSignedSSL</span><span class="p">:</span><span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC8SwiftDDP9DDPClient8logLevelERR"></a>
+                    <a name="//apple_ref/swift/Property/logLevel" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC8SwiftDDP9DDPClient8logLevelERR">logLevel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sets the log level. The default value is .None.
+Possible values: .Verbose, .Debug, .Info, .Warning, .Error, .Severe, .None</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">logLevel</span> <span class="o">=</span> <span class="kt">XCGLogger</span><span class="o">.</span><span class="kt">LogLevel</span><span class="o">.</span><span class="kt">None</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient5getIdFT_SS"></a>
+                    <a name="//apple_ref/swift/Method/getId()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient5getIdFT_SS">getId()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a random String id</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getId</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient7connectFTSS8callbackGSqFT7sessionSS_T___T_"></a>
+                    <a name="//apple_ref/swift/Method/connect(_:callback:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient7connectFTSS8callbackGSqFT7sessionSS_T___T_">connect(_:callback:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Makes a DDP connection to the server</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">connect</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">callback</span><span class="p">:</span><span class="kt">DDPConnectedCallback</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>url</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The String url to connect to, ex. <q>wss://todos.meteor.com/websocket</q></p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>callback</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A closure that takes a String argument with the value of the websocket session token</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient6methodFTSS6paramsGSqPs9AnyObject__8callbackGSqFT6resultGSqPS1___5errorGSqVS_8DDPError__T___SS"></a>
+                    <a name="//apple_ref/swift/Method/method(_:params:callback:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient6methodFTSS6paramsGSqPs9AnyObject__8callbackGSqFT6resultGSqPS1___5errorGSqVS_8DDPError__T___SS">method(_:params:callback:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Executes a method on the server. If a callback is passed, the callback is asynchronously
+executed when the method has completed. The callback takes two arguments: result and error. It
+the method call is successful, result contains the return value of the method, if any. If the method fails,
+error contains information about the error.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">method</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">params</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">?,</span> <span class="nv">callback</span><span class="p">:</span> <span class="kt">DDPMethodCallback</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>name</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the method</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>params</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An object containing method arguments, if any</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>callback</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The closure to be executed when the method has been executed</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient3subFTSS6paramsGSqGSaPs9AnyObject____SS"></a>
+                    <a name="//apple_ref/swift/Method/sub(_:params:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient3subFTSS6paramsGSqGSaPs9AnyObject____SS">sub(_:params:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sends a subscription request to the server.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">sub</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">params</span><span class="p">:</span> <span class="p">[</span><span class="kt">AnyObject</span><span class="p">]?)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>name</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the subscription</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>params</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An object containing method arguments, if any</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient3subFTSS6paramsGSqGSaPs9AnyObject___8callbackGSqFT_T___SS"></a>
+                    <a name="//apple_ref/swift/Method/sub(_:params:callback:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient3subFTSS6paramsGSqGSaPs9AnyObject___8callbackGSqFT_T___SS">sub(_:params:callback:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sends a subscription request to the server. If a callback is passed, the callback asynchronously
+runs when the client receives a &lsquo;ready&rsquo; message indicating that the initial subset of documents contained
+in the subscription has been sent by the server.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">sub</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">params</span><span class="p">:</span> <span class="p">[</span><span class="kt">AnyObject</span><span class="p">]?,</span> <span class="nv">callback</span><span class="p">:</span> <span class="kt">DDPCallback</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>name</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the subscription</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>params</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An object containing method arguments, if any</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>callback</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The closure to be executed when the server sends a &lsquo;ready&rsquo; message</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient5unsubFT8withNameSS_GSaSS_"></a>
+                    <a name="//apple_ref/swift/Method/unsub(withName:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient5unsubFT8withNameSS_GSaSS_">unsub(withName:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sends an unsubscribe request to the server.
+- parameter name:       The name of the subscription
+- parameter callback:   The closure to be executed when the server sends a &lsquo;ready&rsquo; message</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">unsub</span><span class="p">(</span><span class="n">withName</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>name</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the subscription</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>callback</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The closure to be executed when the server sends a &lsquo;ready&rsquo; message</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient5unsubFT6withIdSS8callbackGSqFT_T___T_"></a>
+                    <a name="//apple_ref/swift/Method/unsub(withId:callback:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient5unsubFT6withIdSS8callbackGSqFT_T___T_">unsub(withId:callback:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sends an unsubscribe request to the server. If a callback is passed, the callback asynchronously
+runs when the client receives a &lsquo;ready&rsquo; message indicating that the subset of documents contained
+in the subscription have been removed.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">unsub</span><span class="p">(</span><span class="n">withId</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">callback</span><span class="p">:</span> <span class="kt">DDPCallback</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>name</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the subscription</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>callback</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The closure to be executed when the server sends a &lsquo;ready&rsquo; message</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient19subscriptionIsReadyFTSS16subscriptionNameSS_T_"></a>
+                    <a name="//apple_ref/swift/Method/subscriptionIsReady(_:subscriptionName:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient19subscriptionIsReadyFTSS16subscriptionNameSS_T_">subscriptionIsReady(_:subscriptionName:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Executes when a subscription is ready.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">subscriptionIsReady</span><span class="p">(</span><span class="nv">subscriptionId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">subscriptionName</span><span class="p">:</span><span class="kt">String</span><span class="p">)</span> <span class="p">{}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>subscriptionId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A String representation of the hash of the subscription name</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>subscriptionName</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the subscription</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient22subscriptionWasRemovedFTSS16subscriptionNameSS_T_"></a>
+                    <a name="//apple_ref/swift/Method/subscriptionWasRemoved(_:subscriptionName:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient22subscriptionWasRemovedFTSS16subscriptionNameSS_T_">subscriptionWasRemoved(_:subscriptionName:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Executes when a subscription is removed.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">subscriptionWasRemoved</span><span class="p">(</span><span class="nv">subscriptionId</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">subscriptionName</span><span class="p">:</span><span class="kt">String</span><span class="p">)</span> <span class="p">{}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>subscriptionId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A String representation of the hash of the subscription name</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>subscriptionName</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the subscription</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient16documentWasAddedFTSS2idSS6fieldsGSqCSo12NSDictionary__T_"></a>
+                    <a name="//apple_ref/swift/Method/documentWasAdded(_:id:fields:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient16documentWasAddedFTSS2idSS6fieldsGSqCSo12NSDictionary__T_">documentWasAdded(_:id:fields:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Executes when the server has sent a new document.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">documentWasAdded</span><span class="p">(</span><span class="nv">collection</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">id</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">fields</span><span class="p">:</span><span class="kt">NSDictionary</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>collection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the collection that the document belongs to</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The document&rsquo;s unique id</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>fields</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The documents properties</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient18documentWasRemovedFTSS2idSS_T_"></a>
+                    <a name="//apple_ref/swift/Method/documentWasRemoved(_:id:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient18documentWasRemovedFTSS2idSS_T_">documentWasRemoved(_:id:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Executes when the server sends a message to remove a document.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">documentWasRemoved</span><span class="p">(</span><span class="nv">collection</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">id</span><span class="p">:</span><span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>collection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the collection that the document belongs to</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The document&rsquo;s unique id</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient18documentWasChangedFTSS2idSS6fieldsGSqCSo12NSDictionary_7clearedGSqGSaSS___T_"></a>
+                    <a name="//apple_ref/swift/Method/documentWasChanged(_:id:fields:cleared:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient18documentWasChangedFTSS2idSS6fieldsGSqCSo12NSDictionary_7clearedGSqGSaSS___T_">documentWasChanged(_:id:fields:cleared:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Executes when the server sends a message to update a document.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">documentWasChanged</span><span class="p">(</span><span class="nv">collection</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">id</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">fields</span><span class="p">:</span><span class="kt">NSDictionary</span><span class="p">?,</span> <span class="nv">cleared</span><span class="p">:[</span><span class="kt">String</span><span class="p">]?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>collection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the collection that the document belongs to</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The document&rsquo;s unique id</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>fields</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Optional object with EJSON values containing the fields to update</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cleared</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Optional array of strings (field names to delete)</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient16methodWasUpdatedFGSaSS_T_"></a>
+                    <a name="//apple_ref/swift/Method/methodWasUpdated(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient16methodWasUpdatedFGSaSS_T_">methodWasUpdated(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Executes when the server sends a message indicating that the result of a method has changed.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">methodWasUpdated</span><span class="p">(</span><span class="nv">methods</span><span class="p">:[</span><span class="kt">String</span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>methods</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of strings (ids passed to &lsquo;method&rsquo;, all of whose writes have been reflected in data messages)</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient22didReceiveErrorMessageFVS_8DDPErrorT_"></a>
+                    <a name="//apple_ref/swift/Method/didReceiveErrorMessage(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient22didReceiveErrorMessageFVS_8DDPErrorT_">didReceiveErrorMessage(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Executes when the client receives an error message from the server. Such a message is used to represent errors raised by the method or subscription, as well as an attempt to subscribe to an unknown subscription or call an unknown method.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">didReceiveErrorMessage</span><span class="p">(</span><span class="nv">message</span><span class="p">:</span> <span class="kt">DDPError</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>message</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A DDPError object with information about the error</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient9subscribeFSSSS"></a>
+                    <a name="//apple_ref/swift/Method/subscribe(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient9subscribeFSSSS">subscribe(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sends a subscription request to the server.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">subscribe</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span><span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">return</span> <span class="nf">sub</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nv">params</span><span class="p">:</span><span class="kc">nil</span><span class="p">)</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>name</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the subscription</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient9subscribeFTSS6paramsGSaPs9AnyObject___SS"></a>
+                    <a name="//apple_ref/swift/Method/subscribe(_:params:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient9subscribeFTSS6paramsGSaPs9AnyObject___SS">subscribe(_:params:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sends a subscription request to the server.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">subscribe</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">params</span><span class="p">:[</span><span class="kt">AnyObject</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">return</span> <span class="nf">sub</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nv">params</span><span class="p">:</span><span class="n">params</span><span class="p">)</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>name</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the subscription</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>params</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An object containing method arguments, if any</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient9subscribeFTSS6paramsGSqGSaPs9AnyObject___8callbackGSqFT_T___SS"></a>
+                    <a name="//apple_ref/swift/Method/subscribe(_:params:callback:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient9subscribeFTSS6paramsGSqGSaPs9AnyObject___8callbackGSqFT_T___SS">subscribe(_:params:callback:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sends a subscription request to the server. If a callback is passed, the callback asynchronously
+runs when the client receives a &lsquo;ready&rsquo; message indicating that the initial subset of documents contained
+in the subscription has been sent by the server.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">subscribe</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">params</span><span class="p">:[</span><span class="kt">AnyObject</span><span class="p">]?,</span> <span class="nv">callback</span><span class="p">:</span> <span class="kt">DDPCallback</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">return</span> <span class="nf">sub</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nv">params</span><span class="p">:</span><span class="n">params</span><span class="p">,</span> <span class="nv">callback</span><span class="p">:</span><span class="n">callback</span><span class="p">)</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>name</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the subscription</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>params</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An object containing method arguments, if any</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>callback</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The closure to be executed when the server sends a &lsquo;ready&rsquo; message</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient9subscribeFTSS8callbackGSqFT_T___SS"></a>
+                    <a name="//apple_ref/swift/Method/subscribe(_:callback:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient9subscribeFTSS8callbackGSqFT_T___SS">subscribe(_:callback:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sends a subscription request to the server. If a callback is passed, the callback asynchronously
+runs when the client receives a &lsquo;ready&rsquo; message indicating that the initial subset of documents contained
+in the subscription has been sent by the server.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">subscribe</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">callback</span><span class="p">:</span> <span class="kt">DDPCallback</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">return</span> <span class="nf">sub</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nv">params</span><span class="p">:</span><span class="kc">nil</span><span class="p">,</span> <span class="nv">callback</span><span class="p">:</span><span class="n">callback</span><span class="p">)</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>name</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the subscription</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>callback</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The closure to be executed when the server sends a &lsquo;ready&rsquo; message</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient6insertFTSS8documentCSo7NSArray8callbackGSqFT6resultGSqPs9AnyObject__5errorGSqVS_8DDPError__T___SS"></a>
+                    <a name="//apple_ref/swift/Method/insert(_:document:callback:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient6insertFTSS8documentCSo7NSArray8callbackGSqFT6resultGSqPs9AnyObject__5errorGSqVS_8DDPError__T___SS">insert(_:document:callback:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Asynchronously inserts a document into a collection on the server</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">insert</span><span class="p">(</span><span class="nv">collection</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">document</span><span class="p">:</span> <span class="kt">NSArray</span><span class="p">,</span> <span class="nv">callback</span><span class="p">:</span> <span class="kt">DDPMethodCallback</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>collection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the collection</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>document</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An NSArray of documents to insert</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>callback</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A closure with result and error arguments describing the result of the operation</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient6insertFTSS8documentCSo7NSArray_SS"></a>
+                    <a name="//apple_ref/swift/Method/insert(_:document:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient6insertFTSS8documentCSo7NSArray_SS">insert(_:document:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Asynchronously inserts a document into a collection on the server</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">insert</span><span class="p">(</span><span class="nv">collection</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">document</span><span class="p">:</span> <span class="kt">NSArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>collection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the collection</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>document</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An NSArray of documents to insert</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient6insertFT4syncSS8documentCSo7NSArray_VS_6Result"></a>
+                    <a name="//apple_ref/swift/Method/insert(sync:document:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient6insertFT4syncSS8documentCSo7NSArray_VS_6Result">insert(sync:document:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Synchronously inserts a document into a collection on the server. Cannot be used on the main queue.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">insert</span><span class="p">(</span><span class="n">sync</span> <span class="nv">collection</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">document</span><span class="p">:</span> <span class="kt">NSArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Result</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>collection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the collection</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>document</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An NSArray of documents to insert</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient6updateFTSS8documentCSo7NSArray8callbackGSqFT6resultGSqPs9AnyObject__5errorGSqVS_8DDPError__T___SS"></a>
+                    <a name="//apple_ref/swift/Method/update(_:document:callback:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient6updateFTSS8documentCSo7NSArray8callbackGSqFT6resultGSqPs9AnyObject__5errorGSqVS_8DDPError__T___SS">update(_:document:callback:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Asynchronously updates a document into a collection on the server</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">update</span><span class="p">(</span><span class="nv">collection</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">document</span><span class="p">:</span> <span class="kt">NSArray</span><span class="p">,</span> <span class="nv">callback</span><span class="p">:</span> <span class="kt">DDPMethodCallback</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>collection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the collection</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>document</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An NSArray of documents to update</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>callback</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A closure with result and error arguments describing the result of the operation</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient6updateFTSS8documentCSo7NSArray_SS"></a>
+                    <a name="//apple_ref/swift/Method/update(_:document:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient6updateFTSS8documentCSo7NSArray_SS">update(_:document:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Asynchronously updates a document on the server</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">update</span><span class="p">(</span><span class="nv">collection</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">document</span><span class="p">:</span> <span class="kt">NSArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>collection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the collection</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>document</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An NSArray of documents to update</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient6updateFT4syncSS8documentCSo7NSArray_VS_6Result"></a>
+                    <a name="//apple_ref/swift/Method/update(sync:document:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient6updateFT4syncSS8documentCSo7NSArray_VS_6Result">update(sync:document:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Synchronously updates a document on the server. Cannot be used on the main queue</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">update</span><span class="p">(</span><span class="n">sync</span> <span class="nv">collection</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">document</span><span class="p">:</span> <span class="kt">NSArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Result</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>collection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the collection</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>document</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An NSArray of documents to update</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient6removeFTSS8documentCSo7NSArray8callbackGSqFT6resultGSqPs9AnyObject__5errorGSqVS_8DDPError__T___SS"></a>
+                    <a name="//apple_ref/swift/Method/remove(_:document:callback:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient6removeFTSS8documentCSo7NSArray8callbackGSqFT6resultGSqPs9AnyObject__5errorGSqVS_8DDPError__T___SS">remove(_:document:callback:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Asynchronously removes a document on the server</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">remove</span><span class="p">(</span><span class="nv">collection</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">document</span><span class="p">:</span> <span class="kt">NSArray</span><span class="p">,</span> <span class="nv">callback</span><span class="p">:</span> <span class="kt">DDPMethodCallback</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>collection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the collection</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>document</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An NSArray of documents to remove</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>callback</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A closure with result and error arguments describing the result of the operation</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient6removeFTSS8documentCSo7NSArray_SS"></a>
+                    <a name="//apple_ref/swift/Method/remove(_:document:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient6removeFTSS8documentCSo7NSArray_SS">remove(_:document:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Asynchronously removes a document into a collection on the server</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">remove</span><span class="p">(</span><span class="nv">collection</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">document</span><span class="p">:</span> <span class="kt">NSArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>collection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the collection</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>document</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An NSArray of documents to remove</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient6removeFT4syncSS8documentCSo7NSArray_VS_6Result"></a>
+                    <a name="//apple_ref/swift/Method/remove(sync:document:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient6removeFT4syncSS8documentCSo7NSArray_VS_6Result">remove(sync:document:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Synchronously removes a document into a collection on the server. Cannot be used on the main queue.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">remove</span><span class="p">(</span><span class="n">sync</span> <span class="nv">collection</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">document</span><span class="p">:</span> <span class="kt">NSArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Result</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>collection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the collection</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>document</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An NSArray of documents to remove</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient5loginFTCSo12NSDictionary8callbackGSqFT6resultGSqPs9AnyObject__5errorGSqVS_8DDPError__T___T_"></a>
+                    <a name="//apple_ref/swift/Method/login(_:callback:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient5loginFTCSo12NSDictionary8callbackGSqFT6resultGSqPs9AnyObject__5errorGSqVS_8DDPError__T___T_">login(_:callback:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">DDPClient</span><span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient17loginWithPasswordFTSS8passwordSS8callbackGSqFT6resultGSqPs9AnyObject__5errorGSqVS_8DDPError__T___T_"></a>
+                    <a name="//apple_ref/swift/Method/loginWithPassword(_:password:callback:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient17loginWithPasswordFTSS8passwordSS8callbackGSqFT6resultGSqPs9AnyObject__5errorGSqVS_8DDPError__T___T_">loginWithPassword(_:password:callback:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Logs a user into the server using an email and password</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">loginWithPassword</span><span class="p">(</span><span class="nv">email</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">callback</span><span class="p">:</span> <span class="kt">DDPMethodCallback</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>email</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An email string</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>password</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A password string</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>callback</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A closure with result and error parameters describing the outcome of the operation</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient17loginWithUsernameFTSS8passwordSS8callbackGSqFT6resultGSqPs9AnyObject__5errorGSqVS_8DDPError__T___T_"></a>
+                    <a name="//apple_ref/swift/Method/loginWithUsername(_:password:callback:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient17loginWithUsernameFTSS8passwordSS8callbackGSqFT6resultGSqPs9AnyObject__5errorGSqVS_8DDPError__T___T_">loginWithUsername(_:password:callback:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Logs a user into the server using a username and password</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">loginWithUsername</span><span class="p">(</span><span class="nv">username</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">callback</span><span class="p">:</span> <span class="kt">DDPMethodCallback</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>username</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A username string</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>password</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A password string</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>callback</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A closure with result and error parameters describing the outcome of the operation</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient14loginWithTokenFGSqFT6resultGSqPs9AnyObject__5errorGSqVS_8DDPError__T__Sb"></a>
+                    <a name="//apple_ref/swift/Method/loginWithToken(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient14loginWithTokenFGSqFT6resultGSqPs9AnyObject__5errorGSqVS_8DDPError__T__Sb">loginWithToken(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Attempts to login a user with a token, if one exists</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">loginWithToken</span><span class="p">(</span><span class="nv">callback</span><span class="p">:</span> <span class="kt">DDPMethodCallback</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>callback</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A closure with result and error parameters describing the outcome of the operation</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient6signupFTCSo12NSDictionary8callbackGSqFT6resultGSqPs9AnyObject__5errorGSqVS_8DDPError__T___T_"></a>
+                    <a name="//apple_ref/swift/Method/signup(_:callback:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient6signupFTCSo12NSDictionary8callbackGSqFT6resultGSqPs9AnyObject__5errorGSqVS_8DDPError__T___T_">signup(_:callback:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">DDPClient</span><span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient15signupWithEmailFTSS8passwordSS8callbackGSqFT6resultGSqPs9AnyObject__5errorGSqVS_8DDPError__T___T_"></a>
+                    <a name="//apple_ref/swift/Method/signupWithEmail(_:password:callback:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient15signupWithEmailFTSS8passwordSS8callbackGSqFT6resultGSqPs9AnyObject__5errorGSqVS_8DDPError__T___T_">signupWithEmail(_:password:callback:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Invokes a Meteor method to create a user account with a given email and password on the server</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">signupWithEmail</span><span class="p">(</span><span class="nv">email</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">callback</span><span class="p">:</span> <span class="p">((</span><span class="nv">result</span><span class="p">:</span><span class="kt">AnyObject</span><span class="p">?,</span> <span class="nv">error</span><span class="p">:</span><span class="kt">DDPError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">())?)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient15signupWithEmailFTSS8passwordSS7profileCSo12NSDictionary8callbackGSqFT6resultGSqPs9AnyObject__5errorGSqVS_8DDPError__T___T_"></a>
+                    <a name="//apple_ref/swift/Method/signupWithEmail(_:password:profile:callback:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient15signupWithEmailFTSS8passwordSS7profileCSo12NSDictionary8callbackGSqFT6resultGSqPs9AnyObject__5errorGSqVS_8DDPError__T___T_">signupWithEmail(_:password:profile:callback:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Invokes a Meteor method to create a user account with a given email and password, and a NSDictionary containing a user profile</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">signupWithEmail</span><span class="p">(</span><span class="nv">email</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">profile</span><span class="p">:</span> <span class="kt">NSDictionary</span><span class="p">,</span> <span class="nv">callback</span><span class="p">:</span> <span class="p">((</span><span class="nv">result</span><span class="p">:</span><span class="kt">AnyObject</span><span class="p">?,</span> <span class="nv">error</span><span class="p">:</span><span class="kt">DDPError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">())?)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient18signupWithUsernameFTSS8passwordSS5emailGSqSS_7profileGSqCSo12NSDictionary_8callbackGSqFT6resultGSqPs9AnyObject__5errorGSqVS_8DDPError__T___T_"></a>
+                    <a name="//apple_ref/swift/Method/signupWithUsername(_:password:email:profile:callback:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient18signupWithUsernameFTSS8passwordSS5emailGSqSS_7profileGSqCSo12NSDictionary_8callbackGSqFT6resultGSqPs9AnyObject__5errorGSqVS_8DDPError__T___T_">signupWithUsername(_:password:email:profile:callback:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Invokes a Meteor method to create a user account with a given username, email and password, and a NSDictionary containing a user profile</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">signupWithUsername</span><span class="p">(</span><span class="nv">username</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">email</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">profile</span><span class="p">:</span> <span class="kt">NSDictionary</span><span class="p">?,</span> <span class="nv">callback</span><span class="p">:</span> <span class="p">((</span><span class="nv">result</span><span class="p">:</span><span class="kt">AnyObject</span><span class="p">?,</span> <span class="nv">error</span><span class="p">:</span><span class="kt">DDPError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">())?)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient6userIdFT_GSqSS_"></a>
+                    <a name="//apple_ref/swift/Method/userId()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient6userIdFT_GSqSS_">userId()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the client userId, if it exists</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">userId</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient4userFT_GSqSS_"></a>
+                    <a name="//apple_ref/swift/Method/user()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient4userFT_GSqSS_">user()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the client&rsquo;s username or email, if it exists</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">user</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient6logoutFT_T_"></a>
+                    <a name="//apple_ref/swift/Method/logout()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient6logoutFT_T_">logout()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Logs a user out and removes their account data from NSUserDefaults</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">logout</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient6logoutFGSqFT6resultGSqPs9AnyObject__5errorGSqVS_8DDPError__T__T_"></a>
+                    <a name="//apple_ref/swift/Method/logout(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient6logoutFGSqFT6resultGSqPs9AnyObject__5errorGSqVS_8DDPError__T__T_">logout(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Logs a user out and removes their account data from NSUserDefaults. 
+When it completes, it posts a notification: DDP_USER_DID_LOGOUT on the main queue</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">logout</span><span class="p">(</span><span class="nv">callback</span><span class="p">:</span><span class="kt">DDPMethodCallback</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>callback</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A closure with result and error parameters describing the outcome of the operation</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient6resumeFTSS8callbackGSqFT_T___T_"></a>
+                    <a name="//apple_ref/swift/Method/resume(_:callback:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient6resumeFTSS8callbackGSqFT_T___T_">resume(_:callback:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Automatically attempts to resume a prior session, if one exists</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">resume</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">callback</span><span class="p">:</span><span class="kt">DDPCallback</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>url</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The server url</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClientcFT3urlSS5emailSS8passwordSS8callbackGSqFT6resultGSqPs9AnyObject__5errorGSqVS_8DDPError__T___S0_"></a>
+                    <a name="//apple_ref/swift/Method/init(url:email:password:callback:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClientcFT3urlSS5emailSS8passwordSS8callbackGSqFT6resultGSqPs9AnyObject__5errorGSqVS_8DDPError__T___S0_">init(url:email:password:callback:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Connects and logs in with an email address and password in one action</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">email</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">callback</span><span class="p">:</span> <span class="kt">DDPMethodCallback</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>url</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>String url, ex. wss://todos.meteor.com/websocket</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>email</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>String email address</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>password</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>String password</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>callback</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A closure with result and error parameters describing the outcome of the operation</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8SwiftDDP9DDPClient8loggedInFT_Sb"></a>
+                    <a name="//apple_ref/swift/Method/loggedIn()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8SwiftDDP9DDPClient8loggedInFT_Sb">loggedIn()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns true if the user is logged in, and false otherwise</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">loggedIn</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2016 <a class="link" href="https://github.com/siegesmund/SwiftDDP" target="_blank" rel="external">Peter Siegesmund</a>. All rights reserved. (Last updated: 2016-04-12)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.6.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
