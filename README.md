@@ -13,7 +13,7 @@ MIT
 - Changed default subscription behavior
 - Added a method to sign a user in via username
 
-##### Version 0.3.0 contains minor breaking changes
+##### Version 0.3.0 contains breaking changes
 - You can now update a subscription by changing its parameters without first unsubscribing. This will subscribe the client to any documents associated with the new subscription and parameters. When you pass a new set of parameters to a subscription that you have previously subscribed to, you remain subscribed to any documents associated with that prior subscription.  
 - The subscription method returns an id. To unsubscribe to documents associated with a specific set of parameters, you must unsubscribe with this id.
 - Unsubscribing by name now works differently. When unsubscribing by name, you unsubscribe to any and all subscriptions with that name.
