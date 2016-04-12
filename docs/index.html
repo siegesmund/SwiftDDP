@@ -1,32 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>  Reference</title>
+    <title>SwiftDDP  Reference</title>
     <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="css/highlight.css" />
     <meta charset='utf-8'>
     <script src="js/jquery.min.js" defer></script>
     <script src="js/jazzy.js" defer></script>
+    
   </head>
   <body>
-    <a title="  Reference"></a>
+    <a title="SwiftDDP  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html"> Docs</a> (74% documented)</p>
+        <p><a href="index.html">SwiftDDP Docs</a> (69% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
       <p id="breadcrumbs">
-        <a href="index.html"> Reference</a>
+        <a href="index.html">SwiftDDP Reference</a>
         <img id="carat" src="img/carat.png" />
-          Reference
+        SwiftDDP  Reference
       </p>
     </div>
     <div class="content-wrapper">
       <nav class="sidebar">
         <ul class="nav-groups">
           <li class="nav-group-name">
-          <a href="Classes.html">Classes</a>
+            <a href="Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="Classes/AbstractCollection.html">AbstractCollection</a>
@@ -46,10 +47,19 @@
               <li class="nav-group-task">
                 <a href="Classes/MeteorDocument.html">MeteorDocument</a>
               </li>
+              <li class="nav-group-task">
+                <a href="Classes.html#/s:C8SwiftDDP11MeteorOAuth">MeteorOAuth</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/MeteorOAuthDialogViewController.html">MeteorOAuthDialogViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/MeteorOAuthServices.html">MeteorOAuthServices</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
-          <a href="Global Variables.html">Global Variables</a>
+            <a href="Global Variables.html">Global Variables</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="Global Variables.html#/s:v8SwiftDDP18DDP_USER_DID_LOGINSS">DDP_USER_DID_LOGIN</a>
@@ -63,7 +73,7 @@
             </ul>
           </li>
           <li class="nav-group-name">
-          <a href="Enums.html">Enums</a>
+            <a href="Enums.html">Enums</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="Enums/DDPMessageType.html">DDPMessageType</a>
@@ -71,15 +81,7 @@
             </ul>
           </li>
           <li class="nav-group-name">
-          <a href="Extensions.html">Extensions</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Extensions/DDPClient.html">DDPClient</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-          <a href="Protocols.html">Protocols</a>
+            <a href="Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="Protocols/MeteorCollectionType.html">MeteorCollectionType</a>
@@ -90,7 +92,7 @@
             </ul>
           </li>
           <li class="nav-group-name">
-          <a href="Structs.html">Structs</a>
+            <a href="Structs.html">Structs</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="Structs.html#/s:V8SwiftDDP10Completion">Completion</a>
@@ -115,7 +117,8 @@
         <section>
           <section class="section">
             
-            <a href='#swiftddp_a_ddp_client_for_meteor_written_in_swift' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h1 id='swiftddp_a_ddp_client_for_meteor_written_in_swift'>SwiftDDP: A DDP Client for Meteor written in Swift</h1>
+            <a href='#swiftddp' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h1 id='swiftddp'>SwiftDDP</h1>
+<a href='#a_client_for_meteor_servers_written_in_swift' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='a_client_for_meteor_servers_written_in_swift'>A client for Meteor servers, written in Swift</h2>
 <a href='#license' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='license'>License</h4>
 
 <p>MIT  </p>
@@ -123,21 +126,55 @@
 <p><a href="http://cocoapods.org/pods/SwiftDDP"><img src="https://img.shields.io/cocoapods/v/SwiftDDP.svg?style=flat" alt="Version"></a>
 <a href="http://cocoapods.org/pods/SwiftDDP"><img src="https://img.shields.io/cocoapods/l/SwiftDDP.svg?style=flat" alt="License"></a>
 <a href="http://cocoapods.org/pods/SwiftDDP"><img src="https://img.shields.io/cocoapods/p/SwiftDDP.svg?style=flat" alt="Platform"></a></p>
+<a href='#changelog' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='changelog'>Changelog</h2>
+<a href='#0_3_0' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='0_3_0'>0.3.0:</h3>
+
+<ul>
+<li>Changed default subscription behavior</li>
+<li>Added a method to sign a user in via username</li>
+</ul>
+<a href='#version_0_3_0_contains_breaking_changes' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h5 id='version_0_3_0_contains_breaking_changes'>Version 0.3.0 contains breaking changes</h5>
+
+<ul>
+<li>You can now update a subscription by changing its parameters without first unsubscribing. This will subscribe the client to any documents associated with the new subscription and parameters. When you pass a new set of parameters to a subscription that you have previously subscribed to, you remain subscribed to any documents associated with that prior subscription.<br></li>
+<li>The subscription method returns an id. To unsubscribe to documents associated with a specific set of parameters, you must unsubscribe with this id.</li>
+<li>Unsubscribing by name now works differently. When unsubscribing by name, you unsubscribe to any and all subscriptions with that name.</li>
+<li>You can no longer pass a callback to <code>unsubscribe(name:String)</code>. It now returns an array with the ids of the subscriptions you&rsquo;ve unsubscribed to.</li>
+</ul>
+<a href='#0_2_2_1' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='0_2_2_1'>0.2.2.1:</h3>
+
+<ul>
+<li>Improved subscription handling across app states</li>
+<li>Dependencies updated for Swift 2.2</li>
+</ul>
+<a href='#0_2_1' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='0_2_1'>0.2.1:</h3>
+
+<ul>
+<li>Reconnection behavior improvements: reconnect attempts now follow an exponential backoff pattern</li>
+<li>Client now connects to servers using self signed SSL certificates when allowSelfSignedSSL is set to true</li>
+<li>The loglevel can now be set directly using the logLevel property on the client. The default setting is .None</li>
+</ul>
+<a href='#0_2_0' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='0_2_0'>0.2.0:</h3>
+
+<ul>
+<li>Integration with Meteor&rsquo;s Facebook, Twitter &amp; other login services</li>
+</ul>
 <a href='#installation' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='installation'>Installation</h2>
 
-<p>Install using <a href="https://github.com/Carthage/Carthage">Carthage</a> by adding the following line to your Cartfile:</p>
-<pre class="highlight ruby"><code><span class="n">github</span> <span class="s2">"siegesmund/SwiftDDP"</span> <span class="o">~&gt;</span> <span class="mi">0</span><span class="o">.</span><span class="mi">1</span><span class="o">.</span><span class="mi">9</span>
-</code></pre>
-
-<p>Or, use <a href="http://cocoapods.org">CocoaPods</a>. Add the following line to your Podfile:</p>
-<pre class="highlight ruby"><code><span class="n">pod</span> <span class="s2">"SwiftDDP"</span><span class="p">,</span> <span class="s2">"~&gt; 0.1.9"</span>
+<p>With <a href="http://cocoapods.org">CocoaPods</a>. Add the following line to your Podfile:</p>
+<pre class="highlight ruby"><code><span class="n">pod</span> <span class="s2">"SwiftDDP"</span><span class="p">,</span> <span class="s2">"~&gt; 0.3.0"</span>
 </code></pre>
 <a href='#documentation' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='documentation'>Documentation</h2>
 <a href='#a_href_https_siegesmund_github_io_swiftddp_api_reference_a' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='a_href_https_siegesmund_github_io_swiftddp_api_reference_a'><a href="https://siegesmund.github.io/SwiftDDP">API Reference</a></h3>
 <a href='#quick_start' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='quick_start'>Quick Start</h3>
-<a href='#connecting_to_a_meteor_server' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='connecting_to_a_meteor_server'>Connecting to a Meteor server</h4>
-<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">SwiftDDP</span> 
+<a href='#setting_basic_configuration_options' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='setting_basic_configuration_options'>Setting basic configuration options</h4>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">SwiftDDP</span>
 
+<span class="kt">Meteor</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">allowSelfSignedSSL</span> <span class="o">=</span> <span class="kc">true</span>     <span class="c1">// Connect to a server that uses a self signed ssl certificate</span>
+<span class="kt">Meteor</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">logLevel</span> <span class="o">=</span> <span class="o">.</span><span class="kt">Info</span>              <span class="c1">// Options are: .Verbose, .Debug, .Info, .Warning, .Error, .Severe, .None</span>
+</code></pre>
+<a href='#connecting_to_a_meteor_server' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='connecting_to_a_meteor_server'>Connecting to a Meteor server</h4>
+<pre class="highlight swift"><code>
 <span class="c1">// Meteor.connect will automatically connect and will sign in using</span>
 <span class="c1">// a stored login token if the client was previously signed in.</span>
 
@@ -145,14 +182,64 @@
     <span class="c1">// do something after the client connects</span>
 <span class="p">}</span>
 </code></pre>
-<a href='#login_amp_logout' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='login_amp_logout'>Login &amp; Logout</h4>
-<pre class="highlight swift"><code><span class="kt">Meteor</span><span class="o">.</span><span class="nf">loginWithPassword</span><span class="p">(</span><span class="s">"user@swiftddp.com"</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="s">"********"</span><span class="p">)</span> <span class="p">{</span> <span class="n">result</span><span class="p">,</span> <span class="n">error</span> <span class="k">in</span> 
+<a href='#login_amp_logout_with_facebook_twitter_etc_beta' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='login_amp_logout_with_facebook_twitter_etc_beta'>Login &amp; Logout with Facebook, Twitter, etc. (beta)</h4>
+
+<p>These services use the standard Meteor accounts packages. Just add the appropriate package on the server (e.g.  <code>meteor add accounts-facebook</code>) and follow the web-based provider setup. Choose redirect, rather than popup and save your appId/clientId as you&rsquo;ll need it again in your iOS application.</p>
+
+<p>In your iOS app, create a UIButton and associate its&rsquo; action with the appropriate Meteor login method. That&rsquo;s it!
+&ldquo;`swift
+class ViewController: UIViewController {</p>
+<pre class="highlight plaintext"><code>// client id is the id that Facebook, Google etc. assigns your app.
+let GITHUB_CLIENT_ID = "1234567890"
+let FACEBOOK_CLIENT_ID = "qwertyuiop"
+let GOOGLE_CLIENT_ID = "asdfghjkl"
+
+// Note that Twitter does not require a client id
+@IBAction func loginWithTwitterWasClicked(sender: UIButton) {
+    Meteor.loginWithTwitter(self)
+}
+
+@IBAction func loginWithFacebookWasClicked(sender: UIButton) {
+    Meteor.loginWithFacebook(FACEBOOK_CLIENT_ID, viewController: self)
+}
+
+@IBAction func loginWithGoogleWasClicked(sender: UIButton) {
+    Meteor.loginWithGoogle(GOOGLE_CLIENT_ID, viewController: self)
+}
+
+@IBAction func loginWithGithubWasClicked(sender: UIButton) {
+    Meteor.loginWithGithub(GITHUB_CLIENT_ID, viewController: self)
+}
+</code></pre>
+
+<p>}</p>
+<pre class="highlight plaintext"><code>#### Gotchas and implementation notes for OAuth login flows
+When configuring OAuth services
+* If you connect over wss (as you should), then you must provide a https:// app url and redirect url to the service provider. If you connect over ws, you must use http:// for your app url and redirect url. In other words, you can't mix the two.  
+* You'll need to choose redirect rather than popup in the Meteor OAuth configuration dialog
+* Once configured, Meteor provides the appId/clientId via the "meteor.loginServiceConfiguration" publication, which SwiftDDP automatically subscribes to. However, SwiftDDP currently requires that you explicitly provide the appId as this allows the user to begin logging in immediately, rather than waiting for the initial batch of subscriptions to finish.
+
+#### Login &amp; Logout with password
+
+Login using email and password.
+
+```swift
+Meteor.loginWithPassword("user@swiftddp.com", password: "********") { result, error in
+    // do something after login
+}
+</code></pre>
+
+<p>Login using username and password.</p>
+<pre class="highlight swift"><code><span class="kt">Meteor</span><span class="o">.</span><span class="nf">loginWithUsername</span><span class="p">(</span><span class="s">"swiftddp"</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="s">"********"</span><span class="p">)</span> <span class="p">{</span> <span class="n">result</span><span class="p">,</span> <span class="n">error</span> <span class="k">in</span>
     <span class="c1">// do something after login</span>
 <span class="p">}</span>
+</code></pre>
 
-<span class="kt">Meteor</span><span class="o">.</span><span class="nf">logout</span><span class="p">()</span> <span class="p">{</span> <span class="n">result</span><span class="p">,</span> <span class="n">error</span> <span class="k">in</span> 
+<p>Log out.</p>
+<pre class="highlight swift"><code><span class="kt">Meteor</span><span class="o">.</span><span class="nf">logout</span><span class="p">()</span> <span class="p">{</span> <span class="n">result</span><span class="p">,</span> <span class="n">error</span> <span class="k">in</span>
     <span class="c1">// do something after logout</span>
 <span class="p">}</span>
+
 </code></pre>
 
 <p>The client also posts a notification when the user signs in and signs out.</p>
@@ -173,7 +260,7 @@
 <span class="p">}</span>
 </code></pre>
 <a href='#subscribe_to_a_subset_of_a_collection_on_the_server' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='subscribe_to_a_subset_of_a_collection_on_the_server'>Subscribe to a subset of a collection on the server</h4>
-<pre class="highlight swift"><code><span class="kt">Meteor</span><span class="o">.</span><span class="nf">subscribe</span><span class="p">(</span><span class="s">"todos"</span><span class="p">)</span> 
+<pre class="highlight swift"><code><span class="kt">Meteor</span><span class="o">.</span><span class="nf">subscribe</span><span class="p">(</span><span class="s">"todos"</span><span class="p">)</span>
 
 <span class="kt">Meteor</span><span class="o">.</span><span class="nf">subscribe</span><span class="p">(</span><span class="s">"todos"</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// Do something when the todos subscription is ready</span>
@@ -181,7 +268,7 @@
 
 <span class="kt">Meteor</span><span class="o">.</span><span class="nf">subscribe</span><span class="p">(</span><span class="s">"todos"</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span> <span class="p">{</span>
     <span class="c1">// Do something when the todos subscription is ready</span>
-<span class="p">}</span> 
+<span class="p">}</span>
 </code></pre>
 <a href='#call_a_method_on_the_server' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='call_a_method_on_the_server'>Call a method on the server</h4>
 <pre class="highlight swift"><code><span class="kt">Meteor</span><span class="o">.</span><span class="nf">call</span><span class="p">(</span><span class="s">"foo"</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span> <span class="p">{</span> <span class="n">result</span><span class="p">,</span> <span class="n">error</span> <span class="k">in</span>
@@ -192,7 +279,7 @@
 <p>When passing parameters to a server method, the parameters object must be serializable with NSJSONSerialization</p>
 <a href='#simple_in_memory_persistence' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='simple_in_memory_persistence'>Simple in-memory persistence</h4>
 
-<p>SwiftDDP includes a class called MeteorCollection that provides simple, ephemeral dictionary backed persistence. MeteorCollection stores objects subclassed from MeteorDocument. Creating a collection is as simple as: </p>
+<p>SwiftDDP includes a class called MeteorCollection that provides simple, ephemeral dictionary backed persistence. MeteorCollection stores objects subclassed from MeteorDocument. Creating a collection is as simple as:</p>
 <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">List</span><span class="p">:</span> <span class="kt">MeteorDocument</span> <span class="p">{</span>
 
     <span class="k">var</span> <span class="nv">collection</span><span class="p">:</span><span class="kt">String</span> <span class="o">=</span> <span class="s">"lists"</span>
@@ -202,37 +289,41 @@
 <span class="p">}</span>
 
 <span class="k">let</span> <span class="nv">lists</span> <span class="o">=</span> <span class="kt">MeteorCollection</span><span class="o">&lt;</span><span class="kt">List</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"lists"</span><span class="p">)</span>   <span class="c1">// As with Meteorjs, the name is the name of the server-side collection  </span>
-<span class="kt">Meteor</span><span class="o">.</span><span class="nf">subscribe</span><span class="p">(</span><span class="s">"lists"</span><span class="p">)</span> 
+<span class="kt">Meteor</span><span class="o">.</span><span class="nf">subscribe</span><span class="p">(</span><span class="s">"lists"</span><span class="p">)</span>
 </code></pre>
 
 <p>For client side insertions, updates and removals:</p>
-<pre class="highlight swift"><code>    <span class="k">let</span> <span class="nv">list</span> <span class="o">=</span> <span class="kt">List</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">Meteor</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="nf">getId</span><span class="p">(),</span> <span class="nv">fields</span><span class="p">:</span> <span class="p">[</span><span class="s">"name"</span><span class="p">:</span> <span class="s">"foo"</span><span class="p">])</span>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">list</span> <span class="o">=</span> <span class="kt">List</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">Meteor</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="nf">getId</span><span class="p">(),</span> <span class="nv">fields</span><span class="p">:</span> <span class="p">[</span><span class="s">"name"</span><span class="p">:</span> <span class="s">"foo"</span><span class="p">])</span>
 
-    <span class="c1">// Insert the object on both the client and server.</span>
-    <span class="n">lists</span><span class="o">.</span><span class="nf">insert</span><span class="p">(</span><span class="n">list</span><span class="p">)</span>
+<span class="c1">// Insert the object on both the client and server.</span>
+<span class="n">lists</span><span class="o">.</span><span class="nf">insert</span><span class="p">(</span><span class="n">list</span><span class="p">)</span>
 
-    <span class="c1">// Update the object on both the client and server</span>
-    <span class="n">list</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">"bar"</span>
-    <span class="n">lists</span><span class="o">.</span><span class="nf">update</span><span class="p">(</span><span class="n">list</span><span class="p">)</span>
+<span class="c1">// Update the object on both the client and server</span>
+<span class="n">list</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">"bar"</span>
+<span class="n">lists</span><span class="o">.</span><span class="nf">update</span><span class="p">(</span><span class="n">list</span><span class="p">)</span>
 
-    <span class="c1">// Remove the object on both the client and server</span>
-    <span class="n">lists</span><span class="o">.</span><span class="nf">remove</span><span class="p">(</span><span class="n">list</span><span class="p">)</span>
+<span class="c1">// Remove the object on both the client and server</span>
+<span class="n">lists</span><span class="o">.</span><span class="nf">remove</span><span class="p">(</span><span class="n">list</span><span class="p">)</span>
 </code></pre>
 
 <p>For each operation the action is executed on the client, and rolled back if the server returns an error.</p>
-<a href='#example_projects' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='example_projects'>Example Projects:</h2>
+<a href='#example_projects' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='example_projects'>Example Projects</h2>
 <a href='#todos' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='todos'>Todos</h4>
 
-<p>These are iOS implementations of <a href="https://www.meteor.com/todos">Meteor&rsquo;s Todos example</a>. The best way to run the examples is to connect to a local instance of Meteor&rsquo;s Todos app: <code>meteor create --example todos &amp;&amp; cd todos &amp;&amp; meteor</code>. You can specify the server that the Todos app connects to by changing the url variable in AppDelegate.swift. There are currently two flavors: a simple example with Dictionary based persistence and an example showing how to use SwiftDDP with Core Data and NSFetchedResultsController. 
+<p>These are iOS implementations of <a href="https://www.meteor.com/todos">Meteor&rsquo;s Todos example</a>. The best way to run the examples is to connect to a local instance of Meteor&rsquo;s Todos app: <code>meteor create --example todos &amp;&amp; cd todos &amp;&amp; meteor</code>. You can specify the server that the Todos app connects to by changing the url variable in AppDelegate.swift. There are currently two flavors: a simple example with dictionary based persistence and an example showing how to use SwiftDDP with Core Data and NSFetchedResultsController.
 - <a href="https://github.com/siegesmund/SwiftDDP/tree/master/Examples/Dictionary">Meteor Todos with dictionary based in-memory storage</a>
 - <a href="https://github.com/siegesmund/SwiftDDP/tree/master/Examples/CoreData">Meteor Todos Core Data integration</a></p>
-<a href='#example_creating_an_array_based_custom_collection' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='example_creating_an_array_based_custom_collection'>Example: Creating an Array based custom collection</h2>
+
+<p>When running the examples with preexisting instances of the todos app hosted at *.meteor.com, note that connectivity to apps hosted on Meteor&rsquo;s free hosting (not to be confused with Galaxy) can be erratic as the server periodically idles. If SwiftTodos does not connect or you cannot add or remove items or login, try connecting to a different instance. The surest way to do this is to run an instance of the todos app locally.</p>
+
+<p><code>bash meteor create --example todos</code></p>
+
+<p>Once you&rsquo;ve created and started the Meteor todos server, set the url variable in AppDelegate.swift to ws://localhost:3000/websocket, then run the iOS app.</p>
+<a href='#example_creating_an_array_based_custom_collection' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='example_creating_an_array_based_custom_collection'>Example: Creating an array based custom collection</h2>
 <a href='#the_following_pattern_can_be_used_to_create_custom_collections_backed_by_any_datastore' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='the_following_pattern_can_be_used_to_create_custom_collections_backed_by_any_datastore'>The following pattern can be used to create custom collections backed by any datastore</h4>
 
 <p>In this example, we&rsquo;ll create a simple collection to hold a list of contacts. The first thing we&rsquo;ll do is create an object to represent a contact. This object has four properties and a method named <em>update</em> that maps the <em>fields</em> NSDictionary to the struct&rsquo;s properties. <em>Update</em> is called when an object is created and when an update is performed. Meteor will always transmit an <strong>id</strong> to identify the object that should be added, updated or removed, so objects that represent Meteor documents must <strong>always</strong> have an id field. Here we&rsquo;re sticking to the MongoDB convention of naming our id <em>_id</em>.</p>
 <pre class="highlight swift"><code>
-<span class="k">var</span> <span class="nv">contacts</span> <span class="o">=</span> <span class="p">[</span><span class="kt">Contact</span><span class="p">]()</span>
-
 <span class="kd">struct</span> <span class="kt">Contact</span> <span class="p">{</span>
 
     <span class="k">var</span> <span class="nv">_id</span><span class="p">:</span><span class="kt">String</span><span class="p">?</span>
@@ -247,15 +338,15 @@
 
     <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">update</span><span class="p">(</span><span class="nv">fields</span><span class="p">:</span><span class="kt">NSDictionary</span><span class="p">?)</span> <span class="p">{</span>
 
-    <span class="k">if</span> <span class="k">let</span> <span class="nv">name</span> <span class="o">=</span> <span class="n">fields</span><span class="p">?</span><span class="o">.</span><span class="nf">valueForKey</span><span class="p">(</span><span class="s">"name"</span><span class="p">)</span> <span class="k">as?</span> <span class="kt">String</span> <span class="p">{</span>
-        <span class="k">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-    <span class="p">}</span>
+        <span class="k">if</span> <span class="k">let</span> <span class="nv">name</span> <span class="o">=</span> <span class="n">fields</span><span class="p">?</span><span class="o">.</span><span class="nf">valueForKey</span><span class="p">(</span><span class="s">"name"</span><span class="p">)</span> <span class="k">as?</span> <span class="kt">String</span> <span class="p">{</span>
+            <span class="k">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="p">}</span>
 
-    <span class="k">if</span> <span class="k">let</span> <span class="nv">phone</span> <span class="o">=</span> <span class="n">fields</span><span class="p">?</span><span class="o">.</span><span class="nf">valueForKey</span><span class="p">(</span><span class="s">"phone"</span><span class="p">)</span> <span class="k">as?</span> <span class="kt">String</span> <span class="p">{</span>
-        <span class="k">self</span><span class="o">.</span><span class="n">phone</span> <span class="o">=</span> <span class="n">phone</span>
-    <span class="p">}</span>
+        <span class="k">if</span> <span class="k">let</span> <span class="nv">phone</span> <span class="o">=</span> <span class="n">fields</span><span class="p">?</span><span class="o">.</span><span class="nf">valueForKey</span><span class="p">(</span><span class="s">"phone"</span><span class="p">)</span> <span class="k">as?</span> <span class="kt">String</span> <span class="p">{</span>
+            <span class="k">self</span><span class="o">.</span><span class="n">phone</span> <span class="o">=</span> <span class="n">phone</span>
+        <span class="p">}</span>
 
-    <span class="k">if</span> <span class="k">let</span> <span class="nv">email</span> <span class="o">=</span> <span class="n">fields</span><span class="p">?</span><span class="o">.</span><span class="nf">valueForKey</span><span class="p">(</span><span class="s">"email"</span><span class="p">)</span> <span class="k">as?</span> <span class="kt">String</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="k">let</span> <span class="nv">email</span> <span class="o">=</span> <span class="n">fields</span><span class="p">?</span><span class="o">.</span><span class="nf">valueForKey</span><span class="p">(</span><span class="s">"email"</span><span class="p">)</span> <span class="k">as?</span> <span class="kt">String</span> <span class="p">{</span>
             <span class="k">self</span><span class="o">.</span><span class="n">email</span> <span class="o">=</span> <span class="n">email</span>
         <span class="p">}</span>
     <span class="p">}</span>
@@ -266,6 +357,8 @@
 <p>Next, we&rsquo;ll create the collection class that will hold our contacts and provide the logic to respond to server-side changes to the documents and the subscription set. SwiftDDP contains an abstract class called AbstractCollection that can be used to build custom collections. Subclassing AbstractCollection allows you to override three methods that are called in response to events on the server: <em>documentWasAdded</em>, <em>documentWasChanged</em> and <em>documentWasRemoved</em>.</p>
 <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">UserCollection</span><span class="p">:</span> <span class="kt">AbstractCollection</span> <span class="p">{</span>
 
+    <span class="k">var</span> <span class="nv">contacts</span> <span class="o">=</span> <span class="p">[</span><span class="kt">Contact</span><span class="p">]()</span>
+
     <span class="c1">// Include any logic that needs to occur when a document is added to the collection on the server</span>
     <span class="k">override</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">documentWasAdded</span><span class="p">(</span><span class="nv">collection</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">id</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">fields</span><span class="p">:</span><span class="kt">NSDictionary</span><span class="p">?)</span> <span class="p">{</span>
         <span class="k">let</span> <span class="nv">user</span> <span class="o">=</span> <span class="kt">User</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">fields</span><span class="p">)</span>
@@ -274,29 +367,63 @@
 
     <span class="c1">// Include any logic that needs to occur when a document is changed on the server</span>
     <span class="k">override</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">documentWasChanged</span><span class="p">(</span><span class="nv">collection</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">id</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">fields</span><span class="p">:</span><span class="kt">NSDictionary</span><span class="p">?,</span> <span class="nv">cleared</span><span class="p">:[</span><span class="kt">String</span><span class="p">]?)</span> <span class="p">{</span>
-
         <span class="k">if</span> <span class="k">let</span> <span class="nv">index</span> <span class="o">=</span> <span class="n">contacts</span><span class="o">.</span><span class="nf">indexOf</span><span class="p">({</span> <span class="n">contact</span> <span class="k">in</span> <span class="k">return</span> <span class="n">contact</span><span class="o">.</span><span class="n">_id</span> <span class="o">==</span> <span class="n">id</span> <span class="p">})</span> <span class="p">{</span>
-                <span class="n">contact</span> <span class="o">=</span> <span class="n">contacts</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-                <span class="n">contact</span><span class="o">.</span><span class="nf">update</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span>
-                <span class="n">contacts</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">contact</span>   
-            <span class="p">}</span>
+            <span class="n">contact</span> <span class="o">=</span> <span class="n">contacts</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+            <span class="n">contact</span><span class="o">.</span><span class="nf">update</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span>
+            <span class="n">contacts</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">contact</span>
         <span class="p">}</span>
+    <span class="p">}</span>
 
-    <span class="c1">// Include any logic that needs to occur when a document is removed on the server</span>
-    <span class="k">override</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">documentWasRemoved</span><span class="p">(</span><span class="nv">collection</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">id</span><span class="p">:</span><span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
-
-        <span class="k">if</span> <span class="k">let</span> <span class="nv">index</span> <span class="o">=</span> <span class="n">contacts</span><span class="o">.</span><span class="nf">indexOf</span><span class="p">({</span> <span class="n">contact</span> <span class="k">in</span> <span class="k">return</span> <span class="n">contact</span><span class="o">.</span><span class="n">_id</span> <span class="o">==</span> <span class="n">id</span> <span class="p">})</span> <span class="p">{</span>
-            <span class="n">contacts</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="kc">nil</span>
+  <span class="c1">// Include any logic that needs to occur when a document is removed on the server</span>
+  <span class="k">override</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">documentWasRemoved</span><span class="p">(</span><span class="nv">collection</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">id</span><span class="p">:</span><span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="k">let</span> <span class="nv">index</span> <span class="o">=</span> <span class="n">contacts</span><span class="o">.</span><span class="nf">indexOf</span><span class="p">({</span> <span class="n">contact</span> <span class="k">in</span> <span class="k">return</span> <span class="n">contact</span><span class="o">.</span><span class="n">_id</span> <span class="o">==</span> <span class="n">id</span> <span class="p">})</span> <span class="p">{</span>
+        <span class="n">contacts</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="kc">nil</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
 
+<p>So far, we&rsquo;re able to process documents that have been added, changed or removed on the server. But the UserCollection class still lacks the ability to make changes to both the local datastore and on the server. We&rsquo;ll change that. In the UserCollection class, create a method called insert.</p>
+<pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">UserCollection</span><span class="p">:</span> <span class="kt">AbstractCollection</span> <span class="p">{</span>
+    <span class="cm">/*
+    override public func documentWasAdded ...
+    override public func documentWasChanged ...
+    override public func documentWasRemoved ...
+    */</span>
+
+    <span class="kd">public</span> <span class="kd">func</span> <span class="nf">insert</span><span class="p">(</span><span class="nv">contact</span><span class="p">:</span> <span class="kt">Contact</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="c1">// (1) save the document to the contacts array</span>
+        <span class="n">contacts</span><span class="p">[</span><span class="n">contacts</span><span class="o">.</span><span class="n">_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">contact</span>
+
+        <span class="c1">// (2) now try to insert the document on the server</span>
+        <span class="n">client</span><span class="o">.</span><span class="nf">insert</span><span class="p">(</span><span class="k">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="nv">document</span><span class="p">:</span> <span class="p">[</span><span class="n">contacts</span><span class="o">.</span><span class="nf">fields</span><span class="p">()])</span> <span class="p">{</span> <span class="n">result</span><span class="p">,</span> <span class="n">error</span> <span class="k">in</span>
+
+            <span class="c1">// (3) However, if the server returns an error, reverse the action on the client by</span>
+            <span class="c1">//     removing the document from the contacts collection</span>
+            <span class="k">if</span> <span class="n">error</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+                <span class="k">self</span><span class="o">.</span><span class="n">contacts</span><span class="p">[</span><span class="n">contact</span><span class="o">.</span><span class="n">_id</span><span class="p">]</span> <span class="o">=</span> <span class="kc">nil</span>
+                <span class="n">log</span><span class="o">.</span><span class="nf">error</span><span class="p">(</span><span class="s">"</span><span class="se">\(</span><span class="n">error</span><span class="o">!</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+            <span class="p">}</span>
+
+        <span class="p">}</span>
+
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>The key parts of this method are:
+- (1) save the new contact to the array we created in UserCollection
+- (2) invoke client.insert to initiate an insert on the server
+- (3) remove the contact from the local store if the server rejects the insert</p>
+
+<p>Creating update and remove methods are also easy to create, and follow the same patern as insert. For a more extensive example of the patterns shown here, have a look at <a href="https://github.com/siegesmund/SwiftDDP/blob/master/SwiftDDP/MeteorCollection.swift">MeteorCollection.swift</a>. MeteorCollection is an in-memory collection implementation suitable for simple applications.</p>
+
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2015 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2015-12-18)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.3.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2016 <a class="link" href="https://github.com/siegesmund/SwiftDDP" target="_blank" rel="external">Peter Siegesmund</a>. All rights reserved. (Last updated: 2016-04-12)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.6.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>
