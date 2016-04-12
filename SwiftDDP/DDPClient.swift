@@ -399,7 +399,7 @@ public class DDPClient: NSObject {
      */
     
     public func sub(name: String, params: [AnyObject]?) -> String {
-        let id = String(name.hashValue)
+        let id = getId()
         return sub(id, name: name, params: params, callback:nil)
     }
     
@@ -414,22 +414,20 @@ public class DDPClient: NSObject {
      */
     
     public func sub(name:String, params: [AnyObject]?, callback: DDPCallback?) -> String {
-        let id = String(name.hashValue)
-        if let subData = findSubscription(name) {
-            log.info("You are already subscribed to \(name)")
-            return  subData.id
-        }
+        let id = getId()
+        print("Subscribing to ID \(id)")
         return sub(id, name: name, params: params, callback: callback)
     }
     
     // Iterates over the Dictionary of subscriptions to find a subscription by name
-    internal func findSubscription(name:String) -> (id:String, name:String, ready:Bool)? {
-        for subscription in subscriptions.values {
-            if (name == subscription.name) {
-                return subscription
+    internal func findSubscription(name:String) -> [String] {
+        var subs:[String] = []
+        for sub in  subscriptions.values {
+            if sub.name == name {
+                subs.append(sub.id)
             }
         }
-        return nil
+        return subs
     }
     
     //
@@ -437,13 +435,17 @@ public class DDPClient: NSObject {
     //
     
     /**
-    Sends an unsubscribe request to the server.
+     Sends an unsubscribe request to the server.
+     - parameter name:       The name of the subscription
+     - parameter callback:   The closure to be executed when the server sends a 'ready' message
+     */
     
-    - parameter name:       The name of the subscription
-    */
-    
-    public func unsub(name: String) -> String? {
-        return unsub(name, callback: nil)
+    public func unsub(withName name: String) -> [String] {
+        return findSubscription(name).map({id in
+            background.addOperationWithBlock() { self.sendMessage(["msg":"unsub", "id": id]) }
+            unsub(withId: id, callback: nil)
+            return id
+        })
     }
     
     /**
@@ -455,16 +457,7 @@ public class DDPClient: NSObject {
      - parameter callback:   The closure to be executed when the server sends a 'ready' message
      */
     
-    public func unsub(name: String, callback: DDPCallback?) -> String? {
-        if let sub = findSubscription(name) {
-            unsub(withId: sub.id, callback: callback)
-            background.addOperationWithBlock() { self.sendMessage(["msg":"unsub", "id":sub.id]) }
-            return sub.id
-        }
-        return nil
-    }
-    
-    internal func unsub(withId id: String, callback: DDPCallback?) {
+    public func unsub(withId id: String, callback: DDPCallback?) {
         if let completionCallback = callback {
             let completion = Completion(callback: completionCallback)
             unsubCallbacks[id] = completion
