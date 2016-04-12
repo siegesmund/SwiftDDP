@@ -164,6 +164,41 @@ Meteor.subscribe("todos", [1,2,3,4]) {
 }
 ```
 
+#### Change subscription parameters and unsubscribe from a subscription
+```swift
+
+// Suppose you want to subscribe to a list of all cities and towns near a specific major city
+
+// Subscribe to cities near Boston
+let id1 = Meteor.subscribe("cities", ["lat": 42.358056 ,"lon": -71.063611]) {
+    // You are now subscribed to cities associated with the coordinates 42.358056, -71.063611
+    // id1 contains a key that allows you to cancel the subscription associated with 
+    // the parameters ["lat": 42.358056 ,"lon": -71.063611]
+}
+
+// Subscribe to cities near Paris
+let id2 = Meteor.subscribe("cities", ["lat": 48.8567, "lon": 2.3508]){
+    // You are now subscribed to cities associated with the coordinates 48.8567, 2.3508
+    // id2 contains a key that allows you to cancel the subscription associated with 
+    // the parameters ["lat": 48.8567 ,"lon": 2.3508]
+}
+
+// Subscribe to cities near New York
+let id3 = Meteor.subscribe("cities", ["lat": 40.7127, "lon": -74.0059]){
+    // You are now subscribed to cities associated with the coordinates 40.7127, -74.0059
+    // id3 contains a key that allows you to cancel the subscription associated with 
+    // the parameters ["lat": 40.7127 ,"lon": -74.0059]
+}
+
+// When these subscriptions have completed, the collection associated with "cities" will now contain all
+// documents returned from the three subscriptions
+
+Meteor.unsubscribe(withId: id2) 
+// Your collection will now contain cities near Boston and New York, but not Paris
+Meteor.unsubscribe("cities")    
+// You are now unsubscribed to all subscriptions associated with the publication "cities"
+```
+
 #### Call a method on the server
 
 ```swift
