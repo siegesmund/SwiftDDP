@@ -154,7 +154,7 @@ func userDidLogout() {
 }
 ```
 
-#### Subscribe to a subset of a collection on the server
+#### Subscribe to a subset of a collection
 
 ```swift
 Meteor.subscribe("todos")
@@ -168,7 +168,7 @@ Meteor.subscribe("todos", [1,2,3,4]) {
 }
 ```
 
-#### Change subscription parameters and unsubscribe from a subscription
+#### Change the subscription's parameters and manage your subscription with unsubscribe
 ```swift
 
 // Suppose you want to subscribe to a list of all cities and towns near a specific major city
