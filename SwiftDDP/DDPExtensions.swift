@@ -257,9 +257,13 @@ extension DDPClient {
         method("login", params: NSArray(arrayLiteral: params)) { result, error in
             guard let e = error where (e.isValid == true) else {
                 
-                if let user = params["user"],
-                    let email = user["email"] {
+                if let user = params["user"] {
+                    if let email = user["email"] {
                         self.userData.setObject(email, forKey: DDP_EMAIL)
+                    }
+                    if let username = user["username"] {
+                        self.userData.setObject(username, forKey: DDP_USERNAME)
+                    }
                 }
                 
                 if let data = result as? NSDictionary,
@@ -311,6 +315,21 @@ extension DDPClient {
     }
     
     /**
+     Logs a user into the server using a username and password
+     
+     - parameter username:   A username string
+     - parameter password:   A password string
+     - parameter callback:   A closure with result and error parameters describing the outcome of the operation
+     */
+    
+    public func loginWithUsername(username: String, password: String, callback: DDPMethodCallback?) {
+        if !(loginWithToken(callback)) {
+            let params = ["user": ["username": username], "password":["digest": password.sha256(), "algorithm":"sha-256"]] as NSDictionary
+            login(params, callback: callback)
+        }
+    }
+    
+    /**
     Attempts to login a user with a token, if one exists
     
     - parameter callback:   A closure with result and error parameters describing the outcome of the operation
@@ -336,6 +355,10 @@ extension DDPClient {
                 
                 if let email = params["email"] {
                     self.userData.setObject(email, forKey: DDP_EMAIL)
+                }
+                
+                if let username = params["username"] {
+                    self.userData.setObject(username, forKey: DDP_USERNAME)
                 }
                 
                 if let data = result as? NSDictionary,
@@ -375,6 +398,21 @@ extension DDPClient {
     
     public func signupWithEmail(email: String, password: String, profile: NSDictionary, callback: ((result:AnyObject?, error:DDPError?) -> ())?) {
         let params = ["email":email, "password":["digest":password.sha256(), "algorithm":"sha-256"], "profile":profile]
+        signup(params, callback: callback)
+    }
+    
+    /**
+     Invokes a Meteor method to create a user account with a given username, email and password, and a NSDictionary containing a user profile
+     */
+    
+    public func signupWithUsername(username: String, password: String, email: String?, profile: NSDictionary?, callback: ((result:AnyObject?, error:DDPError?) -> ())?) {
+        var params: NSMutableDictionary = ["username":username, "password":["digest":password.sha256(), "algorithm":"sha-256"]]
+        if let email = email {
+            params.setValue(email, forKey: "email")
+        }
+        if let profile = profile {
+            params.setValue(profile, forKey: "profile")
+        }
         signup(params, callback: callback)
     }
     
