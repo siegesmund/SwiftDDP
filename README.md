@@ -9,6 +9,10 @@ MIT
 [![Platform](https://img.shields.io/cocoapods/p/SwiftDDP.svg?style=flat)](http://cocoapods.org/pods/SwiftDDP)
 
 ## Changelog
+### 0.3
+- Changed default subscription behavior
+- Added a method to sign a user in via username
+
 ### 0.2.2.1: 
 
 - Improved subscription handling across app states
