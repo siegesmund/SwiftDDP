@@ -13,12 +13,6 @@ MIT
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-- [Changelog](#changelog)
-  - [0.3.0:](#030)
-      - [Version 0.3.0 contains breaking changes](#version-030-contains-breaking-changes)
-  - [0.2.2.1:](#0221)
-  - [0.2.1:](#021)
-  - [0.2.0:](#020)
 - [Installation](#installation)
 - [Documentation](#documentation)
   - [Quick Start](#quick-start)
@@ -34,7 +28,12 @@ MIT
 - [Example Projects](#example-projects)
     - [Todos](#todos)
 - [Example: Creating an array based custom collection](#example-creating-an-array-based-custom-collection)
-    - [The following pattern can be used to create custom collections backed by any datastore](#the-following-pattern-can-be-used-to-create-custom-collections-backed-by-any-datastore)
+- [Changelog](#changelog)
+  - [0.3.0:](#030)
+      - [Version 0.3.0 contains breaking changes](#version-030-contains-breaking-changes)
+  - [0.2.2.1:](#0221)
+  - [0.2.1:](#021)
+  - [0.2.0:](#020)
 - [Contributing](#contributing)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
