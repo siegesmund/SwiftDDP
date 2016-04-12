@@ -45,20 +45,6 @@
 			remoteGlobalIDString = D02A71DB1BBEFBCA00940C17;
 			remoteInfo = SwiftDDP;
 		};
-		D0F6C91E1BFE97BC00A6CB70 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0F6C9191BFE97BC00A6CB70 /* Dollar.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 92E0D03C19467C67002ACC3D;
-			remoteInfo = Dollar;
-		};
-		D0F6C9201BFE97BC00A6CB70 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0F6C9191BFE97BC00A6CB70 /* Dollar.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 92E6686F19F09C6400BB4FB8;
-			remoteInfo = DollarTests;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -116,7 +102,6 @@
 		D0E9DFDF1C359535005D92FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0E9DFE91C359535005D92FA /* SwiftDDP_OSXTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDDP_OSXTests.swift; sourceTree = "<group>"; };
 		D0E9DFEB1C359535005D92FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D0F6C9191BFE97BC00A6CB70 /* Dollar.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Dollar.xcodeproj; path = Dollar.swift/Dollar/Dollar.xcodeproj; sourceTree = "<group>"; };
 		D0F6C99C1BFFA04600A6CB70 /* EJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EJSON.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -197,7 +182,6 @@
 		D02A72341BBF02C200940C17 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D0F6C9191BFE97BC00A6CB70 /* Dollar.xcodeproj */,
 				D02A72321BBF02B900940C17 /* XCGLogger.framework.dSYM */,
 				D02A72301BBF02B400940C17 /* SwiftWebSocket.framework.dSYM */,
 				D02A722E1BBF02AA00940C17 /* CryptoSwift.framework.dSYM */,
@@ -238,15 +222,6 @@
 				D0E9DFEB1C359535005D92FA /* Info.plist */,
 			);
 			path = "SwiftDDP OSXTests";
-			sourceTree = "<group>";
-		};
-		D0F6C91A1BFE97BC00A6CB70 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D0F6C91F1BFE97BC00A6CB70 /* Dollar.framework */,
-				D0F6C9211BFE97BC00A6CB70 /* DollarTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -329,12 +304,6 @@
 			mainGroup = D02A71D21BBEFBCA00940C17;
 			productRefGroup = D02A71DD1BBEFBCA00940C17 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = D0F6C91A1BFE97BC00A6CB70 /* Products */;
-					ProjectRef = D0F6C9191BFE97BC00A6CB70 /* Dollar.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				D02A71DB1BBEFBCA00940C17 /* SwiftDDP */,
@@ -342,23 +311,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		D0F6C91F1BFE97BC00A6CB70 /* Dollar.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Dollar.framework;
-			remoteRef = D0F6C91E1BFE97BC00A6CB70 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D0F6C9211BFE97BC00A6CB70 /* DollarTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = DollarTests.xctest;
-			remoteRef = D0F6C9201BFE97BC00A6CB70 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		D02A71DA1BBEFBCA00940C17 /* Resources */ = {
