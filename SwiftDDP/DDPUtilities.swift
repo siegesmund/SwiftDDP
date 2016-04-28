@@ -65,3 +65,11 @@ func getValue(fromUrl url: String, forArgument argument:String) -> String? {
     print("Arguments \(arguments) for url: \(url)")
     return arguments[argument]
 }
+
+// Misc
+
+func dateFromTimestamp(containedIn: NSDictionary) -> NSDate {
+    let date = containedIn["$date"] as? Double
+    let timestamp = NSTimeInterval(date! / 1000)
+    return NSDate(timeIntervalSince1970: timestamp)
+}

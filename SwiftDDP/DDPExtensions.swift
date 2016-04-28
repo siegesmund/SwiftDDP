@@ -269,10 +269,8 @@ extension DDPClient {
                 if let data = result as? NSDictionary,
                     let id = data["id"] as? String,
                     let token = data["token"] as? String,
-                    let tokenExpires = data["tokenExpires"] as? NSDictionary,
-                    let date = tokenExpires["$date"] as? Double {
-                        let timestamp = NSTimeInterval(Double(date)) / 1000.0
-                        let expiration = NSDate(timeIntervalSince1970: timestamp)
+                    let tokenExpires = data["tokenExpires"] as? NSDictionary {
+                        let expiration = dateFromTimestamp(tokenExpires)
                         self.userData.setObject(id, forKey: DDP_ID)
                         self.userData.setObject(token, forKey: DDP_TOKEN)
                         self.userData.setObject(expiration, forKey: DDP_TOKEN_EXPIRES)
@@ -364,10 +362,8 @@ extension DDPClient {
                 if let data = result as? NSDictionary,
                     let id = data["id"] as? String,
                     let token = data["token"] as? String,
-                    let tokenExpires = data["tokenExpires"] as? NSDictionary,
-                    let date = tokenExpires["$date"] as? Double {
-                        let timestamp = NSTimeInterval(Double(date)) / 1000.0
-                        let expiration = NSDate(timeIntervalSince1970: timestamp)
+                    let tokenExpires = data["tokenExpires"] as? NSDictionary {
+                        let expiration = dateFromTimestamp(tokenExpires)
                         self.userData.setObject(id, forKey: DDP_ID)
                         self.userData.setObject(token, forKey: DDP_TOKEN)
                         self.userData.setObject(expiration, forKey: DDP_TOKEN_EXPIRES)
