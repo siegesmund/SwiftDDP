@@ -30,6 +30,7 @@ MIT
     - [Todos](#todos)
 - [Example: Creating an array based custom collection](#example-creating-an-array-based-custom-collection)
 - [Changelog](#changelog)
+  - [0.3.1](#031)
   - [0.3.0](#030)
   - [0.2.2.1](#0221)
   - [0.2.1](#021)
