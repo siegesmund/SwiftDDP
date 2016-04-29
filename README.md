@@ -363,6 +363,9 @@ Creating update and remove methods are also easy to create, and follow the same 
 
 
 ## Changelog
+### 0.3.1
+- Bug fixed that affected DDP dates in 32 bit environments 
+
 ### 0.3.0
 - Changed default subscription behavior
 - Added a method to sign a user in via username
