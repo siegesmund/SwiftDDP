@@ -34,7 +34,7 @@ class Todos: MeteorCoreDataTableViewController, MeteorCoreDataCollectionDelegate
     
     var listId:String? {
         didSet {
-            Meteor.subscribe("todos", params: [listId!])
+            Meteor.subscribe("todos.inList", params: [listId!])
             try! fetchedResultsController.performFetch()
         }
     }
