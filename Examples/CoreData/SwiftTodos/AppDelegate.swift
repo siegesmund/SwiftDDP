@@ -8,8 +8,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     var window: UIWindow?
     
-    let todos = MeteorCoreDataCollection(collectionName: "todos", entityName: "Todo")
-    let lists = MeteorCoreDataCollection(collectionName: "lists", entityName: "List")
+    let todos = MeteorCoreDataCollection(collectionName: "Todos", entityName: "Todo")
+    let lists = MeteorCoreDataCollection(collectionName: "Lists", entityName: "List")
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
@@ -26,8 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // let url = "wss://meteor-ios-todos.meteor.com/websocket"
         
         Meteor.connect(url) {
-            Meteor.subscribe("publicLists")
-            Meteor.subscribe("privateLists")
+            Meteor.subscribe("lists.public")
+            Meteor.subscribe("lists.private")
         }
         
         print("Application Did Finish Launching")
