@@ -52,7 +52,7 @@ extension String {
 extension NSDictionary {
     func stringValue() -> String? {
         if let data = try? NSJSONSerialization.dataWithJSONObject(self, options: NSJSONWritingOptions(rawValue: 0)) {
-            return NSString(data: data, encoding: NSASCIIStringEncoding) as? String
+            return String(data: data, encoding: NSUTF8StringEncoding)
         }
         return nil
     }
