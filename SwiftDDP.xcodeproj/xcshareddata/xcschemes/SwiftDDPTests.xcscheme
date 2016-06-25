@@ -5,6 +5,19 @@
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForRunning = "YES"
+            buildForTesting = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D02A72521BBF07AF00940C17"
+               BuildableName = "SwiftDDP Tests.xctest"
+               BlueprintName = "SwiftDDP Tests"
+               ReferencedContainer = "container:SwiftDDP.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
    </BuildAction>
    <TestAction
       buildConfiguration = "Debug"

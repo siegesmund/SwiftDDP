@@ -84,7 +84,6 @@
 		D02A72611BBF0AE300940C17 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D02A72AE1BBF383700940C17 /* SwiftDDP.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SwiftDDP.podspec; sourceTree = "<group>"; };
 		D02A72AF1BBF383700940C17 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		D02A72B01BBF383700940C17 /* Cartfile.resolved */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = "<group>"; };
 		D02A72B11BBF383700940C17 /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		D02B30821BDA8E2200E1DB72 /* DDPMethodResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPMethodResult.swift; sourceTree = "<group>"; };
 		D0339DD11C00DA6100A17DEB /* AbstractCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractCollection.swift; sourceTree = "<group>"; };
@@ -139,7 +138,6 @@
 				D02A72341BBF02C200940C17 /* Frameworks */,
 				D02A72AE1BBF383700940C17 /* SwiftDDP.podspec */,
 				D02A72AF1BBF383700940C17 /* LICENSE */,
-				D02A72B01BBF383700940C17 /* Cartfile.resolved */,
 				D02A72B11BBF383700940C17 /* Cartfile */,
 				D02A72611BBF0AE300940C17 /* README.md */,
 				D02A71DD1BBEFBCA00940C17 /* Products */,

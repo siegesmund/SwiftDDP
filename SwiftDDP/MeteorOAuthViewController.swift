@@ -52,7 +52,7 @@ public class MeteorOAuthDialogViewController: UIViewController, WKNavigationDele
         }
         
         
-        cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: "close")
+        cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MeteorOAuthDialogViewController.close))
         navigationItem.rightBarButtonItem = cancelButton
         navigationBar!.items = [navigationItem]
                 
