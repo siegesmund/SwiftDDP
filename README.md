@@ -26,8 +26,6 @@ MIT
     - [Change the subscription's parameters and manage your subscription with unsubscribe](#change-the-subscriptions-parameters-and-manage-your-subscription-with-unsubscribe)
     - [Call a method on the server](#call-a-method-on-the-server)
     - [Simple in-memory persistence](#simple-in-memory-persistence)
-- [Example Projects](#example-projects)
-    - [Todos](#todos)
 - [Example: Creating an array based custom collection](#example-creating-an-array-based-custom-collection)
 - [Changelog](#changelog)
   - [0.3.1](#031)
