@@ -402,7 +402,7 @@ extension DDPClient {
      */
     
     public func signupWithUsername(username: String, password: String, email: String?, profile: NSDictionary?, callback: ((result:AnyObject?, error:DDPError?) -> ())?) {
-        var params: NSMutableDictionary = ["username":username, "password":["digest":password.sha256(), "algorithm":"sha-256"]]
+        let params: NSMutableDictionary = ["username":username, "password":["digest":password.sha256(), "algorithm":"sha-256"]]
         if let email = email {
             params.setValue(email, forKey: "email")
         }
