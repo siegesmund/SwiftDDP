@@ -43,7 +43,7 @@ MIT
 With [CocoaPods](http://cocoapods.org). Add the following line to your Podfile:
 
 ```ruby
-pod "SwiftDDP", "~> 0.3.1"
+pod "SwiftDDP", "~> 0.3.2"
 ```
 
 ## Documentation
