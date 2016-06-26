@@ -1,7 +1,7 @@
 SwiftDDP  <img src="https://github.com/siegesmund/SwiftDDP/blob/master/assets/logo.jpg" height="75" width="75"/> 
 =====
 ## A client for Meteor servers, written in Swift
-### version 0.3.1
+### version 0.3.2
 
 #### License
 MIT  
@@ -28,7 +28,7 @@ MIT
     - [Simple in-memory persistence](#simple-in-memory-persistence)
 - [Example: Creating an array based custom collection](#example-creating-an-array-based-custom-collection)
 - [Changelog](#changelog)
-  - [0.3.1](#031)
+  - [0.3.2](#032)
   - [0.3.0](#030)
   - [0.2.2.1](#0221)
   - [0.2.1](#021)
@@ -349,6 +349,8 @@ Creating update and remove methods are also easy to create, and follow the same 
 
 
 ## Changelog
+### 0.3.2
+- Bugfixes
 ### 0.3.1
 - Bug fixed that affected DDP dates in 32 bit environments 
 
