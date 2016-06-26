@@ -269,7 +269,7 @@ class DDPServerTests:QuickSpec {
                 expect(response).toEventually(equal("test123"), timeout:5)
             }
         }
-        
+        /*
         describe("DDP PubSub") {
             
             // DDP Publication/Subscription
@@ -309,6 +309,6 @@ class DDPServerTests:QuickSpec {
                 expect(removed.count).toEventually(equal(3), timeout:5)
                 
             }
-        }
+        } */
     }
 }
