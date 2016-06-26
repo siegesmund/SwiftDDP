@@ -29,6 +29,7 @@ MIT
 - [Example: Creating an array based custom collection](#example-creating-an-array-based-custom-collection)
 - [Changelog](#changelog)
   - [0.3.2](#032)
+  - [0.3.1](#031)
   - [0.3.0](#030)
   - [0.2.2.1](#0221)
   - [0.2.1](#021)
@@ -351,6 +352,7 @@ Creating update and remove methods are also easy to create, and follow the same 
 ## Changelog
 ### 0.3.2
 - Bugfixes
+
 ### 0.3.1
 - Bug fixed that affected DDP dates in 32 bit environments 
 
