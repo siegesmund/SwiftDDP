@@ -464,11 +464,11 @@ extension DDPClient {
                 if (error == nil) {
                     self.userMainQueue.addOperationWithBlock() {
                         let user = self.user()!
-                        NSNotificationCenter.defaultCenter().postNotificationName(DDP_USER_DID_LOGOUT, object: nil)
                         if let _ = self.delegate {
                             self.delegate!.ddpUserDidLogout(user)
                         }
                         self.resetUserData()
+                        NSNotificationCenter.defaultCenter().postNotificationName(DDP_USER_DID_LOGOUT, object: nil)
                     }
                     
                 } else {
