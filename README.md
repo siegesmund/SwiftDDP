@@ -73,6 +73,9 @@ Meteor.connect("wss://todos.meteor.com/websocket") {
 ```
 
 #### Login & Logout with Facebook, Twitter, etc. (beta)
+
+**Note that the unofficial API that these services use seems to have changed, and therefore OAuth login may be broken.
+
 These services use the standard Meteor accounts packages. Just add the appropriate package on the server (e.g.  ```meteor add accounts-facebook```) and follow the web-based provider setup. Choose redirect, rather than popup and save your appId/clientId as you'll need it again in your iOS application.
 
 In your iOS app, create a UIButton and associate its' action with the appropriate Meteor login method. That's it!
