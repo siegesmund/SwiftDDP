@@ -19,7 +19,6 @@ MIT
   - [Quick Start](#quick-start)
     - [Setting basic configuration options](#setting-basic-configuration-options)
     - [Connecting to a Meteor server](#connecting-to-a-meteor-server)
-    - [Gotchas and implementation notes for OAuth login flows](#gotchas-and-implementation-notes-for-oauth-login-flows)
     - [Login & Logout with password](#login-&-logout-with-password)
     - [Subscribe to a subset of a collection](#subscribe-to-a-subset-of-a-collection)
     - [Change the subscription's parameters and manage your subscription with unsubscribe](#change-the-subscriptions-parameters-and-manage-your-subscription-with-unsubscribe)
