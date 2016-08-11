@@ -19,7 +19,6 @@ MIT
   - [Quick Start](#quick-start)
     - [Setting basic configuration options](#setting-basic-configuration-options)
     - [Connecting to a Meteor server](#connecting-to-a-meteor-server)
-    - [Login & Logout with Facebook, Twitter, etc. (beta)](#login-&-logout-with-facebook-twitter-etc-beta)
     - [Gotchas and implementation notes for OAuth login flows](#gotchas-and-implementation-notes-for-oauth-login-flows)
     - [Login & Logout with password](#login-&-logout-with-password)
     - [Subscribe to a subset of a collection](#subscribe-to-a-subset-of-a-collection)
@@ -71,46 +70,6 @@ Meteor.connect("wss://todos.meteor.com/websocket") {
     // do something after the client connects
 }
 ```
-
-#### Login & Logout with Facebook, Twitter, etc. (beta)
-
-**Note that the unofficial API that these services use seems to have changed, and therefore OAuth login may be broken.
-
-These services use the standard Meteor accounts packages. Just add the appropriate package on the server (e.g.  ```meteor add accounts-facebook```) and follow the web-based provider setup. Choose redirect, rather than popup and save your appId/clientId as you'll need it again in your iOS application.
-
-In your iOS app, create a UIButton and associate its' action with the appropriate Meteor login method. That's it!
-```swift
-class ViewController: UIViewController {
-
-    // client id is the id that Facebook, Google etc. assigns your app.
-    let GITHUB_CLIENT_ID = "1234567890"
-    let FACEBOOK_CLIENT_ID = "qwertyuiop"
-    let GOOGLE_CLIENT_ID = "asdfghjkl"
-
-    // Note that Twitter does not require a client id
-    @IBAction func loginWithTwitterWasClicked(sender: UIButton) {
-        Meteor.loginWithTwitter(self)
-    }
-
-    @IBAction func loginWithFacebookWasClicked(sender: UIButton) {
-        Meteor.loginWithFacebook(FACEBOOK_CLIENT_ID, viewController: self)
-    }
-
-    @IBAction func loginWithGoogleWasClicked(sender: UIButton) {
-        Meteor.loginWithGoogle(GOOGLE_CLIENT_ID, viewController: self)
-    }
-
-    @IBAction func loginWithGithubWasClicked(sender: UIButton) {
-        Meteor.loginWithGithub(GITHUB_CLIENT_ID, viewController: self)
-    }
-}
-
-```
-#### Gotchas and implementation notes for OAuth login flows
-When configuring OAuth services
-* If you connect over wss (as you should), then you must provide a https:// app url and redirect url to the service provider. If you connect over ws, you must use http:// for your app url and redirect url. In other words, you can't mix the two.  
-* You'll need to choose redirect rather than popup in the Meteor OAuth configuration dialog
-* Once configured, Meteor provides the appId/clientId via the "meteor.loginServiceConfiguration" publication, which SwiftDDP automatically subscribes to. However, SwiftDDP currently requires that you explicitly provide the appId as this allows the user to begin logging in immediately, rather than waiting for the initial batch of subscriptions to finish.
 
 #### Login & Logout with password
 
