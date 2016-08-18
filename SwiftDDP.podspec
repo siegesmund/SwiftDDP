@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.social_media_url = 'https://twitter.com/psiegesmund'
 
   s.requires_arc = true
-  s.platform = :ios, '8.1'
+  s.platform = { :ios => '8.1', :tvos => nil }
   s.source_files = 'SwiftDDP/**/*.swift'
 
   s.dependency 'CryptoSwift', '~> 0.3'
