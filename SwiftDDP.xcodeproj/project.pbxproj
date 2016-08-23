@@ -8,6 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		6FFFCBC71C64352300C147F2 /* DDPExponentialBackoff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFFCBC61C64352300C147F2 /* DDPExponentialBackoff.swift */; };
+		AA0D2AC61D6BEEC700085B33 /* SwiftDDP-tvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = AA0D2AC51D6BEEC700085B33 /* SwiftDDP-tvOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AA0D2ACB1D6BF0F500085B33 /* DDPExponentialBackoff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFFCBC61C64352300C147F2 /* DDPExponentialBackoff.swift */; };
+		AA0D2ACC1D6BF0F500085B33 /* DDPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720B1BBEFCD200940C17 /* DDPClient.swift */; };
+		AA0D2ACD1D6BF0F500085B33 /* DDPEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720E1BBEFCD300940C17 /* DDPEvents.swift */; };
+		AA0D2ACE1D6BF0F500085B33 /* DDPCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04D0DAA1C21ADF9000244D6 /* DDPCompletion.swift */; };
+		AA0D2ACF1D6BF0F500085B33 /* DDPMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720C1BBEFCD300940C17 /* DDPMessage.swift */; };
+		AA0D2AD01D6BF0F500085B33 /* DDPExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720D1BBEFCD300940C17 /* DDPExtensions.swift */; };
+		AA0D2AD11D6BF0F500085B33 /* DDPMethodResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02B30821BDA8E2200E1DB72 /* DDPMethodResult.swift */; };
+		AA0D2AD21D6BF0F500085B33 /* DDPUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D724611C4E7FBA00EE91DC /* DDPUtilities.swift */; };
+		AA0D2AD31D6BF0F500085B33 /* Meteor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C71B551BC172F40089B6CE /* Meteor.swift */; };
+		AA0D2AD41D6BF0F500085B33 /* AbstractCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0339DD11C00DA6100A17DEB /* AbstractCollection.swift */; };
+		AA0D2AD51D6BF0F500085B33 /* MeteorCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0339DD31C00DAB000A17DEB /* MeteorCollection.swift */; };
+		AA0D2AD61D6BF0F500085B33 /* MeteorDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04D0DB81C21D489000244D6 /* MeteorDocument.swift */; };
+		AA0D2ADA1D6BF0F500085B33 /* EJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F6C99C1BFFA04600A6CB70 /* EJSON.swift */; };
+		AA0D2AE01D6BF18700085B33 /* XCGLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0D2ADB1D6BF18700085B33 /* XCGLogger.framework */; };
+		AA0D2AE11D6BF18700085B33 /* SwiftWebSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0D2ADC1D6BF18700085B33 /* SwiftWebSocket.framework */; };
+		AA0D2AE41D6BF18700085B33 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0D2ADF1D6BF18700085B33 /* CryptoSwift.framework */; };
+		AAFDED3F1D6BF984000583AA /* SwiftDDP-OSX.h in Headers */ = {isa = PBXBuildFile; fileRef = AAFDED3E1D6BF984000583AA /* SwiftDDP-OSX.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D02A72101BBEFCD300940C17 /* DDPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720B1BBEFCD200940C17 /* DDPClient.swift */; };
 		D02A72111BBEFCD300940C17 /* DDPMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720C1BBEFCD300940C17 /* DDPMessage.swift */; };
 		D02A72121BBEFCD300940C17 /* DDPExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720D1BBEFCD300940C17 /* DDPExtensions.swift */; };
@@ -31,9 +49,6 @@
 		D0C71B581BC173030089B6CE /* SwiftMeteor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C71B571BC173030089B6CE /* SwiftMeteor.swift */; };
 		D0C71B5B1BC174280089B6CE /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C71B5A1BC174280089B6CE /* Data.swift */; };
 		D0D724661C4E7FBA00EE91DC /* DDPUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D724611C4E7FBA00EE91DC /* DDPUtilities.swift */; };
-		D0D724671C4E7FBA00EE91DC /* MeteorOAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D724621C4E7FBA00EE91DC /* MeteorOAuthViewController.swift */; };
-		D0D724681C4E7FBA00EE91DC /* MeteorOAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D724631C4E7FBA00EE91DC /* MeteorOAuth.swift */; };
-		D0D7247A1C4E8A5800EE91DC /* MeteorOAuthServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D724791C4E8A5800EE91DC /* MeteorOAuthServices.swift */; };
 		D0F6C99D1BFFA04600A6CB70 /* EJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F6C99C1BFFA04600A6CB70 /* EJSON.swift */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +79,17 @@
 
 /* Begin PBXFileReference section */
 		6FFFCBC61C64352300C147F2 /* DDPExponentialBackoff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPExponentialBackoff.swift; sourceTree = "<group>"; };
+		AA0D2AC31D6BEEC700085B33 /* SwiftDDP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftDDP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA0D2AC51D6BEEC700085B33 /* SwiftDDP-tvOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftDDP-tvOS.h"; sourceTree = "<group>"; };
+		AA0D2AC71D6BEEC700085B33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA0D2ADB1D6BF18700085B33 /* XCGLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCGLogger.framework; path = Carthage/Build/tvOS/XCGLogger.framework; sourceTree = "<group>"; };
+		AA0D2ADC1D6BF18700085B33 /* SwiftWebSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftWebSocket.framework; path = Carthage/Build/tvOS/SwiftWebSocket.framework; sourceTree = "<group>"; };
+		AA0D2ADD1D6BF18700085B33 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/tvOS/Quick.framework; sourceTree = "<group>"; };
+		AA0D2ADE1D6BF18700085B33 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/tvOS/Nimble.framework; sourceTree = "<group>"; };
+		AA0D2ADF1D6BF18700085B33 /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = Carthage/Build/tvOS/CryptoSwift.framework; sourceTree = "<group>"; };
+		AAFDED3C1D6BF984000583AA /* SwiftDDP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftDDP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAFDED3E1D6BF984000583AA /* SwiftDDP-OSX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftDDP-OSX.h"; sourceTree = "<group>"; };
+		AAFDED401D6BF984000583AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D02A71DC1BBEFBCA00940C17 /* SwiftDDP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftDDP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D02A71E11BBEFBCA00940C17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D02A720B1BBEFCD200940C17 /* DDPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPClient.swift; sourceTree = "<group>"; };
@@ -94,9 +120,6 @@
 		D0C71B571BC173030089B6CE /* SwiftMeteor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftMeteor.swift; sourceTree = "<group>"; };
 		D0C71B5A1BC174280089B6CE /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		D0D724611C4E7FBA00EE91DC /* DDPUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPUtilities.swift; sourceTree = "<group>"; };
-		D0D724621C4E7FBA00EE91DC /* MeteorOAuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeteorOAuthViewController.swift; sourceTree = "<group>"; };
-		D0D724631C4E7FBA00EE91DC /* MeteorOAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeteorOAuth.swift; sourceTree = "<group>"; };
-		D0D724791C4E8A5800EE91DC /* MeteorOAuthServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeteorOAuthServices.swift; sourceTree = "<group>"; };
 		D0E9DFDD1C359535005D92FA /* SwiftDDP OSX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftDDP OSX.h"; sourceTree = "<group>"; };
 		D0E9DFDF1C359535005D92FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0E9DFE91C359535005D92FA /* SwiftDDP_OSXTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDDP_OSXTests.swift; sourceTree = "<group>"; };
@@ -105,6 +128,23 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		AA0D2ABF1D6BEEC700085B33 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA0D2AE01D6BF18700085B33 /* XCGLogger.framework in Frameworks */,
+				AA0D2AE11D6BF18700085B33 /* SwiftWebSocket.framework in Frameworks */,
+				AA0D2AE41D6BF18700085B33 /* CryptoSwift.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAFDED381D6BF984000583AA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D02A71D81BBEFBCA00940C17 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -128,6 +168,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA0D2AC41D6BEEC700085B33 /* SwiftDDP-tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				AA0D2AC51D6BEEC700085B33 /* SwiftDDP-tvOS.h */,
+				AA0D2AC71D6BEEC700085B33 /* Info.plist */,
+			);
+			path = "SwiftDDP-tvOS";
+			sourceTree = "<group>";
+		};
+		AAFDED3D1D6BF984000583AA /* SwiftDDP-OSX */ = {
+			isa = PBXGroup;
+			children = (
+				AAFDED3E1D6BF984000583AA /* SwiftDDP-OSX.h */,
+				AAFDED401D6BF984000583AA /* Info.plist */,
+			);
+			path = "SwiftDDP-OSX";
+			sourceTree = "<group>";
+		};
 		D02A71D21BBEFBCA00940C17 = {
 			isa = PBXGroup;
 			children = (
@@ -135,6 +193,8 @@
 				D02A72541BBF07AF00940C17 /* Tests */,
 				D0E9DFDC1C359535005D92FA /* SwiftDDP OSX */,
 				D0E9DFE81C359535005D92FA /* SwiftDDP OSXTests */,
+				AA0D2AC41D6BEEC700085B33 /* SwiftDDP-tvOS */,
+				AAFDED3D1D6BF984000583AA /* SwiftDDP-OSX */,
 				D02A72341BBF02C200940C17 /* Frameworks */,
 				D02A72AE1BBF383700940C17 /* SwiftDDP.podspec */,
 				D02A72AF1BBF383700940C17 /* LICENSE */,
@@ -149,6 +209,8 @@
 			children = (
 				D02A71DC1BBEFBCA00940C17 /* SwiftDDP.framework */,
 				D02A72531BBF07AF00940C17 /* SwiftDDP Tests.xctest */,
+				AA0D2AC31D6BEEC700085B33 /* SwiftDDP.framework */,
+				AAFDED3C1D6BF984000583AA /* SwiftDDP.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -168,9 +230,6 @@
 				D0339DD11C00DA6100A17DEB /* AbstractCollection.swift */,
 				D0339DD31C00DAB000A17DEB /* MeteorCollection.swift */,
 				D04D0DB81C21D489000244D6 /* MeteorDocument.swift */,
-				D0D724621C4E7FBA00EE91DC /* MeteorOAuthViewController.swift */,
-				D0D724631C4E7FBA00EE91DC /* MeteorOAuth.swift */,
-				D0D724791C4E8A5800EE91DC /* MeteorOAuthServices.swift */,
 				D0F6C99C1BFFA04600A6CB70 /* EJSON.swift */,
 				D02A71E11BBEFBCA00940C17 /* Info.plist */,
 			);
@@ -180,6 +239,11 @@
 		D02A72341BBF02C200940C17 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AA0D2ADB1D6BF18700085B33 /* XCGLogger.framework */,
+				AA0D2ADC1D6BF18700085B33 /* SwiftWebSocket.framework */,
+				AA0D2ADD1D6BF18700085B33 /* Quick.framework */,
+				AA0D2ADE1D6BF18700085B33 /* Nimble.framework */,
+				AA0D2ADF1D6BF18700085B33 /* CryptoSwift.framework */,
 				D02A72321BBF02B900940C17 /* XCGLogger.framework.dSYM */,
 				D02A72301BBF02B400940C17 /* SwiftWebSocket.framework.dSYM */,
 				D02A722E1BBF02AA00940C17 /* CryptoSwift.framework.dSYM */,
@@ -225,6 +289,22 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		AA0D2AC01D6BEEC700085B33 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA0D2AC61D6BEEC700085B33 /* SwiftDDP-tvOS.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAFDED391D6BF984000583AA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAFDED3F1D6BF984000583AA /* SwiftDDP-OSX.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D02A71D91BBEFBCA00940C17 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -235,6 +315,42 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		AA0D2AC21D6BEEC700085B33 /* SwiftDDP-tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA0D2ACA1D6BEEC700085B33 /* Build configuration list for PBXNativeTarget "SwiftDDP-tvOS" */;
+			buildPhases = (
+				AA0D2ABE1D6BEEC700085B33 /* Sources */,
+				AA0D2ABF1D6BEEC700085B33 /* Frameworks */,
+				AA0D2AC01D6BEEC700085B33 /* Headers */,
+				AA0D2AC11D6BEEC700085B33 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SwiftDDP-tvOS";
+			productName = "SwiftDDP-tvOS";
+			productReference = AA0D2AC31D6BEEC700085B33 /* SwiftDDP.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		AAFDED3B1D6BF984000583AA /* SwiftDDP-OSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AAFDED431D6BF984000583AA /* Build configuration list for PBXNativeTarget "SwiftDDP-OSX" */;
+			buildPhases = (
+				AAFDED371D6BF984000583AA /* Sources */,
+				AAFDED381D6BF984000583AA /* Frameworks */,
+				AAFDED391D6BF984000583AA /* Headers */,
+				AAFDED3A1D6BF984000583AA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SwiftDDP-OSX";
+			productName = "SwiftDDP-OSX";
+			productReference = AAFDED3C1D6BF984000583AA /* SwiftDDP.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		D02A71DB1BBEFBCA00940C17 /* SwiftDDP */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D02A71F01BBEFBCA00940C17 /* Build configuration list for PBXNativeTarget "SwiftDDP" */;
@@ -284,6 +400,12 @@
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Peter Siegesmund";
 				TargetAttributes = {
+					AA0D2AC21D6BEEC700085B33 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					AAFDED3B1D6BF984000583AA = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
 					D02A71DB1BBEFBCA00940C17 = {
 						CreatedOnToolsVersion = 7.0;
 					};
@@ -306,11 +428,27 @@
 			targets = (
 				D02A71DB1BBEFBCA00940C17 /* SwiftDDP */,
 				D02A72521BBF07AF00940C17 /* SwiftDDP Tests */,
+				AA0D2AC21D6BEEC700085B33 /* SwiftDDP-tvOS */,
+				AAFDED3B1D6BF984000583AA /* SwiftDDP-OSX */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		AA0D2AC11D6BEEC700085B33 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAFDED3A1D6BF984000583AA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D02A71DA1BBEFBCA00940C17 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -362,6 +500,33 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		AA0D2ABE1D6BEEC700085B33 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA0D2ACB1D6BF0F500085B33 /* DDPExponentialBackoff.swift in Sources */,
+				AA0D2ACC1D6BF0F500085B33 /* DDPClient.swift in Sources */,
+				AA0D2ACD1D6BF0F500085B33 /* DDPEvents.swift in Sources */,
+				AA0D2ACE1D6BF0F500085B33 /* DDPCompletion.swift in Sources */,
+				AA0D2ACF1D6BF0F500085B33 /* DDPMessage.swift in Sources */,
+				AA0D2AD01D6BF0F500085B33 /* DDPExtensions.swift in Sources */,
+				AA0D2AD11D6BF0F500085B33 /* DDPMethodResult.swift in Sources */,
+				AA0D2AD21D6BF0F500085B33 /* DDPUtilities.swift in Sources */,
+				AA0D2AD31D6BF0F500085B33 /* Meteor.swift in Sources */,
+				AA0D2AD41D6BF0F500085B33 /* AbstractCollection.swift in Sources */,
+				AA0D2AD51D6BF0F500085B33 /* MeteorCollection.swift in Sources */,
+				AA0D2AD61D6BF0F500085B33 /* MeteorDocument.swift in Sources */,
+				AA0D2ADA1D6BF0F500085B33 /* EJSON.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAFDED371D6BF984000583AA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D02A71D71BBEFBCA00940C17 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -372,13 +537,10 @@
 				D0339DD41C00DAB000A17DEB /* MeteorCollection.swift in Sources */,
 				D02B30831BDA8E2200E1DB72 /* DDPMethodResult.swift in Sources */,
 				D0339DD21C00DA6100A17DEB /* AbstractCollection.swift in Sources */,
-				D0D7247A1C4E8A5800EE91DC /* MeteorOAuthServices.swift in Sources */,
 				D02A72111BBEFCD300940C17 /* DDPMessage.swift in Sources */,
 				D0D724661C4E7FBA00EE91DC /* DDPUtilities.swift in Sources */,
 				D04D0DB91C21D489000244D6 /* MeteorDocument.swift in Sources */,
-				D0D724671C4E7FBA00EE91DC /* MeteorOAuthViewController.swift in Sources */,
 				D02A72121BBEFCD300940C17 /* DDPExtensions.swift in Sources */,
-				D0D724681C4E7FBA00EE91DC /* MeteorOAuth.swift in Sources */,
 				6FFFCBC71C64352300C147F2 /* DDPExponentialBackoff.swift in Sources */,
 				D0C71B561BC172F40089B6CE /* Meteor.swift in Sources */,
 				D02A72131BBEFCD300940C17 /* DDPEvents.swift in Sources */,
@@ -406,6 +568,104 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		AA0D2AC81D6BEEC700085B33 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BITCODE_GENERATION_MODE = bitcode;
+				CLANG_ANALYZER_NONNULL = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
+				INFOPLIST_FILE = "SwiftDDP-tvOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.houndfish.SwiftDDP;
+				PRODUCT_NAME = SwiftDDP;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "appletvsimulator appletvos";
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.2;
+			};
+			name = Debug;
+		};
+		AA0D2AC91D6BEEC700085B33 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
+				INFOPLIST_FILE = "SwiftDDP-tvOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.houndfish.SwiftDDP;
+				PRODUCT_NAME = SwiftDDP;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "appletvsimulator appletvos";
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.2;
+			};
+			name = Release;
+		};
+		AAFDED411D6BF984000583AA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "SwiftDDP-OSX/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.houndfish.SwiftDDP-OSX";
+				PRODUCT_NAME = SwiftDDP;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = macosx;
+			};
+			name = Debug;
+		};
+		AAFDED421D6BF984000583AA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "SwiftDDP-OSX/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.houndfish.SwiftDDP-OSX";
+				PRODUCT_NAME = SwiftDDP;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = macosx;
+			};
+			name = Release;
+		};
 		D02A71EE1BBEFBCA00940C17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -573,6 +833,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		AA0D2ACA1D6BEEC700085B33 /* Build configuration list for PBXNativeTarget "SwiftDDP-tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA0D2AC81D6BEEC700085B33 /* Debug */,
+				AA0D2AC91D6BEEC700085B33 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AAFDED431D6BF984000583AA /* Build configuration list for PBXNativeTarget "SwiftDDP-OSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAFDED411D6BF984000583AA /* Debug */,
+				AAFDED421D6BF984000583AA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D02A71D61BBEFBCA00940C17 /* Build configuration list for PBXProject "SwiftDDP" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
