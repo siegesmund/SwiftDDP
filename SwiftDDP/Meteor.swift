@@ -264,34 +264,34 @@ public class Meteor {
     internal static func loginWithService<T: UIViewController>(service: String, clientId: String, viewController: T) {
         
         // Resume rather than
-        if Meteor.client.loginWithToken(nil) == false {
-            var url:String!
-            
-            switch service {
-            case "twitter":
-                url = MeteorOAuthServices.twitter()
-                
-            case "facebook":
-                url =  MeteorOAuthServices.facebook(clientId)
-                
-            case "github":
-                url = MeteorOAuthServices.github(clientId)
-                
-            case "google":
-                url = MeteorOAuthServices.google(clientId)
-                
-            default:
-                url = nil
-            }
-            
-            let oauthDialog = MeteorOAuthDialogViewController()
-            oauthDialog.serviceName = service.capitalizedString
-            oauthDialog.url = NSURL(string: url)
-            viewController.presentViewController(oauthDialog, animated: true, completion: nil)
-            
-        } else {
-            log.debug("Already have valid server login credentials. Logging in with preexisting login token")
-        }
+//        if Meteor.client.loginWithToken(nil) == false {
+//            var url:String!
+//            
+//            switch service {
+//            case "twitter":
+//                url = MeteorOAuthServices.twitter()
+//                
+//            case "facebook":
+//                url =  MeteorOAuthServices.facebook(clientId)
+//                
+//            case "github":
+//                url = MeteorOAuthServices.github(clientId)
+//                
+//            case "google":
+//                url = MeteorOAuthServices.google(clientId)
+//                
+//            default:
+//                url = nil
+//            }
+//            
+//            let oauthDialog = MeteorOAuthDialogViewController()
+//            oauthDialog.serviceName = service.capitalizedString
+//            oauthDialog.url = NSURL(string: url)
+//            viewController.presentViewController(oauthDialog, animated: true, completion: nil)
+//            
+//        } else {
+//            log.debug("Already have valid server login credentials. Logging in with preexisting login token")
+//        }
         
     }
     
