@@ -327,6 +327,10 @@ extension DDPClient {
         }
     }
     
+    public func loginWithServiceToken(params: NSDictionary, callback: DDPMethodCallback?) {
+        login(params, callback: callback)
+    }
+    
     /**
     Attempts to login a user with a token, if one exists
     
