@@ -261,6 +261,14 @@ public class Meteor {
         client.loginWithUsername(username, password: password, callback: callback)
     }
     
+    public static func loginWithServiceToken(params: NSDictionary, callback: DDPMethodCallback?) {
+        client.loginWithServiceToken(params, callback: callback!)
+    }
+    
+    public static func loginWithServiceToken(params: NSDictionary, callback: DDPMethodCallback?) {
+        client.loginWithServiceToken(params, callback: callback!)
+    }
+    
     internal static func loginWithService<T: UIViewController>(service: String, clientId: String, viewController: T) {
         
         // Resume rather than
