@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.homepage         = "https://github.com/siegesmund/SwiftDDP"
   s.license          = 'MIT'
   s.author           = { "Peter Siegesmund" => "peter.siegesmund@icloud.com" }
-  s.source           = { :git => "https://github.com/siegesmund/SwiftDDP.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/black-lotus/SwiftDDP.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/psiegesmund'
 
   s.requires_arc = true
