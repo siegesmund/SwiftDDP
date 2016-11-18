@@ -67,7 +67,7 @@ open class Meteor {
     - parameter name:       The name of the subscription.
     */
     
-    open static func subscribe(_ name:String) -> String { return client.sub(name, params:nil) }
+    @discardableResult open static func subscribe(_ name:String) -> String { return client.sub(name, params:nil) }
     
     
     /**
@@ -77,7 +77,7 @@ open class Meteor {
     - parameter params:     An object containing method arguments, if any.
     */
     
-    open static func subscribe(_ name:String, params:[Any]) -> String { return client.sub(name, params:params) }
+    @discardableResult open static func subscribe(_ name:String, params:[Any]) -> String { return client.sub(name, params:params) }
     
     /**
     Sends a subscription request to the server. If a callback is passed, the callback asynchronously
@@ -89,7 +89,7 @@ open class Meteor {
     - parameter callback:   The closure to be executed when the server sends a 'ready' message.
     */
     
-    open static func subscribe(_ name:String, params:[Any]?, callback: DDPCallback?) -> String { return client.sub(name, params:params, callback:callback) }
+    @discardableResult open static func subscribe(_ name:String, params:[Any]?, callback: DDPCallback?) -> String { return client.sub(name, params:params, callback:callback) }
     
     /**
     Sends a subscription request to the server. If a callback is passed, the callback asynchronously
@@ -100,7 +100,7 @@ open class Meteor {
     - parameter callback:   The closure to be executed when the server sends a 'ready' message.
     */
     
-    open static func subscribe(_ name:String, callback: DDPCallback?) -> String { return client.sub(name, params: nil, callback: callback) }
+    @discardableResult open static func subscribe(_ name:String, callback: DDPCallback?) -> String { return client.sub(name, params: nil, callback: callback) }
     
     /**
     Sends an unsubscribe request to the server. Unsubscibes to all subscriptions with the provided name.
@@ -108,14 +108,14 @@ open class Meteor {
      
     */
     
-    open static func unsubscribe(_ name:String) -> [String] { return client.unsub(withName: name) }
+    @discardableResult open static func unsubscribe(_ name:String) -> [String] { return client.unsub(withName: name) }
     
     /**
      Sends an unsubscribe request to the server using a subscription id. This allows fine-grained control of subscriptions. For example, you can unsubscribe to specific combinations of subscriptions and subscription parameters. 
      - parameter id: An id string returned from a subscription request
      */
     
-    open static func unsubscribe(withId id:String) { return client.unsub(withId: id, callback: nil) }
+    @discardableResult open static func unsubscribe(withId id:String) { return client.unsub(withId: id, callback: nil) }
     
     /**
      Sends an unsubscribe request to the server using a subscription id. This allows fine-grained control of subscriptions. For example, you can unsubscribe to specific combinations of subscriptions and subscription parameters. If a callback is passed, the callback asynchronously
@@ -124,7 +124,7 @@ open class Meteor {
      - parameter callback:   The closure to be executed when the method has been executed
      */
     
-    open static func unsubscribe(withId id:String, callback:DDPCallback?) { return client.unsub(withId: id, callback: callback) }
+    @discardableResult open static func unsubscribe(withId id:String, callback:DDPCallback?) { return client.unsub(withId: id, callback: callback) }
     
     /**
     Calls a method on the server. If a callback is passed, the callback is asynchronously
@@ -137,7 +137,7 @@ open class Meteor {
     - parameter callback:   The closure to be executed when the method has been executed
     */
     
-    open static func call(_ name:String, params:[Any]?, callback:DDPMethodCallback?) -> String? {
+    @discardableResult open static func call(_ name:String, params:[Any]?, callback:DDPMethodCallback?) -> String? {
         return client.method(name, params: params, callback: callback)
     }
     

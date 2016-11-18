@@ -355,7 +355,7 @@ open class DDPClient: NSObject {
      - parameter callback:   The closure to be executed when the method has been executed
      */
     
-    open func method(_ name: String, params: Any?, callback: DDPMethodCallback?) -> String {
+    @discardableResult open func method(_ name: String, params: Any?, callback: DDPMethodCallback?) -> String {
         let id = getId()
         let message = ["msg":"method", "method":name, "id":id] as NSMutableDictionary
         if let p = params { message["params"] = p }
@@ -375,7 +375,7 @@ open class DDPClient: NSObject {
     // Subscribe
     //
     
-    internal func sub(_ id: String, name: String, params: [Any]?, callback: DDPCallback?) -> String {
+    @discardableResult internal func sub(_ id: String, name: String, params: [Any]?, callback: DDPCallback?) -> String {
         
         if let completionCallback = callback {
             let completion = Completion(callback: completionCallback)
@@ -398,7 +398,7 @@ open class DDPClient: NSObject {
      - parameter params:     An object containing method arguments, if any
      */
     
-    open func sub(_ name: String, params: [Any]?) -> String {
+    @discardableResult open func sub(_ name: String, params: [Any]?) -> String {
         let id = getId()
         return sub(id, name: name, params: params, callback:nil)
     }

@@ -113,7 +113,7 @@ extension DDPClient {
     - parameter callback:   A closure with result and error arguments describing the result of the operation
     */
     
-    public func insert(_ collection: String, document: NSArray, callback: DDPMethodCallback?) -> String {
+    @discardableResult public func insert(_ collection: String, document: NSArray, callback: DDPMethodCallback?) -> String {
         let arg = "/\(collection)/insert"
         return self.method(arg, params: document, callback: callback)
     }
@@ -149,7 +149,7 @@ extension DDPClient {
             semaphore.signal()
         }
         
-        semaphore.wait(timeout: SWIFT_DDP_CALLBACK_DISPATCH_TIME)
+        _ = semaphore.wait(timeout: SWIFT_DDP_CALLBACK_DISPATCH_TIME)
         
         return serverResponse
     }
@@ -162,7 +162,7 @@ extension DDPClient {
     - parameter callback:   A closure with result and error arguments describing the result of the operation
     */
     
-    public func update(_ collection: String, document: NSArray, callback: DDPMethodCallback?) -> String {
+    @discardableResult public func update(_ collection: String, document: NSArray, callback: DDPMethodCallback?) -> String {
         let arg = "/\(collection)/update"
         return method(arg, params: document, callback: callback)
     }
@@ -197,7 +197,7 @@ extension DDPClient {
             semaphore.signal()
         }
         
-        semaphore.wait(timeout: SWIFT_DDP_CALLBACK_DISPATCH_TIME)
+        _ = semaphore.wait(timeout: SWIFT_DDP_CALLBACK_DISPATCH_TIME)
         
         return serverResponse
     }
@@ -210,7 +210,7 @@ extension DDPClient {
     - parameter callback:   A closure with result and error arguments describing the result of the operation
     */
     
-    public func remove(_ collection: String, document: NSArray, callback: DDPMethodCallback?) -> String {
+    @discardableResult public func remove(_ collection: String, document: NSArray, callback: DDPMethodCallback?) -> String {
         let arg = "/\(collection)/remove"
         return method(arg, params: document, callback: callback)
     }
@@ -245,7 +245,7 @@ extension DDPClient {
             semaphore.signal()
         }
         
-        semaphore.wait(timeout: SWIFT_DDP_CALLBACK_DISPATCH_TIME)
+        _ = semaphore.wait(timeout: SWIFT_DDP_CALLBACK_DISPATCH_TIME)
         
         return serverResponse
     }
@@ -333,7 +333,7 @@ extension DDPClient {
     - parameter callback:   A closure with result and error parameters describing the outcome of the operation
     */
     
-    public func loginWithToken(_ callback: DDPMethodCallback?) -> Bool {
+    @discardableResult public func loginWithToken(_ callback: DDPMethodCallback?) -> Bool {
         if let token = userData.string(forKey: DDP_TOKEN),
             let tokenDate = userData.object(forKey: DDP_TOKEN_EXPIRES) as? Date {
                 print("Found token & token expires \(token), \(tokenDate)")
