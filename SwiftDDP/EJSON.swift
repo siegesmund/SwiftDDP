@@ -25,13 +25,13 @@ import Foundation
 // {"$escape": THING}                   // Escaped things that might otherwise look like EJSON types
 // {"$type": TYPENAME, "$value": VALUE} // User specified types
 
-public class EJSON: NSObject {
+open class EJSON: NSObject {
     
     /**
     Determines whether a given key is an eJSON key
     */
     
-    public static func isEJSON(key:String) -> Bool {
+    open static func isEJSON(_ key:String) -> Bool {
         switch key {
         case "$date": return true
         case "$binary": return true
@@ -44,12 +44,12 @@ public class EJSON: NSObject {
     Converts an eJSON date to NSDate
     */
     
-    public static func convertToNSDate(ejson:NSDictionary) -> NSDate {
-        let timeInterval = NSTimeInterval(ejson.valueForKey("$date") as! Double) / 1000
-        return NSDate(timeIntervalSince1970: timeInterval)
+    open static func convertToNSDate(_ ejson:NSDictionary) -> Date {
+        let timeInterval = TimeInterval(ejson.value(forKey: "$date") as! Double) / 1000
+        return Date(timeIntervalSince1970: timeInterval)
     }
     
-    public static func convertToEJSONDate(date:NSDate) -> [String:Double] {
+    open static func convertToEJSONDate(_ date:Date) -> [String:Double] {
         let timeInterval = Double(date.timeIntervalSince1970) * 1000
         print("Date -> \(date), \(timeInterval)")
         return ["$date": timeInterval]

@@ -22,14 +22,14 @@ import Foundation
 
 // Base64
 
-func randomBase64String(n: Int = 20) -> String {
+func randomBase64String(_ n: Int = 20) -> String {
     
     var string = ""
     let BASE64_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_"
     
     for _ in 1...n {
         let r = arc4random() % UInt32(BASE64_CHARS.characters.count)
-        let index = BASE64_CHARS.startIndex.advancedBy(Int(r))
+        let index = BASE64_CHARS.characters.index(BASE64_CHARS.startIndex, offsetBy: Int(r))
         let c = BASE64_CHARS[index]
         string += String(c)
     }
@@ -37,15 +37,15 @@ func randomBase64String(n: Int = 20) -> String {
     return string
 }
 
-func toBase64(string: String) -> String {
-    let encodedData = (string as NSString).dataUsingEncoding(NSUTF8StringEncoding)
-    let base64String = encodedData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+func toBase64(_ string: String) -> String {
+    let encodedData = (string as NSString).data(using: String.Encoding.utf8.rawValue)
+    let base64String = encodedData!.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
     return base64String as String
 }
 
-func fromBase64(string: String) -> String {
-    let decodedData = NSData(base64EncodedString: string, options: NSDataBase64DecodingOptions(rawValue: 0))
-    let decodedString = NSString(data: decodedData!, encoding: NSUTF8StringEncoding)
+func fromBase64(_ string: String) -> String {
+    let decodedData = Data(base64Encoded: string, options: NSData.Base64DecodingOptions(rawValue: 0))
+    let decodedString = NSString(data: decodedData!, encoding: String.Encoding.utf8.rawValue)
     return decodedString as! String
 }
 
@@ -55,7 +55,7 @@ func fromBase64(string: String) -> String {
 // Returns a dictionary of arguments
 func getArguments(fromUrl url: String) -> [String:String] {
     var componentsDictionary:[String:String] = [:]
-    let components = NSURLComponents(string: url)
+    let components = URLComponents(string: url)
     components?.queryItems?.forEach { item in componentsDictionary[item.name] = item.value }
     return componentsDictionary
 }
@@ -68,8 +68,8 @@ func getValue(fromUrl url: String, forArgument argument:String) -> String? {
 
 // Misc
 
-func dateFromTimestamp(containedIn: NSDictionary) -> NSDate {
+func dateFromTimestamp(_ containedIn: NSDictionary) -> Date {
     let date = containedIn["$date"] as? Double
-    let timestamp = NSTimeInterval(date! / 1000)
-    return NSDate(timeIntervalSince1970: timestamp)
+    let timestamp = TimeInterval(date! / 1000)
+    return Date(timeIntervalSince1970: timestamp)
 }
