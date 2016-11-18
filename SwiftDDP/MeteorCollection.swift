@@ -172,7 +172,7 @@ open class MeteorCollection<T:MeteorDocument>: AbstractCollection {
     - parameter operation:      a dictionary containing a Mongo selector and a json object
     */
     
-    open func update(_ document: T, withMongoOperation operation: [String:AnyObject]) {
+    open func update(_ document: T, withMongoOperation operation: [String:Any]) {
         let originalDocument = documents[document._id]
         
         documents[document._id] = document

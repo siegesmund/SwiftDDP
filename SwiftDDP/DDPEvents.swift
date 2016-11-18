@@ -100,7 +100,7 @@ public struct DDPEvents {
     public var onRemoved:           ((_ collection:String, _ id:String) -> ())?
     
     // RPC Messages
-    // public var onResult:            (json: NSDictionary?, callback:(result:AnyObject?, error:AnyObject?) -> ()) -> () = {json, callback in callback(result: json, error:nil) }
+    // public var onResult:            (json: NSDictionary?, callback:(result:Any?, error:Any?) -> ()) -> () = {json, callback in callback(result: json, error:nil) }
     
     /**
     onUpdated executes when the server sends a notification that all the consequences of a method call have

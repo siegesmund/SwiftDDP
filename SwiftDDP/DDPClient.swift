@@ -32,7 +32,7 @@ import XCGLogger
 
 let log = XCGLogger(identifier: "DDP")
 
-public typealias DDPMethodCallback = (_ result:AnyObject?, _ error:DDPError?) -> ()
+public typealias DDPMethodCallback = (_ result:Any?, _ error:DDPError?) -> ()
 public typealias DDPConnectedCallback = (_ session:String) -> ()
 public typealias DDPCallback = () -> ()
 
@@ -269,7 +269,7 @@ open class DDPClient: NSObject {
             if let id = message.id,                              // Message has id
                 let completion = self.resultCallbacks[id],          // There is a callback registered for the message
                 let result = message.result {
-                    completion.execute(result as AnyObject?, error: message.error)
+                    completion.execute(result, error: message.error)
                     self.resultCallbacks[id] = nil
             } else if let id = message.id,
                 let completion = self.resultCallbacks[id] {
@@ -355,7 +355,7 @@ open class DDPClient: NSObject {
      - parameter callback:   The closure to be executed when the method has been executed
      */
     
-    open func method(_ name: String, params: AnyObject?, callback: DDPMethodCallback?) -> String {
+    open func method(_ name: String, params: Any?, callback: DDPMethodCallback?) -> String {
         let id = getId()
         let message = ["msg":"method", "method":name, "id":id] as NSMutableDictionary
         if let p = params { message["params"] = p }
@@ -375,7 +375,7 @@ open class DDPClient: NSObject {
     // Subscribe
     //
     
-    internal func sub(_ id: String, name: String, params: [AnyObject]?, callback: DDPCallback?) -> String {
+    internal func sub(_ id: String, name: String, params: [Any]?, callback: DDPCallback?) -> String {
         
         if let completionCallback = callback {
             let completion = Completion(callback: completionCallback)
@@ -398,7 +398,7 @@ open class DDPClient: NSObject {
      - parameter params:     An object containing method arguments, if any
      */
     
-    open func sub(_ name: String, params: [AnyObject]?) -> String {
+    open func sub(_ name: String, params: [Any]?) -> String {
         let id = getId()
         return sub(id, name: name, params: params, callback:nil)
     }
@@ -413,7 +413,7 @@ open class DDPClient: NSObject {
      - parameter callback:   The closure to be executed when the server sends a 'ready' message
      */
     
-    open func sub(_ name:String, params: [AnyObject]?, callback: DDPCallback?) -> String {
+    open func sub(_ name:String, params: [Any]?, callback: DDPCallback?) -> String {
         let id = getId()
         print("Subscribing to ID \(id)")
         return sub(id, name: name, params: params, callback: callback)

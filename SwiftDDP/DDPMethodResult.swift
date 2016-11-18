@@ -30,7 +30,7 @@ public struct Result {
     The result of the method call
     */
     
-    public var result:AnyObject?
+    public var result:Any?
     
     /**
     An error object describing the server-side error, or nil if the method completed successfully

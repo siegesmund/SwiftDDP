@@ -101,7 +101,7 @@ public struct DDPMessage {
     Converts an NSDictionary to a JSON string
     */
     
-    public static func toString(_ json:AnyObject) -> String? {
+    public static func toString(_ json:Any) -> String? {
         if let data = try? JSONSerialization.data(withJSONObject: json, options: JSONSerialization.WritingOptions(rawValue: 0)) {
             let message = NSString(data: data, encoding: String.Encoding.ascii.rawValue) as String?
             return message
@@ -335,7 +335,7 @@ public struct DDPError: Error {
         return false
     }
     
-    init(json:AnyObject?) {
+    init(json:Any?) {
         self.json = json as? NSDictionary
     }
 }

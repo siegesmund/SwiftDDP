@@ -29,7 +29,7 @@ open class MeteorDocument: NSObject {
         super.init()
         if let properties = fields {
             for (key,value) in properties  {
-                if !(value as AnyObject).isEqual(NSNull()) {
+                if !(value is NSNull) {
                     self.setValue(value, forKey: key as! String)
                 }
             }

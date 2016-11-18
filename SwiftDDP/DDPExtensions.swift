@@ -79,7 +79,7 @@ extension DDPClient {
     - parameter params:     An object containing method arguments, if any
     */
     
-    public func subscribe(_ name:String, params:[AnyObject]) -> String { return sub(name, params:params) }
+    public func subscribe(_ name:String, params:[Any]) -> String { return sub(name, params:params) }
     
     /**
     Sends a subscription request to the server. If a callback is passed, the callback asynchronously
@@ -91,7 +91,7 @@ extension DDPClient {
     - parameter callback:   The closure to be executed when the server sends a 'ready' message
     */
     
-    public func subscribe(_ name:String, params:[AnyObject]?, callback: DDPCallback?) -> String { return sub(name, params:params, callback:callback) }
+    public func subscribe(_ name:String, params:[Any]?, callback: DDPCallback?) -> String { return sub(name, params:params, callback:callback) }
     
     /**
     Sends a subscription request to the server. If a callback is passed, the callback asynchronously
@@ -251,7 +251,7 @@ extension DDPClient {
     }
     
     // Callback runs on main thread
-    public func login(_ params: NSDictionary, callback: ((_ result: AnyObject?, _ error: DDPError?) -> ())?) {
+    public func login(_ params: NSDictionary, callback: ((_ result: Any?, _ error: DDPError?) -> ())?) {
         
         // method is run on the userBackground queue
         method("login", params: NSArray(arrayLiteral: params)) { result, error in
@@ -347,7 +347,7 @@ extension DDPClient {
     }
     
     
-    public func signup(_ params:NSDictionary, callback:((_ result: AnyObject?, _ error: DDPError?) -> ())?) {
+    public func signup(_ params:NSDictionary, callback:((_ result: Any?, _ error: DDPError?) -> ())?) {
         method("createUser", params: NSArray(arrayLiteral: params)) { result, error in
             guard let e = error, (e.isValid == true) else {
                 
@@ -383,7 +383,7 @@ extension DDPClient {
     
     */
     
-    public func signupWithEmail(_ email: String, password: String, callback: ((_ result:AnyObject?, _ error:DDPError?) -> ())?) {
+    public func signupWithEmail(_ email: String, password: String, callback: ((_ result:Any?, _ error:DDPError?) -> ())?) {
         let params = ["email":email, "password":["digest":password.sha256(), "algorithm":"sha-256"]] as [String : Any]
         signup(params as NSDictionary, callback: callback)
     }
@@ -392,7 +392,7 @@ extension DDPClient {
     Invokes a Meteor method to create a user account with a given email and password, and a NSDictionary containing a user profile
     */
     
-    public func signupWithEmail(_ email: String, password: String, profile: NSDictionary, callback: ((_ result:AnyObject?, _ error:DDPError?) -> ())?) {
+    public func signupWithEmail(_ email: String, password: String, profile: NSDictionary, callback: ((_ result:Any?, _ error:DDPError?) -> ())?) {
         let params = ["email":email, "password":["digest":password.sha256(), "algorithm":"sha-256"], "profile":profile] as [String : Any]
         signup(params as NSDictionary, callback: callback)
     }
@@ -401,7 +401,7 @@ extension DDPClient {
      Invokes a Meteor method to create a user account with a given username, email and password, and a NSDictionary containing a user profile
      */
     
-    public func signupWithUsername(_ username: String, password: String, email: String?, profile: NSDictionary?, callback: ((_ result:AnyObject?, _ error:DDPError?) -> ())?) {
+    public func signupWithUsername(_ username: String, password: String, email: String?, profile: NSDictionary?, callback: ((_ result:Any?, _ error:DDPError?) -> ())?) {
         let params: NSMutableDictionary = ["username":username, "password":["digest":password.sha256(), "algorithm":"sha-256"]]
         if let email = email {
             params.setValue(email, forKey: "email")

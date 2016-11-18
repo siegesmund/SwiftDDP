@@ -45,7 +45,7 @@ public struct Completion {
         self.callback = callback
     }
     
-    func execute(_ result:AnyObject?, error:DDPError?) {
+    func execute(_ result:Any?, error:DDPError?) {
         
         if let callback = methodCallback {
             if let queue = executionQueue {

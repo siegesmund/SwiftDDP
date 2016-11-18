@@ -77,7 +77,7 @@ open class Meteor {
     - parameter params:     An object containing method arguments, if any.
     */
     
-    open static func subscribe(_ name:String, params:[AnyObject]) -> String { return client.sub(name, params:params) }
+    open static func subscribe(_ name:String, params:[Any]) -> String { return client.sub(name, params:params) }
     
     /**
     Sends a subscription request to the server. If a callback is passed, the callback asynchronously
@@ -89,7 +89,7 @@ open class Meteor {
     - parameter callback:   The closure to be executed when the server sends a 'ready' message.
     */
     
-    open static func subscribe(_ name:String, params:[AnyObject]?, callback: DDPCallback?) -> String { return client.sub(name, params:params, callback:callback) }
+    open static func subscribe(_ name:String, params:[Any]?, callback: DDPCallback?) -> String { return client.sub(name, params:params, callback:callback) }
     
     /**
     Sends a subscription request to the server. If a callback is passed, the callback asynchronously
@@ -137,8 +137,8 @@ open class Meteor {
     - parameter callback:   The closure to be executed when the method has been executed
     */
     
-    open static func call(_ name:String, params:[AnyObject]?, callback:DDPMethodCallback?) -> String? {
-        return client.method(name, params: params as AnyObject?, callback: callback)
+    open static func call(_ name:String, params:[Any]?, callback:DDPMethodCallback?) -> String? {
+        return client.method(name, params: params, callback: callback)
     }
     
     /**
