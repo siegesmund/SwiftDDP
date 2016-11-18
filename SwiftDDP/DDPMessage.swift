@@ -101,9 +101,9 @@ public struct DDPMessage {
     Converts an NSDictionary to a JSON string
     */
     
-    public static func toString(json:AnyObject) -> String? {
-        if let data = try? NSJSONSerialization.dataWithJSONObject(json, options: NSJSONWritingOptions(rawValue: 0)) {
-            let message = NSString(data: data, encoding: NSASCIIStringEncoding) as String?
+    public static func toString(_ json:AnyObject) -> String? {
+        if let data = try? JSONSerialization.data(withJSONObject: json, options: JSONSerialization.WritingOptions(rawValue: 0)) {
+            let message = NSString(data: data, encoding: String.Encoding.ascii.rawValue) as String?
             return message
         }
         return nil
@@ -140,8 +140,8 @@ public struct DDPMessage {
         return json.allKeys as! [String]
     }
     
-    public func hasProperty(name:String) -> Bool {
-        if let property = json[name] where ((property as! NSObject) != NSNull()) {
+    public func hasProperty(_ name:String) -> Bool {
+        if let property = json[name], ((property as! NSObject) != NSNull()) {
             return true
         }
         return false
@@ -255,8 +255,8 @@ public struct DDPMessage {
     The optional result object, containing the result of a method call
     */
     
-    public var result:AnyObject? {
-        get { return json["result"] }
+    public var result:Any? {
+        get { return json.object(forKey: "result") as Any? }
     }
     
     /**
@@ -297,9 +297,9 @@ public struct DDPMessage {
 A struct encapsulating a DDP error message
 */
 
-public struct DDPError: ErrorType {
+public struct DDPError: Error {
     
-    private var json:NSDictionary?
+    fileprivate var json:NSDictionary?
     
     /**
     The string error code

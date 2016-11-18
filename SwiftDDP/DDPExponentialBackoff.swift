@@ -38,16 +38,16 @@ class DDPExponentialBackoff {
     }
     
     //Cached original interval time
-    private var _reconnectionRetryInterval:Double!
+    fileprivate var _reconnectionRetryInterval:Double = 0
     
     
-    private var reconnectionRetryInterval:Double!
-    private var maxWaitInterval:Double!
-    private var multiplier:Double!
+    fileprivate var reconnectionRetryInterval:Double
+    fileprivate var maxWaitInterval:Double
+    fileprivate var multiplier:Double
     
     
     ///Perform a closure with increasing exponential delay time up to a max wait interval
-    func createBackoff(closure:()->()) {
+    func createBackoff(_ closure:@escaping ()->()) {
         
         let previousRetryInterval = self.reconnectionRetryInterval
         let newRetryInterval = min(previousRetryInterval * multiplier,maxWaitInterval)
@@ -55,12 +55,8 @@ class DDPExponentialBackoff {
         self.reconnectionRetryInterval = previousRetryInterval < maxWaitInterval ? newRetryInterval: maxWaitInterval
         
         
-        dispatch_after(
-            dispatch_time(
-                DISPATCH_TIME_NOW,
-                Int64(self.reconnectionRetryInterval * Double(NSEC_PER_SEC))
-            ),
-            dispatch_get_main_queue(), closure)
+        DispatchQueue.main.asyncAfter(
+            deadline: DispatchTime.now() + Double(Int64(self.reconnectionRetryInterval * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
 //        print(reconnectionRetryInterval)
     }
     
@@ -70,7 +66,7 @@ class DDPExponentialBackoff {
     }
     
     //Sets the backoff
-    func setBackoff(retryInterval:Double,maxWaitInterval:Double,multiplier:Double){
+    func setBackoff(_ retryInterval:Double,maxWaitInterval:Double,multiplier:Double){
         self.reconnectionRetryInterval = retryInterval
         self._reconnectionRetryInterval = retryInterval
         self.maxWaitInterval = maxWaitInterval

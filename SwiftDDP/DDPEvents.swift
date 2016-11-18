@@ -36,7 +36,7 @@ public struct DDPEvents {
     - parameter clean:      A boolean value indicating if the websocket connection was closed cleanly
     */
     
-    internal var onWebsocketClose:    ((code:Int, reason:String, clean:Bool) -> ())?
+    internal var onWebsocketClose:    ((_ code:Int, _ reason:String, _ clean:Bool) -> ())?
     
     /**
     onWebsocketError executes when the websocket connection returns an error.
@@ -44,7 +44,7 @@ public struct DDPEvents {
     - parameter error:      An ErrorType object describing the error
     */
     
-    internal var onWebsocketError:    (error:ErrorType) -> () = {error in log.error("websocket error \(error)")}
+    internal var onWebsocketError:    (_ error:Error) -> () = {error in log.error("websocket error \(error)")}
     
     /**
     onConnected executes when the client makes a DDP connection
@@ -76,7 +76,7 @@ public struct DDPEvents {
     - parameter fields:         an optional NSDictionary with the documents properties
     */
     
-    public var onAdded:             ((collection:String, id:String, fields:NSDictionary?) -> ())?
+    public var onAdded:             ((_ collection:String, _ id:String, _ fields:NSDictionary?) -> ())?
     
     /**
     onChanged executes when the server sends an instruction to modify a local document
@@ -88,7 +88,7 @@ public struct DDPEvents {
     - parameter cleared:        an optional array of string property names to delete
     */
     
-    public var onChanged:           ((collection:String, id:String, fields:NSDictionary?, cleared:NSArray?) -> ())?
+    public var onChanged:           ((_ collection:String, _ id:String, _ fields:NSDictionary?, _ cleared:NSArray?) -> ())?
     
     /**
     onRemoved executes when the server sends an instruction to remove a document from the local collection
@@ -97,7 +97,7 @@ public struct DDPEvents {
     - parameter id:             the string unique id that identifies the document on the server
     */
     
-    public var onRemoved:           ((collection:String, id:String) -> ())?
+    public var onRemoved:           ((_ collection:String, _ id:String) -> ())?
     
     // RPC Messages
     // public var onResult:            (json: NSDictionary?, callback:(result:AnyObject?, error:AnyObject?) -> ()) -> () = {json, callback in callback(result: json, error:nil) }
@@ -109,7 +109,7 @@ public struct DDPEvents {
     - parameter methods:    An array of method id strings
     */
     
-    public var onUpdated:           ((methods: [String]) -> ())?
+    public var onUpdated:           ((_ methods: [String]) -> ())?
     
     /**
     onError executes when the client receives a DDP error message
@@ -117,7 +117,7 @@ public struct DDPEvents {
     - parameter message:    A DDPError message describing the error
     */
     
-    public var onError:             ((message:DDPError) -> ())?
+    public var onError:             ((_ message:DDPError) -> ())?
     
 }
 
