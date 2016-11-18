@@ -15,7 +15,6 @@ MIT
 
 
 - [Installation](#installation)
-- [Documentation](#documentation)
   - [Quick Start](#quick-start)
     - [Setting basic configuration options](#setting-basic-configuration-options)
     - [Connecting to a Meteor server](#connecting-to-a-meteor-server)
@@ -311,6 +310,9 @@ Creating update and remove methods are also easy to create, and follow the same 
 
 
 ## Changelog
+### 0.4.0
+- Updated to Swift 3.0
+
 ### 0.3.2
 - Bugfixes
 
