@@ -26,6 +26,11 @@ websocket and Meteor lifecyle events. New closures can be assigned to public
 closures to modify the clients behavior in response to the trigger event.
 */
 
+public let DDP_WEBSOCKET_CLOSE = "DDP_WEBSOCKET_CLOSE"
+public let DDP_WEBSOCKET_ERROR = "DDP_WEBSOCKET_ERROR"
+public let DDP_DISCONNECTED = "DDP_DISCONNECTED"
+public let DDP_FAILED = "DDP_FAILED"
+
 public struct DDPEvents {
     
     /**
@@ -36,7 +41,9 @@ public struct DDPEvents {
     - parameter clean:      A boolean value indicating if the websocket connection was closed cleanly
     */
     
-    internal var onWebsocketClose:    ((_ code:Int, _ reason:String, _ clean:Bool) -> ())?
+    internal var onWebsocketClose:    ((_ code:Int, _ reason:String, _ clean:Bool) -> ())? = { code, reason, clean in
+        NotificationCenter.default.post(name: Notification.Name(rawValue: DDP_WEBSOCKET_CLOSE), object: nil)
+    }
     
     /**
     onWebsocketError executes when the websocket connection returns an error.
@@ -44,7 +51,10 @@ public struct DDPEvents {
     - parameter error:      An ErrorType object describing the error
     */
     
-    internal var onWebsocketError:    (_ error:Error) -> () = {error in log.error("websocket error \(error)")}
+    internal var onWebsocketError:    (_ error:Error) -> () = {error in
+        log.error("websocket error \(error)")
+        NotificationCenter.default.post(name: Notification.Name(rawValue: DDP_WEBSOCKET_ERROR), object: nil)
+    }
     
     /**
     onConnected executes when the client makes a DDP connection
@@ -58,13 +68,20 @@ public struct DDPEvents {
     onDisconnected executes when the client is disconnected
     */
     
-    public var onDisconnected:      () -> () = {log.debug("disconnected")}
+    public var onDisconnected:      () -> () = {
+        log.debug("disconnected")
+        NotificationCenter.default.post(name: Notification.Name(rawValue: DDP_DISCONNECTED), object: nil)
+        
+    }
     
     /**
     onFailed executes when an attempt to make a DDP connection fails
     */
     
-    public var onFailed:            () -> () = {log.error("failed")}
+    public var onFailed:            () -> () = {
+        log.error("failed")
+        NotificationCenter.default.post(name: Notification.Name(rawValue: DDP_FAILED), object: nil)
+    }
     
     // Data messages
     
