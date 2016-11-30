@@ -415,7 +415,7 @@ open class DDPClient: NSObject {
     
     open func sub(_ name:String, params: [Any]?, callback: DDPCallback?) -> String {
         let id = getId()
-        print("Subscribing to ID \(id)")
+        log.info("Subscribing to ID \(id)")
         return sub(id, name: name, params: params, callback: callback)
     }
     
