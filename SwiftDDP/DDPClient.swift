@@ -450,12 +450,23 @@ open class DDPClient: NSObject {
      - parameter callback:   The closure to be executed when the server sends a 'ready' message
      */
     
-    open func unsub(withName name: String) -> [String] {
-        return findSubscription(name).map({id in
-            background.addOperation() { self.sendMessage(["msg":"unsub", "id": id]) }
-            unsub(withId: id, callback: nil)
+    open func unsub(withName name: String, callback: DDPCallback?) -> [String] {
+        
+        var unsubgroup = DispatchGroup()
+        
+        let unsub_ids = findSubscription(name).map({id -> (String) in
+            unsubgroup.enter()
+            unsub(withId: id){
+                unsubgroup.leave()
+            }
             return id
         })
+        
+        if let completionCallback = callback {
+            unsubgroup.notify(queue: DispatchQueue.main, execute: completionCallback)
+        }
+        
+        return unsub_ids
     }
     
     /**

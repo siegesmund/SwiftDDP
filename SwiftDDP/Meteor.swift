@@ -108,7 +108,7 @@ open class Meteor {
      
     */
     
-    @discardableResult open static func unsubscribe(_ name:String) -> [String] { return client.unsub(withName: name) }
+    @discardableResult open static func unsubscribe(_ name:String, callback:DDPCallback?) -> [String] { return client.unsub(withName: name, callback: callback) }
     
     /**
      Sends an unsubscribe request to the server using a subscription id. This allows fine-grained control of subscriptions. For example, you can unsubscribe to specific combinations of subscriptions and subscription parameters. 
