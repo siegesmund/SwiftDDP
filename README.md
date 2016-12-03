@@ -92,12 +92,17 @@ Meteor.logout() { result, error in
 }
 
 ```
-The client also posts a notification when the user signs in and signs out.
+The client also posts a notification when the user signs in and signs out, and during connection failure events.
 
 ```swift
 // Notification name (a string global variable)
 DDP_USER_DID_LOGIN
 DDP_USER_DID_LOGOUT
+//Websocket/DDP connection failure events
+DDP_WEBSOCKET_CLOSE
+DDP_WEBSOCKET_ERROR
+DDP_DISCONNECTED
+DDP_FAILED
 
 // Example
 NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidLogin", name: DDP_USER_DID_LOGIN, object: nil)
