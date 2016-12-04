@@ -260,6 +260,17 @@ open class Meteor {
     open static func loginWithUsername(_ username:String, password:String, callback:DDPMethodCallback? = nil) {
         client.loginWithUsername(username, password: password, callback: callback)
     }
+
+    /**
+     Logs a user into the server using a third party auth provider
+     
+     - parameter params:   sign in parameters
+     - parameter callback:   A closure with result and error parameters describing the outcome of the operation
+     */
+    
+    open static func login(_ params: NSDictionary, callback:DDPMethodCallback?) {
+        client.login(params, callback: callback)
+    }
     
     internal static func loginWithService<T: UIViewController>(_ service: String, clientId: String, viewController: T) {
         
