@@ -1,7 +1,7 @@
 SwiftDDP  <img src="https://github.com/siegesmund/SwiftDDP/blob/master/assets/logo.jpg" height="75" width="75"/> 
 =====
 ## A client for Meteor servers, written in Swift
-### version 0.4.0
+### version 0.4.1
 
 #### License
 MIT  
