@@ -463,9 +463,9 @@ extension DDPClient {
         method("logout", params: nil) { result, error in
                 if (error == nil) {
                     self.userMainQueue.addOperation() {
-                        let user = self.user()!
-                        if let _ = self.delegate {
-                            self.delegate!.ddpUserDidLogout(user)
+                        if let user = self.user(),
+                            let delegate = self.delegate {
+                            delegate.ddpUserDidLogout(user)
                         }
                         self.resetUserData()
                         NotificationCenter.default.post(name: Notification.Name(rawValue: DDP_USER_DID_LOGOUT), object: nil)
