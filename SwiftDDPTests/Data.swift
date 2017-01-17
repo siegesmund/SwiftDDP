@@ -19,8 +19,8 @@ class Document: MeteorDocument {
 
 //let url = "ws://swiftddp.meteor.com/websocket"
 let url = "ws://localhost:3000/websocket"
-let user = "test@user.com"
-let pass = "swiftddp"
+let user = "mjgaylord@gmail.com"
+let pass = "mjgaylord123"
 
 let ready = DDPMessage(message: "{\"msg\":\"ready\", \"subs\":[\"AllStates\"]}")
 let nosub = DDPMessage(message: ["msg":"nosub", "id":"AllStates"])

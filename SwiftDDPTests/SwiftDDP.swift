@@ -176,7 +176,7 @@ class DDPServerTests:QuickSpec {
                 expect(testResult).toEventuallyNot(beNil(), timeout:5)
                 expect(testSession).toEventuallyNot(beNil(), timeout:5)
                 
-                let userDefaultsToken = client.userData.objectForKey("DDP_TOKEN") as! String
+                let userDefaultsToken = client.userData.object(forKey: "DDP_TOKEN") as! String
                 let resultToken = testResult["token"] as! String
                 
                 expect(userDefaultsToken).toEventually(equal(resultToken), timeout:5)
@@ -204,7 +204,8 @@ class DDPServerTests:QuickSpec {
                 
                 // the tuple that holds the subscription data in the client should be updated to reflect that the
                 // subscription is ready
-                expect(client.findSubscription("test-collection2")?.ready).toEventually(beTrue(), timeout:5)
+                let subscriptionID = client.findSubscription("test-collection2")
+                expect(client.subscriptionReady("test-collection2")).toEventually(beTrue(), timeout:5)
                 
                 // test that the data is returned from the server
                 expect(added.count).toEventually(equal(1), timeout:5)

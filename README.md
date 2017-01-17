@@ -1,7 +1,7 @@
 SwiftDDP  <img src="https://github.com/siegesmund/SwiftDDP/blob/master/assets/logo.jpg" height="75" width="75"/> 
 =====
 ## A client for Meteor servers, written in Swift
-### version 0.3.2
+### version 0.4.1
 
 #### License
 MIT  
@@ -15,7 +15,6 @@ MIT
 
 
 - [Installation](#installation)
-- [Documentation](#documentation)
   - [Quick Start](#quick-start)
     - [Setting basic configuration options](#setting-basic-configuration-options)
     - [Connecting to a Meteor server](#connecting-to-a-meteor-server)
@@ -41,11 +40,8 @@ MIT
 With [CocoaPods](http://cocoapods.org). Add the following line to your Podfile:
 
 ```ruby
-pod "SwiftDDP", "~> 0.3.2"
+pod "SwiftDDP", "~> 0.4.1"
 ```
-
-## Documentation
-###[API Reference](https://siegesmund.github.io/SwiftDDP)
 
 ### Quick Start
 
@@ -96,12 +92,17 @@ Meteor.logout() { result, error in
 }
 
 ```
-The client also posts a notification when the user signs in and signs out.
+The client also posts a notification when the user signs in and signs out, and during connection failure events.
 
 ```swift
 // Notification name (a string global variable)
 DDP_USER_DID_LOGIN
 DDP_USER_DID_LOGOUT
+//Websocket/DDP connection failure events
+DDP_WEBSOCKET_CLOSE
+DDP_WEBSOCKET_ERROR
+DDP_DISCONNECTED
+DDP_FAILED
 
 // Example
 NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidLogin", name: DDP_USER_DID_LOGIN, object: nil)
@@ -311,6 +312,9 @@ Creating update and remove methods are also easy to create, and follow the same 
 
 
 ## Changelog
+### 0.4.0
+- Updated to Swift 3.0
+
 ### 0.3.2
 - Bugfixes
 
