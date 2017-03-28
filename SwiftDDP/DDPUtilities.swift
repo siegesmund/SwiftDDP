@@ -45,8 +45,8 @@ func toBase64(_ string: String) -> String {
 
 func fromBase64(_ string: String) -> String {
     let decodedData = Data(base64Encoded: string, options: NSData.Base64DecodingOptions(rawValue: 0))
-    let decodedString = NSString(data: decodedData!, encoding: String.Encoding.utf8.rawValue)
-    return decodedString as! String
+    let decodedString = String(data: decodedData!, encoding: .utf8)
+    return decodedString ?? ""
 }
 
 

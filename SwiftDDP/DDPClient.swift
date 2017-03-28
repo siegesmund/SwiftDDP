@@ -219,7 +219,7 @@ open class DDPClient: NSObject {
                     callback?(session)
                 }
                 
-                var completion = Completion(callback: callbackWithServiceConfiguration)
+                var completion = Completion(connectedCallback: callbackWithServiceConfiguration)
                 //Reset the backoff to original values
                 backOff.reset()
                 completion.executionQueue = executionQueue
@@ -361,7 +361,7 @@ open class DDPClient: NSObject {
         if let p = params { message["params"] = p }
         
         if let completionCallback = callback {
-            let completion = Completion(callback: completionCallback)
+            let completion = Completion(methodCallback: completionCallback)
             self.resultCallbacks[id] = completion
         }
         
@@ -452,7 +452,7 @@ open class DDPClient: NSObject {
     
     open func unsub(withName name: String, callback: DDPCallback?) -> [String] {
         
-        var unsubgroup = DispatchGroup()
+        let unsubgroup = DispatchGroup()
         
         let unsub_ids = findSubscription(name).map({id -> (String) in
             unsubgroup.enter()

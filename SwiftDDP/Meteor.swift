@@ -115,7 +115,7 @@ open class Meteor {
      - parameter id: An id string returned from a subscription request
      */
     
-    @discardableResult open static func unsubscribe(withId id:String) { return client.unsub(withId: id, callback: nil) }
+    open static func unsubscribe(withId id:String) { return client.unsub(withId: id, callback: nil) }
     
     /**
      Sends an unsubscribe request to the server using a subscription id. This allows fine-grained control of subscriptions. For example, you can unsubscribe to specific combinations of subscriptions and subscription parameters. If a callback is passed, the callback asynchronously
@@ -124,7 +124,7 @@ open class Meteor {
      - parameter callback:   The closure to be executed when the method has been executed
      */
     
-    @discardableResult open static func unsubscribe(withId id:String, callback:DDPCallback?) { return client.unsub(withId: id, callback: callback) }
+    open static func unsubscribe(withId id:String, callback:DDPCallback?) { return client.unsub(withId: id, callback: callback) }
     
     /**
     Calls a method on the server. If a callback is passed, the callback is asynchronously
