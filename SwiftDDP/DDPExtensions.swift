@@ -461,7 +461,9 @@ extension DDPClient {
     
     public func logout(_ callback:DDPMethodCallback?) {
         method("logout", params: nil) { result, error in
-                if (error == nil) {
+                if let error = error {
+                    log.error("\(error)")
+                } else {
                     self.userMainQueue.addOperation() {
                         if let user = self.user(),
                             let delegate = self.delegate {
@@ -470,12 +472,8 @@ extension DDPClient {
                         self.resetUserData()
                         NotificationCenter.default.post(name: Notification.Name(rawValue: DDP_USER_DID_LOGOUT), object: nil)
                     }
-                    
-                } else {
-                    log.error("\(error)")
                 }
-                
-                if let c = callback { c(result, error) }
+                callback?(result, error)
             }
         }
     
@@ -489,16 +487,16 @@ extension DDPClient {
         connect(url) { session in
             if let _ = self.user() {
                 self.loginWithToken() { result, error in
-                    if error == nil {
-                        log.debug("Resumed previous session at launch")
-                        if let completion = callback { completion() }
-                    } else {
+                    if let error = error {
                         self.logout()
                         log.error("\(error)")
+                    } else {
+                        log.debug("Resumed previous session at launch")
+                        callback?()
                     }
                 }
             } else {
-                if let completion = callback { completion() }
+                callback?()
             }
         }
     }
