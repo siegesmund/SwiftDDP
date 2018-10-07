@@ -26,6 +26,30 @@
 		AA0D2AE11D6BF18700085B33 /* SwiftWebSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0D2ADC1D6BF18700085B33 /* SwiftWebSocket.framework */; };
 		AA0D2AE41D6BF18700085B33 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0D2ADF1D6BF18700085B33 /* CryptoSwift.framework */; };
 		AAFDED3F1D6BF984000583AA /* SwiftDDP-OSX.h in Headers */ = {isa = PBXBuildFile; fileRef = AAFDED3E1D6BF984000583AA /* SwiftDDP-OSX.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BA4DA4732166018400264579 /* DDPExponentialBackoff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFFCBC61C64352300C147F2 /* DDPExponentialBackoff.swift */; };
+		BA4DA4742166018800264579 /* DDPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720B1BBEFCD200940C17 /* DDPClient.swift */; };
+		BA4DA4752166018B00264579 /* DDPEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720E1BBEFCD300940C17 /* DDPEvents.swift */; };
+		BA4DA4762166018E00264579 /* DDPCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04D0DAA1C21ADF9000244D6 /* DDPCompletion.swift */; };
+		BA4DA4772166019000264579 /* DDPMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720C1BBEFCD300940C17 /* DDPMessage.swift */; };
+		BA4DA4782166019300264579 /* DDPExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720D1BBEFCD300940C17 /* DDPExtensions.swift */; };
+		BA4DA4792166019600264579 /* DDPMethodResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02B30821BDA8E2200E1DB72 /* DDPMethodResult.swift */; };
+		BA4DA47A2166019800264579 /* DDPUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D724611C4E7FBA00EE91DC /* DDPUtilities.swift */; };
+		BA4DA47C2166019E00264579 /* AbstractCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0339DD11C00DA6100A17DEB /* AbstractCollection.swift */; };
+		BA4DA47D216601A100264579 /* MeteorCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0339DD31C00DAB000A17DEB /* MeteorCollection.swift */; };
+		BA4DA47E216601A400264579 /* MeteorDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04D0DB81C21D489000244D6 /* MeteorDocument.swift */; };
+		BA4DA47F216601A700264579 /* EJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F6C99C1BFFA04600A6CB70 /* EJSON.swift */; };
+		BA4DA4802166036400264579 /* Meteor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C71B551BC172F40089B6CE /* Meteor.swift */; };
+		BA4DA487216605B600264579 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA4DA481216605B500264579 /* CryptoSwift.framework */; };
+		BA4DA489216605B600264579 /* XCGLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA4DA483216605B500264579 /* XCGLogger.framework */; };
+		BA4DA48A216605B600264579 /* SwiftWebSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA4DA484216605B600264579 /* SwiftWebSocket.framework */; };
+		BA4DA49521671FEC00264579 /* MeteorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4DA49421671FEC00264579 /* MeteorExtension.swift */; };
+		BA4DA496216721F600264579 /* MeteorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4DA49421671FEC00264579 /* MeteorExtension.swift */; };
+		BA4DA4C421684D3C00264579 /* SwiftDDP_OSXTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4DA4C321684D3C00264579 /* SwiftDDP_OSXTests.swift */; };
+		BA4DA4C621684D3C00264579 /* SwiftDDP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAFDED3C1D6BF984000583AA /* SwiftDDP.framework */; };
+		BA4DA4D621690BC600264579 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA4DA485216605B600264579 /* Nimble.framework */; };
+		BA4DA4D721690BC900264579 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA4DA482216605B500264579 /* Quick.framework */; };
+		BA4DA4D921690F4300264579 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BA4DA485216605B600264579 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BA4DA4DA21690F4600264579 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BA4DA482216605B500264579 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D02A72101BBEFCD300940C17 /* DDPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720B1BBEFCD200940C17 /* DDPClient.swift */; };
 		D02A72111BBEFCD300940C17 /* DDPMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720C1BBEFCD300940C17 /* DDPMessage.swift */; };
 		D02A72121BBEFCD300940C17 /* DDPExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720D1BBEFCD300940C17 /* DDPExtensions.swift */; };
@@ -53,6 +77,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		BA4DA4C721684D3C00264579 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D02A71D31BBEFBCA00940C17 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AAFDED3B1D6BF984000583AA;
+			remoteInfo = "SwiftDDP-OSX";
+		};
 		D02A72591BBF07AF00940C17 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D02A71D31BBEFBCA00940C17 /* Project object */;
@@ -63,6 +94,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		BA4DA4D821690F2000264579 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				BA4DA4D921690F4300264579 /* Nimble.framework in CopyFiles */,
+				BA4DA4DA21690F4600264579 /* Quick.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D02A722D1BBF028E00940C17 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -90,6 +132,17 @@
 		AAFDED3C1D6BF984000583AA /* SwiftDDP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftDDP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAFDED3E1D6BF984000583AA /* SwiftDDP-OSX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftDDP-OSX.h"; sourceTree = "<group>"; };
 		AAFDED401D6BF984000583AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BA4DA481216605B500264579 /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = Carthage/Build/Mac/CryptoSwift.framework; sourceTree = "<group>"; };
+		BA4DA482216605B500264579 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/Mac/Quick.framework; sourceTree = "<group>"; };
+		BA4DA483216605B500264579 /* XCGLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCGLogger.framework; path = Carthage/Build/Mac/XCGLogger.framework; sourceTree = "<group>"; };
+		BA4DA484216605B600264579 /* SwiftWebSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftWebSocket.framework; path = Carthage/Build/Mac/SwiftWebSocket.framework; sourceTree = "<group>"; };
+		BA4DA485216605B600264579 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/Mac/Nimble.framework; sourceTree = "<group>"; };
+		BA4DA486216605B600264579 /* ObjcExceptionBridging.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ObjcExceptionBridging.framework; path = Carthage/Build/Mac/ObjcExceptionBridging.framework; sourceTree = "<group>"; };
+		BA4DA49421671FEC00264579 /* MeteorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeteorExtension.swift; sourceTree = "<group>"; };
+		BA4DA4BB2168474200264579 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/AppKit.framework; sourceTree = DEVELOPER_DIR; };
+		BA4DA4C121684D3C00264579 /* SwiftDDP-OSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SwiftDDP-OSXTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA4DA4C321684D3C00264579 /* SwiftDDP_OSXTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDDP_OSXTests.swift; sourceTree = "<group>"; };
+		BA4DA4C521684D3C00264579 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D02A71DC1BBEFBCA00940C17 /* SwiftDDP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftDDP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D02A71E11BBEFBCA00940C17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D02A720B1BBEFCD200940C17 /* DDPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPClient.swift; sourceTree = "<group>"; };
@@ -120,10 +173,6 @@
 		D0C71B571BC173030089B6CE /* SwiftMeteor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftMeteor.swift; sourceTree = "<group>"; };
 		D0C71B5A1BC174280089B6CE /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		D0D724611C4E7FBA00EE91DC /* DDPUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPUtilities.swift; sourceTree = "<group>"; };
-		D0E9DFDD1C359535005D92FA /* SwiftDDP OSX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftDDP OSX.h"; sourceTree = "<group>"; };
-		D0E9DFDF1C359535005D92FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D0E9DFE91C359535005D92FA /* SwiftDDP_OSXTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDDP_OSXTests.swift; sourceTree = "<group>"; };
-		D0E9DFEB1C359535005D92FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0F6C99C1BFFA04600A6CB70 /* EJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EJSON.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -142,6 +191,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA4DA487216605B600264579 /* CryptoSwift.framework in Frameworks */,
+				BA4DA489216605B600264579 /* XCGLogger.framework in Frameworks */,
+				BA4DA48A216605B600264579 /* SwiftWebSocket.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA4DA4BE21684D3C00264579 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA4DA4C621684D3C00264579 /* SwiftDDP.framework in Frameworks */,
+				BA4DA4D621690BC600264579 /* Nimble.framework in Frameworks */,
+				BA4DA4D721690BC900264579 /* Quick.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,15 +248,23 @@
 			path = "SwiftDDP-OSX";
 			sourceTree = "<group>";
 		};
+		BA4DA4C221684D3C00264579 /* SwiftDDP-OSXTests */ = {
+			isa = PBXGroup;
+			children = (
+				BA4DA4C321684D3C00264579 /* SwiftDDP_OSXTests.swift */,
+				BA4DA4C521684D3C00264579 /* Info.plist */,
+			);
+			path = "SwiftDDP-OSXTests";
+			sourceTree = "<group>";
+		};
 		D02A71D21BBEFBCA00940C17 = {
 			isa = PBXGroup;
 			children = (
 				D02A71DE1BBEFBCA00940C17 /* SwiftDDP */,
 				D02A72541BBF07AF00940C17 /* Tests */,
-				D0E9DFDC1C359535005D92FA /* SwiftDDP OSX */,
-				D0E9DFE81C359535005D92FA /* SwiftDDP OSXTests */,
 				AA0D2AC41D6BEEC700085B33 /* SwiftDDP-tvOS */,
 				AAFDED3D1D6BF984000583AA /* SwiftDDP-OSX */,
+				BA4DA4C221684D3C00264579 /* SwiftDDP-OSXTests */,
 				D02A72341BBF02C200940C17 /* Frameworks */,
 				D02A72AE1BBF383700940C17 /* SwiftDDP.podspec */,
 				D02A72AF1BBF383700940C17 /* LICENSE */,
@@ -211,6 +281,7 @@
 				D02A72531BBF07AF00940C17 /* SwiftDDP Tests.xctest */,
 				AA0D2AC31D6BEEC700085B33 /* SwiftDDP.framework */,
 				AAFDED3C1D6BF984000583AA /* SwiftDDP.framework */,
+				BA4DA4C121684D3C00264579 /* SwiftDDP-OSXTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -227,6 +298,7 @@
 				D02B30821BDA8E2200E1DB72 /* DDPMethodResult.swift */,
 				D0D724611C4E7FBA00EE91DC /* DDPUtilities.swift */,
 				D0C71B551BC172F40089B6CE /* Meteor.swift */,
+				BA4DA49421671FEC00264579 /* MeteorExtension.swift */,
 				D0339DD11C00DA6100A17DEB /* AbstractCollection.swift */,
 				D0339DD31C00DAB000A17DEB /* MeteorCollection.swift */,
 				D04D0DB81C21D489000244D6 /* MeteorDocument.swift */,
@@ -239,11 +311,18 @@
 		D02A72341BBF02C200940C17 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BA4DA4BB2168474200264579 /* AppKit.framework */,
+				BA4DA484216605B600264579 /* SwiftWebSocket.framework */,
 				AA0D2ADB1D6BF18700085B33 /* XCGLogger.framework */,
 				AA0D2ADC1D6BF18700085B33 /* SwiftWebSocket.framework */,
+				BA4DA485216605B600264579 /* Nimble.framework */,
+				BA4DA486216605B600264579 /* ObjcExceptionBridging.framework */,
 				AA0D2ADD1D6BF18700085B33 /* Quick.framework */,
 				AA0D2ADE1D6BF18700085B33 /* Nimble.framework */,
 				AA0D2ADF1D6BF18700085B33 /* CryptoSwift.framework */,
+				BA4DA481216605B500264579 /* CryptoSwift.framework */,
+				BA4DA482216605B500264579 /* Quick.framework */,
+				BA4DA483216605B500264579 /* XCGLogger.framework */,
 				D02A72321BBF02B900940C17 /* XCGLogger.framework.dSYM */,
 				D02A72301BBF02B400940C17 /* SwiftWebSocket.framework.dSYM */,
 				D02A722E1BBF02AA00940C17 /* CryptoSwift.framework.dSYM */,
@@ -266,24 +345,6 @@
 			);
 			name = Tests;
 			path = SwiftDDPTests;
-			sourceTree = "<group>";
-		};
-		D0E9DFDC1C359535005D92FA /* SwiftDDP OSX */ = {
-			isa = PBXGroup;
-			children = (
-				D0E9DFDD1C359535005D92FA /* SwiftDDP OSX.h */,
-				D0E9DFDF1C359535005D92FA /* Info.plist */,
-			);
-			path = "SwiftDDP OSX";
-			sourceTree = "<group>";
-		};
-		D0E9DFE81C359535005D92FA /* SwiftDDP OSXTests */ = {
-			isa = PBXGroup;
-			children = (
-				D0E9DFE91C359535005D92FA /* SwiftDDP_OSXTests.swift */,
-				D0E9DFEB1C359535005D92FA /* Info.plist */,
-			);
-			path = "SwiftDDP OSXTests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -341,6 +402,7 @@
 				AAFDED381D6BF984000583AA /* Frameworks */,
 				AAFDED391D6BF984000583AA /* Headers */,
 				AAFDED3A1D6BF984000583AA /* Resources */,
+				BA4DA48D216605D100264579 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -350,6 +412,25 @@
 			productName = "SwiftDDP-OSX";
 			productReference = AAFDED3C1D6BF984000583AA /* SwiftDDP.framework */;
 			productType = "com.apple.product-type.framework";
+		};
+		BA4DA4C021684D3C00264579 /* SwiftDDP-OSXTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BA4DA4C921684D3C00264579 /* Build configuration list for PBXNativeTarget "SwiftDDP-OSXTests" */;
+			buildPhases = (
+				BA4DA4BD21684D3C00264579 /* Sources */,
+				BA4DA4BE21684D3C00264579 /* Frameworks */,
+				BA4DA4BF21684D3C00264579 /* Resources */,
+				BA4DA4D821690F2000264579 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BA4DA4C821684D3C00264579 /* PBXTargetDependency */,
+			);
+			name = "SwiftDDP-OSXTests";
+			productName = "SwiftDDP-OSXTests";
+			productReference = BA4DA4C121684D3C00264579 /* SwiftDDP-OSXTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		D02A71DB1BBEFBCA00940C17 /* SwiftDDP */ = {
 			isa = PBXNativeTarget;
@@ -396,7 +477,7 @@
 		D02A71D31BBEFBCA00940C17 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0720;
+				LastSwiftUpdateCheck = 1000;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Peter Siegesmund";
 				TargetAttributes = {
@@ -405,6 +486,10 @@
 					};
 					AAFDED3B1D6BF984000583AA = {
 						CreatedOnToolsVersion = 7.3.1;
+					};
+					BA4DA4C021684D3C00264579 = {
+						CreatedOnToolsVersion = 10.0;
+						ProvisioningStyle = Automatic;
 					};
 					D02A71DB1BBEFBCA00940C17 = {
 						CreatedOnToolsVersion = 7.0;
@@ -432,6 +517,7 @@
 				D02A72521BBF07AF00940C17 /* SwiftDDP Tests */,
 				AA0D2AC21D6BEEC700085B33 /* SwiftDDP-tvOS */,
 				AAFDED3B1D6BF984000583AA /* SwiftDDP-OSX */,
+				BA4DA4C021684D3C00264579 /* SwiftDDP-OSXTests */,
 			);
 		};
 /* End PBXProject section */
@@ -445,6 +531,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AAFDED3A1D6BF984000583AA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA4DA4BF21684D3C00264579 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -468,6 +561,27 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		BA4DA48D216605D100264579 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/Mac/CryptoSwift.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/SwiftWebSocket.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/XCGLogger.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/ObjcExceptionBridging.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
 		D02A72261BBF012400940C17 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -482,7 +596,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
 		D02A72601BBF086A00940C17 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -511,6 +625,7 @@
 				AA0D2ACD1D6BF0F500085B33 /* DDPEvents.swift in Sources */,
 				AA0D2ACE1D6BF0F500085B33 /* DDPCompletion.swift in Sources */,
 				AA0D2ACF1D6BF0F500085B33 /* DDPMessage.swift in Sources */,
+				BA4DA496216721F600264579 /* MeteorExtension.swift in Sources */,
 				AA0D2AD01D6BF0F500085B33 /* DDPExtensions.swift in Sources */,
 				AA0D2AD11D6BF0F500085B33 /* DDPMethodResult.swift in Sources */,
 				AA0D2AD21D6BF0F500085B33 /* DDPUtilities.swift in Sources */,
@@ -526,6 +641,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA4DA47F216601A700264579 /* EJSON.swift in Sources */,
+				BA4DA4762166018E00264579 /* DDPCompletion.swift in Sources */,
+				BA4DA47A2166019800264579 /* DDPUtilities.swift in Sources */,
+				BA4DA4792166019600264579 /* DDPMethodResult.swift in Sources */,
+				BA4DA4732166018400264579 /* DDPExponentialBackoff.swift in Sources */,
+				BA4DA47D216601A100264579 /* MeteorCollection.swift in Sources */,
+				BA4DA47E216601A400264579 /* MeteorDocument.swift in Sources */,
+				BA4DA47C2166019E00264579 /* AbstractCollection.swift in Sources */,
+				BA4DA4782166019300264579 /* DDPExtensions.swift in Sources */,
+				BA4DA4742166018800264579 /* DDPClient.swift in Sources */,
+				BA4DA4772166019000264579 /* DDPMessage.swift in Sources */,
+				BA4DA4802166036400264579 /* Meteor.swift in Sources */,
+				BA4DA4752166018B00264579 /* DDPEvents.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA4DA4BD21684D3C00264579 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA4DA4C421684D3C00264579 /* SwiftDDP_OSXTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,6 +674,7 @@
 				D0F6C99D1BFFA04600A6CB70 /* EJSON.swift in Sources */,
 				D0339DD41C00DAB000A17DEB /* MeteorCollection.swift in Sources */,
 				D02B30831BDA8E2200E1DB72 /* DDPMethodResult.swift in Sources */,
+				BA4DA49521671FEC00264579 /* MeteorExtension.swift in Sources */,
 				D0339DD21C00DA6100A17DEB /* AbstractCollection.swift in Sources */,
 				D02A72111BBEFCD300940C17 /* DDPMessage.swift in Sources */,
 				D0D724661C4E7FBA00EE91DC /* DDPUtilities.swift in Sources */,
@@ -562,6 +699,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		BA4DA4C821684D3C00264579 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AAFDED3B1D6BF984000583AA /* SwiftDDP-OSX */;
+			targetProxy = BA4DA4C721684D3C00264579 /* PBXContainerItemProxy */;
+		};
 		D02A725A1BBF07AF00940C17 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D02A71DB1BBEFBCA00940C17 /* SwiftDDP */;
@@ -627,6 +769,7 @@
 		AAFDED411D6BF984000583AA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -634,22 +777,29 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "SwiftDDP-OSX/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.houndfish.SwiftDDP-OSX";
 				PRODUCT_NAME = SwiftDDP;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
 		AAFDED421D6BF984000583AA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -657,16 +807,95 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "SwiftDDP-OSX/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.houndfish.SwiftDDP-OSX";
 				PRODUCT_NAME = SwiftDDP;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		BA4DA4CA21684D3C00264579 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/Mac";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "SwiftDDP-OSXTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.blogspot.new-3rs.SwiftDDP-OSXTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		BA4DA4CB21684D3C00264579 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/Mac";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "SwiftDDP-OSXTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.blogspot.new-3rs.SwiftDDP-OSXTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -855,6 +1084,15 @@
 			buildConfigurations = (
 				AAFDED411D6BF984000583AA /* Debug */,
 				AAFDED421D6BF984000583AA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BA4DA4C921684D3C00264579 /* Build configuration list for PBXNativeTarget "SwiftDDP-OSXTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA4DA4CA21684D3C00264579 /* Debug */,
+				BA4DA4CB21684D3C00264579 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
