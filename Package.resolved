@@ -1,0 +1,34 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "CryptoSwift",
+        "repositoryURL": "https://github.com/krzyzanowskim/CryptoSwift.git",
+        "state": {
+          "branch": null,
+          "revision": "2bcb008fe23d286e5da79311051e19b3345f1cd5",
+          "version": "0.12.0"
+        }
+      },
+      {
+        "package": "SwiftWebSocket",
+        "repositoryURL": "https://github.com/tidwall/SwiftWebSocket.git",
+        "state": {
+          "branch": null,
+          "revision": "6567a9d2add5cf37674d4ed0fdd211efd57bd603",
+          "version": "2.7.0"
+        }
+      },
+      {
+        "package": "XCGLogger",
+        "repositoryURL": "https://github.com/DaveWoodCom/XCGLogger.git",
+        "state": {
+          "branch": null,
+          "revision": "1439885a7c6ac43cdec1bf96b83a0cbdb489244d",
+          "version": "6.1.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

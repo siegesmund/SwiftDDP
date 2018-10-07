@@ -7,38 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6FFFCBC71C64352300C147F2 /* DDPExponentialBackoff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFFCBC61C64352300C147F2 /* DDPExponentialBackoff.swift */; };
 		AA0D2AC61D6BEEC700085B33 /* SwiftDDP-tvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = AA0D2AC51D6BEEC700085B33 /* SwiftDDP-tvOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AA0D2ACB1D6BF0F500085B33 /* DDPExponentialBackoff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFFCBC61C64352300C147F2 /* DDPExponentialBackoff.swift */; };
-		AA0D2ACC1D6BF0F500085B33 /* DDPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720B1BBEFCD200940C17 /* DDPClient.swift */; };
-		AA0D2ACD1D6BF0F500085B33 /* DDPEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720E1BBEFCD300940C17 /* DDPEvents.swift */; };
-		AA0D2ACE1D6BF0F500085B33 /* DDPCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04D0DAA1C21ADF9000244D6 /* DDPCompletion.swift */; };
-		AA0D2ACF1D6BF0F500085B33 /* DDPMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720C1BBEFCD300940C17 /* DDPMessage.swift */; };
-		AA0D2AD01D6BF0F500085B33 /* DDPExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720D1BBEFCD300940C17 /* DDPExtensions.swift */; };
-		AA0D2AD11D6BF0F500085B33 /* DDPMethodResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02B30821BDA8E2200E1DB72 /* DDPMethodResult.swift */; };
-		AA0D2AD21D6BF0F500085B33 /* DDPUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D724611C4E7FBA00EE91DC /* DDPUtilities.swift */; };
-		AA0D2AD31D6BF0F500085B33 /* Meteor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C71B551BC172F40089B6CE /* Meteor.swift */; };
-		AA0D2AD41D6BF0F500085B33 /* AbstractCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0339DD11C00DA6100A17DEB /* AbstractCollection.swift */; };
-		AA0D2AD51D6BF0F500085B33 /* MeteorCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0339DD31C00DAB000A17DEB /* MeteorCollection.swift */; };
-		AA0D2AD61D6BF0F500085B33 /* MeteorDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04D0DB81C21D489000244D6 /* MeteorDocument.swift */; };
-		AA0D2ADA1D6BF0F500085B33 /* EJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F6C99C1BFFA04600A6CB70 /* EJSON.swift */; };
 		AA0D2AE01D6BF18700085B33 /* XCGLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0D2ADB1D6BF18700085B33 /* XCGLogger.framework */; };
 		AA0D2AE11D6BF18700085B33 /* SwiftWebSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0D2ADC1D6BF18700085B33 /* SwiftWebSocket.framework */; };
 		AA0D2AE41D6BF18700085B33 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0D2ADF1D6BF18700085B33 /* CryptoSwift.framework */; };
 		AAFDED3F1D6BF984000583AA /* SwiftDDP-OSX.h in Headers */ = {isa = PBXBuildFile; fileRef = AAFDED3E1D6BF984000583AA /* SwiftDDP-OSX.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BA4DA4732166018400264579 /* DDPExponentialBackoff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFFCBC61C64352300C147F2 /* DDPExponentialBackoff.swift */; };
-		BA4DA4742166018800264579 /* DDPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720B1BBEFCD200940C17 /* DDPClient.swift */; };
-		BA4DA4752166018B00264579 /* DDPEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720E1BBEFCD300940C17 /* DDPEvents.swift */; };
-		BA4DA4762166018E00264579 /* DDPCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04D0DAA1C21ADF9000244D6 /* DDPCompletion.swift */; };
-		BA4DA4772166019000264579 /* DDPMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720C1BBEFCD300940C17 /* DDPMessage.swift */; };
-		BA4DA4782166019300264579 /* DDPExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720D1BBEFCD300940C17 /* DDPExtensions.swift */; };
-		BA4DA4792166019600264579 /* DDPMethodResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02B30821BDA8E2200E1DB72 /* DDPMethodResult.swift */; };
-		BA4DA47A2166019800264579 /* DDPUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D724611C4E7FBA00EE91DC /* DDPUtilities.swift */; };
-		BA4DA47C2166019E00264579 /* AbstractCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0339DD11C00DA6100A17DEB /* AbstractCollection.swift */; };
-		BA4DA47D216601A100264579 /* MeteorCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0339DD31C00DAB000A17DEB /* MeteorCollection.swift */; };
-		BA4DA47E216601A400264579 /* MeteorDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04D0DB81C21D489000244D6 /* MeteorDocument.swift */; };
-		BA4DA47F216601A700264579 /* EJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F6C99C1BFFA04600A6CB70 /* EJSON.swift */; };
-		BA4DA4802166036400264579 /* Meteor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C71B551BC172F40089B6CE /* Meteor.swift */; };
 		BA4DA487216605B600264579 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA4DA481216605B500264579 /* CryptoSwift.framework */; };
 		BA4DA489216605B600264579 /* XCGLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA4DA483216605B500264579 /* XCGLogger.framework */; };
 		BA4DA48A216605B600264579 /* SwiftWebSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA4DA484216605B600264579 /* SwiftWebSocket.framework */; };
@@ -50,10 +23,45 @@
 		BA4DA4D721690BC900264579 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA4DA482216605B500264579 /* Quick.framework */; };
 		BA4DA4D921690F4300264579 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BA4DA485216605B600264579 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BA4DA4DA21690F4600264579 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BA4DA482216605B500264579 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D02A72101BBEFCD300940C17 /* DDPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720B1BBEFCD200940C17 /* DDPClient.swift */; };
-		D02A72111BBEFCD300940C17 /* DDPMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720C1BBEFCD300940C17 /* DDPMessage.swift */; };
-		D02A72121BBEFCD300940C17 /* DDPExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720D1BBEFCD300940C17 /* DDPExtensions.swift */; };
-		D02A72131BBEFCD300940C17 /* DDPEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A720E1BBEFCD300940C17 /* DDPEvents.swift */; };
+		BAA403C32169AE0E00F572F3 /* EJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403B62169AE0E00F572F3 /* EJSON.swift */; };
+		BAA403C42169AE0E00F572F3 /* EJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403B62169AE0E00F572F3 /* EJSON.swift */; };
+		BAA403C52169AE0E00F572F3 /* EJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403B62169AE0E00F572F3 /* EJSON.swift */; };
+		BAA403C62169AE0E00F572F3 /* DDPExponentialBackoff.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403B72169AE0E00F572F3 /* DDPExponentialBackoff.swift */; };
+		BAA403C72169AE0E00F572F3 /* DDPExponentialBackoff.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403B72169AE0E00F572F3 /* DDPExponentialBackoff.swift */; };
+		BAA403C82169AE0E00F572F3 /* DDPExponentialBackoff.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403B72169AE0E00F572F3 /* DDPExponentialBackoff.swift */; };
+		BAA403C92169AE0E00F572F3 /* MeteorDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403B82169AE0E00F572F3 /* MeteorDocument.swift */; };
+		BAA403CA2169AE0E00F572F3 /* MeteorDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403B82169AE0E00F572F3 /* MeteorDocument.swift */; };
+		BAA403CB2169AE0E00F572F3 /* MeteorDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403B82169AE0E00F572F3 /* MeteorDocument.swift */; };
+		BAA403CC2169AE0E00F572F3 /* DDPCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403B92169AE0E00F572F3 /* DDPCompletion.swift */; };
+		BAA403CD2169AE0E00F572F3 /* DDPCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403B92169AE0E00F572F3 /* DDPCompletion.swift */; };
+		BAA403CE2169AE0E00F572F3 /* DDPCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403B92169AE0E00F572F3 /* DDPCompletion.swift */; };
+		BAA403CF2169AE0E00F572F3 /* DDPMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403BA2169AE0E00F572F3 /* DDPMessage.swift */; };
+		BAA403D02169AE0E00F572F3 /* DDPMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403BA2169AE0E00F572F3 /* DDPMessage.swift */; };
+		BAA403D12169AE0E00F572F3 /* DDPMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403BA2169AE0E00F572F3 /* DDPMessage.swift */; };
+		BAA403D22169AE0E00F572F3 /* AbstractCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403BB2169AE0E00F572F3 /* AbstractCollection.swift */; };
+		BAA403D32169AE0E00F572F3 /* AbstractCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403BB2169AE0E00F572F3 /* AbstractCollection.swift */; };
+		BAA403D42169AE0E00F572F3 /* AbstractCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403BB2169AE0E00F572F3 /* AbstractCollection.swift */; };
+		BAA403D52169AE0E00F572F3 /* DDPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403BC2169AE0E00F572F3 /* DDPClient.swift */; };
+		BAA403D62169AE0E00F572F3 /* DDPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403BC2169AE0E00F572F3 /* DDPClient.swift */; };
+		BAA403D72169AE0E00F572F3 /* DDPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403BC2169AE0E00F572F3 /* DDPClient.swift */; };
+		BAA403D82169AE0E00F572F3 /* DDPEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403BD2169AE0E00F572F3 /* DDPEvents.swift */; };
+		BAA403D92169AE0E00F572F3 /* DDPEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403BD2169AE0E00F572F3 /* DDPEvents.swift */; };
+		BAA403DA2169AE0E00F572F3 /* DDPEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403BD2169AE0E00F572F3 /* DDPEvents.swift */; };
+		BAA403DB2169AE0E00F572F3 /* DDPMethodResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403BE2169AE0E00F572F3 /* DDPMethodResult.swift */; };
+		BAA403DC2169AE0E00F572F3 /* DDPMethodResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403BE2169AE0E00F572F3 /* DDPMethodResult.swift */; };
+		BAA403DD2169AE0E00F572F3 /* DDPMethodResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403BE2169AE0E00F572F3 /* DDPMethodResult.swift */; };
+		BAA403DE2169AE0E00F572F3 /* DDPUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403BF2169AE0E00F572F3 /* DDPUtilities.swift */; };
+		BAA403DF2169AE0E00F572F3 /* DDPUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403BF2169AE0E00F572F3 /* DDPUtilities.swift */; };
+		BAA403E02169AE0E00F572F3 /* DDPUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403BF2169AE0E00F572F3 /* DDPUtilities.swift */; };
+		BAA403E12169AE0E00F572F3 /* DDPExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403C02169AE0E00F572F3 /* DDPExtensions.swift */; };
+		BAA403E22169AE0E00F572F3 /* DDPExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403C02169AE0E00F572F3 /* DDPExtensions.swift */; };
+		BAA403E32169AE0E00F572F3 /* DDPExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403C02169AE0E00F572F3 /* DDPExtensions.swift */; };
+		BAA403E42169AE0E00F572F3 /* MeteorCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403C12169AE0E00F572F3 /* MeteorCollection.swift */; };
+		BAA403E52169AE0E00F572F3 /* MeteorCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403C12169AE0E00F572F3 /* MeteorCollection.swift */; };
+		BAA403E62169AE0E00F572F3 /* MeteorCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403C12169AE0E00F572F3 /* MeteorCollection.swift */; };
+		BAA403E72169AE0E00F572F3 /* Meteor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403C22169AE0E00F572F3 /* Meteor.swift */; };
+		BAA403E82169AE0E00F572F3 /* Meteor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403C22169AE0E00F572F3 /* Meteor.swift */; };
+		BAA403E92169AE0E00F572F3 /* Meteor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA403C22169AE0E00F572F3 /* Meteor.swift */; };
 		D02A72281BBF01E900940C17 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D02A72271BBF01E900940C17 /* CryptoSwift.framework */; };
 		D02A722A1BBF01ED00940C17 /* SwiftWebSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D02A72291BBF01ED00940C17 /* SwiftWebSocket.framework */; };
 		D02A722C1BBF01EF00940C17 /* XCGLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D02A722B1BBF01EF00940C17 /* XCGLogger.framework */; };
@@ -64,16 +72,8 @@
 		D02A72581BBF07AF00940C17 /* SwiftDDP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D02A71DC1BBEFBCA00940C17 /* SwiftDDP.framework */; };
 		D02A725E1BBF07F700940C17 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D02A72351BBF033600940C17 /* Nimble.framework */; };
 		D02A725F1BBF07F700940C17 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D02A72361BBF033600940C17 /* Quick.framework */; };
-		D02B30831BDA8E2200E1DB72 /* DDPMethodResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02B30821BDA8E2200E1DB72 /* DDPMethodResult.swift */; };
-		D0339DD21C00DA6100A17DEB /* AbstractCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0339DD11C00DA6100A17DEB /* AbstractCollection.swift */; };
-		D0339DD41C00DAB000A17DEB /* MeteorCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0339DD31C00DAB000A17DEB /* MeteorCollection.swift */; };
-		D04D0DAB1C21ADF9000244D6 /* DDPCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04D0DAA1C21ADF9000244D6 /* DDPCompletion.swift */; };
-		D04D0DB91C21D489000244D6 /* MeteorDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04D0DB81C21D489000244D6 /* MeteorDocument.swift */; };
-		D0C71B561BC172F40089B6CE /* Meteor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C71B551BC172F40089B6CE /* Meteor.swift */; };
 		D0C71B581BC173030089B6CE /* SwiftMeteor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C71B571BC173030089B6CE /* SwiftMeteor.swift */; };
 		D0C71B5B1BC174280089B6CE /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C71B5A1BC174280089B6CE /* Data.swift */; };
-		D0D724661C4E7FBA00EE91DC /* DDPUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D724611C4E7FBA00EE91DC /* DDPUtilities.swift */; };
-		D0F6C99D1BFFA04600A6CB70 /* EJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F6C99C1BFFA04600A6CB70 /* EJSON.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,7 +120,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		6FFFCBC61C64352300C147F2 /* DDPExponentialBackoff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPExponentialBackoff.swift; sourceTree = "<group>"; };
 		AA0D2AC31D6BEEC700085B33 /* SwiftDDP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftDDP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA0D2AC51D6BEEC700085B33 /* SwiftDDP-tvOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftDDP-tvOS.h"; sourceTree = "<group>"; };
 		AA0D2AC71D6BEEC700085B33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -143,12 +142,21 @@
 		BA4DA4C121684D3C00264579 /* SwiftDDP-OSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SwiftDDP-OSXTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA4DA4C321684D3C00264579 /* SwiftDDP_OSXTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDDP_OSXTests.swift; sourceTree = "<group>"; };
 		BA4DA4C521684D3C00264579 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BAA403B62169AE0E00F572F3 /* EJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EJSON.swift; sourceTree = "<group>"; };
+		BAA403B72169AE0E00F572F3 /* DDPExponentialBackoff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPExponentialBackoff.swift; sourceTree = "<group>"; };
+		BAA403B82169AE0E00F572F3 /* MeteorDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeteorDocument.swift; sourceTree = "<group>"; };
+		BAA403B92169AE0E00F572F3 /* DDPCompletion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPCompletion.swift; sourceTree = "<group>"; };
+		BAA403BA2169AE0E00F572F3 /* DDPMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPMessage.swift; sourceTree = "<group>"; };
+		BAA403BB2169AE0E00F572F3 /* AbstractCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractCollection.swift; sourceTree = "<group>"; };
+		BAA403BC2169AE0E00F572F3 /* DDPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPClient.swift; sourceTree = "<group>"; };
+		BAA403BD2169AE0E00F572F3 /* DDPEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPEvents.swift; sourceTree = "<group>"; };
+		BAA403BE2169AE0E00F572F3 /* DDPMethodResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPMethodResult.swift; sourceTree = "<group>"; };
+		BAA403BF2169AE0E00F572F3 /* DDPUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPUtilities.swift; sourceTree = "<group>"; };
+		BAA403C02169AE0E00F572F3 /* DDPExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPExtensions.swift; sourceTree = "<group>"; };
+		BAA403C12169AE0E00F572F3 /* MeteorCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeteorCollection.swift; sourceTree = "<group>"; };
+		BAA403C22169AE0E00F572F3 /* Meteor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meteor.swift; sourceTree = "<group>"; };
 		D02A71DC1BBEFBCA00940C17 /* SwiftDDP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftDDP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D02A71E11BBEFBCA00940C17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D02A720B1BBEFCD200940C17 /* DDPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPClient.swift; sourceTree = "<group>"; };
-		D02A720C1BBEFCD300940C17 /* DDPMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPMessage.swift; sourceTree = "<group>"; };
-		D02A720D1BBEFCD300940C17 /* DDPExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPExtensions.swift; sourceTree = "<group>"; };
-		D02A720E1BBEFCD300940C17 /* DDPEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPEvents.swift; sourceTree = "<group>"; };
 		D02A72271BBF01E900940C17 /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = Carthage/Build/iOS/CryptoSwift.framework; sourceTree = "<group>"; };
 		D02A72291BBF01ED00940C17 /* SwiftWebSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftWebSocket.framework; path = Carthage/Build/iOS/SwiftWebSocket.framework; sourceTree = "<group>"; };
 		D02A722B1BBF01EF00940C17 /* XCGLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCGLogger.framework; path = Carthage/Build/iOS/XCGLogger.framework; sourceTree = "<group>"; };
@@ -164,16 +172,8 @@
 		D02A72AE1BBF383700940C17 /* SwiftDDP.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SwiftDDP.podspec; sourceTree = "<group>"; };
 		D02A72AF1BBF383700940C17 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		D02A72B11BBF383700940C17 /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
-		D02B30821BDA8E2200E1DB72 /* DDPMethodResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPMethodResult.swift; sourceTree = "<group>"; };
-		D0339DD11C00DA6100A17DEB /* AbstractCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractCollection.swift; sourceTree = "<group>"; };
-		D0339DD31C00DAB000A17DEB /* MeteorCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeteorCollection.swift; sourceTree = "<group>"; };
-		D04D0DAA1C21ADF9000244D6 /* DDPCompletion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPCompletion.swift; sourceTree = "<group>"; };
-		D04D0DB81C21D489000244D6 /* MeteorDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeteorDocument.swift; sourceTree = "<group>"; };
-		D0C71B551BC172F40089B6CE /* Meteor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meteor.swift; sourceTree = "<group>"; };
 		D0C71B571BC173030089B6CE /* SwiftMeteor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftMeteor.swift; sourceTree = "<group>"; };
 		D0C71B5A1BC174280089B6CE /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
-		D0D724611C4E7FBA00EE91DC /* DDPUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDPUtilities.swift; sourceTree = "<group>"; };
-		D0F6C99C1BFFA04600A6CB70 /* EJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EJSON.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,9 +257,30 @@
 			path = "SwiftDDP-OSXTests";
 			sourceTree = "<group>";
 		};
+		BAA403B52169AE0E00F572F3 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				BAA403B62169AE0E00F572F3 /* EJSON.swift */,
+				BAA403B72169AE0E00F572F3 /* DDPExponentialBackoff.swift */,
+				BAA403B82169AE0E00F572F3 /* MeteorDocument.swift */,
+				BAA403B92169AE0E00F572F3 /* DDPCompletion.swift */,
+				BAA403BA2169AE0E00F572F3 /* DDPMessage.swift */,
+				BAA403BB2169AE0E00F572F3 /* AbstractCollection.swift */,
+				BAA403BC2169AE0E00F572F3 /* DDPClient.swift */,
+				BAA403BD2169AE0E00F572F3 /* DDPEvents.swift */,
+				BAA403BE2169AE0E00F572F3 /* DDPMethodResult.swift */,
+				BAA403BF2169AE0E00F572F3 /* DDPUtilities.swift */,
+				BAA403C02169AE0E00F572F3 /* DDPExtensions.swift */,
+				BAA403C12169AE0E00F572F3 /* MeteorCollection.swift */,
+				BAA403C22169AE0E00F572F3 /* Meteor.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
 		D02A71D21BBEFBCA00940C17 = {
 			isa = PBXGroup;
 			children = (
+				BAA403B52169AE0E00F572F3 /* Sources */,
 				D02A71DE1BBEFBCA00940C17 /* SwiftDDP */,
 				D02A72541BBF07AF00940C17 /* Tests */,
 				AA0D2AC41D6BEEC700085B33 /* SwiftDDP-tvOS */,
@@ -289,20 +310,7 @@
 		D02A71DE1BBEFBCA00940C17 /* SwiftDDP */ = {
 			isa = PBXGroup;
 			children = (
-				6FFFCBC61C64352300C147F2 /* DDPExponentialBackoff.swift */,
-				D02A720B1BBEFCD200940C17 /* DDPClient.swift */,
-				D02A720E1BBEFCD300940C17 /* DDPEvents.swift */,
-				D04D0DAA1C21ADF9000244D6 /* DDPCompletion.swift */,
-				D02A720C1BBEFCD300940C17 /* DDPMessage.swift */,
-				D02A720D1BBEFCD300940C17 /* DDPExtensions.swift */,
-				D02B30821BDA8E2200E1DB72 /* DDPMethodResult.swift */,
-				D0D724611C4E7FBA00EE91DC /* DDPUtilities.swift */,
-				D0C71B551BC172F40089B6CE /* Meteor.swift */,
 				BA4DA49421671FEC00264579 /* MeteorExtension.swift */,
-				D0339DD11C00DA6100A17DEB /* AbstractCollection.swift */,
-				D0339DD31C00DAB000A17DEB /* MeteorCollection.swift */,
-				D04D0DB81C21D489000244D6 /* MeteorDocument.swift */,
-				D0F6C99C1BFFA04600A6CB70 /* EJSON.swift */,
 				D02A71E11BBEFBCA00940C17 /* Info.plist */,
 			);
 			path = SwiftDDP;
@@ -486,6 +494,7 @@
 					};
 					AAFDED3B1D6BF984000583AA = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 1000;
 					};
 					BA4DA4C021684D3C00264579 = {
 						CreatedOnToolsVersion = 10.0;
@@ -620,20 +629,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA0D2ACB1D6BF0F500085B33 /* DDPExponentialBackoff.swift in Sources */,
-				AA0D2ACC1D6BF0F500085B33 /* DDPClient.swift in Sources */,
-				AA0D2ACD1D6BF0F500085B33 /* DDPEvents.swift in Sources */,
-				AA0D2ACE1D6BF0F500085B33 /* DDPCompletion.swift in Sources */,
-				AA0D2ACF1D6BF0F500085B33 /* DDPMessage.swift in Sources */,
+				BAA403DC2169AE0E00F572F3 /* DDPMethodResult.swift in Sources */,
+				BAA403E82169AE0E00F572F3 /* Meteor.swift in Sources */,
+				BAA403CD2169AE0E00F572F3 /* DDPCompletion.swift in Sources */,
+				BAA403E22169AE0E00F572F3 /* DDPExtensions.swift in Sources */,
+				BAA403D62169AE0E00F572F3 /* DDPClient.swift in Sources */,
 				BA4DA496216721F600264579 /* MeteorExtension.swift in Sources */,
-				AA0D2AD01D6BF0F500085B33 /* DDPExtensions.swift in Sources */,
-				AA0D2AD11D6BF0F500085B33 /* DDPMethodResult.swift in Sources */,
-				AA0D2AD21D6BF0F500085B33 /* DDPUtilities.swift in Sources */,
-				AA0D2AD31D6BF0F500085B33 /* Meteor.swift in Sources */,
-				AA0D2AD41D6BF0F500085B33 /* AbstractCollection.swift in Sources */,
-				AA0D2AD51D6BF0F500085B33 /* MeteorCollection.swift in Sources */,
-				AA0D2AD61D6BF0F500085B33 /* MeteorDocument.swift in Sources */,
-				AA0D2ADA1D6BF0F500085B33 /* EJSON.swift in Sources */,
+				BAA403D02169AE0E00F572F3 /* DDPMessage.swift in Sources */,
+				BAA403C72169AE0E00F572F3 /* DDPExponentialBackoff.swift in Sources */,
+				BAA403CA2169AE0E00F572F3 /* MeteorDocument.swift in Sources */,
+				BAA403E52169AE0E00F572F3 /* MeteorCollection.swift in Sources */,
+				BAA403D32169AE0E00F572F3 /* AbstractCollection.swift in Sources */,
+				BAA403DF2169AE0E00F572F3 /* DDPUtilities.swift in Sources */,
+				BAA403C42169AE0E00F572F3 /* EJSON.swift in Sources */,
+				BAA403D92169AE0E00F572F3 /* DDPEvents.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -641,19 +650,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA4DA47F216601A700264579 /* EJSON.swift in Sources */,
-				BA4DA4762166018E00264579 /* DDPCompletion.swift in Sources */,
-				BA4DA47A2166019800264579 /* DDPUtilities.swift in Sources */,
-				BA4DA4792166019600264579 /* DDPMethodResult.swift in Sources */,
-				BA4DA4732166018400264579 /* DDPExponentialBackoff.swift in Sources */,
-				BA4DA47D216601A100264579 /* MeteorCollection.swift in Sources */,
-				BA4DA47E216601A400264579 /* MeteorDocument.swift in Sources */,
-				BA4DA47C2166019E00264579 /* AbstractCollection.swift in Sources */,
-				BA4DA4782166019300264579 /* DDPExtensions.swift in Sources */,
-				BA4DA4742166018800264579 /* DDPClient.swift in Sources */,
-				BA4DA4772166019000264579 /* DDPMessage.swift in Sources */,
-				BA4DA4802166036400264579 /* Meteor.swift in Sources */,
-				BA4DA4752166018B00264579 /* DDPEvents.swift in Sources */,
+				BAA403D72169AE0E00F572F3 /* DDPClient.swift in Sources */,
+				BAA403CE2169AE0E00F572F3 /* DDPCompletion.swift in Sources */,
+				BAA403CB2169AE0E00F572F3 /* MeteorDocument.swift in Sources */,
+				BAA403E32169AE0E00F572F3 /* DDPExtensions.swift in Sources */,
+				BAA403C52169AE0E00F572F3 /* EJSON.swift in Sources */,
+				BAA403D42169AE0E00F572F3 /* AbstractCollection.swift in Sources */,
+				BAA403E02169AE0E00F572F3 /* DDPUtilities.swift in Sources */,
+				BAA403D12169AE0E00F572F3 /* DDPMessage.swift in Sources */,
+				BAA403C82169AE0E00F572F3 /* DDPExponentialBackoff.swift in Sources */,
+				BAA403E62169AE0E00F572F3 /* MeteorCollection.swift in Sources */,
+				BAA403DA2169AE0E00F572F3 /* DDPEvents.swift in Sources */,
+				BAA403E92169AE0E00F572F3 /* Meteor.swift in Sources */,
+				BAA403DD2169AE0E00F572F3 /* DDPMethodResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -669,20 +678,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D04D0DAB1C21ADF9000244D6 /* DDPCompletion.swift in Sources */,
-				D02A72101BBEFCD300940C17 /* DDPClient.swift in Sources */,
-				D0F6C99D1BFFA04600A6CB70 /* EJSON.swift in Sources */,
-				D0339DD41C00DAB000A17DEB /* MeteorCollection.swift in Sources */,
-				D02B30831BDA8E2200E1DB72 /* DDPMethodResult.swift in Sources */,
+				BAA403DB2169AE0E00F572F3 /* DDPMethodResult.swift in Sources */,
+				BAA403E72169AE0E00F572F3 /* Meteor.swift in Sources */,
+				BAA403CC2169AE0E00F572F3 /* DDPCompletion.swift in Sources */,
+				BAA403E12169AE0E00F572F3 /* DDPExtensions.swift in Sources */,
+				BAA403D52169AE0E00F572F3 /* DDPClient.swift in Sources */,
 				BA4DA49521671FEC00264579 /* MeteorExtension.swift in Sources */,
-				D0339DD21C00DA6100A17DEB /* AbstractCollection.swift in Sources */,
-				D02A72111BBEFCD300940C17 /* DDPMessage.swift in Sources */,
-				D0D724661C4E7FBA00EE91DC /* DDPUtilities.swift in Sources */,
-				D04D0DB91C21D489000244D6 /* MeteorDocument.swift in Sources */,
-				D02A72121BBEFCD300940C17 /* DDPExtensions.swift in Sources */,
-				6FFFCBC71C64352300C147F2 /* DDPExponentialBackoff.swift in Sources */,
-				D0C71B561BC172F40089B6CE /* Meteor.swift in Sources */,
-				D02A72131BBEFCD300940C17 /* DDPEvents.swift in Sources */,
+				BAA403CF2169AE0E00F572F3 /* DDPMessage.swift in Sources */,
+				BAA403C62169AE0E00F572F3 /* DDPExponentialBackoff.swift in Sources */,
+				BAA403C92169AE0E00F572F3 /* MeteorDocument.swift in Sources */,
+				BAA403E42169AE0E00F572F3 /* MeteorCollection.swift in Sources */,
+				BAA403D22169AE0E00F572F3 /* AbstractCollection.swift in Sources */,
+				BAA403DE2169AE0E00F572F3 /* DDPUtilities.swift in Sources */,
+				BAA403C32169AE0E00F572F3 /* EJSON.swift in Sources */,
+				BAA403D82169AE0E00F572F3 /* DDPEvents.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -771,6 +780,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -792,6 +802,7 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -801,6 +812,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -829,6 +841,7 @@
 		BA4DA4CA21684D3C00264579 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -866,6 +879,7 @@
 		BA4DA4CB21684D3C00264579 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
