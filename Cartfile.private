@@ -1,0 +1,2 @@
+github "Quick/Nimble"            # Not building with Swift 2.2
+github "Quick/Quick"             # Not building with Swift 2.2

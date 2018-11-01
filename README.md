@@ -43,6 +43,12 @@ With [CocoaPods](http://cocoapods.org). Add the following line to your Podfile:
 pod "SwiftDDP", "~> 0.4.1"
 ```
 
+With [Swift Package Manager](https://swift.org/package-manager/). Add the following line to the dependencies in your Package.swift:
+
+```swift
+        .package(url: "https://github.com/y-ich/SwiftDDP.git", .branch("master")),
+```
+
 ### Quick Start
 
 #### Setting basic configuration options
@@ -206,6 +212,19 @@ lists.update(list)
 lists.remove(list)
 ```
 For each operation the action is executed on the client, and rolled back if the server returns an error.
+
+#### Tips for CLI
+
+If you make a command line tool, you need to call the function dispatchMain in main thread after proper DDP settings. Otherwise, you will encounter a dead lock.
+
+```swift
+
+Meteor.connect("wss://todos.meteor.com/websocket") {
+    // do something after the client connects
+}
+dispatchMain()
+```
+
 
 ## Example: Creating an array based custom collection
 **The following pattern can be used to create custom collections backed by any datastore**

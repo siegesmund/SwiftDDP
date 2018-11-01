@@ -24,3 +24,6 @@ DerivedData
 
 Carthage
 Cartfile.resolved
+
+# SPM
+.build/

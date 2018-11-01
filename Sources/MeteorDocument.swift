@@ -22,7 +22,7 @@ import Foundation
 
 open class MeteorDocument: NSObject {
     
-    var _id:String
+    public var _id:String
     
     required public init(id: String, fields: NSDictionary?) {
         self._id = id
@@ -59,7 +59,7 @@ open class MeteorDocument: NSObject {
     see http://stackoverflow.com/questions/24844681/list-of-classs-properties-in-swift
     */
     
-    func propertyNames() -> [String] {
+    public func propertyNames() -> [String] {
         return Mirror(reflecting: self).children.filter { $0.label != nil }.map { $0.label! }
     }
 
