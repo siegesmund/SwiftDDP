@@ -386,7 +386,14 @@ open class DDPClient: NSObject {
         let message = ["msg":"sub", "name":name, "id":id] as NSMutableDictionary
         if let p = params { message["params"] = p }
         userBackground.addOperation() {
-            self.sendMessage(message)
+            [weak self] in
+            
+            if let strongSelf = self
+            {
+                strongSelf.sendMessage(message)
+            } else {
+                log.error("Ignored message - client was already destroyed")
+            }
         }
         return id
     }
