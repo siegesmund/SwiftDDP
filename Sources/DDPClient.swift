@@ -104,10 +104,10 @@ open class DDPClient: NSObject {
         return queue
     }()
     
-    fileprivate var socket:WebSocket!{
-        didSet{ socket.allowSelfSignedSSL = self.allowSelfSignedSSL }
+    fileprivate var socket:WebSocket? {
+        didSet{ socket?.allowSelfSignedSSL = self.allowSelfSignedSSL }
     }
-
+    
     fileprivate var server:(ping:Date?, pong:Date?) = (nil, nil)
     
     internal var resultCallbacks:[String:Completion] = [:]
@@ -131,8 +131,7 @@ open class DDPClient: NSObject {
     
     open var allowSelfSignedSSL:Bool = false {
         didSet{
-            guard let currentSocket = socket else { return }
-            currentSocket.allowSelfSignedSSL = allowSelfSignedSSL
+            socket?.allowSelfSignedSSL = allowSelfSignedSSL
         }
     }
     
@@ -181,24 +180,26 @@ open class DDPClient: NSObject {
         // capture the thread context in which the function is called
         let executionQueue = OperationQueue.current
         
-        socket = WebSocket(url)
+        let newSocket = WebSocket(url)
+        socket = newSocket
         //Create backoff
         let backOff:DDPExponentialBackoff = DDPExponentialBackoff()
         
-        socket.event.close = {code, reason, clean in
+        newSocket.event.close = {code, reason, clean in
             //Use backoff to slow reconnection retries
             backOff.createBackoff({
                 log.info("Web socket connection closed with code \(code). Clean: \(clean). \(reason)")
-                let event = self.socket.event
-                self.socket = WebSocket(url)
-                self.socket.event = event
+                let event = newSocket.event
+                let newSocketAfterClose = WebSocket(url)
+                self.socket = newSocketAfterClose
+                newSocketAfterClose.event = event
                 self.ping()
             })
         }
         
-        socket.event.error = events.onWebsocketError
+        newSocket.event.error = events.onWebsocketError
         
-        socket.event.open = {
+        newSocket.event.open = {
             self.heartbeat.addOperation() {
                 
                 // Add a subscription to loginServices to each connection event
@@ -228,7 +229,7 @@ open class DDPClient: NSObject {
             }
         }
         
-        socket.event.message = { message in
+        newSocket.event.message = { message in
             self.background.addOperation() {
                 if let text = message as? String {
                     do { try self.ddpMessageHandler(DDPMessage(message: text)) }
@@ -257,7 +258,7 @@ open class DDPClient: NSObject {
     // Parse DDP messages and dispatch to the appropriate function
     internal func ddpMessageHandler(_ message: DDPMessage) throws {
         
-        log.debug("Received message: \(message.json)")
+        log.debug("Received message: \(String(describing: message.json)) type: \(message.type)")
         
         switch message.type {
             
@@ -266,81 +267,113 @@ open class DDPClient: NSObject {
             self.events.onConnected.execute(message.session!)
             
         case .Result: callbackQueue.addOperation() {
+            [weak self] in
+            
             if let id = message.id,                              // Message has id
-                let completion = self.resultCallbacks[id],          // There is a callback registered for the message
+                let completion = self?.resultCallbacks[id],          // There is a callback registered for the message
                 let result = message.result {
-                    completion.execute(result, error: message.error)
-                    self.resultCallbacks[id] = nil
+                completion.execute(result, error: message.error)
+                self?.resultCallbacks[id] = nil
             } else if let id = message.id,
-                let completion = self.resultCallbacks[id] {
-                    completion.execute(nil, error:message.error)
-                    self.resultCallbacks[id] = nil
+                let completion = self?.resultCallbacks[id] {
+                completion.execute(nil, error:message.error)
+                self?.resultCallbacks[id] = nil
             }
             }
             
             // Principal callbacks for managing data
-            // Document was added
-        case .Added: documentQueue.addOperation() {
-            if let collection = message.collection,
-                let id = message.id {
-                    self.documentWasAdded(collection, id: id, fields: message.fields)
-            }
+        // Document was added
+        case .Added:
+            documentQueue.addOperation() {
+                [weak self] in
+                
+                if let collection = message.collection,
+                    let id = message.id {
+                    self?.documentWasAdded(collection, id: id, fields: message.fields)
+                }
             }
             
-            // Document was changed
+        // Document was changed
         case .Changed: documentQueue.addOperation() {
+            [weak self] in
+            
             if let collection = message.collection,
                 let id = message.id {
-                    self.documentWasChanged(collection, id: id, fields: message.fields, cleared: message.cleared)
+                self?.documentWasChanged(collection, id: id, fields: message.fields, cleared: message.cleared)
             }
             }
             
-            // Document was removed
+        // Document was removed
         case .Removed: documentQueue.addOperation() {
+            [weak self] in
+            
             if let collection = message.collection,
                 let id = message.id {
-                    self.documentWasRemoved(collection, id: id)
+                self?.documentWasRemoved(collection, id: id)
             }
             }
             
-            // Notifies you when the result of a method changes
+        // Notifies you when the result of a method changes
         case .Updated: documentQueue.addOperation() {
+            [weak self] in
+            
             if let methods = message.methods {
-                self.methodWasUpdated(methods)
+                self?.methodWasUpdated(methods)
             }
             }
             
-            // Callbacks for managing subscriptions
+        // Callbacks for managing subscriptions
         case .Ready: documentQueue.addOperation() {
+            [weak self] in
+            
             if let subs = message.subs {
-                self.ready(subs)
+                self?.ready(subs)
             }
             }
             
             // Callback that fires when subscription has been completely removed
-            //
+        //
         case .Nosub: documentQueue.addOperation() {
+            [weak self] in
+            
             if let id = message.id {
-                self.nosub(id, error: message.error)
+                self?.nosub(id, error: message.error)
             }
             }
             
-        case .Ping: heartbeat.addOperation() { self.pong(message) }
+        case .Ping: heartbeat.addOperation() {
+            [weak self] in
             
-        case .Pong: heartbeat.addOperation() { self.server.pong = Date() }
+            self?.pong(message)
+            
+            }
+            
+        case .Pong: heartbeat.addOperation() {
+            [weak self] in
+            
+            self?.server.pong = Date()
+            
+            }
             
         case .Error: background.addOperation() {
-            self.didReceiveErrorMessage(DDPError(json: message.json))
+            [weak self] in
+            
+            self?.didReceiveErrorMessage(DDPError(json: message.json))
             }
             
-        default: log.error("Unhandled message: \(message.json)")
+        default: log.error("Unhandled message: \(message.json ?? NSDictionary())")
             
         }
     }
     
     fileprivate func sendMessage(_ message:NSDictionary) {
         if let m = message.stringValue() {
-            self.socket.send(m)
+            if let existingSocket = self.socket
+            {
+                existingSocket.send(m)
+            } else {
+                log.error("No websocket available - the following message was ignored: \(message)")
+            }
         }
     }
     
@@ -366,7 +399,14 @@ open class DDPClient: NSObject {
         }
         
         userBackground.addOperation() {
-            self.sendMessage(message)
+            [weak self] in
+            
+            if let strongSelf = self
+            {
+                strongSelf.sendMessage(message)
+            } else {
+                log.error("Ignored message - client was already destroyed")
+            }
         }
         return id
     }
